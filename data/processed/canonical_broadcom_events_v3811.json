@@ -1,0 +1,192 @@
+{
+  "schema_version": "m3.8.1-canonical-events-v1",
+  "source_company": "Broadcom",
+  "source_cik": "0001730168",
+  "events": [
+    {
+      "event_id": "evt:fe16af03c246594a462c",
+      "event_type": "ACQUIRED",
+      "effective_date": "2023-11-22",
+      "status": "ASSERTED_FROM_FILING",
+      "parties": {
+        "acquirer": "Broadcom Inc.",
+        "target": "VMware, Inc.",
+        "subject": null,
+        "object_entity": null,
+        "result_entity": null
+      },
+      "confidence": "HIGH",
+      "metadata": {},
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "2.01",
+        "accession": "0001140361-23-054354",
+        "filing_date": "2023-11-22",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036123054354/ef20015100_form8k.htm"
+      },
+      "reason": "Item 2.01 states Broadcom completed its acquisition of VMware."
+    },
+    {
+      "event_id": "evt:700e263588ebfbc1f5fa",
+      "event_type": "MERGED_INTO",
+      "effective_date": "2023-11-22",
+      "status": "ASSERTED_FROM_FILING",
+      "parties": {
+        "acquirer": null,
+        "target": null,
+        "subject": "Verona Merger Sub, Inc.",
+        "object_entity": "VMware, Inc.",
+        "result_entity": "VMware, Inc."
+      },
+      "confidence": "HIGH",
+      "metadata": {
+        "step": "First Merger",
+        "survivor_stated": true
+      },
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "2.01",
+        "accession": "0001140361-23-054354",
+        "filing_date": "2023-11-22",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036123054354/ef20015100_form8k.htm"
+      },
+      "reason": "Merger Sub 1 merged with and into VMware, with VMware surviving."
+    },
+    {
+      "event_id": "evt:00a744df2cdb40009bd7",
+      "event_type": "CONVERTED_TO",
+      "effective_date": "2023-11-22",
+      "status": "ASSERTED_FROM_FILING",
+      "parties": {
+        "acquirer": null,
+        "target": null,
+        "subject": "VMware, Inc.",
+        "object_entity": null,
+        "result_entity": null
+      },
+      "confidence": "HIGH",
+      "metadata": {
+        "from_legal_form": "Delaware corporation",
+        "to_legal_form": "Delaware limited liability company",
+        "result_name_explicitly_stated": false,
+        "do_not_infer_result_name": true,
+        "step": "Conversion"
+      },
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "2.01",
+        "accession": "0001140361-23-054354",
+        "filing_date": "2023-11-22",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036123054354/ef20015100_form8k.htm"
+      },
+      "reason": "VMware surviving company converted from a Delaware corporation to a Delaware LLC."
+    },
+    {
+      "event_id": "evt:e8ccf7ebf85eb4b76c0a",
+      "event_type": "MERGED_INTO",
+      "effective_date": "2023-11-22",
+      "status": "ASSERTED_FROM_FILING",
+      "parties": {
+        "acquirer": null,
+        "target": null,
+        "subject": "Barcelona Merger Sub 2, Inc.",
+        "object_entity": "Verona Holdco, Inc.",
+        "result_entity": "Verona Holdco, Inc."
+      },
+      "confidence": "HIGH",
+      "metadata": {
+        "step": "Second Merger",
+        "survivor_stated": true
+      },
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "2.01",
+        "accession": "0001140361-23-054354",
+        "filing_date": "2023-11-22",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036123054354/ef20015100_form8k.htm"
+      },
+      "reason": "Merger Sub 2 merged with and into Holdco, with Holdco surviving."
+    },
+    {
+      "event_id": "evt:1122e24b1c1a7e64ca94",
+      "event_type": "MERGED_INTO",
+      "effective_date": "2023-11-22",
+      "status": "ASSERTED_FROM_FILING",
+      "parties": {
+        "acquirer": null,
+        "target": null,
+        "subject": "Verona Holdco, Inc.",
+        "object_entity": "Barcelona Merger Sub 3, LLC",
+        "result_entity": "Barcelona Merger Sub 3, LLC"
+      },
+      "confidence": "HIGH",
+      "metadata": {
+        "step": "Third Merger",
+        "survivor_stated": true
+      },
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "2.01",
+        "accession": "0001140361-23-054354",
+        "filing_date": "2023-11-22",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036123054354/ef20015100_form8k.htm"
+      },
+      "reason": "Holdco Surviving Company merged with and into Merger Sub 3, with Merger Sub 3 surviving."
+    },
+    {
+      "event_id": "evt:eccf4b5e965563fee1f7",
+      "event_type": "SUBSIDIARY_OF",
+      "effective_date": "2023-11-22",
+      "status": "ASSERTED_FROM_FILING",
+      "parties": {
+        "acquirer": null,
+        "target": null,
+        "subject": "Barcelona Merger Sub 3, LLC",
+        "object_entity": "Broadcom Inc.",
+        "result_entity": null
+      },
+      "confidence": "HIGH",
+      "metadata": {
+        "step": "Post-Closing Ownership"
+      },
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "2.01",
+        "accession": "0001140361-23-054354",
+        "filing_date": "2023-11-22",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036123054354/ef20015100_form8k.htm"
+      },
+      "reason": "Surviving Merger Sub 3 entity is a wholly owned subsidiary of Broadcom."
+    },
+    {
+      "event_id": "evt:b13d90fc8fccd47a4b5f",
+      "event_type": "AGREED_TO_ACQUIRE",
+      "effective_date": "2022-05-26",
+      "status": "ASSERTED_FROM_FILING",
+      "parties": {
+        "acquirer": "Broadcom Inc.",
+        "target": "VMware, Inc.",
+        "subject": null,
+        "object_entity": null,
+        "result_entity": null
+      },
+      "confidence": "HIGH",
+      "metadata": {},
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "1.01",
+        "accession": "0001193125-22-161016",
+        "filing_date": "2022-05-26",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000119312522161016/d525235d8k.htm"
+      },
+      "reason": "Item 1.01 states Broadcom entered into the merger agreement with VMware."
+    }
+  ]
+}

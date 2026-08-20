@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+import importlib.util,pathlib
+p=pathlib.Path(__file__).with_name('fetch_edgar_events_v381.py'); s=importlib.util.spec_from_file_location('fe',p); fe=importlib.util.module_from_spec(s); s.loader.exec_module(fe)
+def sec(i,t): return {'item':i,'text':t}
+ev=fe.infer(sec('1.01','Broadcom Inc. entered into an Agreement and Plan of Merger with VMware, Inc. on May 26, 2022.'),'2022-05-26','A','URL'); assert [e['event_type'] for e in ev]==['AGREED_TO_ACQUIRE']; print('PASS true agreement')
+ev=fe.infer(sec('1.01',"Broadcom Inc. entered into a Credit Agreement with lenders in connection with Broadcom's pending acquisition of VMware, Inc. The term loan will finance the acquisition. The Merger Agreement is dated May 26, 2022."),'2023-08-16','B','URL'); assert ev==[],ev; print('PASS financing suppression')
+closing='''Broadcom Inc. completed its acquisition of VMware, Inc. Merger Sub 1 merged with and into VMware, with VMware continuing as the surviving corporation. The Surviving Company was converted from a Delaware corporation into a Delaware limited liability company. Merger Sub 2 merged with and into Holdco, with Holdco continuing as the surviving corporation. The Holdco Surviving Company merged with and into Merger Sub 3, with Merger Sub 3 continuing as the surviving limited liability company and as a wholly owned subsidiary of Broadcom.'''
+ev=fe.infer(sec('2.01',closing),'2023-11-22','C','URL'); types=[e['event_type'] for e in ev]; assert types==['ACQUIRED','MERGED_INTO','CONVERTED_TO','MERGED_INTO','MERGED_INTO','SUBSIDIARY_OF'],types; print('PASS closing lineage extraction')
+conv=[e for e in ev if e['event_type']=='CONVERTED_TO'][0]; assert conv['result_entity'] is None and conv['metadata']['do_not_infer_result_name'] is True; print('PASS conversion name not invented'); print('\n4 passed / 0 failed')

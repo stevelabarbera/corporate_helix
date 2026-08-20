@@ -1,0 +1,72 @@
+{
+  "schema_version": "m3.8.1-edgar-events-raw-v1",
+  "generated_at": "2026-08-20T06:58:40.665933+00:00",
+  "company": "Broadcom",
+  "cik": "0001730168",
+  "window": {
+    "start": "2022-01-01",
+    "end": "2024-12-31"
+  },
+  "filings": [
+    {
+      "company": "Broadcom",
+      "cik": "0001730168",
+      "form": "8-K",
+      "filing_date": "2023-11-22",
+      "accession": "0001140361-23-054354",
+      "items": "2.01,2.03,8.01,9.01",
+      "primary_document": "ef20015100_form8k.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036123054354/ef20015100_form8k.htm",
+      "sections": [],
+      "event_candidates": []
+    },
+    {
+      "company": "Broadcom",
+      "cik": "0001730168",
+      "form": "8-K",
+      "filing_date": "2023-08-16",
+      "accession": "0001140361-23-040084",
+      "items": "1.01,2.03,8.01,9.01",
+      "primary_document": "brhc20057578_8k.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036123040084/brhc20057578_8k.htm",
+      "sections": [],
+      "event_candidates": []
+    },
+    {
+      "company": "Broadcom",
+      "cik": "0001730168",
+      "form": "8-K",
+      "filing_date": "2022-05-26",
+      "accession": "0001193125-22-161016",
+      "items": "1.01,8.01,9.01",
+      "primary_document": "d525235d8k.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000119312522161016/d525235d8k.htm",
+      "sections": [],
+      "event_candidates": []
+    },
+    {
+      "company": "Broadcom",
+      "cik": "0001730168",
+      "form": "8-K",
+      "filing_date": "2022-04-18",
+      "accession": "0001193125-22-108067",
+      "items": "1.01,2.03,9.01",
+      "primary_document": "d299108d8k.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000119312522108067/d299108d8k.htm",
+      "sections": [],
+      "event_candidates": []
+    },
+    {
+      "company": "Broadcom",
+      "cik": "0001730168",
+      "form": "8-K",
+      "filing_date": "2022-04-15",
+      "accession": "0001193125-22-105918",
+      "items": "1.01,8.01,9.01",
+      "primary_document": "d341029d8k.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000119312522105918/d341029d8k.htm",
+      "sections": [],
+      "event_candidates": []
+    }
+  ]
+}
