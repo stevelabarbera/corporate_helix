@@ -1,0 +1,80 @@
+{
+  "resolution_version": "m3.6-e2e-fixture-v1",
+  "nodes": [
+    {
+      "node_id": "fixture:acme-llc",
+      "canonical_name": "Acme Holdings LLC",
+      "canonical_name_normalized": "acme holdings llc",
+      "legal_name_base": "acme holdings",
+      "jurisdiction": "US",
+      "jurisdiction_raw": "US",
+      "provider_entity_ids": [],
+      "aliases": [],
+      "roles": [],
+      "source_entities": [
+        {
+          "provider": "fixture_registry",
+          "provider_entity_id": null,
+          "legal_name": "Acme Holdings LLC",
+          "jurisdiction": "US",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "100 Market Street, San Francisco, CA 94105"
+          ],
+          "attributes": {
+            "fixture": true
+          }
+        }
+      ]
+    },
+    {
+      "node_id": "fixture:acme-inc",
+      "canonical_name": "Acme Holdings Inc",
+      "canonical_name_normalized": "acme holdings inc",
+      "legal_name_base": "acme holdings",
+      "jurisdiction": "US",
+      "jurisdiction_raw": "US",
+      "provider_entity_ids": [],
+      "aliases": [],
+      "roles": [],
+      "source_entities": [
+        {
+          "provider": "fixture_registry",
+          "provider_entity_id": null,
+          "legal_name": "Acme Holdings Inc",
+          "jurisdiction": "US",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "100 Market Street, San Francisco, CA 94105"
+          ],
+          "attributes": {
+            "fixture": true
+          }
+        }
+      ]
+    }
+  ],
+  "relationships": [],
+  "resolution_events": [],
+  "review_candidates": [
+    {
+      "left_node_id": "fixture:acme-llc",
+      "right_node_id": "fixture:acme-inc",
+      "reason": "same_legal_name_base_same_jurisdiction_no_identifier",
+      "auto_merge": false
+    }
+  ],
+  "warnings": [],
+  "summary": {
+    "node_count": 2,
+    "relationship_count": 0,
+    "merge_count": 0,
+    "review_candidate_count": 1,
+    "fixture": true,
+    "expected_m35_decision": "REVIEW"
+  }
+}

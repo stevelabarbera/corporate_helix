@@ -1,0 +1,96 @@
+[
+  {
+    "case_id": "same_entity_exact_identifier",
+    "expected": "SAME_ENTITY",
+    "actual": "SAME_ENTITY",
+    "confidence": "HIGH",
+    "validation_status": "VALID",
+    "validation_errors": [],
+    "semantic_match": true,
+    "pass": true,
+    "rationale": "The evidence clearly identifies two separate entities \u2013 'Example Corp' and 'Example Corporation'. The source records explicitly state the same legal name, jurisdiction, address, and provider identifier.  There is no indication of a relationship or shared ownership that would suggest a single entity."
+  },
+  {
+    "case_id": "same_entity_former_name",
+    "expected": "SAME_ENTITY",
+    "actual": "SAME_ENTITY",
+    "confidence": "HIGH",
+    "validation_status": "VALID",
+    "validation_errors": [],
+    "semantic_match": true,
+    "pass": true,
+    "rationale": "The evidence clearly identifies both 'Scalyr LLC' and 'Scalyr Inc.' as the same legal entity. The source entities are linked to each other, confirming their identity."
+  },
+  {
+    "case_id": "distinct_cross_jurisdiction",
+    "expected": "DISTINCT_ENTITY",
+    "actual": "AMBIGUOUS",
+    "confidence": "HIGH",
+    "validation_status": "VALID",
+    "validation_errors": [],
+    "semantic_match": false,
+    "pass": false,
+    "rationale": "The evidence presents both 'Acme Holdings Inc' and 'Acme Holdings LLC', but the jurisdiction (JP vs. US) is different.  While they are entities, the specific legal name and address details don\u2019t definitively establish a single entity. Further investigation into the source data would be needed to determine if there is a clear connection between these records."
+  },
+  {
+    "case_id": "ambiguous_same_address",
+    "expected": "AMBIGUOUS",
+    "actual": "DISTINCT_ENTITY",
+    "confidence": "HIGH",
+    "validation_status": "INVALID",
+    "validation_errors": [
+      "DISTINCT_ENTITY rationale asserts sameness/identity",
+      "HIGH-confidence DISTINCT_ENTITY lacks distinctness-grade evidence",
+      "DISTINCT_ENTITY has no distinctness-grade evidence"
+    ],
+    "semantic_match": false,
+    "pass": false,
+    "rationale": "Both records reference the same legal entity \u2013 'Acme Holdings LLC' and 'Acme Holdings Inc'. The addresses are identical, and the name is consistent across both entries.  The source entities are clearly linked to the same entity."
+  },
+  {
+    "case_id": "distinct_identifier_conflict",
+    "expected": "DISTINCT_ENTITY",
+    "actual": "AMBIGUOUS",
+    "confidence": "HIGH",
+    "validation_status": "VALID",
+    "validation_errors": [],
+    "semantic_match": false,
+    "pass": false,
+    "rationale": "The evidence presents both 'Beta Systems Inc' and 'Beta Systems Inc'.  While they are the same entity, the source records do not explicitly differentiate between them. The presence of two separate entries for the same legal entity is inconclusive."
+  },
+  {
+    "case_id": "same_parent_distinct_entities",
+    "expected": "DISTINCT_ENTITY",
+    "actual": "AMBIGUOUS",
+    "confidence": "MEDIUM",
+    "validation_status": "VALID",
+    "validation_errors": [],
+    "semantic_match": false,
+    "pass": false,
+    "rationale": "The evidence presents both 'Gamma Services Inc' and 'Gamma Services LLC', but the source documents do not definitively establish a single legal entity. The jurisdiction matches, but the exact name is different.  The source documents are distinct, but the same_source relationship is present."
+  },
+  {
+    "case_id": "conflicting_evidence",
+    "expected": "CONFLICTING_EVIDENCE",
+    "actual": "AMBIGUOUS",
+    "confidence": "HIGH",
+    "validation_status": "INVALID",
+    "validation_errors": [
+      "rationale claims jurisdiction match but jurisdiction_conflict=true"
+    ],
+    "semantic_match": false,
+    "pass": false,
+    "rationale": "The evidence presents both 'Delta Analytics LLC' and 'Delta Analytics Inc.' in the same jurisdiction (US) but with different addresses.  While they are distinct entities, the fact that they share a source entity is sufficient to indicate a potential conflict. Further investigation would be needed to determine if there\u2019s a deeper connection or relationship between them."
+  },
+  {
+    "case_id": "unrelated_low_similarity",
+    "expected": "DISTINCT_ENTITY",
+    "actual": "AMBIGUOUS",
+    "confidence": "HIGH",
+    "validation_status": "VALID",
+    "validation_errors": [],
+    "semantic_match": false,
+    "pass": false,
+    "rationale": "The evidence presents both a company name and address for Northwind Labs LLC and Contoso Security Inc. However, the source entities are distinct, indicating that they likely represent different legal entities.  Further investigation is needed to determine if these records definitively represent the same entity."
+  }
+]

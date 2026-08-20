@@ -1,0 +1,386 @@
+[
+  {
+    "case_id": "same_entity_exact_identifier",
+    "description": "Two records share an exact authoritative identifier.",
+    "expected_policy": "SAME_ENTITY",
+    "expected_deterministic": "ACCEPT",
+    "expected_llm": "SAME_ENTITY",
+    "left": {
+      "node_id": "eval:a1",
+      "canonical_name": "Example Corp",
+      "canonical_name_normalized": "example corp",
+      "legal_name_base": "example",
+      "jurisdiction": "US",
+      "provider_entity_ids": [
+        "lei:EXAMPLE123"
+      ],
+      "aliases": [],
+      "source_entities": [
+        {
+          "provider": "fixture_registry",
+          "legal_name": "Example Corp",
+          "jurisdiction": "US",
+          "addresses": [
+            "1 Main St"
+          ]
+        }
+      ]
+    },
+    "right": {
+      "node_id": "eval:b1",
+      "canonical_name": "Example Corporation",
+      "canonical_name_normalized": "example corporation",
+      "legal_name_base": "example",
+      "jurisdiction": "US",
+      "provider_entity_ids": [
+        "lei:EXAMPLE123"
+      ],
+      "aliases": [],
+      "source_entities": [
+        {
+          "provider": "fixture_registry",
+          "legal_name": "Example Corporation",
+          "jurisdiction": "US",
+          "addresses": [
+            "1 Main St"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "same_entity_former_name",
+    "description": "Explicit former-name continuity in same jurisdiction.",
+    "expected_policy": "SAME_ENTITY",
+    "expected_deterministic": "ACCEPT",
+    "expected_llm": "SAME_ENTITY",
+    "left": {
+      "node_id": "eval:a2",
+      "canonical_name": "Scalyr LLC",
+      "canonical_name_normalized": "scalyr llc",
+      "legal_name_base": "scalyr",
+      "jurisdiction": "US",
+      "provider_entity_ids": [],
+      "aliases": [
+        {
+          "name_normalized": "scalyr inc",
+          "alias_type": "former_name"
+        }
+      ],
+      "source_entities": [
+        {
+          "provider": "fixture_registry",
+          "legal_name": "Scalyr LLC",
+          "jurisdiction": "US",
+          "former_names": [
+            "Scalyr Inc"
+          ],
+          "addresses": []
+        }
+      ]
+    },
+    "right": {
+      "node_id": "eval:b2",
+      "canonical_name": "Scalyr Inc",
+      "canonical_name_normalized": "scalyr inc",
+      "legal_name_base": "scalyr",
+      "jurisdiction": "US",
+      "provider_entity_ids": [],
+      "aliases": [],
+      "source_entities": [
+        {
+          "provider": "fixture_registry",
+          "legal_name": "Scalyr Inc",
+          "jurisdiction": "US",
+          "addresses": []
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "distinct_cross_jurisdiction",
+    "description": "Same base name but explicit different jurisdictions.",
+    "expected_policy": "SAME_ENTITY",
+    "expected_deterministic": "REJECT",
+    "expected_llm": "DISTINCT_ENTITY",
+    "left": {
+      "node_id": "eval:a3",
+      "canonical_name": "Acme Holdings Inc",
+      "canonical_name_normalized": "acme holdings inc",
+      "legal_name_base": "acme holdings",
+      "jurisdiction": "JP",
+      "provider_entity_ids": [],
+      "aliases": [],
+      "source_entities": [
+        {
+          "provider": "fixture_registry",
+          "legal_name": "Acme Holdings Inc",
+          "jurisdiction": "JP",
+          "addresses": []
+        }
+      ]
+    },
+    "right": {
+      "node_id": "eval:b3",
+      "canonical_name": "Acme Holdings LLC",
+      "canonical_name_normalized": "acme holdings llc",
+      "legal_name_base": "acme holdings",
+      "jurisdiction": "US",
+      "provider_entity_ids": [],
+      "aliases": [],
+      "source_entities": [
+        {
+          "provider": "fixture_registry",
+          "legal_name": "Acme Holdings LLC",
+          "jurisdiction": "US",
+          "addresses": []
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "ambiguous_same_address",
+    "description": "Similar names, same jurisdiction and shared address, but no identity-grade evidence.",
+    "expected_policy": "SAME_ENTITY",
+    "expected_deterministic": "REVIEW",
+    "expected_llm": "AMBIGUOUS",
+    "left": {
+      "node_id": "eval:a4",
+      "canonical_name": "Acme Holdings LLC",
+      "canonical_name_normalized": "acme holdings llc",
+      "legal_name_base": "acme holdings",
+      "jurisdiction": "US",
+      "provider_entity_ids": [],
+      "aliases": [],
+      "source_entities": [
+        {
+          "provider": "fixture_registry",
+          "legal_name": "Acme Holdings LLC",
+          "jurisdiction": "US",
+          "addresses": [
+            "100 Market Street, San Francisco, CA 94105"
+          ]
+        }
+      ]
+    },
+    "right": {
+      "node_id": "eval:b4",
+      "canonical_name": "Acme Holdings Inc",
+      "canonical_name_normalized": "acme holdings inc",
+      "legal_name_base": "acme holdings",
+      "jurisdiction": "US",
+      "provider_entity_ids": [],
+      "aliases": [],
+      "source_entities": [
+        {
+          "provider": "fixture_registry",
+          "legal_name": "Acme Holdings Inc",
+          "jurisdiction": "US",
+          "addresses": [
+            "100 Market Street, San Francisco, CA 94105"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "distinct_identifier_conflict",
+    "description": "Same-looking records carry conflicting authoritative identifiers.",
+    "expected_policy": "SAME_ENTITY",
+    "expected_deterministic": "REJECT",
+    "expected_llm": "DISTINCT_ENTITY",
+    "left": {
+      "node_id": "eval:a5",
+      "canonical_name": "Beta Systems Inc",
+      "canonical_name_normalized": "beta systems inc",
+      "legal_name_base": "beta systems",
+      "jurisdiction": "US",
+      "provider_entity_ids": [
+        "lei:AAA"
+      ],
+      "aliases": [],
+      "source_entities": [
+        {
+          "provider": "fixture_registry",
+          "legal_name": "Beta Systems Inc",
+          "jurisdiction": "US",
+          "addresses": []
+        }
+      ]
+    },
+    "right": {
+      "node_id": "eval:b5",
+      "canonical_name": "Beta Systems Inc",
+      "canonical_name_normalized": "beta systems inc",
+      "legal_name_base": "beta systems",
+      "jurisdiction": "US",
+      "provider_entity_ids": [
+        "lei:BBB"
+      ],
+      "aliases": [],
+      "source_entities": [
+        {
+          "provider": "fixture_registry",
+          "legal_name": "Beta Systems Inc",
+          "jurisdiction": "US",
+          "addresses": []
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "same_parent_distinct_entities",
+    "description": "Two separately enumerated subsidiaries share a parent and source document.",
+    "expected_policy": "SAME_ENTITY",
+    "expected_deterministic": "REVIEW",
+    "expected_llm": "DISTINCT_ENTITY",
+    "left": {
+      "node_id": "eval:a6",
+      "canonical_name": "Gamma Services Inc",
+      "canonical_name_normalized": "gamma services inc",
+      "legal_name_base": "gamma services",
+      "jurisdiction": "US",
+      "provider_entity_ids": [],
+      "aliases": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "legal_name": "Gamma Services Inc",
+          "jurisdiction": "US",
+          "addresses": []
+        }
+      ]
+    },
+    "right": {
+      "node_id": "eval:b6",
+      "canonical_name": "Gamma Services LLC",
+      "canonical_name_normalized": "gamma services llc",
+      "legal_name_base": "gamma services",
+      "jurisdiction": "US",
+      "provider_entity_ids": [],
+      "aliases": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "legal_name": "Gamma Services LLC",
+          "jurisdiction": "US",
+          "addresses": []
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "subject_node_id": "eval:a6",
+        "predicate": "SUBSIDIARY_OF",
+        "object_node_id": "eval:parent",
+        "provider": "sec_edgar",
+        "evidence": [
+          {
+            "provider": "sec_edgar",
+            "source_document_id": "ACC-1",
+            "source_url": "https://example.test/filing"
+          }
+        ]
+      },
+      {
+        "subject_node_id": "eval:b6",
+        "predicate": "SUBSIDIARY_OF",
+        "object_node_id": "eval:parent",
+        "provider": "sec_edgar",
+        "evidence": [
+          {
+            "provider": "sec_edgar",
+            "source_document_id": "ACC-1",
+            "source_url": "https://example.test/filing"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "conflicting_evidence",
+    "description": "Signals include both identity-grade and distinctness-grade evidence.",
+    "expected_policy": "SAME_ENTITY",
+    "expected_deterministic": "ACCEPT",
+    "expected_llm": "CONFLICTING_EVIDENCE",
+    "left": {
+      "node_id": "eval:a7",
+      "canonical_name": "Delta Analytics LLC",
+      "canonical_name_normalized": "delta analytics llc",
+      "legal_name_base": "delta analytics",
+      "jurisdiction": "US",
+      "provider_entity_ids": [
+        "lei:DELTA"
+      ],
+      "aliases": [],
+      "source_entities": [
+        {
+          "provider": "fixture_registry",
+          "legal_name": "Delta Analytics LLC",
+          "jurisdiction": "US",
+          "addresses": []
+        }
+      ]
+    },
+    "right": {
+      "node_id": "eval:b7",
+      "canonical_name": "Delta Analytics Inc",
+      "canonical_name_normalized": "delta analytics inc",
+      "legal_name_base": "delta analytics",
+      "jurisdiction": "CA",
+      "provider_entity_ids": [
+        "lei:DELTA"
+      ],
+      "aliases": [],
+      "source_entities": [
+        {
+          "provider": "fixture_registry",
+          "legal_name": "Delta Analytics Inc",
+          "jurisdiction": "CA",
+          "addresses": []
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "unrelated_low_similarity",
+    "description": "Different names in same jurisdiction with no supporting evidence.",
+    "expected_policy": "SAME_ENTITY",
+    "expected_deterministic": "REJECT",
+    "expected_llm": "DISTINCT_ENTITY",
+    "left": {
+      "node_id": "eval:a8",
+      "canonical_name": "Northwind Labs LLC",
+      "canonical_name_normalized": "northwind labs llc",
+      "legal_name_base": "northwind labs",
+      "jurisdiction": "US",
+      "provider_entity_ids": [],
+      "aliases": [],
+      "source_entities": [
+        {
+          "provider": "fixture_registry",
+          "legal_name": "Northwind Labs LLC",
+          "jurisdiction": "US",
+          "addresses": []
+        }
+      ]
+    },
+    "right": {
+      "node_id": "eval:b8",
+      "canonical_name": "Contoso Security Inc",
+      "canonical_name_normalized": "contoso security inc",
+      "legal_name_base": "contoso security",
+      "jurisdiction": "US",
+      "provider_entity_ids": [],
+      "aliases": [],
+      "source_entities": [
+        {
+          "provider": "fixture_registry",
+          "legal_name": "Contoso Security Inc",
+          "jurisdiction": "US",
+          "addresses": []
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,73 @@
+{
+  "schema_version": "m3.8-canonical-events-v1",
+  "source_company": "Broadcom",
+  "source_cik": "0001730168",
+  "events": [
+    {
+      "event_id": "evt:b53759c9a48704990356",
+      "event_type": "ACQUIRED",
+      "effective_date": "2023-11-22",
+      "status": "ASSERTED_FROM_FILING",
+      "parties": {
+        "acquirer": "Broadcom Inc.",
+        "target": "VMware, Inc.",
+        "subject": null,
+        "result_entity": null
+      },
+      "confidence": "HIGH",
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "2.01",
+        "accession": "0001140361-23-054354",
+        "filing_date": "2023-11-22",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036123054354/ef20015100_form8k.htm"
+      },
+      "reason": "Broadcom and VMware named in Item 2.01 completion/consummation language."
+    },
+    {
+      "event_id": "evt:f566fdc6976e19838cb5",
+      "event_type": "AGREED_TO_ACQUIRE",
+      "effective_date": "2023-08-16",
+      "status": "ASSERTED_FROM_FILING",
+      "parties": {
+        "acquirer": "Broadcom Inc.",
+        "target": "VMware, Inc.",
+        "subject": null,
+        "result_entity": null
+      },
+      "confidence": "HIGH",
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "1.01",
+        "accession": "0001140361-23-040084",
+        "filing_date": "2023-08-16",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036123040084/brhc20057578_8k.htm"
+      },
+      "reason": "Broadcom and VMware named in Item 1.01 acquisition/merger agreement."
+    },
+    {
+      "event_id": "evt:1d2e2a7ce9b39ed52224",
+      "event_type": "AGREED_TO_ACQUIRE",
+      "effective_date": "2022-05-26",
+      "status": "ASSERTED_FROM_FILING",
+      "parties": {
+        "acquirer": "Broadcom Inc.",
+        "target": "VMware, Inc.",
+        "subject": null,
+        "result_entity": null
+      },
+      "confidence": "HIGH",
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "1.01",
+        "accession": "0001193125-22-161016",
+        "filing_date": "2022-05-26",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000119312522161016/d525235d8k.htm"
+      },
+      "reason": "Broadcom and VMware named in Item 1.01 acquisition/merger agreement."
+    }
+  ]
+}

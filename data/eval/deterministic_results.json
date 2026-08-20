@@ -1,0 +1,66 @@
+[
+  {
+    "case_id": "same_entity_exact_identifier",
+    "expected": "ACCEPT",
+    "actual": "ACCEPT",
+    "resolution_reason": "EXPLICIT_CONTINUITY_OR_IDENTIFIER",
+    "score": 53.9123,
+    "pass": true
+  },
+  {
+    "case_id": "same_entity_former_name",
+    "expected": "ACCEPT",
+    "actual": "ACCEPT",
+    "resolution_reason": "EXPLICIT_CONTINUITY_OR_IDENTIFIER",
+    "score": 47.9333,
+    "pass": true
+  },
+  {
+    "case_id": "distinct_cross_jurisdiction",
+    "expected": "REJECT",
+    "actual": "REJECT",
+    "resolution_reason": "DISTINCT_BY_JURISDICTION",
+    "score": 30.5882,
+    "pass": true
+  },
+  {
+    "case_id": "ambiguous_same_address",
+    "expected": "REVIEW",
+    "actual": "REVIEW",
+    "resolution_reason": "AMBIGUOUS_SIGNAL_AGREEMENT",
+    "score": 58.5882,
+    "pass": true
+  },
+  {
+    "case_id": "distinct_identifier_conflict",
+    "expected": "REJECT",
+    "actual": "REJECT",
+    "resolution_reason": "HARD_IDENTIFIER_CONFLICT",
+    "score": 92.0,
+    "pass": true
+  },
+  {
+    "case_id": "same_parent_distinct_entities",
+    "expected": "REVIEW",
+    "actual": "REVIEW",
+    "resolution_reason": "AMBIGUOUS_SIGNAL_AGREEMENT",
+    "score": 50.6667,
+    "pass": true
+  },
+  {
+    "case_id": "conflicting_evidence",
+    "expected": "ACCEPT",
+    "actual": "ACCEPT",
+    "resolution_reason": "EXPLICIT_CONTINUITY_OR_IDENTIFIER",
+    "score": 30.7368,
+    "pass": true
+  },
+  {
+    "case_id": "unrelated_low_similarity",
+    "expected": "REJECT",
+    "actual": "REJECT",
+    "resolution_reason": "INSUFFICIENT_IDENTITY_EVIDENCE",
+    "score": 22.4,
+    "pass": true
+  }
+]
