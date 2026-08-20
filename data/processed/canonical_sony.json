@@ -1,0 +1,1499 @@
+
+{
+  "provider": "sec_edgar",
+  "query": "Sony Group Corp",
+  "resolved_name": "Sony Group Corp",
+  "provider_entity_id": "cik:313838",
+  "entities": [
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Interactive Entertainment Inc.",
+      "jurisdiction": "Japan",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Music Entertainment (Japan) Inc.",
+      "jurisdiction": "Japan",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Corporation",
+      "jurisdiction": "Japan",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Global Manufacturing & Operations Corporation",
+      "jurisdiction": "Japan",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Network Communications Inc.",
+      "jurisdiction": "Japan",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Marketing Inc.",
+      "jurisdiction": "Japan",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Semiconductor Solutions Corporation",
+      "jurisdiction": "Japan",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Semiconductor Manufacturing Corporation",
+      "jurisdiction": "Japan",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Semiconductor Energy Management Corporation",
+      "jurisdiction": "Japan",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Storage Media Corporation",
+      "jurisdiction": "Japan",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Global Solutions Inc.",
+      "jurisdiction": "Japan",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Corporation of America",
+      "jurisdiction": "U.S.A.",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Interactive Entertainment LLC",
+      "jurisdiction": "U.S.A.",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Music Entertainment",
+      "jurisdiction": "U.S.A.",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Music Publishing LLC",
+      "jurisdiction": "U.S.A.",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Pictures Entertainment Inc.",
+      "jurisdiction": "U.S.A.",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Columbia Pictures Industries, Inc.",
+      "jurisdiction": "U.S.A.",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "CPT Holdings, Inc.",
+      "jurisdiction": "U.S.A.",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Electronics Inc.",
+      "jurisdiction": "U.S.A.",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Capital Corporation",
+      "jurisdiction": "U.S.A.",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Interactive Entertainment Europe Ltd.",
+      "jurisdiction": "U.K.",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Europe B.V.",
+      "jurisdiction": "U.K.",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Global Treasury Services Plc",
+      "jurisdiction": "U.K.",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Overseas Holding B.V.",
+      "jurisdiction": "Netherlands",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony (China) Limited",
+      "jurisdiction": "China",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony EMCS (Malaysia) Sdn. Bhd.",
+      "jurisdiction": "Malaysia",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Electronics (Singapore) Pte. Ltd.",
+      "jurisdiction": "Singapore",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "provider_entity_id": null,
+      "legal_name": "Sony Device Technology (Thailand) Co., Ltd.",
+      "jurisdiction": "Thailand",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "ownership_percent": 100.0
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Interactive Entertainment Inc.",
+      "jurisdiction": "Japan",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Interactive Entertainment Inc.",
+            "",
+            "Japan",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Music Entertainment (Japan) Inc.",
+      "jurisdiction": "Japan",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Music Entertainment (Japan) Inc.",
+            "",
+            "Japan",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Corporation",
+      "jurisdiction": "Japan",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Corporation",
+            "",
+            "Japan",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Global Manufacturing & Operations Corporation",
+      "jurisdiction": "Japan",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Global Manufacturing & Operations Corporation",
+            "",
+            "Japan",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Network Communications Inc.",
+      "jurisdiction": "Japan",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Network Communications Inc.",
+            "",
+            "Japan",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Marketing Inc.",
+      "jurisdiction": "Japan",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Marketing Inc.",
+            "",
+            "Japan",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Semiconductor Solutions Corporation",
+      "jurisdiction": "Japan",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Semiconductor Solutions Corporation",
+            "",
+            "Japan",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Semiconductor Manufacturing Corporation",
+      "jurisdiction": "Japan",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Semiconductor Manufacturing Corporation",
+            "",
+            "Japan",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Semiconductor Energy Management Corporation",
+      "jurisdiction": "Japan",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Semiconductor Energy Management Corporation",
+            "",
+            "Japan",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Storage Media Corporation",
+      "jurisdiction": "Japan",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Storage Media Corporation",
+            "",
+            "Japan",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Global Solutions Inc.",
+      "jurisdiction": "Japan",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Global Solutions Inc.",
+            "",
+            "Japan",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Corporation of America",
+      "jurisdiction": "U.S.A.",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Corporation of America",
+            "",
+            "U.S.A.",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Interactive Entertainment LLC",
+      "jurisdiction": "U.S.A.",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Interactive Entertainment LLC",
+            "",
+            "U.S.A.",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Music Entertainment",
+      "jurisdiction": "U.S.A.",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Music Entertainment",
+            "",
+            "U.S.A.",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Music Publishing LLC",
+      "jurisdiction": "U.S.A.",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Music Publishing LLC",
+            "",
+            "U.S.A.",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Pictures Entertainment Inc.",
+      "jurisdiction": "U.S.A.",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Pictures Entertainment Inc.",
+            "",
+            "U.S.A.",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Columbia Pictures Industries, Inc.",
+      "jurisdiction": "U.S.A.",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Columbia Pictures Industries, Inc.",
+            "",
+            "U.S.A.",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "CPT Holdings, Inc.",
+      "jurisdiction": "U.S.A.",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "CPT Holdings, Inc.",
+            "",
+            "U.S.A.",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Electronics Inc.",
+      "jurisdiction": "U.S.A.",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Electronics Inc.",
+            "",
+            "U.S.A.",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Capital Corporation",
+      "jurisdiction": "U.S.A.",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Capital Corporation",
+            "",
+            "U.S.A.",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Interactive Entertainment Europe Ltd.",
+      "jurisdiction": "U.K.",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Interactive Entertainment Europe Ltd.",
+            "",
+            "U.K.",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Europe B.V.",
+      "jurisdiction": "U.K.",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Europe B.V.",
+            "",
+            "U.K.",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Global Treasury Services Plc",
+      "jurisdiction": "U.K.",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Global Treasury Services Plc",
+            "",
+            "U.K.",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Overseas Holding B.V.",
+      "jurisdiction": "Netherlands",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Overseas Holding B.V.",
+            "",
+            "Netherlands",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony (China) Limited",
+      "jurisdiction": "China",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony (China) Limited",
+            "",
+            "China",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony EMCS (Malaysia) Sdn. Bhd.",
+      "jurisdiction": "Malaysia",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony EMCS (Malaysia) Sdn. Bhd.",
+            "",
+            "Malaysia",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Electronics (Singapore) Pte. Ltd.",
+      "jurisdiction": "Singapore",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Electronics (Singapore) Pte. Ltd.",
+            "",
+            "Singapore",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    },
+    {
+      "provider": "sec_edgar",
+      "subject_name": "Sony Group Corp",
+      "predicate": "HAS_SUBSIDIARY",
+      "object_name": "Sony Device Technology (Thailand) Co., Ltd.",
+      "jurisdiction": "Thailand",
+      "ownership_percent": 100.0,
+      "relationship_status": null,
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+          "source_document_id": "0001193125-26-274893",
+          "source_date": "2026-06-18",
+          "as_of_date": "2026-03-31",
+          "extraction_method": "20f_ownership_table",
+          "coverage": "significant_subsidiaries",
+          "raw_record": [
+            "Sony Device Technology (Thailand) Co., Ltd.",
+            "",
+            "Thailand",
+            "",
+            "100.0"
+          ],
+          "attributes": {
+            "form_type": "20-F",
+            "source_header": [
+              "Name of company",
+              "Country of incorporation /residence",
+              "(As of March 31, 2026) Percentage owned"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "coverage": "significant_subsidiaries"
+      }
+    }
+  ],
+  "warnings": [],
+  "metadata": {
+    "cik": "313838"
+  }
+}

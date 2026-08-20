@@ -1,0 +1,31 @@
+{
+  "query_company": "sentinelone",
+  "resolved_lei": "984500DCD44DBF954221",
+  "entity": {
+    "lei": "984500DCD44DBF954221",
+    "legal_name": "SENTINELONE, INC.",
+    "jurisdiction": "US-DE",
+    "legal_form": "XTIQ",
+    "status": "ACTIVE",
+    "registration_status": "ISSUED",
+    "headquarters_country": "US"
+  },
+  "other_search_matches": [
+    "984500DCD44DBF954221",
+    "9845007909A61A9E0F63"
+  ],
+  "direct_parent": {
+    "type": "exception",
+    "reason": "NO_KNOWN_PERSON",
+    "category": "DIRECT_ACCOUNTING_CONSOLIDATION_PARENT"
+  },
+  "ultimate_parent": {
+    "type": "exception",
+    "reason": "NO_KNOWN_PERSON",
+    "category": "ULTIMATE_ACCOUNTING_CONSOLIDATION_PARENT"
+  },
+  "direct_children": [],
+  "ultimate_children": [],
+  "direct_children_count": 0,
+  "ultimate_children_count": 0
+}

@@ -1,0 +1,68 @@
+{
+  "m35_version": "m3.5-v1",
+  "source_graph": "./data/processed/resolved_sony.json",
+  "policy": "SAME_ENTITY",
+  "results": [
+    {
+      "policy": "SAME_ENTITY",
+      "left_node_id": "ent:72943e1bece2571813f77bcf",
+      "right_node_id": "ent:e8e58e5235360baed2e10ae8",
+      "left_name": "Sony Interactive Entertainment Inc.",
+      "right_name": "Sony Interactive Entertainment LLC",
+      "signals": {
+        "exact_normalized_name": false,
+        "exact_legal_name_base": true,
+        "levenshtein_ratio": 0.9411764705882353,
+        "token_jaccard": 0.6,
+        "jurisdiction_match": false,
+        "jurisdiction_conflict": true,
+        "exact_provider_identifier": false,
+        "provider_identifier_conflict": false,
+        "explicit_former_name_match": false,
+        "shared_address": false,
+        "shared_addresses": [],
+        "explicit_subsidiary_edge": false,
+        "ownership_percentages": [],
+        "left_provider_ids": [],
+        "right_provider_ids": []
+      },
+      "hard_confirms": [],
+      "hard_conflicts": [],
+      "score": -2.7059,
+      "contributions": [
+        {
+          "signal": "exact_legal_name_base",
+          "value": true,
+          "contribution": 15
+        },
+        {
+          "signal": "levenshtein_ratio",
+          "value": 0.9412,
+          "contribution": 11.2941
+        },
+        {
+          "signal": "token_jaccard",
+          "value": 0.6,
+          "contribution": 6.0
+        },
+        {
+          "signal": "jurisdiction_conflict",
+          "value": true,
+          "contribution": -35
+        }
+      ],
+      "guard_events": [],
+      "decision": "REJECT",
+      "decision_reason": "score_threshold",
+      "review_required": false,
+      "adjudication_status": "DETERMINISTIC_ONLY",
+      "candidate_source": "same_legal_name_base"
+    }
+  ],
+  "summary": {
+    "candidate_count": 1,
+    "accept_count": 0,
+    "review_count": 0,
+    "reject_count": 1
+  }
+}

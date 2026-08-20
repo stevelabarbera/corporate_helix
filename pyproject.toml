@@ -1,0 +1,8 @@
+[project]
+name = "corporation-helix"
+version = "0.1.0"
+description = "Evidence-backed corporate attribution resolver MVP"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

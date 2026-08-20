@@ -1,0 +1,342 @@
+[
+  {
+    "name": "SentinelOne, Inc.",
+    "jurisdiction": "Indiana (US)",
+    "source": "edgar",
+    "registration_number": "201703201186823",
+    "former_name": null,
+    "status": "active",
+    "notes": "Parent entity",
+    "confidence": "high"
+  },
+  {
+    "name": "SentinelOne (DE), Inc.",
+    "jurisdiction": "Utah (US)",
+    "source": "opencorporates",
+    "registration_number": "12399555-0143",
+    "former_name": null,
+    "status": "active",
+    "notes": "Confirmed by user",
+    "confidence": "high"
+  },
+  {
+    "name": "SentinelOne Delaware, Inc.",
+    "jurisdiction": "Florida (US)",
+    "source": "opencorporates",
+    "registration_number": "F15000005074",
+    "former_name": null,
+    "status": "active",
+    "notes": "Confirmed by user",
+    "confidence": "high"
+  },
+  {
+    "name": "SentinelOne Federal, Inc.",
+    "jurisdiction": "Delaware (US)",
+    "source": "edgar+opencorporates",
+    "registration_number": "7458975",
+    "former_name": null,
+    "status": "active",
+    "notes": "Present in both sources",
+    "confidence": "high"
+  },
+  {
+    "name": "SentinelOne Ventures LLC",
+    "jurisdiction": "Delaware (US)",
+    "source": "edgar+opencorporates",
+    "registration_number": "6123183",
+    "former_name": null,
+    "status": "active",
+    "notes": "Present in both sources",
+    "confidence": "high"
+  },
+  {
+    "name": "SentinelOne Consulting & Real Estate Agency",
+    "jurisdiction": "British Columbia (Canada)",
+    "source": "opencorporates",
+    "registration_number": "FM0851382",
+    "former_name": null,
+    "status": "excluded_false_positive",
+    "notes": "CONFIRMED FALSE POSITIVE (user verified). Same-name coincidental match from OpenCorporates search, unrelated to SentinelOne the cybersecurity company. Keep in this file as a labeled negative example \u2014 do not include as a real subsidiary in resolution output, but use to validate that the structured-signal gate (Phase 3) correctly rejects it despite high string similarity on the name.",
+    "confidence": "confirmed_negative"
+  },
+  {
+    "name": "Sentinel Labs Israel Ltd",
+    "jurisdiction": null,
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": null,
+    "confidence": "high"
+  },
+  {
+    "name": "Scalyr, LLC",
+    "jurisdiction": null,
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": "Scalyr, Inc.",
+    "status": "active",
+    "notes": "Acquisition \u2014 renamed post-acquisition, not dissolved",
+    "confidence": "high"
+  },
+  {
+    "name": "Attivo Networks, LLC",
+    "jurisdiction": null,
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": "Attivo Networks, Inc.",
+    "status": "active",
+    "notes": "Acquisition \u2014 renamed post-acquisition, not dissolved",
+    "confidence": "high"
+  },
+  {
+    "name": "Sentinel Labs Limited",
+    "jurisdiction": null,
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": null,
+    "confidence": "medium"
+  },
+  {
+    "name": "EPP Sentinel Research Labs France SAS",
+    "jurisdiction": "France",
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": null,
+    "confidence": "medium"
+  },
+  {
+    "name": "SentinelOne Holding B.V.",
+    "jurisdiction": "Netherlands",
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": null,
+    "confidence": "high"
+  },
+  {
+    "name": "SentinelOne B.V.",
+    "jurisdiction": "Netherlands",
+    "source": "edgar+opencorporates",
+    "registration_number": "78312949",
+    "former_name": null,
+    "status": "active",
+    "notes": "Present in both sources",
+    "confidence": "high"
+  },
+  {
+    "name": "SentinelOne CZ s.r.o.",
+    "jurisdiction": "Czech Republic",
+    "source": "edgar+opencorporates",
+    "registration_number": "10844554",
+    "former_name": null,
+    "status": "active",
+    "notes": "Present in both sources",
+    "confidence": "high"
+  },
+  {
+    "name": "SentinelOne Denmark ApS",
+    "jurisdiction": "Denmark",
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": null,
+    "confidence": "medium"
+  },
+  {
+    "name": "SentinelOne Italy Srl",
+    "jurisdiction": "Italy",
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": null,
+    "confidence": "medium"
+  },
+  {
+    "name": "SentinelOne Cybersecurity Ireland Limited",
+    "jurisdiction": "Ireland",
+    "source": "edgar+opencorporates",
+    "registration_number": "731910",
+    "former_name": null,
+    "status": "active",
+    "notes": "User confirmed the duplicate row in raw data ('bHaveToSay') was a typo of this entity",
+    "confidence": "high"
+  },
+  {
+    "name": "SentinelOne CyberSecurity Spain, S.L.",
+    "jurisdiction": "Spain",
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": "Appears TWICE in the actual SEC Exhibit 21 filing itself (not a scrape artifact) \u2014 real dedup test case for resolve.py",
+    "confidence": "medium"
+  },
+  {
+    "name": "SentinelOne Poland Sp Z o.o.",
+    "jurisdiction": "Poland",
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": null,
+    "confidence": "medium"
+  },
+  {
+    "name": "SentinelOne Japan KK",
+    "jurisdiction": "Japan",
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": "Raw pull had a corrupted duplicate (copy/paste-to-Excel artifact, not a real entity)",
+    "confidence": "high"
+  },
+  {
+    "name": "Sentinel Labs Pte Limited",
+    "jurisdiction": "Singapore",
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": null,
+    "confidence": "medium"
+  },
+  {
+    "name": "SentinelOne Korea, LLC",
+    "jurisdiction": "South Korea",
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": null,
+    "confidence": "medium"
+  },
+  {
+    "name": "Sentinel Labs Australia Pty Ltd",
+    "jurisdiction": "Australia",
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": null,
+    "confidence": "medium"
+  },
+  {
+    "name": "SentinelOne Costa Rica, S.R.L.",
+    "jurisdiction": "Costa Rica",
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": null,
+    "confidence": "medium"
+  },
+  {
+    "name": "SentinelOne India Private Limited",
+    "jurisdiction": "India",
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "dormant",
+    "notes": "Status was embedded in the name field in raw pull \u2014 split out here",
+    "confidence": "medium"
+  },
+  {
+    "name": "Attivo Networks Security India Private Limited",
+    "jurisdiction": "India",
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": "Acquisition-related entity",
+    "confidence": "medium"
+  },
+  {
+    "name": "Attivo Networks Private Limited",
+    "jurisdiction": "Singapore",
+    "source": "edgar (corrected \u2014 was India by mistaken list-adjacency assumption)",
+    "registration_number": null,
+    "former_name": null,
+    "status": "non-operational",
+    "notes": "Status was embedded in the name field in raw pull \u2014 split out here. Acquisition-related entity.",
+    "confidence": "high"
+  },
+  {
+    "name": "PingSafe Private Limited",
+    "jurisdiction": "Singapore",
+    "source": "edgar (corrected \u2014 was India by mistaken list-adjacency assumption)",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": "Acquisition-related entity",
+    "confidence": "high"
+  },
+  {
+    "name": "PingSafe India Private Limited",
+    "jurisdiction": "India",
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": "Acquisition-related entity",
+    "confidence": "medium"
+  },
+  {
+    "name": "PingSafe Inc.",
+    "jurisdiction": null,
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "dormant",
+    "notes": "Status was embedded in the name field in raw pull \u2014 split out here. Acquisition-related entity.",
+    "confidence": "medium"
+  },
+  {
+    "name": "Stride Security Limited",
+    "jurisdiction": null,
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": "Confirmed acquisition (user verified)",
+    "confidence": "high"
+  },
+  {
+    "name": "Observo AI",
+    "jurisdiction": null,
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": "Confirmed acquisition (user verified) legal entity name, this may be a brand name not a registered entity name NOT present in FY2024 10-K Exhibit 21 (filed 2024-03-27) \u2014 likely acquired after that filing date. Check newer 10-K.",
+    "confidence": "high"
+  },
+  {
+    "name": "PinnacleOne",
+    "jurisdiction": null,
+    "source": "edgar",
+    "registration_number": null,
+    "former_name": "Krebs Stamos Group",
+    "status": "active",
+    "notes": "Confirmed acquisition (user verified), renamed post-acquisition. NOT present in FY2024 10-K Exhibit 21 (filed 2024-03-27) \u2014 likely acquired after that filing date. Check newer 10-K.",
+    "confidence": "high"
+  },
+  {
+    "name": "SentinelOne GmbH",
+    "jurisdiction": "Germany",
+    "source": "edgar+opencorporates",
+    "registration_number": null,
+    "former_name": null,
+    "status": "active",
+    "notes": "Now confirmed by EDGAR 10-K exhibit 21 in addition to OpenCorporates",
+    "confidence": "high"
+  }
+]

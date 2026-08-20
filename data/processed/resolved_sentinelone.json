@@ -1,0 +1,1787 @@
+{
+  "resolution_version": "m3-v1",
+  "nodes": [
+    {
+      "node_id": "node:7763f6177b9147dade1ec045",
+      "canonical_name": "SentinelOne, Inc.",
+      "canonical_name_normalized": "sentinelone inc",
+      "jurisdiction": "US",
+      "provider_entity_ids": [
+        "cik:1583708"
+      ],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "SentinelOne, Inc",
+          "jurisdiction": "US",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "444 Castro Street, 4th Floor, Mountain View, CA 94041"
+          ],
+          "attributes": {
+            "relationship_label": "Ultimate Parent"
+          },
+          "identity": {
+            "legal_name_raw": "SentinelOne, Inc",
+            "legal_name_normalized": "sentinelone inc",
+            "legal_name_base": "sentinelone",
+            "jurisdiction_raw": "US",
+            "jurisdiction_normalized": "US",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:7763f6177b9147dade1ec045"
+        }
+      ],
+      "aliases": [],
+      "roles": [
+        "root"
+      ],
+      "resolution": {
+        "method": "provider_root",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:81c41fd6fbcbbd9842c0f2b5",
+      "canonical_name": "SentinelOne Ventures LLC",
+      "canonical_name_normalized": "sentinelone ventures llc",
+      "legal_name_base": "sentinelone ventures",
+      "jurisdiction": "US",
+      "jurisdiction_raw": "US",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "SentinelOne Ventures LLC",
+          "jurisdiction": "US",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "444 Castro Street, 4th Floor, Mountain View, CA 94041"
+          ],
+          "attributes": {
+            "relationship_label": "Entity"
+          },
+          "identity": {
+            "legal_name_raw": "SentinelOne Ventures LLC",
+            "legal_name_normalized": "sentinelone ventures llc",
+            "legal_name_base": "sentinelone ventures",
+            "jurisdiction_raw": "US",
+            "jurisdiction_normalized": "US",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:81c41fd6fbcbbd9842c0f2b5"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:de5e32ff7883574d443f26bd",
+      "canonical_name": "Sentinel Labs Israel Ltd",
+      "canonical_name_normalized": "sentinel labs israel ltd",
+      "legal_name_base": "sentinel labs israel",
+      "jurisdiction": "IL",
+      "jurisdiction_raw": "Israel",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "Sentinel Labs Israel Ltd",
+          "jurisdiction": "Israel",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "121 Menachem Begin Road, Sarona Tower, 38th Floor, Tel Aviv"
+          ],
+          "attributes": {
+            "relationship_label": "Entity"
+          },
+          "identity": {
+            "legal_name_raw": "Sentinel Labs Israel Ltd",
+            "legal_name_normalized": "sentinel labs israel ltd",
+            "legal_name_base": "sentinel labs israel",
+            "jurisdiction_raw": "Israel",
+            "jurisdiction_normalized": "IL",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:de5e32ff7883574d443f26bd"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:5304ed001ed151de903ae7eb",
+      "canonical_name": "Scalyr, LLC",
+      "canonical_name_normalized": "scalyr llc",
+      "legal_name_base": "scalyr",
+      "jurisdiction": "US",
+      "jurisdiction_raw": "US",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "Scalyr, LLC",
+          "jurisdiction": "US",
+          "registration_number": null,
+          "status": null,
+          "former_names": [
+            "Scalyr, Inc"
+          ],
+          "addresses": [
+            "444 Castro Street, 4th Floor, Mountain View, CA 94041"
+          ],
+          "attributes": {
+            "relationship_label": "Entity"
+          },
+          "identity": {
+            "legal_name_raw": "Scalyr, LLC",
+            "legal_name_normalized": "scalyr llc",
+            "legal_name_base": "scalyr",
+            "jurisdiction_raw": "US",
+            "jurisdiction_normalized": "US",
+            "former_names_raw": [
+              "Scalyr, Inc"
+            ],
+            "former_names_normalized": [
+              "scalyr inc"
+            ]
+          },
+          "entity_key": "ent:5304ed001ed151de903ae7eb"
+        }
+      ],
+      "aliases": [
+        {
+          "alias_id": "alias:6a7dadfe406f49448a44d0cf",
+          "name_raw": "Scalyr, Inc",
+          "name_normalized": "scalyr inc",
+          "jurisdiction": "US",
+          "alias_type": "former_name",
+          "source": "sec_edgar"
+        }
+      ],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:be6b36d60d3a7477506635e1",
+      "canonical_name": "Attivo Networks, LLC",
+      "canonical_name_normalized": "attivo networks llc",
+      "legal_name_base": "attivo networks",
+      "jurisdiction": "US",
+      "jurisdiction_raw": "US",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "Attivo Networks, LLC",
+          "jurisdiction": "US",
+          "registration_number": null,
+          "status": null,
+          "former_names": [
+            "Attivo Networks, Inc"
+          ],
+          "addresses": [
+            "444 Castro Street, 4th Floor, Mountain View, CA 94041"
+          ],
+          "attributes": {
+            "relationship_label": "Entity"
+          },
+          "identity": {
+            "legal_name_raw": "Attivo Networks, LLC",
+            "legal_name_normalized": "attivo networks llc",
+            "legal_name_base": "attivo networks",
+            "jurisdiction_raw": "US",
+            "jurisdiction_normalized": "US",
+            "former_names_raw": [
+              "Attivo Networks, Inc"
+            ],
+            "former_names_normalized": [
+              "attivo networks inc"
+            ]
+          },
+          "entity_key": "ent:be6b36d60d3a7477506635e1"
+        }
+      ],
+      "aliases": [
+        {
+          "alias_id": "alias:0045ac4f1710cb53b23a36ec",
+          "name_raw": "Attivo Networks, Inc",
+          "name_normalized": "attivo networks inc",
+          "jurisdiction": "US",
+          "alias_type": "former_name",
+          "source": "sec_edgar"
+        }
+      ],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:f78df3a2644dc062c029d7e8",
+      "canonical_name": "SentinelOne Federal, Inc.",
+      "canonical_name_normalized": "sentinelone federal inc",
+      "legal_name_base": "sentinelone federal",
+      "jurisdiction": "US",
+      "jurisdiction_raw": "US",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "SentinelOne Federal, Inc.",
+          "jurisdiction": "US",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "444 Castro Street, 4th Floor, Mountain View, CA 94041"
+          ],
+          "attributes": {
+            "relationship_label": "Entity"
+          },
+          "identity": {
+            "legal_name_raw": "SentinelOne Federal, Inc.",
+            "legal_name_normalized": "sentinelone federal inc",
+            "legal_name_base": "sentinelone federal",
+            "jurisdiction_raw": "US",
+            "jurisdiction_normalized": "US",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:f78df3a2644dc062c029d7e8"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:47de106a8d63c2090719d99c",
+      "canonical_name": "Sentinel Labs Limited",
+      "canonical_name_normalized": "sentinel labs limited",
+      "legal_name_base": "sentinel labs",
+      "jurisdiction": "GB",
+      "jurisdiction_raw": "UK",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "Sentinel Labs Limited",
+          "jurisdiction": "UK",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "Fourth Floor, St James House, St James Square, Cheltenham, GL50 3PR"
+          ],
+          "attributes": {
+            "relationship_label": "Entity - Limited Company"
+          },
+          "identity": {
+            "legal_name_raw": "Sentinel Labs Limited",
+            "legal_name_normalized": "sentinel labs limited",
+            "legal_name_base": "sentinel labs",
+            "jurisdiction_raw": "UK",
+            "jurisdiction_normalized": "GB",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:47de106a8d63c2090719d99c"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:c020ee17693aee89e907312c",
+      "canonical_name": "EPP Sentinel Research Labs France SAS",
+      "canonical_name_normalized": "epp sentinel research labs france sas",
+      "legal_name_base": "epp sentinel research labs france",
+      "jurisdiction": "FR",
+      "jurisdiction_raw": "France",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "EPP Sentinel Research Labs France SAS",
+          "jurisdiction": "France",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "23 Rue Balzac, 75008 Paris, France"
+          ],
+          "attributes": {
+            "relationship_label": "Entity - Limited Company"
+          },
+          "identity": {
+            "legal_name_raw": "EPP Sentinel Research Labs France SAS",
+            "legal_name_normalized": "epp sentinel research labs france sas",
+            "legal_name_base": "epp sentinel research labs france",
+            "jurisdiction_raw": "France",
+            "jurisdiction_normalized": "FR",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:c020ee17693aee89e907312c"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:86ad77bfddbf6bdc63428628",
+      "canonical_name": "SentinelOne Holding B.V.",
+      "canonical_name_normalized": "sentinelone holding b v",
+      "legal_name_base": "sentinelone holding b v",
+      "jurisdiction": "NL",
+      "jurisdiction_raw": "Netherlands",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "SentinelOne Holding B.V.",
+          "jurisdiction": "Netherlands",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "Strawinskylaan 4117, 1077ZX Amsterdam, the Netherlands"
+          ],
+          "attributes": {
+            "relationship_label": "Entity"
+          },
+          "identity": {
+            "legal_name_raw": "SentinelOne Holding B.V.",
+            "legal_name_normalized": "sentinelone holding b v",
+            "legal_name_base": "sentinelone holding b v",
+            "jurisdiction_raw": "Netherlands",
+            "jurisdiction_normalized": "NL",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:86ad77bfddbf6bdc63428628"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:40f8fc65b77be1d5ae7c704a",
+      "canonical_name": "SentinelOne B.V.",
+      "canonical_name_normalized": "sentinelone b v",
+      "legal_name_base": "sentinelone b v",
+      "jurisdiction": "NL",
+      "jurisdiction_raw": "Netherlands",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "SentinelOne B.V.",
+          "jurisdiction": "Netherlands",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "Strawinskylaan 4117, 1077ZX Amsterdam, the Netherlands"
+          ],
+          "attributes": {
+            "relationship_label": "Entity"
+          },
+          "identity": {
+            "legal_name_raw": "SentinelOne B.V.",
+            "legal_name_normalized": "sentinelone b v",
+            "legal_name_base": "sentinelone b v",
+            "jurisdiction_raw": "Netherlands",
+            "jurisdiction_normalized": "NL",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:40f8fc65b77be1d5ae7c704a"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:b416e65155dbcd3d2acacb33",
+      "canonical_name": "SentinelOne CZ s.r.o",
+      "canonical_name_normalized": "sentinelone cz s r o",
+      "legal_name_base": "sentinelone cz s r o",
+      "jurisdiction": "CZ",
+      "jurisdiction_raw": "Czech Republic",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "SentinelOne CZ s.r.o",
+          "jurisdiction": "Czech Republic",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "Karolinská 707/7, Karlín, 186 00 Praha 8, Czech Republic"
+          ],
+          "attributes": {
+            "relationship_label": "Entity - Limited Company"
+          },
+          "identity": {
+            "legal_name_raw": "SentinelOne CZ s.r.o",
+            "legal_name_normalized": "sentinelone cz s r o",
+            "legal_name_base": "sentinelone cz s r o",
+            "jurisdiction_raw": "Czech Republic",
+            "jurisdiction_normalized": "CZ",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:b416e65155dbcd3d2acacb33"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:a342c8f54f9e36885181f6ff",
+      "canonical_name": "SentinelOne Denmark ApS",
+      "canonical_name_normalized": "sentinelone denmark aps",
+      "legal_name_base": "sentinelone denmark",
+      "jurisdiction": "DK",
+      "jurisdiction_raw": "Denmark",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "SentinelOne Denmark ApS",
+          "jurisdiction": "Denmark",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "C/O Crowe Rygårds Allé 104 2900 Hellerup, Denmark"
+          ],
+          "attributes": {
+            "relationship_label": "Entity - Limited Company"
+          },
+          "identity": {
+            "legal_name_raw": "SentinelOne Denmark ApS",
+            "legal_name_normalized": "sentinelone denmark aps",
+            "legal_name_base": "sentinelone denmark",
+            "jurisdiction_raw": "Denmark",
+            "jurisdiction_normalized": "DK",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:a342c8f54f9e36885181f6ff"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:14250f6a8ccda5287143c0b1",
+      "canonical_name": "SentinelOne Italy Srl",
+      "canonical_name_normalized": "sentinelone italy srl",
+      "legal_name_base": "sentinelone italy",
+      "jurisdiction": "IT",
+      "jurisdiction_raw": "Italy",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "SentinelOne Italy Srl",
+          "jurisdiction": "Italy",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "MILANO (MI) VIA CERESIO 7 CAP 20154, Italy"
+          ],
+          "attributes": {
+            "relationship_label": "Entity - Limited Company"
+          },
+          "identity": {
+            "legal_name_raw": "SentinelOne Italy Srl",
+            "legal_name_normalized": "sentinelone italy srl",
+            "legal_name_base": "sentinelone italy",
+            "jurisdiction_raw": "Italy",
+            "jurisdiction_normalized": "IT",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:14250f6a8ccda5287143c0b1"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:f624611d7eea7da6b8cfaa18",
+      "canonical_name": "SentinelOne Cybersecurity Ireland Limited",
+      "canonical_name_normalized": "sentinelone cybersecurity ireland limited",
+      "legal_name_base": "sentinelone cybersecurity ireland",
+      "jurisdiction": "IE",
+      "jurisdiction_raw": "Ireland",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "SentinelOne Cybersecurity Ireland Limited",
+          "jurisdiction": "Ireland",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "70 Sir John Rogerson's Quay, Dublin 2, Ireland"
+          ],
+          "attributes": {
+            "relationship_label": "Entity - Limited Company"
+          },
+          "identity": {
+            "legal_name_raw": "SentinelOne Cybersecurity Ireland Limited",
+            "legal_name_normalized": "sentinelone cybersecurity ireland limited",
+            "legal_name_base": "sentinelone cybersecurity ireland",
+            "jurisdiction_raw": "Ireland",
+            "jurisdiction_normalized": "IE",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:f624611d7eea7da6b8cfaa18"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:3e0da89f3265c0442e9e934f",
+      "canonical_name": "SentinelOne CyberSecurity Spain, S.L.",
+      "canonical_name_normalized": "sentinelone cybersecurity spain s l",
+      "legal_name_base": "sentinelone cybersecurity spain s l",
+      "jurisdiction": "ES",
+      "jurisdiction_raw": "Spain",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "SentinelOne CyberSecurity Spain, S.L.",
+          "jurisdiction": "Spain",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "Barcelona (08007) Diputacio Street, Number 260"
+          ],
+          "attributes": {
+            "relationship_label": "Entity - Limited Company"
+          },
+          "identity": {
+            "legal_name_raw": "SentinelOne CyberSecurity Spain, S.L.",
+            "legal_name_normalized": "sentinelone cybersecurity spain s l",
+            "legal_name_base": "sentinelone cybersecurity spain s l",
+            "jurisdiction_raw": "Spain",
+            "jurisdiction_normalized": "ES",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:3e0da89f3265c0442e9e934f"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:a4c84dbd76afd195948e493f",
+      "canonical_name": "SentinelOne GmbH",
+      "canonical_name_normalized": "sentinelone gmbh",
+      "legal_name_base": "sentinelone",
+      "jurisdiction": "DE",
+      "jurisdiction_raw": "Germany",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "SentinelOne GmbH",
+          "jurisdiction": "Germany",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "Prielmayerstrasse 3, 80335 Munchen"
+          ],
+          "attributes": {
+            "relationship_label": "Entity - Limited Company"
+          },
+          "identity": {
+            "legal_name_raw": "SentinelOne GmbH",
+            "legal_name_normalized": "sentinelone gmbh",
+            "legal_name_base": "sentinelone",
+            "jurisdiction_raw": "Germany",
+            "jurisdiction_normalized": "DE",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:a4c84dbd76afd195948e493f"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:43f603f17c8e25e861d44ab9",
+      "canonical_name": "SentinelOne Poland Sp Z o.o.",
+      "canonical_name_normalized": "sentinelone poland sp z o o",
+      "legal_name_base": "sentinelone poland sp z o o",
+      "jurisdiction": "PL",
+      "jurisdiction_raw": "Poland",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "SentinelOne Poland Sp Z o.o.",
+          "jurisdiction": "Poland",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "ul. Piękna 18, 00-549 Warsaw"
+          ],
+          "attributes": {
+            "relationship_label": "Entity – Limited Company"
+          },
+          "identity": {
+            "legal_name_raw": "SentinelOne Poland Sp Z o.o.",
+            "legal_name_normalized": "sentinelone poland sp z o o",
+            "legal_name_base": "sentinelone poland sp z o o",
+            "jurisdiction_raw": "Poland",
+            "jurisdiction_normalized": "PL",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:43f603f17c8e25e861d44ab9"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:548086f57ef5ed768546414d",
+      "canonical_name": "SentinelOne Japan KK",
+      "canonical_name_normalized": "sentinelone japan kk",
+      "legal_name_base": "sentinelone japan",
+      "jurisdiction": "JP",
+      "jurisdiction_raw": "Japan",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "SentinelOne Japan KK",
+          "jurisdiction": "Japan",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "2-1-3 Nihonbashi, Chuo-ku, Tokyo"
+          ],
+          "attributes": {
+            "relationship_label": "Entity - Limited Company"
+          },
+          "identity": {
+            "legal_name_raw": "SentinelOne Japan KK",
+            "legal_name_normalized": "sentinelone japan kk",
+            "legal_name_base": "sentinelone japan",
+            "jurisdiction_raw": "Japan",
+            "jurisdiction_normalized": "JP",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:548086f57ef5ed768546414d"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:2aeb8015e40fb97ae5a284d3",
+      "canonical_name": "Sentinel Labs Pte Limited",
+      "canonical_name_normalized": "sentinel labs pte limited",
+      "legal_name_base": "sentinel labs",
+      "jurisdiction": "SG",
+      "jurisdiction_raw": "Singapore",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "Sentinel Labs Pte Limited",
+          "jurisdiction": "Singapore",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "12 Tannery Road #10-01, HB Centre 1, Singapore 347722"
+          ],
+          "attributes": {
+            "relationship_label": "Entity"
+          },
+          "identity": {
+            "legal_name_raw": "Sentinel Labs Pte Limited",
+            "legal_name_normalized": "sentinel labs pte limited",
+            "legal_name_base": "sentinel labs",
+            "jurisdiction_raw": "Singapore",
+            "jurisdiction_normalized": "SG",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:2aeb8015e40fb97ae5a284d3"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:83d84c6556c010421893079c",
+      "canonical_name": "SentinelOne Korea, LLC",
+      "canonical_name_normalized": "sentinelone korea llc",
+      "legal_name_base": "sentinelone korea",
+      "jurisdiction": "KR",
+      "jurisdiction_raw": "Korea",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "SentinelOne Korea, LLC",
+          "jurisdiction": "Korea",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "302 Teheran-ro, Gangnam-gu, Seoul"
+          ],
+          "attributes": {
+            "relationship_label": "Entity – Limited Company"
+          },
+          "identity": {
+            "legal_name_raw": "SentinelOne Korea, LLC",
+            "legal_name_normalized": "sentinelone korea llc",
+            "legal_name_base": "sentinelone korea",
+            "jurisdiction_raw": "Korea",
+            "jurisdiction_normalized": "KR",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:83d84c6556c010421893079c"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    },
+    {
+      "node_id": "ent:f3ae67b01b083c2ec2bb8767",
+      "canonical_name": "Sentinel Labs Australia Pty Ltd",
+      "canonical_name_normalized": "sentinel labs australia pty ltd",
+      "legal_name_base": "sentinel labs australia",
+      "jurisdiction": "AU",
+      "jurisdiction_raw": "Australia",
+      "provider_entity_ids": [],
+      "source_entities": [
+        {
+          "provider": "sec_edgar",
+          "provider_entity_id": null,
+          "legal_name": "Sentinel Labs Australia Pty Ltd",
+          "jurisdiction": "Australia",
+          "registration_number": null,
+          "status": null,
+          "former_names": [],
+          "addresses": [
+            "c/o McCullough Robertson, Level 32, MLC Centre, 19 Martin Place, Sydney, NSW 2000"
+          ],
+          "attributes": {
+            "relationship_label": "Entity - Limited Company"
+          },
+          "identity": {
+            "legal_name_raw": "Sentinel Labs Australia Pty Ltd",
+            "legal_name_normalized": "sentinel labs australia pty ltd",
+            "legal_name_base": "sentinel labs australia",
+            "jurisdiction_raw": "Australia",
+            "jurisdiction_normalized": "AU",
+            "former_names_raw": [],
+            "former_names_normalized": []
+          },
+          "entity_key": "ent:f3ae67b01b083c2ec2bb8767"
+        }
+      ],
+      "aliases": [],
+      "roles": [],
+      "resolution": {
+        "method": "single_source_exact",
+        "confidence": 1.0,
+        "review_required": false
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "subject_node_id": "ent:81c41fd6fbcbbd9842c0f2b5",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "SentinelOne Ventures LLC",
+            "US",
+            "Entity",
+            "444 Castro Street, 4th Floor, Mountain View, CA 94041"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity",
+        "address": "444 Castro Street, 4th Floor, Mountain View, CA 94041"
+      },
+      "source_relationship_key": "rel:04d9f04c2232a304c5c99860"
+    },
+    {
+      "subject_node_id": "ent:de5e32ff7883574d443f26bd",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "Sentinel Labs Israel Ltd",
+            "Israel",
+            "Entity",
+            "121 Menachem Begin Road, Sarona Tower, 38th Floor, Tel Aviv"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity",
+        "address": "121 Menachem Begin Road, Sarona Tower, 38th Floor, Tel Aviv"
+      },
+      "source_relationship_key": "rel:310e1c299a0f12ba0c353f49"
+    },
+    {
+      "subject_node_id": "ent:5304ed001ed151de903ae7eb",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "Scalyr, LLC (fka Scalyr, Inc.)",
+            "US",
+            "Entity",
+            "444 Castro Street, 4th Floor, Mountain View, CA 94041"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity",
+        "address": "444 Castro Street, 4th Floor, Mountain View, CA 94041"
+      },
+      "source_relationship_key": "rel:eaf125ae49482ccc24fa96ff"
+    },
+    {
+      "subject_node_id": "ent:be6b36d60d3a7477506635e1",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "Attivo Networks, LLC (fka Attivo Networks, Inc.)",
+            "US",
+            "Entity",
+            "444 Castro Street, 4th Floor, Mountain View, CA 94041"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity",
+        "address": "444 Castro Street, 4th Floor, Mountain View, CA 94041"
+      },
+      "source_relationship_key": "rel:b839a6fb334d0c56d6da983a"
+    },
+    {
+      "subject_node_id": "ent:f78df3a2644dc062c029d7e8",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "SentinelOne Federal, Inc.",
+            "US",
+            "Entity",
+            "444 Castro Street, 4th Floor, Mountain View, CA 94041"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity",
+        "address": "444 Castro Street, 4th Floor, Mountain View, CA 94041"
+      },
+      "source_relationship_key": "rel:45268a2543dfa2c1da8df4b1"
+    },
+    {
+      "subject_node_id": "ent:47de106a8d63c2090719d99c",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "Sentinel Labs Limited",
+            "UK",
+            "Entity - Limited Company",
+            "Fourth Floor, St James House, St James Square, Cheltenham, GL50 3PR"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity - Limited Company",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity - Limited Company",
+        "address": "Fourth Floor, St James House, St James Square, Cheltenham, GL50 3PR"
+      },
+      "source_relationship_key": "rel:19ccfb22b7d02502f031efa1"
+    },
+    {
+      "subject_node_id": "ent:c020ee17693aee89e907312c",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "EPP Sentinel Research Labs France SAS",
+            "France",
+            "Entity - Limited Company",
+            "23 Rue Balzac, 75008 Paris, France"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity - Limited Company",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity - Limited Company",
+        "address": "23 Rue Balzac, 75008 Paris, France"
+      },
+      "source_relationship_key": "rel:3245288a66735f378b47e46c"
+    },
+    {
+      "subject_node_id": "ent:86ad77bfddbf6bdc63428628",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "SentinelOne Holding B.V.",
+            "Netherlands",
+            "Entity",
+            "Strawinskylaan 4117, 1077ZX Amsterdam, the Netherlands"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity",
+        "address": "Strawinskylaan 4117, 1077ZX Amsterdam, the Netherlands"
+      },
+      "source_relationship_key": "rel:ec9e1f8424f9180cfbb692d2"
+    },
+    {
+      "subject_node_id": "ent:40f8fc65b77be1d5ae7c704a",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "SentinelOne B.V.",
+            "Netherlands",
+            "Entity",
+            "Strawinskylaan 4117, 1077ZX Amsterdam, the Netherlands"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity",
+        "address": "Strawinskylaan 4117, 1077ZX Amsterdam, the Netherlands"
+      },
+      "source_relationship_key": "rel:38e9c4f9a640d406c683f4a1"
+    },
+    {
+      "subject_node_id": "ent:b416e65155dbcd3d2acacb33",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "SentinelOne CZ s.r.o",
+            "Czech Republic",
+            "Entity - Limited Company",
+            "Karolinská 707/7, Karlín, 186 00 Praha 8, Czech Republic"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity - Limited Company",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity - Limited Company",
+        "address": "Karolinská 707/7, Karlín, 186 00 Praha 8, Czech Republic"
+      },
+      "source_relationship_key": "rel:69389742ac65b162c25a1ab8"
+    },
+    {
+      "subject_node_id": "ent:a342c8f54f9e36885181f6ff",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "SentinelOne Denmark ApS",
+            "Denmark",
+            "Entity - Limited Company",
+            "C/O Crowe Rygårds Allé 104 2900 Hellerup, Denmark"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity - Limited Company",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity - Limited Company",
+        "address": "C/O Crowe Rygårds Allé 104 2900 Hellerup, Denmark"
+      },
+      "source_relationship_key": "rel:fdbd46cf59e6c382157ec795"
+    },
+    {
+      "subject_node_id": "ent:14250f6a8ccda5287143c0b1",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "SentinelOne Italy Srl",
+            "Italy",
+            "Entity - Limited Company",
+            "MILANO (MI) VIA CERESIO 7 CAP 20154, Italy"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity - Limited Company",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity - Limited Company",
+        "address": "MILANO (MI) VIA CERESIO 7 CAP 20154, Italy"
+      },
+      "source_relationship_key": "rel:bd446932b5b4de4d13ade89e"
+    },
+    {
+      "subject_node_id": "ent:f624611d7eea7da6b8cfaa18",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "SentinelOne Cybersecurity Ireland Limited",
+            "Ireland",
+            "Entity - Limited Company",
+            "70 Sir John Rogerson's Quay, Dublin 2, Ireland"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity - Limited Company",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity - Limited Company",
+        "address": "70 Sir John Rogerson's Quay, Dublin 2, Ireland"
+      },
+      "source_relationship_key": "rel:8c15feb03a2226eb95613716"
+    },
+    {
+      "subject_node_id": "ent:3e0da89f3265c0442e9e934f",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "SentinelOne CyberSecurity Spain, S.L.",
+            "Spain",
+            "Entity - Limited Company",
+            "Barcelona (08007) Diputacio Street, Number 260"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity - Limited Company",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity - Limited Company",
+        "address": "Barcelona (08007) Diputacio Street, Number 260"
+      },
+      "source_relationship_key": "rel:4b787a2ceb5b8851bf7d986d"
+    },
+    {
+      "subject_node_id": "ent:a4c84dbd76afd195948e493f",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "SentinelOne GmbH",
+            "Germany",
+            "Entity - Limited Company",
+            "Prielmayerstrasse 3, 80335 Munchen"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity - Limited Company",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity - Limited Company",
+        "address": "Prielmayerstrasse 3, 80335 Munchen"
+      },
+      "source_relationship_key": "rel:995d789056a5129c53d544ee"
+    },
+    {
+      "subject_node_id": "ent:43f603f17c8e25e861d44ab9",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "SentinelOne Poland Sp Z o.o.",
+            "Poland",
+            "Entity – Limited Company",
+            "ul. Piękna 18, 00-549 Warsaw"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity – Limited Company",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity – Limited Company",
+        "address": "ul. Piękna 18, 00-549 Warsaw"
+      },
+      "source_relationship_key": "rel:b3d08408bb62bb208bba5c8c"
+    },
+    {
+      "subject_node_id": "ent:548086f57ef5ed768546414d",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "SentinelOne Japan KK",
+            "Japan",
+            "Entity - Limited Company",
+            "2-1-3 Nihonbashi, Chuo-ku, Tokyo"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity - Limited Company",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity - Limited Company",
+        "address": "2-1-3 Nihonbashi, Chuo-ku, Tokyo"
+      },
+      "source_relationship_key": "rel:fe01819cf9b55ae0e8d7cfc3"
+    },
+    {
+      "subject_node_id": "ent:2aeb8015e40fb97ae5a284d3",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "Sentinel Labs Pte Limited",
+            "Singapore",
+            "Entity",
+            "12 Tannery Road #10-01, HB Centre 1, Singapore 347722"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity",
+        "address": "12 Tannery Road #10-01, HB Centre 1, Singapore 347722"
+      },
+      "source_relationship_key": "rel:82e172b28ccd1f047f0c4f30"
+    },
+    {
+      "subject_node_id": "ent:83d84c6556c010421893079c",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "SentinelOne Korea, LLC",
+            "Korea",
+            "Entity – Limited Company",
+            "302 Teheran-ro, Gangnam-gu, Seoul"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity – Limited Company",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity – Limited Company",
+        "address": "302 Teheran-ro, Gangnam-gu, Seoul"
+      },
+      "source_relationship_key": "rel:c915e2cfe22ce64f175d097d"
+    },
+    {
+      "subject_node_id": "ent:f3ae67b01b083c2ec2bb8767",
+      "predicate": "SUBSIDIARY_OF",
+      "object_node_id": "node:7763f6177b9147dade1ec045",
+      "ownership_percent": null,
+      "relationship_status": null,
+      "provider": "sec_edgar",
+      "evidence": [
+        {
+          "provider": "sec_edgar",
+          "evidence_type": "corporate_relationship",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370824000016/ex211sentinelone-globalsub.htm",
+          "source_document_id": "0001583708-24-000016",
+          "source_date": "2024-03-27",
+          "as_of_date": null,
+          "extraction_method": "exhibit_21",
+          "coverage": "exhibit_21_disclosed_entities",
+          "raw_record": [
+            "Sentinel Labs Australia Pty Ltd",
+            "Australia",
+            "Entity - Limited Company",
+            "c/o McCullough Robertson, Level 32, MLC Centre, 19 Martin Place, Sydney, NSW 2000"
+          ],
+          "attributes": {
+            "form_type": "10-K",
+            "relationship_label": "Entity - Limited Company",
+            "source_header": [
+              "Company Name",
+              "Country",
+              "Relationship",
+              "Address"
+            ]
+          }
+        }
+      ],
+      "attributes": {
+        "relationship_label": "Entity - Limited Company",
+        "address": "c/o McCullough Robertson, Level 32, MLC Centre, 19 Martin Place, Sydney, NSW 2000"
+      },
+      "source_relationship_key": "rel:906c1fd711dee705146e4eb6"
+    }
+  ],
+  "resolution_events": [],
+  "review_candidates": [
+    {
+      "left_node_id": "ent:47de106a8d63c2090719d99c",
+      "right_node_id": "ent:2aeb8015e40fb97ae5a284d3",
+      "reason": "same_legal_name_base",
+      "left_jurisdiction": "GB",
+      "right_jurisdiction": "SG",
+      "auto_merge": false
+    }
+  ],
+  "warnings": [],
+  "summary": {
+    "node_count": 21,
+    "relationship_count": 20,
+    "merge_count": 0,
+    "review_candidate_count": 1,
+    "rules": [
+      "exact normalized legal name + jurisdiction => merge",
+      "former-name alias + same jurisdiction => merge",
+      "same base name only => review candidate",
+      "cross-jurisdiction similarity never auto-merges",
+      "no fuzzy matching in m3-v1"
+    ]
+  }
+}

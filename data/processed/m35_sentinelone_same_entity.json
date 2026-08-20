@@ -1,0 +1,68 @@
+{
+  "m35_version": "m3.5-v1",
+  "source_graph": "./data/processed/resolved_sentinelone.json",
+  "policy": "SAME_ENTITY",
+  "results": [
+    {
+      "policy": "SAME_ENTITY",
+      "left_node_id": "ent:47de106a8d63c2090719d99c",
+      "right_node_id": "ent:2aeb8015e40fb97ae5a284d3",
+      "left_name": "Sentinel Labs Limited",
+      "right_name": "Sentinel Labs Pte Limited",
+      "signals": {
+        "exact_normalized_name": false,
+        "exact_legal_name_base": true,
+        "levenshtein_ratio": 0.84,
+        "token_jaccard": 0.75,
+        "jurisdiction_match": false,
+        "jurisdiction_conflict": true,
+        "exact_provider_identifier": false,
+        "provider_identifier_conflict": false,
+        "explicit_former_name_match": false,
+        "shared_address": false,
+        "shared_addresses": [],
+        "explicit_subsidiary_edge": false,
+        "ownership_percentages": [],
+        "left_provider_ids": [],
+        "right_provider_ids": []
+      },
+      "hard_confirms": [],
+      "hard_conflicts": [],
+      "score": -2.42,
+      "contributions": [
+        {
+          "signal": "exact_legal_name_base",
+          "value": true,
+          "contribution": 15
+        },
+        {
+          "signal": "levenshtein_ratio",
+          "value": 0.84,
+          "contribution": 10.08
+        },
+        {
+          "signal": "token_jaccard",
+          "value": 0.75,
+          "contribution": 7.5
+        },
+        {
+          "signal": "jurisdiction_conflict",
+          "value": true,
+          "contribution": -35
+        }
+      ],
+      "guard_events": [],
+      "decision": "REJECT",
+      "decision_reason": "score_threshold",
+      "review_required": false,
+      "adjudication_status": "DETERMINISTIC_ONLY",
+      "candidate_source": "same_legal_name_base"
+    }
+  ],
+  "summary": {
+    "candidate_count": 1,
+    "accept_count": 0,
+    "review_count": 0,
+    "reject_count": 1
+  }
+}

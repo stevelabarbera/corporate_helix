@@ -1,0 +1,304 @@
+{
+  "company": "Sony Group Corp",
+  "cik": "313838",
+  "filings": [
+    {
+      "accession": "0001193125-26-274893",
+      "filing_date": "2026-06-18",
+      "form_type": "20-F",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/313838/000119312526274893/d28719d20f.htm",
+      "extraction_method": "20f_ownership_table",
+      "candidate_table_diagnostics": [
+        {
+          "table_index": 74,
+          "score": 52,
+          "row_count": 29,
+          "header": "name of company | country of incorporation /residence | (as of march 31, 2026) percentage owned | sony interactive entertainment inc. | japan | 100.0"
+        },
+        {
+          "table_index": 844,
+          "score": 52,
+          "row_count": 24,
+          "header": "name of company | country of incorporation /residence | (as of march 31, 2026) percentage owned | sony interactive entertainment inc. | japan | 100.0"
+        },
+        {
+          "table_index": 76,
+          "score": 12,
+          "row_count": 25,
+          "header": "facility or subsidiary name (primary location) | segment | details | carrying amount (yen in millions) | number of employees*2 | land (area (thousand square meters)) | buildings | machinery, equipment and other assets* 1 | right-of-use assets"
+        },
+        {
+          "table_index": 29,
+          "score": 7,
+          "row_count": 26,
+          "header": "item 12. description of securities other than equity securities | 106 | a. debt securities | 106"
+        },
+        {
+          "table_index": 238,
+          "score": 7,
+          "row_count": 15,
+          "header": "year granted (fiscal year ended march 31) | total number of shares subject to stock acquisition rights*1 | exercise price per share | (in thousands)"
+        },
+        {
+          "table_index": 393,
+          "score": 7,
+          "row_count": 38,
+          "header": "yen in millions | fiscal year ended march 31"
+        },
+        {
+          "table_index": 394,
+          "score": 7,
+          "row_count": 25,
+          "header": "yen in millions | fiscal year ended march 31"
+        },
+        {
+          "table_index": 395,
+          "score": 7,
+          "row_count": 33,
+          "header": "yen in millions | note | common stock | additional paid-in capital | retained earnings | accumulated other comprehensive income | treasury stock, at cost | sony group corporation’s stockholders’ equity | noncontrolling interests | total equity"
+        },
+        {
+          "table_index": 396,
+          "score": 7,
+          "row_count": 18,
+          "header": "yen in millions | note | common stock | additional paid-in capital | retained earnings | accumulated other comprehensive income | accumulated other comprehensive income directly related to disposal groups classified as held for distribution to owners | treasury stock, at cost | sony group corporatio"
+        },
+        {
+          "table_index": 398,
+          "score": 7,
+          "row_count": 30,
+          "header": "yen in millions | fiscal year ended march 31"
+        },
+        {
+          "table_index": 538,
+          "score": 7,
+          "row_count": 49,
+          "header": "yen in millions | march 31, 2025"
+        },
+        {
+          "table_index": 543,
+          "score": 7,
+          "row_count": 30,
+          "header": "yen in millions | fiscal year ended march 31, 2026"
+        }
+      ],
+      "selected_table": {
+        "table_index": 74,
+        "score": 52,
+        "duplicate_tables": [
+          {
+            "table_index": 844,
+            "score": 52,
+            "row_count": 24,
+            "overlap_ratio": 1.0
+          }
+        ]
+      },
+      "extracted_rows": [
+        [
+          "Name of company",
+          "",
+          "Country of incorporation /residence",
+          "",
+          "(As of March 31, 2026) Percentage owned"
+        ],
+        [
+          "Sony Interactive Entertainment Inc.",
+          "",
+          "Japan",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Music Entertainment (Japan) Inc.",
+          "",
+          "Japan",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Corporation",
+          "",
+          "Japan",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Global Manufacturing & Operations Corporation",
+          "",
+          "Japan",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Network Communications Inc.",
+          "",
+          "Japan",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Marketing Inc.",
+          "",
+          "Japan",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Semiconductor Solutions Corporation",
+          "",
+          "Japan",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Semiconductor Manufacturing Corporation",
+          "",
+          "Japan",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Semiconductor Energy Management Corporation",
+          "",
+          "Japan",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Storage Media Corporation",
+          "",
+          "Japan",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Global Solutions Inc.",
+          "",
+          "Japan",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Corporation of America",
+          "",
+          "U.S.A.",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Interactive Entertainment LLC",
+          "",
+          "U.S.A.",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Music Entertainment",
+          "",
+          "U.S.A.",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Music Publishing LLC",
+          "",
+          "U.S.A.",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Pictures Entertainment Inc.",
+          "",
+          "U.S.A.",
+          "",
+          "100.0"
+        ],
+        [
+          "Columbia Pictures Industries, Inc.",
+          "",
+          "U.S.A.",
+          "",
+          "100.0"
+        ],
+        [
+          "CPT Holdings, Inc.",
+          "",
+          "U.S.A.",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Electronics Inc.",
+          "",
+          "U.S.A.",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Capital Corporation",
+          "",
+          "U.S.A.",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Interactive Entertainment Europe Ltd.",
+          "",
+          "U.K.",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Europe B.V.",
+          "",
+          "U.K.",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Global Treasury Services Plc",
+          "",
+          "U.K.",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Overseas Holding B.V.",
+          "",
+          "Netherlands",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony (China) Limited",
+          "",
+          "China",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony EMCS (Malaysia) Sdn. Bhd.",
+          "",
+          "Malaysia",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Electronics (Singapore) Pte. Ltd.",
+          "",
+          "Singapore",
+          "",
+          "100.0"
+        ],
+        [
+          "Sony Device Technology (Thailand) Co., Ltd.",
+          "",
+          "Thailand",
+          "",
+          "100.0"
+        ]
+      ]
+    }
+  ]
+}
