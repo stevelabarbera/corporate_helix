@@ -31,9 +31,9 @@ def dedupe_ciks(es):
 
 def find_cik(query,user_agent):
     """Tiered CIK resolution (exact ticker -> exact title -> normalized title
-    -> substring), same logic proven in fetch_edgar.py v4. Replaces the old
-    KNOWN_COMPANIES hardcoded dict so this works for any filer, not just the
-    Broadcom/VMware benchmark pair."""
+    -> word-boundary substring), same logic proven in fetch_edgar.py v4.
+    Replaces the old KNOWN_COMPANIES hardcoded dict so this works for any
+    filer, not just the Broadcom/VMware benchmark pair."""
     es=list(json.loads(get(f"{SEC_DATA.replace('data.sec.gov','www.sec.gov')}/files/company_tickers.json",user_agent)).values())
     q=query.strip()
     if q.isdigit():
@@ -46,7 +46,14 @@ def find_cik(query,user_agent):
     nq=norm_name(q)
     x=[e for e in es if norm_name(str(e.get("title","")))==nq]
     if x: return dedupe_ciks(x)
-    return dedupe_ciks([e for e in es if nq and nq in norm_name(str(e.get("title","")))])
+    # Word-boundary substring match, NOT plain "in" containment — plain
+    # containment matched "lumen" inside "lumentum" (Lumentum Holdings Inc.,
+    # a real but entirely unrelated company) purely because the letters
+    # happen to line up, a genuine false-positive found during testing.
+    if not nq:
+        return []
+    pat = re.compile(r"\b" + re.escape(nq) + r"\b")
+    return dedupe_ciks([e for e in es if pat.search(norm_name(str(e.get("title",""))))])
 
 # --- Party extraction ---------------------------------------------------
 # SEC 8-Ks almost universally define parties with a legal-name + defined-term
@@ -189,14 +196,40 @@ def infer_candidates(section, filing_date, accession, source_url, filer_official
     # assign acquirer/target roles. Carry whatever defined parties we found
     # so a reviewer has real names to look at, rather than nothing — but
     # never assert a role we didn't actually match.
+    #
+    # DIVESTITURE NOTE: tested against real Lumen->Brightspeed and
+    # Lumen->Colt divestiture filings. Deliberately NOT attempting automatic
+    # buyer extraction here — testing found the defined-party regex latches
+    # onto the wrong entity when a nested appositive clause sits between the
+    # real buyer and its defined term (e.g. captured "Apollo Global
+    # Management, Inc." as the Purchaser when the actual transacting buyer
+    # was "Connect Holding LLC", with Apollo merely being the PE firm behind
+    # the buyer's funds). That's a subtly-wrong, plausible-looking answer —
+    # worse than an honest miss, since it could pass review unnoticed. So:
+    # flag likely divestitures clearly for a human to confirm the buyer,
+    # rather than asserting one that might be wrong. Revisit if/when a more
+    # robust party-extraction approach (real NER, not regex) is in place.
     if not resolved:
         low = txt.casefold()
-        if any(x in low for x in (
+        is_likely_divestiture = any(x in low for x in (
+            "sale of", "sold to", "divesting", "divestiture", "disposition of assets",
+            "\"sellers\"", "\u201csellers\u201d", "\"purchaser\"", "\u201cpurchaser\u201d"
+        ))
+        if is_likely_divestiture or any(x in low for x in (
             "merger agreement", "agreement and plan of merger", "acquisition",
             "acquired", "completed the acquisition", "consummated the merger"
         )):
-            add("M&A_CANDIDATE", "REVIEW",
-                "M&A language detected; parties could not be confidently assigned roles from filing text.",
+            reason = "M&A language detected; parties could not be confidently assigned roles from filing text."
+            if is_likely_divestiture:
+                reason = (
+                    "Likely DIVESTITURE (filer appears to be the SELLER, not "
+                    "acquirer) — buyer name not auto-extracted because nested "
+                    "appositive clauses in this kind of filing can cause "
+                    "misattribution (see code comment). Manually confirm the "
+                    "buyer from candidate_parties before treating any of "
+                    "these as the transacting party."
+                )
+            add("M&A_CANDIDATE", "REVIEW", reason,
                 candidate_parties=[f for _, f in defined_parties] or None)
 
     return events
@@ -251,9 +284,20 @@ def main():
         if not matches:
             raise SystemExit(f"No CIK found for '{a.company}'. Supply --cik directly.")
         if len(matches) > 1:
-            print(f"Multiple matches for '{a.company}', using first:", file=__import__("sys").stderr)
-            for m in matches:
-                print(f"  - {m['title']} (CIK {m['cik_str']}, tickers {m.get('tickers', [])})", file=__import__("sys").stderr)
+            # Was: silently used matches[0] with a stderr-only warning. That's
+            # a silent-wrong-data risk when two companies share a word (e.g.
+            # a hypothetical second "Lumen ___" company) -- indistinguishable
+            # from "fewer real results" if stderr isn't visible. Refusing and
+            # requiring --cik turns a silent bad pick into a loud, obvious
+            # stop. See test_event_extraction.py::run_multi_match_regression.
+            lines = "\n".join(
+                f"  - {m['title']} (CIK {m['cik_str']}, tickers {m.get('tickers', [])})"
+                for m in matches
+            )
+            raise SystemExit(
+                f"Ambiguous company '{a.company}', {len(matches)} matches found:\n{lines}\n"
+                f"Re-run with --cik <CIK> to disambiguate."
+            )
         cik = str(matches[0]["cik_str"])
         filer_official_name = matches[0]["title"]
 
