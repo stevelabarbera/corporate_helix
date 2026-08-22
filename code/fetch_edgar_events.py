@@ -12,12 +12,194 @@ from html import unescape
 SEC_DATA="https://data.sec.gov"
 SEC_ARCH="https://www.sec.gov/Archives/edgar/data"
 
-KNOWN_COMPANIES={
-    "broadcom":{"cik":"1730168","name":"Broadcom Inc."},
-    "broadcom inc":{"cik":"1730168","name":"Broadcom Inc."},
-    "vmware":{"cik":"1124610","name":"VMware, Inc."},
-    "vmware inc":{"cik":"1124610","name":"VMware, Inc."},
-}
+SUFFIXES={"corp","corporation","inc","incorporated","company","co","limited","ltd","plc"}
+
+def norm_name(s):
+    t=re.sub(r"[^a-z0-9]+"," ",s.casefold()).split()
+    while t and t[-1] in SUFFIXES: t.pop()
+    return " ".join(t)
+
+def dedupe_ciks(es):
+    d={}
+    for e in es:
+        k=str(e["cik_str"])
+        if k not in d:
+            d[k]=dict(e); d[k]["tickers"]=[]
+        tk=e.get("ticker")
+        if tk and tk not in d[k]["tickers"]: d[k]["tickers"].append(tk)
+    return list(d.values())
+
+def find_cik(query,user_agent):
+    """Tiered CIK resolution (exact ticker -> exact title -> normalized title
+    -> substring), same logic proven in fetch_edgar.py v4. Replaces the old
+    KNOWN_COMPANIES hardcoded dict so this works for any filer, not just the
+    Broadcom/VMware benchmark pair."""
+    es=list(json.loads(get(f"{SEC_DATA.replace('data.sec.gov','www.sec.gov')}/files/company_tickers.json",user_agent)).values())
+    q=query.strip()
+    if q.isdigit():
+        m=dedupe_ciks([e for e in es if str(e["cik_str"])==str(int(q))])
+        return m
+    x=[e for e in es if str(e.get("ticker","")).casefold()==q.casefold()]
+    if x: return dedupe_ciks(x)
+    x=[e for e in es if str(e.get("title","")).strip().casefold()==q.casefold()]
+    if x: return dedupe_ciks(x)
+    nq=norm_name(q)
+    x=[e for e in es if norm_name(str(e.get("title","")))==nq]
+    if x: return dedupe_ciks(x)
+    return dedupe_ciks([e for e in es if nq and nq in norm_name(str(e.get("title","")))])
+
+# --- Party extraction ---------------------------------------------------
+# SEC 8-Ks almost universally define parties with a legal-name + defined-term
+# pattern: `Full Legal Name (the "ShortName")` or `Full Legal Name ("ShortName")`.
+# This is a much stronger, more general signal than guessing from
+# capitalization or hardcoding company names — it's how the filings define
+# their own vocabulary, for any filer.
+DEFINED_PARTY_RE = re.compile(
+    r"([A-Z][A-Za-z0-9&,\.\-\' ]{2,90}?),?\s*(?:a [^,\(\)]{3,60}?,\s*)?\((?:the\s+)?[\"\u201c]([A-Za-z0-9 &\-\.]{2,40})[\"\u201d]\)"
+)
+
+def extract_defined_parties(text):
+    """Returns list of (full_name, short_name) in order of first appearance,
+    deduplicated by short_name."""
+    seen = {}
+    for m in DEFINED_PARTY_RE.finditer(text):
+        full, short = m.group(1).strip(), m.group(2).strip()
+        # The capture is greedy back to the nearest sentence-ish boundary,
+        # which sometimes drags in a leading date fragment ("On November 22,
+        # 2023, Broadcom Inc." instead of just "Broadcom Inc."). Strip
+        # anything up through a trailing 4-digit year + comma if present.
+        full = re.sub(r"^.*\b(?:19|20)\d{2},\s*", "", full)
+        if short not in seen:
+            seen[short] = full
+    return list(seen.items())
+
+def find_filer_short_name(defined_parties, filer_official_name):
+    """Match the filer's own resolved SEC name against the defined parties
+    found in the text, so we know which defined term IS the filer (acquirer
+    vs target direction depends on this)."""
+    filer_norm = norm_name(filer_official_name)
+    for short, full in defined_parties:
+        if norm_name(full) == filer_norm or norm_name(short) == filer_norm:
+            return short, full
+    # Loose fallback: first token match (e.g. "Broadcom" in "Broadcom Inc.")
+    filer_first_word = filer_norm.split()[0] if filer_norm else ""
+    for short, full in defined_parties:
+        if filer_first_word and filer_first_word in norm_name(full):
+            return short, full
+    return None, None
+
+ACQUIRED_OF_RE = re.compile(r"(?i)\b(?:completed|consummated|closed)\b[^.]{0,80}?\bacquisition of\s+([A-Za-z0-9 &\-\.\']{2,60})")
+ACQUIRED_BY_RE = re.compile(r"(?i)\bacqui(?:red|sition)\b[^.]{0,60}?\bby\s+([A-Za-z0-9 &\-\.\']{2,60})")
+AGREED_ACQUIRE_RE = re.compile(r"(?i)\bagree(?:d|ment)\b[^.]{0,120}?\bacquire\s+([A-Za-z0-9 &\-\.\']{2,60})")
+MERGER_WITH_RE = re.compile(r"(?i)\bentered into\b[^.]{0,60}?\b(?:agreement and plan of merger|merger agreement)\b[^.]{0,60}?\bwith\s+([A-Za-z0-9 &\-\.\']{2,60})")
+PENDING_ACQUISITION_RE = re.compile(r"(?i)\bpending acquisition\b[^.]{0,60}?\bof\s+([A-Za-z0-9 &\-\.\']{2,60})")
+MERGER_RE = re.compile(r"(?i)\bagreement and plan of merger\b")
+
+def infer_candidates(section, filing_date, accession, source_url, filer_official_name):
+    txt = section["text"]
+    events = []
+
+    def add(kind, confidence, reason, acquirer=None, target=None, subject=None, result=None, candidate_parties=None):
+        events.append({
+            "event_type": kind, "event_date": filing_date,
+            "acquirer": acquirer, "target": target, "subject": subject, "result_entity": result,
+            "confidence": confidence, "reason": reason,
+            "candidate_parties": candidate_parties,
+            "sec_item": section["item"], "accession": accession, "source_url": source_url
+        })
+
+    defined_parties = extract_defined_parties(txt)
+    filer_short, filer_full = find_filer_short_name(defined_parties, filer_official_name)
+    other_parties = [(s, f) for s, f in defined_parties if s != filer_short]
+
+    # Try to resolve acquirer/target direction using the filer's own identity
+    # plus directional action phrases. Only assert a role if we can match a
+    # defined party's short name inside the action phrase's captured text —
+    # if the captured text doesn't correspond to a defined party we found,
+    # we don't trust it as a name (could be truncated mid-sentence garbage).
+    def match_captured_to_party(captured):
+        cap_norm = norm_name(captured)
+        for short, full in other_parties:
+            if norm_name(short) in cap_norm or norm_name(full)[:len(cap_norm)] == cap_norm[:len(norm_name(full))]:
+                return full
+        return None
+
+    resolved = False
+    if filer_short:
+        m = ACQUIRED_OF_RE.search(txt)
+        if m:
+            target = match_captured_to_party(m.group(1))
+            if target:
+                add("ACQUIRED", "HIGH",
+                    f"Filer ({filer_full}) named as acquirer via 'completed acquisition of' language; target matched to a defined party.",
+                    acquirer=filer_full, target=target)
+                resolved = True
+
+        if not resolved:
+            m = ACQUIRED_BY_RE.search(txt)
+            if m:
+                acquirer = match_captured_to_party(m.group(1))
+                if acquirer:
+                    add("ACQUIRED", "HIGH",
+                        f"Filer ({filer_full}) named as target via 'acquired by' language; acquirer matched to a defined party.",
+                        acquirer=acquirer, target=filer_full)
+                    resolved = True
+
+        if not resolved:
+            m = PENDING_ACQUISITION_RE.search(txt)
+            if m:
+                target = match_captured_to_party(m.group(1))
+                if target:
+                    add("AGREED_TO_ACQUIRE", "MEDIUM",
+                        f"Filing references a 'pending acquisition' of a party matched to a defined party (corroborating, not a fresh agreement-execution statement).",
+                        acquirer=filer_full, target=target)
+                    resolved = True
+
+        if not resolved and MERGER_RE.search(txt):
+            m = AGREED_ACQUIRE_RE.search(txt)
+            if m:
+                target = match_captured_to_party(m.group(1))
+                if target:
+                    add("AGREED_TO_ACQUIRE", "HIGH",
+                        f"Merger agreement language with filer ({filer_full}) as acquirer; target matched to a defined party.",
+                        acquirer=filer_full, target=target)
+                    resolved = True
+
+            if not resolved:
+                m = MERGER_WITH_RE.search(txt)
+                if m:
+                    target = match_captured_to_party(m.group(1))
+                    if target:
+                        add("AGREED_TO_ACQUIRE", "HIGH",
+                            f"Filer ({filer_full}) entered into merger agreement 'with' a party matched to a defined party.",
+                            acquirer=filer_full, target=target)
+                        resolved = True
+
+            if not resolved and len(other_parties) == 1:
+                # Merger agreement + exactly one other named party + filer
+                # present, but direction phrase didn't match cleanly. Still
+                # better than nothing, but lower confidence since direction
+                # is inferred rather than matched to explicit language.
+                add("AGREED_TO_ACQUIRE", "MEDIUM",
+                    f"Merger agreement language between filer ({filer_full}) and one other defined party; direction inferred, not explicitly matched.",
+                    acquirer=filer_full, target=other_parties[0][1])
+                resolved = True
+
+    # Conservative fallback: M&A language detected but we couldn't confidently
+    # assign acquirer/target roles. Carry whatever defined parties we found
+    # so a reviewer has real names to look at, rather than nothing — but
+    # never assert a role we didn't actually match.
+    if not resolved:
+        low = txt.casefold()
+        if any(x in low for x in (
+            "merger agreement", "agreement and plan of merger", "acquisition",
+            "acquired", "completed the acquisition", "consummated the merger"
+        )):
+            add("M&A_CANDIDATE", "REVIEW",
+                "M&A language detected; parties could not be confidently assigned roles from filing text.",
+                candidate_parties=[f for _, f in defined_parties] or None)
+
+    return events
 
 def get(url,user_agent):
     req=urllib.request.Request(url,headers={
@@ -50,39 +232,6 @@ def item_sections(text):
         out.append({"item":h.group(1),"text":body[:50000]})
     return out
 
-def infer_candidates(section,filing_date,accession,source_url):
-    txt=section["text"]
-    low=txt.casefold()
-    events=[]
-    def add(kind,confidence,reason,acquirer=None,target=None,subject=None,result=None):
-        events.append({
-          "event_type":kind,"event_date":filing_date,
-          "acquirer":acquirer,"target":target,"subject":subject,"result_entity":result,
-          "confidence":confidence,"reason":reason,
-          "sec_item":section["item"],"accession":accession,"source_url":source_url
-        })
-
-    # Broadcom/VMware benchmark-specific extraction, intentionally conservative.
-    if "broadcom" in low and "vmware" in low:
-        if section["item"]=="1.01" and any(x in low for x in ("merger agreement","agreement and plan of merger","acquire vmware")):
-            add("AGREED_TO_ACQUIRE","HIGH","Broadcom and VMware named in Item 1.01 acquisition/merger agreement.",
-                "Broadcom Inc.","VMware, Inc.")
-        if section["item"]=="2.01" and any(x in low for x in ("completed","completion","consummated","consummation","acquisition")):
-            add("ACQUIRED","HIGH","Broadcom and VMware named in Item 2.01 completion/consummation language.",
-                "Broadcom Inc.","VMware, Inc.")
-        if "vmware llc" in low and ("converted" in low or "conversion" in low):
-            add("CONVERTED_TO","HIGH","Filing describes VMware legal-form conversion.",
-                subject="VMware, Inc.",result="VMware LLC")
-
-    # Generic M&A candidate signal for future companies; REVIEW by default.
-    if not events and any(x in low for x in (
-        "merger agreement","agreement and plan of merger","acquisition",
-        "acquired","completed the acquisition","consummated the merger"
-    )):
-        add("M&A_CANDIDATE","REVIEW","M&A language detected; parties require adjudication.")
-
-    return events
-
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--company",required=True)
@@ -94,12 +243,22 @@ def main():
     ap.add_argument("--out",required=True)
     a=ap.parse_args()
 
-    key=a.company.strip().casefold().replace(",","").replace(".","")
-    known=KNOWN_COMPANIES.get(key)
-    cik=(a.cik or (known or {}).get("cik"))
-    if not cik:
-        raise SystemExit("Unknown company. Supply --cik.")
+    if a.cik:
+        cik = a.cik
+        filer_official_name = a.company
+    else:
+        matches = find_cik(a.company, a.user_agent)
+        if not matches:
+            raise SystemExit(f"No CIK found for '{a.company}'. Supply --cik directly.")
+        if len(matches) > 1:
+            print(f"Multiple matches for '{a.company}', using first:", file=__import__("sys").stderr)
+            for m in matches:
+                print(f"  - {m['title']} (CIK {m['cik_str']}, tickers {m.get('tickers', [])})", file=__import__("sys").stderr)
+        cik = str(matches[0]["cik_str"])
+        filer_official_name = matches[0]["title"]
+
     cik10=str(int(cik)).zfill(10)
+    print(f"Resolved filer: {filer_official_name} (CIK {cik10})")
 
     sub=json.loads(get(f"{SEC_DATA}/submissions/CIK{cik10}.json",a.user_agent))
     recent=sub["filings"]["recent"]
@@ -121,7 +280,7 @@ def main():
             wanted=[s for s in secs if s["item"] in ("1.01","2.01")]
             events=[]
             for s in wanted:
-                events.extend(infer_candidates(s,fd,acc,url))
+                events.extend(infer_candidates(s,fd,acc,url,filer_official_name))
             rows.append({
               "company":a.company,"cik":cik10,"form":form,"filing_date":fd,
               "accession":acc,"items":items,"primary_document":primary,
