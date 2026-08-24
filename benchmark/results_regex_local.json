@@ -1,0 +1,311 @@
+{
+  "backend": "regex",
+  "summary": {
+    "org_macro_f1": 0.08333333333333333,
+    "org_micro_tp": 2,
+    "org_micro_fp": 18,
+    "org_micro_fn": 16,
+    "alias_macro_f1": 0.25595238095238093,
+    "alias_micro_tp": 2,
+    "alias_micro_fp": 1,
+    "alias_micro_fn": 18,
+    "event_macro_f1": 0.3333333333333333,
+    "event_micro_tp": 0,
+    "event_micro_fp": 15,
+    "event_micro_fn": 11
+  },
+  "cases": [
+    {
+      "case": "cisco_agreement_2023",
+      "org": {
+        "tp": 0,
+        "fp": 4,
+        "fn": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "alias": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 4,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "event": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "predicted_orgs": [
+        "Cisco Systems, Inc",
+        "Section 262 of the General Corporation",
+        "Spirit Merger Corp",
+        "Splunk Inc"
+      ],
+      "predicted_aliases": {},
+      "predicted_events": [
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Splunk",
+          "object": "the Company"
+        }
+      ]
+    },
+    {
+      "case": "cisco_closing_2024",
+      "org": {
+        "tp": 0,
+        "fp": 4,
+        "fn": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "alias": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "event": {
+        "tp": 0,
+        "fp": 2,
+        "fn": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "predicted_orgs": [
+        "Cisco Systems, Inc",
+        "Section 262 of the General Corporation",
+        "Spirit Merger Corp",
+        "Splunk Inc"
+      ],
+      "predicted_aliases": {},
+      "predicted_events": [
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Merger Sub",
+          "object": "Splunk"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Splunk",
+          "object": "the Company"
+        }
+      ]
+    },
+    {
+      "case": "cisco_financing_negative_2024",
+      "org": null,
+      "alias": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "event": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "predicted_orgs": [
+        "Barclays Capital Inc",
+        "Cisco Systems, Inc",
+        "Citigroup Global Markets Inc",
+        "Company and BofA Securities, Inc",
+        "Deutsche Bank Securities Inc",
+        "J.P. Morgan Securities LLC",
+        "Spirit Merger Corp",
+        "Splunk Inc",
+        "Wells Fargo Securities, LLC"
+      ],
+      "predicted_aliases": {},
+      "predicted_events": []
+    },
+    {
+      "case": "broadcom_agreement_2022",
+      "org": {
+        "tp": 1,
+        "fp": 5,
+        "fn": 5,
+        "precision": 0.16666666666666666,
+        "recall": 0.16666666666666666,
+        "f1": 0.16666666666666666
+      },
+      "alias": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 6,
+        "precision": 1.0,
+        "recall": 0.14285714285714285,
+        "f1": 0.25
+      },
+      "event": {
+        "tp": 0,
+        "fp": 6,
+        "fn": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "predicted_orgs": [
+        "Barcelona Merger Sub 2, Inc",
+        "Barcelona Merger Sub 3, LLC",
+        "Broadcom Inc",
+        "VMware, Inc",
+        "Verona Holdco, Inc",
+        "Verona Merger Sub, Inc"
+      ],
+      "predicted_aliases": {
+        "Merger Sub 3": "Barcelona Merger Sub 3, LLC"
+      },
+      "predicted_events": [
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Merger Sub 1 will be",
+          "object": "VMware"
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Merger Sub 2 will be",
+          "object": "Holdco"
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "the Holdco Surviving Company will be",
+          "object": "Barcelona Merger Sub 3, LLC"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "VMware continuing as the",
+          "object": "HoldCo"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Holdco continuing as the",
+          "object": "Broadcom"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Merger Sub 3 continuing as the",
+          "object": "Broadcom"
+        }
+      ]
+    },
+    {
+      "case": "broadcom_closing_2023",
+      "org": {
+        "tp": 1,
+        "fp": 5,
+        "fn": 5,
+        "precision": 0.16666666666666666,
+        "recall": 0.16666666666666666,
+        "f1": 0.16666666666666666
+      },
+      "alias": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 5,
+        "precision": 1.0,
+        "recall": 0.16666666666666666,
+        "f1": 0.2857142857142857
+      },
+      "event": {
+        "tp": 0,
+        "fp": 6,
+        "fn": 6,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "predicted_orgs": [
+        "Barcelona Merger Sub 2, Inc",
+        "Barcelona Merger Sub 3, LLC",
+        "Broadcom Inc",
+        "VMware, Inc",
+        "Verona Holdco, Inc",
+        "Verona Merger Sub, Inc"
+      ],
+      "predicted_aliases": {
+        "Merger Sub 3": "Barcelona Merger Sub 3, LLC"
+      },
+      "predicted_events": [
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Merger Sub 1",
+          "object": "VMware"
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Merger Sub 2",
+          "object": "Holdco"
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "the Holdco Surviving Company",
+          "object": "Barcelona Merger Sub 3, LLC"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "VMware continuing as the",
+          "object": "Holdco"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Holdco continuing as the",
+          "object": "Broadcom"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Merger Sub 3 continuing as the",
+          "object": "Broadcom"
+        }
+      ]
+    },
+    {
+      "case": "broadcom_financing_negative_2023",
+      "org": null,
+      "alias": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "event": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "predicted_orgs": [
+        "Barcelona Merger Sub 2, Inc",
+        "Barcelona Merger Sub 3, LLC",
+        "Broadcom Inc",
+        "VMware, Inc",
+        "Verona Holdco, Inc",
+        "Verona Merger Sub, Inc"
+      ],
+      "predicted_aliases": {
+        "Merger Agreement": "Barcelona Merger Sub 3, LLC"
+      },
+      "predicted_events": []
+    }
+  ]
+}

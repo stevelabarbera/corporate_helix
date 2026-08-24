@@ -1,0 +1,164 @@
+{
+  "schema_version": "legal-benchmark-v1",
+  "cases": [
+    {
+      "id": "cisco_agreement_2023",
+      "company": "Cisco",
+      "accession": "0001193125-23-239165",
+      "item": "1.01",
+      "expected_orgs": [
+        "Cisco Systems, Inc.",
+        "Splunk Inc.",
+        "Spirit Merger Corp."
+      ],
+      "expected_aliases": {
+        "Cisco": "Cisco Systems, Inc.",
+        "Company": "Cisco Systems, Inc.",
+        "Splunk": "Splunk Inc.",
+        "Merger Sub": "Spirit Merger Corp."
+      },
+      "expected_events": [
+        {
+          "event_type": "AGREED_TO_ACQUIRE",
+          "subject": "Cisco Systems, Inc.",
+          "object": "Splunk Inc."
+        }
+      ]
+    },
+    {
+      "id": "cisco_closing_2024",
+      "company": "Cisco",
+      "accession": "0001193125-24-070175",
+      "item": "2.01",
+      "expected_orgs": [
+        "Cisco Systems, Inc.",
+        "Splunk Inc.",
+        "Spirit Merger Corp."
+      ],
+      "expected_aliases": {
+        "Company": "Cisco Systems, Inc.",
+        "Splunk": "Splunk Inc.",
+        "Merger Sub": "Spirit Merger Corp."
+      },
+      "expected_events": [
+        {
+          "event_type": "ACQUIRED",
+          "subject": "Cisco Systems, Inc.",
+          "object": "Splunk Inc."
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Spirit Merger Corp.",
+          "object": "Splunk Inc."
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Splunk Inc.",
+          "object": "Cisco Systems, Inc."
+        }
+      ]
+    },
+    {
+      "id": "cisco_financing_negative_2024",
+      "company": "Cisco",
+      "accession": "0001193125-24-046231",
+      "item": "1.01",
+      "expected_orgs": [],
+      "expected_aliases": {},
+      "expected_events": []
+    },
+    {
+      "id": "broadcom_agreement_2022",
+      "company": "Broadcom",
+      "accession": "0001193125-22-161016",
+      "item": "1.01",
+      "expected_orgs": [
+        "Broadcom Inc.",
+        "VMware, Inc.",
+        "Verona Holdco, Inc.",
+        "Verona Merger Sub, Inc.",
+        "Barcelona Merger Sub 2, Inc.",
+        "Barcelona Merger Sub 3, LLC"
+      ],
+      "expected_aliases": {
+        "Company": "Broadcom Inc.",
+        "Broadcom": "Broadcom Inc.",
+        "VMware": "VMware, Inc.",
+        "Holdco": "Verona Holdco, Inc.",
+        "Merger Sub 1": "Verona Merger Sub, Inc.",
+        "Merger Sub 2": "Barcelona Merger Sub 2, Inc.",
+        "Merger Sub 3": "Barcelona Merger Sub 3, LLC"
+      },
+      "expected_events": [
+        {
+          "event_type": "AGREED_TO_ACQUIRE",
+          "subject": "Broadcom Inc.",
+          "object": "VMware, Inc."
+        }
+      ]
+    },
+    {
+      "id": "broadcom_closing_2023",
+      "company": "Broadcom",
+      "accession": "0001140361-23-054354",
+      "item": "2.01",
+      "expected_orgs": [
+        "Broadcom Inc.",
+        "VMware, Inc.",
+        "Verona Holdco, Inc.",
+        "Verona Merger Sub, Inc.",
+        "Barcelona Merger Sub 2, Inc.",
+        "Barcelona Merger Sub 3, LLC"
+      ],
+      "expected_aliases": {
+        "Broadcom": "Broadcom Inc.",
+        "VMware": "VMware, Inc.",
+        "Holdco": "Verona Holdco, Inc.",
+        "Merger Sub 1": "Verona Merger Sub, Inc.",
+        "Merger Sub 2": "Barcelona Merger Sub 2, Inc.",
+        "Merger Sub 3": "Barcelona Merger Sub 3, LLC"
+      },
+      "expected_events": [
+        {
+          "event_type": "ACQUIRED",
+          "subject": "Broadcom Inc.",
+          "object": "VMware, Inc."
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Verona Merger Sub, Inc.",
+          "object": "VMware, Inc."
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Barcelona Merger Sub 2, Inc.",
+          "object": "Verona Holdco, Inc."
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Verona Holdco, Inc.",
+          "object": "Barcelona Merger Sub 3, LLC"
+        },
+        {
+          "event_type": "CONVERTED_TO",
+          "subject": "VMware, Inc.",
+          "object": "Delaware limited liability company"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Barcelona Merger Sub 3, LLC",
+          "object": "Broadcom Inc."
+        }
+      ]
+    },
+    {
+      "id": "broadcom_financing_negative_2023",
+      "company": "Broadcom",
+      "accession": "0001140361-23-040084",
+      "item": "1.01",
+      "expected_orgs": [],
+      "expected_aliases": {},
+      "expected_events": []
+    }
+  ]
+}
