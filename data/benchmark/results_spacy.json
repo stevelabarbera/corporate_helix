@@ -1,0 +1,485 @@
+{
+  "backend": "spacy",
+  "summary": {
+    "org_macro_f1": 0.15120663650075414,
+    "org_micro_tp": 9,
+    "org_micro_fp": 100,
+    "org_micro_fn": 9,
+    "alias_macro_f1": 0.3111111111111111,
+    "alias_micro_tp": 10,
+    "alias_micro_fp": 25,
+    "alias_micro_fn": 10,
+    "event_macro_f1": 0.46084656084656084,
+    "event_micro_tp": 3,
+    "event_micro_fp": 16,
+    "event_micro_fn": 8
+  },
+  "cases": [
+    {
+      "case": "cisco_agreement_2023",
+      "org": {
+        "tp": 2,
+        "fp": 31,
+        "fn": 1,
+        "precision": 0.06060606060606061,
+        "recall": 0.6666666666666666,
+        "f1": 0.1111111111111111
+      },
+      "alias": {
+        "tp": 2,
+        "fp": 4,
+        "fn": 2,
+        "precision": 0.3333333333333333,
+        "recall": 0.5,
+        "f1": 0.4
+      },
+      "event": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "predicted_orgs": [
+        "Cisco Systems",
+        "Company",
+        "Merger Sub",
+        "SEC",
+        "Spirit Merger Corp.",
+        "Splunk",
+        "Splunk Board Recommendation Splunk",
+        "Splunk Common Stock",
+        "Splunk Inc.",
+        "Splunk\u2019s",
+        "Splunk\u2019s Board of Directors",
+        "Splunk\u2019s Unvested Company Shares",
+        "The Company\u2019s Board of Directors",
+        "The Merger Agreement",
+        "The Splunk Board",
+        "Unvested Company Share",
+        "Unvested Company Shares",
+        "the Effective Time",
+        "the Merger Agreement",
+        "the Merger Agreement by Splunk",
+        "the Merger Agreement by Splunk\u2019s",
+        "the Merger Consideration",
+        "the Proxy Statement that Splunk",
+        "the Splunk Board",
+        "the Splunk Board\u2019s Change of Recommendation",
+        "the Splunk Common Stock",
+        "the State of Delaware",
+        "the U.S. Securities and Exchange Commission",
+        "the \u201c Board \u201d",
+        "the \u201c Effective Time",
+        "the \u201c Merger Agreement",
+        "the \u201c Merger Consideration",
+        "the \u201c Splunk Board"
+      ],
+      "predicted_aliases": {
+        "Splunk": "Splunk Inc.",
+        "Merger Sub": "Spirit Merger Corp.",
+        "Board": "The Company\u2019s Board of Directors",
+        "DGCL": "the State of Delaware",
+        "Splunk Board": "Splunk\u2019s Board of Directors",
+        "SEC": "the U.S. Securities and Exchange Commission"
+      },
+      "predicted_events": [
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Splunk Inc.",
+          "object": "the Company"
+        }
+      ]
+    },
+    {
+      "case": "cisco_closing_2024",
+      "org": {
+        "tp": 2,
+        "fp": 13,
+        "fn": 1,
+        "precision": 0.13333333333333333,
+        "recall": 0.6666666666666666,
+        "f1": 0.2222222222222222
+      },
+      "alias": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.6666666666666666,
+        "f1": 0.8
+      },
+      "event": {
+        "tp": 1,
+        "fp": 1,
+        "fn": 2,
+        "precision": 0.5,
+        "recall": 0.3333333333333333,
+        "f1": 0.4
+      },
+      "predicted_orgs": [
+        "Cisco Systems",
+        "Company",
+        "Merger Sub",
+        "Spirit Merger Corp.",
+        "Splunk Common Stock",
+        "Splunk Inc.",
+        "Splunk\u2019s",
+        "The Merger Consideration",
+        "the Effective Time",
+        "the Merger Agreement",
+        "the Merger Consideration",
+        "the Splunk Common Stock",
+        "the \u201c Effective Time",
+        "the \u201c Merger Agreement",
+        "the \u201c Merger Consideration"
+      ],
+      "predicted_aliases": {
+        "Splunk": "Splunk Inc.",
+        "Merger Sub": "Spirit Merger Corp."
+      },
+      "predicted_events": [
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Spirit Merger Corp.",
+          "object": "Splunk Inc."
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Splunk Inc.",
+          "object": "the Company"
+        }
+      ]
+    },
+    {
+      "case": "cisco_financing_negative_2024",
+      "org": null,
+      "alias": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "event": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "predicted_orgs": [
+        "Barclays Capital Inc.",
+        "BofA Securities, Inc.",
+        "Cisco Systems",
+        "Citigroup Global Markets Inc.",
+        "Company",
+        "Deutsche Bank Securities Inc.",
+        "Indenture",
+        "J.P. Morgan Securities",
+        "LLC",
+        "SEC",
+        "Spirit Merger Corp.",
+        "Splunk Inc.",
+        "The Bank of New York Mellon Trust Company",
+        "Trustee",
+        "Wells Fargo Securities",
+        "the Base Indenture",
+        "the Company\u2019s Registration Statement on Form S-3 (File No",
+        "the First Supplemental Indenture",
+        "the Securities and Exchange Commission",
+        "the Special Mandatory Redemption Date",
+        "the Special Mandatory Redemption End Date",
+        "the \u201cFirst Supplemental Indenture"
+      ],
+      "predicted_aliases": {
+        "SEC": "the Securities and Exchange Commission"
+      },
+      "predicted_events": []
+    },
+    {
+      "case": "broadcom_agreement_2022",
+      "org": {
+        "tp": 3,
+        "fp": 30,
+        "fn": 3,
+        "precision": 0.09090909090909091,
+        "recall": 0.5,
+        "f1": 0.15384615384615385
+      },
+      "alias": {
+        "tp": 4,
+        "fp": 7,
+        "fn": 3,
+        "precision": 0.36363636363636365,
+        "recall": 0.5714285714285714,
+        "f1": 0.4444444444444444
+      },
+      "event": {
+        "tp": 1,
+        "fp": 7,
+        "fn": 0,
+        "precision": 0.125,
+        "recall": 1.0,
+        "f1": 0.2222222222222222
+      },
+      "predicted_orgs": [
+        "Barcelona Merger Sub 2, Inc.",
+        "Barcelona Merger Sub 3",
+        "Broadcom",
+        "Broadcom Common Stock",
+        "Broadcom Inc.",
+        "Broadcom, Merger Sub 2",
+        "Broadcom\u2019s",
+        "Conversion",
+        "Item 1.01 Entry",
+        "LLC",
+        "Merger Sub 3",
+        "SEC",
+        "The Merger Agreement",
+        "Transactions",
+        "VMware",
+        "VMware Common Stock",
+        "VMware, Inc.",
+        "the European Union",
+        "the First Merger",
+        "the Holdco Surviving Company",
+        "the Internal Revenue Code",
+        "the Merger Agreement",
+        "the Outside Date",
+        "the Second Merger",
+        "the Stock Consideration",
+        "the Surviving Company",
+        "the Third Merger",
+        "the U.S. Securities and Exchange Commission",
+        "the United States Hart-Scott-Rodino Antitrust Improvements Act",
+        "the \u201cFirst Merger",
+        "the \u201cHoldco Surviving Company",
+        "the \u201cMerger Agreement",
+        "the \u201cSurviving Company"
+      ],
+      "predicted_aliases": {
+        "Company": "Broadcom Inc.",
+        "Broadcom": "Broadcom Inc.",
+        "VMware": "VMware, Inc.",
+        "Holdco": "VMware",
+        "Merger Sub 2": "Barcelona Merger Sub 2, Inc.",
+        "Merger Sub 3": "LLC",
+        "First Merger": "VMware",
+        "Surviving Company": "the First Merger",
+        "Holdco Surviving Company": "the Second Merger",
+        "VMware Common Stock": "VMware",
+        "SEC": "the U.S. Securities and Exchange Commission"
+      },
+      "predicted_events": [
+        {
+          "event_type": "AGREED_TO_ACQUIRE",
+          "subject": "Broadcom Inc.",
+          "object": "VMware, Inc."
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Merger Sub 1 will be",
+          "object": "VMware, Inc."
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Merger Sub 2 will be",
+          "object": "VMware"
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "the Holdco Surviving Company will be",
+          "object": "LLC"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "VMware continuing as the",
+          "object": "HoldCo"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Holdco continuing as the",
+          "object": "Broadcom Inc."
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Merger Sub 3 continuing as the",
+          "object": "Broadcom Inc."
+        },
+        {
+          "event_type": "CONVERTED_TO",
+          "subject": "VMware, Inc.",
+          "object": "Delaware limited liability company"
+        }
+      ]
+    },
+    {
+      "case": "broadcom_closing_2023",
+      "org": {
+        "tp": 2,
+        "fp": 26,
+        "fn": 4,
+        "precision": 0.07142857142857142,
+        "recall": 0.3333333333333333,
+        "f1": 0.11764705882352941
+      },
+      "alias": {
+        "tp": 2,
+        "fp": 10,
+        "fn": 4,
+        "precision": 0.16666666666666666,
+        "recall": 0.3333333333333333,
+        "f1": 0.2222222222222222
+      },
+      "event": {
+        "tp": 1,
+        "fp": 7,
+        "fn": 5,
+        "precision": 0.125,
+        "recall": 0.16666666666666666,
+        "f1": 0.14285714285714288
+      },
+      "predicted_orgs": [
+        "Barcelona Merger Sub 3",
+        "Broadcom",
+        "Broadcom Common Shares",
+        "Broadcom Inc.",
+        "Broadcom\u2019s Current Report on Form 8-K",
+        "Conversion",
+        "LLC",
+        "Merger Sub 2",
+        "SEC",
+        "VMware",
+        "VMware Common Shares",
+        "VMware, Inc.",
+        "the Cash Consideration",
+        "the Conversion",
+        "the Effective Time",
+        "the First Merger",
+        "the Holdco Surviving Company",
+        "the Merger Agreement",
+        "the Second Merger",
+        "the Stock Consideration",
+        "the Surviving Company",
+        "the U.S. Securities and Exchange Commission",
+        "the VMware Board of Directors",
+        "the \u201cEffective Time",
+        "the \u201cFirst Merger",
+        "the \u201cHoldco Surviving Company",
+        "the \u201cMerger Consideration",
+        "the \u201cSurviving Company"
+      ],
+      "predicted_aliases": {
+        "Broadcom": "Broadcom Inc.",
+        "VMware": "VMware, Inc.",
+        "Holdco": "VMware",
+        "Merger Sub 2": "Broadcom",
+        "Merger Sub 3": "Broadcom",
+        "First Merger": "VMware",
+        "Surviving Company": "the First Merger",
+        "Holdco Surviving Company": "the Second Merger",
+        "Third Merger": "Broadcom",
+        "Mergers": "Broadcom",
+        "VMware Common Share": "VMware",
+        "SEC": "the U.S. Securities and Exchange Commission"
+      },
+      "predicted_events": [
+        {
+          "event_type": "ACQUIRED",
+          "subject": "Broadcom Inc.",
+          "object": "VMware"
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Merger Sub 1",
+          "object": "VMware, Inc."
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Broadcom",
+          "object": "VMware"
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "the Second Merger",
+          "object": "Broadcom"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "VMware continuing as the",
+          "object": "VMware"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Holdco continuing as the",
+          "object": "Broadcom Inc."
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Merger Sub 3 continuing as the",
+          "object": "Broadcom Inc."
+        },
+        {
+          "event_type": "CONVERTED_TO",
+          "subject": "VMware, Inc.",
+          "object": "Delaware limited liability company"
+        }
+      ]
+    },
+    {
+      "case": "broadcom_financing_negative_2023",
+      "org": null,
+      "alias": {
+        "tp": 0,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "event": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "predicted_orgs": [
+        "Bank of America",
+        "Barcelona Merger Sub 2, Inc.",
+        "Barcelona Merger Sub 3",
+        "Broadcom",
+        "Broadcom Inc.",
+        "Broadcom\u2019s Consolidated Interest Coverage Ratio",
+        "Definitive Material Agreement",
+        "Item 1.01 Entry",
+        "LLC",
+        "Term Facilities",
+        "Term Facility",
+        "Term Loan Increase",
+        "VMware",
+        "VMware, Inc.",
+        "the Acquisition",
+        "the Credit Agreement",
+        "the Funding Date",
+        "the Outside Date",
+        "the Term A-2 Facility",
+        "the Term Facilities",
+        "the \u201cEffective Date",
+        "the \u201cFunding Date",
+        "the \u201cMerger Agreement"
+      ],
+      "predicted_aliases": {
+        "Broadcom": "Broadcom Inc.",
+        "VMware": "VMware, Inc.",
+        "Merger Agreement": "LLC"
+      },
+      "predicted_events": []
+    }
+  ]
+}

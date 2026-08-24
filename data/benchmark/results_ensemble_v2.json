@@ -1,0 +1,1770 @@
+{
+  "summary": {
+    "org_macro_f1": 0.9772727272727273,
+    "alias_macro_f1": 0.6538461538461539,
+    "event_macro_f1_all": 0.7948717948717948,
+    "event_macro_f1_positive_only": 0.6923076923076923,
+    "negative_control_fp_rate": 0.0,
+    "runtime_seconds": 1.654671287862584,
+    "weights": {
+      "regex": 0.5,
+      "spacy": 1.0,
+      "legal_rules": 1.25
+    },
+    "threshold": 1.5
+  },
+  "cases": [
+    {
+      "case": "cisco_agreement_2023",
+      "org": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "alias": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "event": {
+        "tp": 1,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666
+      },
+      "events": [
+        {
+          "event_type": "AGREED_TO_ACQUIRE",
+          "subject": "Cisco Systems, Inc.",
+          "object": "Splunk Inc."
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Splunk Inc.",
+          "object": "Cisco Systems, Inc."
+        }
+      ],
+      "fused": {
+        "orgs": [
+          "Cisco Systems, Inc.",
+          "Spirit Merger Corp.",
+          "Splunk Inc."
+        ],
+        "aliases": {
+          "Cisco": "Cisco Systems, Inc.",
+          "Company": "Cisco Systems, Inc.",
+          "Splunk": "Splunk Inc.",
+          "Merger Sub": "Spirit Merger Corp."
+        },
+        "org_votes": {
+          "Cisco Systems, Inc.": 1.75,
+          "Spirit Merger Corp.": 2.75,
+          "Splunk Inc.": 2.75,
+          "Cisco Systems": 1.0,
+          "Company": 1.0,
+          "Merger Sub": 1.0,
+          "SEC": 1.0,
+          "Splunk": 1.0,
+          "Splunk Board Recommendation Splunk": 1.0,
+          "Splunk Common Stock": 1.0,
+          "Splunk\u2019s": 1.0,
+          "Splunk\u2019s Unvested Company Shares": 1.0,
+          "The Splunk Board": 1.0,
+          "Unvested Company Share": 1.0,
+          "Unvested Company Shares": 1.0,
+          "the Effective Time": 1.0,
+          "the Merger Consideration": 1.0,
+          "the Proxy Statement that Splunk": 1.0,
+          "the Splunk Board": 1.0,
+          "the Splunk Board\u2019s Change of Recommendation": 1.0,
+          "the Splunk Common Stock": 1.0,
+          "the State of Delaware": 1.0,
+          "the U.S. Securities and Exchange Commission": 1.0,
+          "the \u201c Board \u201d": 1.0,
+          "the \u201c Effective Time": 1.0,
+          "the \u201c Merger Consideration": 1.0,
+          "the \u201c Splunk Board": 1.0
+        },
+        "org_sources": {
+          "Cisco Systems, Inc.": [
+            "regex",
+            "legal_rules"
+          ],
+          "Spirit Merger Corp.": [
+            "regex",
+            "spacy",
+            "legal_rules"
+          ],
+          "Splunk Inc.": [
+            "regex",
+            "spacy",
+            "legal_rules"
+          ],
+          "Cisco Systems": [
+            "spacy"
+          ],
+          "Company": [
+            "spacy"
+          ],
+          "Merger Sub": [
+            "spacy"
+          ],
+          "SEC": [
+            "spacy"
+          ],
+          "Splunk": [
+            "spacy"
+          ],
+          "Splunk Board Recommendation Splunk": [
+            "spacy"
+          ],
+          "Splunk Common Stock": [
+            "spacy"
+          ],
+          "Splunk\u2019s": [
+            "spacy"
+          ],
+          "Splunk\u2019s Unvested Company Shares": [
+            "spacy"
+          ],
+          "The Splunk Board": [
+            "spacy"
+          ],
+          "Unvested Company Share": [
+            "spacy"
+          ],
+          "Unvested Company Shares": [
+            "spacy"
+          ],
+          "the Effective Time": [
+            "spacy"
+          ],
+          "the Merger Consideration": [
+            "spacy"
+          ],
+          "the Proxy Statement that Splunk": [
+            "spacy"
+          ],
+          "the Splunk Board": [
+            "spacy"
+          ],
+          "the Splunk Board\u2019s Change of Recommendation": [
+            "spacy"
+          ],
+          "the Splunk Common Stock": [
+            "spacy"
+          ],
+          "the State of Delaware": [
+            "spacy"
+          ],
+          "the U.S. Securities and Exchange Commission": [
+            "spacy"
+          ],
+          "the \u201c Board \u201d": [
+            "spacy"
+          ],
+          "the \u201c Effective Time": [
+            "spacy"
+          ],
+          "the \u201c Merger Consideration": [
+            "spacy"
+          ],
+          "the \u201c Splunk Board": [
+            "spacy"
+          ]
+        },
+        "alias_debug": {
+          "Cisco": {
+            "candidate": "Cisco Systems, Inc.",
+            "score": 1.75,
+            "sources": [
+              "regex",
+              "legal_rules"
+            ]
+          },
+          "Company": {
+            "candidate": "Cisco Systems, Inc.",
+            "score": 1.75,
+            "sources": [
+              "regex",
+              "legal_rules"
+            ]
+          },
+          "Splunk": {
+            "candidate": "Splunk Inc.",
+            "score": 2.75,
+            "sources": [
+              "regex",
+              "spacy",
+              "legal_rules"
+            ]
+          },
+          "Merger Sub": {
+            "candidate": "Spirit Merger Corp.",
+            "score": 2.75,
+            "sources": [
+              "regex",
+              "spacy",
+              "legal_rules"
+            ]
+          },
+          "DGCL": {
+            "candidate": "the State of Delaware",
+            "score": 1.0,
+            "sources": [
+              "spacy"
+            ]
+          },
+          "SEC": {
+            "candidate": "the U.S. Securities and Exchange Commission",
+            "score": 1.0,
+            "sources": [
+              "spacy"
+            ]
+          }
+        }
+      },
+      "backend_outputs": {
+        "regex": {
+          "orgs": [
+            "Cisco Systems, Inc.",
+            "Section 262 of the General Corporation",
+            "Spirit Merger Corp.",
+            "Splunk Inc."
+          ],
+          "aliases": {
+            "Cisco": "Cisco Systems, Inc.",
+            "Company": "Cisco Systems, Inc.",
+            "Splunk": "Splunk Inc.",
+            "Merger Sub": "Spirit Merger Corp."
+          }
+        },
+        "spacy": {
+          "orgs": [
+            "Cisco Systems",
+            "Company",
+            "Merger Sub",
+            "SEC",
+            "Spirit Merger Corp.",
+            "Splunk",
+            "Splunk Board Recommendation Splunk",
+            "Splunk Common Stock",
+            "Splunk Inc.",
+            "Splunk\u2019s",
+            "Splunk\u2019s Board of Directors",
+            "Splunk\u2019s Unvested Company Shares",
+            "The Company\u2019s Board of Directors",
+            "The Merger Agreement",
+            "The Splunk Board",
+            "Unvested Company Share",
+            "Unvested Company Shares",
+            "the Effective Time",
+            "the Merger Agreement",
+            "the Merger Agreement by Splunk",
+            "the Merger Agreement by Splunk\u2019s",
+            "the Merger Consideration",
+            "the Proxy Statement that Splunk",
+            "the Splunk Board",
+            "the Splunk Board\u2019s Change of Recommendation",
+            "the Splunk Common Stock",
+            "the State of Delaware",
+            "the U.S. Securities and Exchange Commission",
+            "the \u201c Board \u201d",
+            "the \u201c Effective Time",
+            "the \u201c Merger Agreement",
+            "the \u201c Merger Consideration",
+            "the \u201c Splunk Board"
+          ],
+          "aliases": {
+            "Splunk": "Splunk Inc.",
+            "Merger Sub": "Spirit Merger Corp.",
+            "Board": "The Company\u2019s Board of Directors",
+            "DGCL": "the State of Delaware",
+            "Splunk Board": "Splunk\u2019s Board of Directors",
+            "SEC": "the U.S. Securities and Exchange Commission"
+          }
+        },
+        "legal_rules": {
+          "orgs": [
+            "Cisco Systems, Inc.",
+            "Spirit Merger Corp.",
+            "Splunk Inc."
+          ],
+          "aliases": {
+            "Cisco": "Cisco Systems, Inc.",
+            "Company": "Cisco Systems, Inc.",
+            "Splunk": "Splunk Inc.",
+            "Merger Sub": "Spirit Merger Corp."
+          }
+        }
+      },
+      "timings": {
+        "regex": 0.0015115879941731691,
+        "spacy": 0.5135343899019063,
+        "legal_rules": 0.0013188810553401709
+      }
+    },
+    {
+      "case": "cisco_closing_2024",
+      "org": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "alias": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "event": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "events": [
+        {
+          "event_type": "ACQUIRED",
+          "subject": "Cisco Systems, Inc.",
+          "object": "Splunk Inc."
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Spirit Merger Corp.",
+          "object": "Splunk Inc."
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Splunk Inc.",
+          "object": "Cisco Systems, Inc."
+        }
+      ],
+      "fused": {
+        "orgs": [
+          "Cisco Systems, Inc.",
+          "Spirit Merger Corp.",
+          "Splunk Inc."
+        ],
+        "aliases": {
+          "Company": "Cisco Systems, Inc.",
+          "Splunk": "Splunk Inc.",
+          "Merger Sub": "Spirit Merger Corp."
+        },
+        "org_votes": {
+          "Cisco Systems, Inc.": 1.75,
+          "Spirit Merger Corp.": 2.75,
+          "Splunk Inc.": 2.75,
+          "Cisco Systems": 1.0,
+          "Company": 1.0,
+          "Merger Sub": 1.0,
+          "Splunk Common Stock": 1.0,
+          "Splunk\u2019s": 1.0,
+          "The Merger Consideration": 1.0,
+          "the Effective Time": 1.0,
+          "the Merger Consideration": 1.0,
+          "the Splunk Common Stock": 1.0,
+          "the \u201c Effective Time": 1.0,
+          "the \u201c Merger Consideration": 1.0
+        },
+        "org_sources": {
+          "Cisco Systems, Inc.": [
+            "regex",
+            "legal_rules"
+          ],
+          "Spirit Merger Corp.": [
+            "regex",
+            "spacy",
+            "legal_rules"
+          ],
+          "Splunk Inc.": [
+            "regex",
+            "spacy",
+            "legal_rules"
+          ],
+          "Cisco Systems": [
+            "spacy"
+          ],
+          "Company": [
+            "spacy"
+          ],
+          "Merger Sub": [
+            "spacy"
+          ],
+          "Splunk Common Stock": [
+            "spacy"
+          ],
+          "Splunk\u2019s": [
+            "spacy"
+          ],
+          "The Merger Consideration": [
+            "spacy"
+          ],
+          "the Effective Time": [
+            "spacy"
+          ],
+          "the Merger Consideration": [
+            "spacy"
+          ],
+          "the Splunk Common Stock": [
+            "spacy"
+          ],
+          "the \u201c Effective Time": [
+            "spacy"
+          ],
+          "the \u201c Merger Consideration": [
+            "spacy"
+          ]
+        },
+        "alias_debug": {
+          "Company": {
+            "candidate": "Cisco Systems, Inc.",
+            "score": 1.75,
+            "sources": [
+              "regex",
+              "legal_rules"
+            ]
+          },
+          "Splunk": {
+            "candidate": "Splunk Inc.",
+            "score": 2.75,
+            "sources": [
+              "regex",
+              "spacy",
+              "legal_rules"
+            ]
+          },
+          "Merger Sub": {
+            "candidate": "Spirit Merger Corp.",
+            "score": 2.75,
+            "sources": [
+              "regex",
+              "spacy",
+              "legal_rules"
+            ]
+          }
+        }
+      },
+      "backend_outputs": {
+        "regex": {
+          "orgs": [
+            "Cisco Systems, Inc.",
+            "Section 262 of the General Corporation",
+            "Spirit Merger Corp.",
+            "Splunk Inc."
+          ],
+          "aliases": {
+            "Company": "Cisco Systems, Inc.",
+            "Splunk": "Splunk Inc.",
+            "Merger Sub": "Spirit Merger Corp."
+          }
+        },
+        "spacy": {
+          "orgs": [
+            "Cisco Systems",
+            "Company",
+            "Merger Sub",
+            "Spirit Merger Corp.",
+            "Splunk Common Stock",
+            "Splunk Inc.",
+            "Splunk\u2019s",
+            "The Merger Consideration",
+            "the Effective Time",
+            "the Merger Agreement",
+            "the Merger Consideration",
+            "the Splunk Common Stock",
+            "the \u201c Effective Time",
+            "the \u201c Merger Agreement",
+            "the \u201c Merger Consideration"
+          ],
+          "aliases": {
+            "Splunk": "Splunk Inc.",
+            "Merger Sub": "Spirit Merger Corp."
+          }
+        },
+        "legal_rules": {
+          "orgs": [
+            "Cisco Systems, Inc.",
+            "Spirit Merger Corp.",
+            "Splunk Inc."
+          ],
+          "aliases": {
+            "Company": "Cisco Systems, Inc.",
+            "Splunk": "Splunk Inc.",
+            "Merger Sub": "Spirit Merger Corp."
+          }
+        }
+      },
+      "timings": {
+        "regex": 0.00042040692642331123,
+        "spacy": 0.12000612984411418,
+        "legal_rules": 0.0003932530526071787
+      }
+    },
+    {
+      "case": "cisco_financing_negative_2024",
+      "org": null,
+      "alias": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "event": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "events": [],
+      "fused": {
+        "orgs": [
+          "Barclays Capital Inc.",
+          "Cisco Systems, Inc.",
+          "Citigroup Global Markets Inc.",
+          "Deutsche Bank Securities Inc.",
+          "Spirit Merger Corp.",
+          "Splunk Inc."
+        ],
+        "aliases": {
+          "Company": "Cisco Systems, Inc."
+        },
+        "org_votes": {
+          "Barclays Capital Inc.": 1.5,
+          "Cisco Systems, Inc.": 1.75,
+          "Citigroup Global Markets Inc.": 1.5,
+          "Company and BofA Securities, Inc.": 0.5,
+          "Deutsche Bank Securities Inc.": 1.5,
+          "J.P. Morgan Securities LLC": 0.5,
+          "Spirit Merger Corp.": 1.5,
+          "Splunk Inc.": 1.5,
+          "Wells Fargo Securities, LLC": 0.5,
+          "BofA Securities, Inc.": 1.0,
+          "Cisco Systems": 1.0,
+          "Company": 1.0,
+          "Indenture": 1.0,
+          "J.P. Morgan Securities": 1.0,
+          "LLC": 1.0,
+          "SEC": 1.0,
+          "The Bank of New York Mellon Trust Company": 1.0,
+          "Trustee": 1.0,
+          "Wells Fargo Securities": 1.0,
+          "the Base Indenture": 1.0,
+          "the First Supplemental Indenture": 1.0,
+          "the Securities and Exchange Commission": 1.0,
+          "the Special Mandatory Redemption Date": 1.0,
+          "the Special Mandatory Redemption End Date": 1.0,
+          "the \u201cFirst Supplemental Indenture": 1.0
+        },
+        "org_sources": {
+          "Barclays Capital Inc.": [
+            "regex",
+            "spacy"
+          ],
+          "Cisco Systems, Inc.": [
+            "regex",
+            "legal_rules"
+          ],
+          "Citigroup Global Markets Inc.": [
+            "regex",
+            "spacy"
+          ],
+          "Company and BofA Securities, Inc.": [
+            "regex"
+          ],
+          "Deutsche Bank Securities Inc.": [
+            "regex",
+            "spacy"
+          ],
+          "J.P. Morgan Securities LLC": [
+            "regex"
+          ],
+          "Spirit Merger Corp.": [
+            "regex",
+            "spacy"
+          ],
+          "Splunk Inc.": [
+            "regex",
+            "spacy"
+          ],
+          "Wells Fargo Securities, LLC": [
+            "regex"
+          ],
+          "BofA Securities, Inc.": [
+            "spacy"
+          ],
+          "Cisco Systems": [
+            "spacy"
+          ],
+          "Company": [
+            "spacy"
+          ],
+          "Indenture": [
+            "spacy"
+          ],
+          "J.P. Morgan Securities": [
+            "spacy"
+          ],
+          "LLC": [
+            "spacy"
+          ],
+          "SEC": [
+            "spacy"
+          ],
+          "The Bank of New York Mellon Trust Company": [
+            "spacy"
+          ],
+          "Trustee": [
+            "spacy"
+          ],
+          "Wells Fargo Securities": [
+            "spacy"
+          ],
+          "the Base Indenture": [
+            "spacy"
+          ],
+          "the First Supplemental Indenture": [
+            "spacy"
+          ],
+          "the Securities and Exchange Commission": [
+            "spacy"
+          ],
+          "the Special Mandatory Redemption Date": [
+            "spacy"
+          ],
+          "the Special Mandatory Redemption End Date": [
+            "spacy"
+          ],
+          "the \u201cFirst Supplemental Indenture": [
+            "spacy"
+          ]
+        },
+        "alias_debug": {
+          "Company": {
+            "candidate": "Cisco Systems, Inc.",
+            "score": 1.75,
+            "sources": [
+              "regex",
+              "legal_rules"
+            ]
+          },
+          "SEC": {
+            "candidate": "the Securities and Exchange Commission",
+            "score": 1.0,
+            "sources": [
+              "spacy"
+            ]
+          }
+        }
+      },
+      "backend_outputs": {
+        "regex": {
+          "orgs": [
+            "Barclays Capital Inc.",
+            "Cisco Systems, Inc.",
+            "Citigroup Global Markets Inc.",
+            "Company and BofA Securities, Inc.",
+            "Deutsche Bank Securities Inc.",
+            "J.P. Morgan Securities LLC",
+            "Spirit Merger Corp.",
+            "Splunk Inc.",
+            "Wells Fargo Securities, LLC"
+          ],
+          "aliases": {
+            "Company": "Cisco Systems, Inc."
+          }
+        },
+        "spacy": {
+          "orgs": [
+            "Barclays Capital Inc.",
+            "BofA Securities, Inc.",
+            "Cisco Systems",
+            "Citigroup Global Markets Inc.",
+            "Company",
+            "Deutsche Bank Securities Inc.",
+            "Indenture",
+            "J.P. Morgan Securities",
+            "LLC",
+            "SEC",
+            "Spirit Merger Corp.",
+            "Splunk Inc.",
+            "The Bank of New York Mellon Trust Company",
+            "Trustee",
+            "Wells Fargo Securities",
+            "the Base Indenture",
+            "the Company\u2019s Registration Statement on Form S-3 (File No",
+            "the First Supplemental Indenture",
+            "the Securities and Exchange Commission",
+            "the Special Mandatory Redemption Date",
+            "the Special Mandatory Redemption End Date",
+            "the \u201cFirst Supplemental Indenture"
+          ],
+          "aliases": {
+            "SEC": "the Securities and Exchange Commission"
+          }
+        },
+        "legal_rules": {
+          "orgs": [
+            "Cisco Systems, Inc."
+          ],
+          "aliases": {
+            "Company": "Cisco Systems, Inc."
+          }
+        }
+      },
+      "timings": {
+        "regex": 0.0004775978159159422,
+        "spacy": 0.22815027902834117,
+        "legal_rules": 0.0004915408790111542
+      }
+    },
+    {
+      "case": "broadcom_agreement_2022",
+      "org": {
+        "tp": 5,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.8333333333333334,
+        "f1": 0.9090909090909091
+      },
+      "alias": {
+        "tp": 6,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.8571428571428571,
+        "f1": 0.923076923076923
+      },
+      "event": {
+        "tp": 1,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337
+      },
+      "events": [
+        {
+          "event_type": "AGREED_TO_ACQUIRE",
+          "subject": "Broadcom Inc.",
+          "object": "VMware, Inc."
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Verona Merger Sub, Inc.",
+          "object": "VMware, Inc."
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Broadcom Inc.",
+          "object": "Barcelona Merger Sub 3, LLC"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Barcelona Merger Sub 3, LLC",
+          "object": "Broadcom Inc."
+        },
+        {
+          "event_type": "CONVERTED_TO",
+          "subject": "VMware, Inc.",
+          "object": "Delaware limited liability company"
+        }
+      ],
+      "fused": {
+        "orgs": [
+          "Barcelona Merger Sub 2, Inc.",
+          "Barcelona Merger Sub 3, LLC",
+          "Broadcom Inc.",
+          "VMware, Inc.",
+          "Verona Merger Sub, Inc."
+        ],
+        "aliases": {
+          "Company": "Broadcom Inc.",
+          "Broadcom": "Broadcom Inc.",
+          "VMware": "VMware, Inc.",
+          "Merger Sub 1": "Verona Merger Sub, Inc.",
+          "Merger Sub 2": "Barcelona Merger Sub 2, Inc.",
+          "Merger Sub 3": "Barcelona Merger Sub 3, LLC"
+        },
+        "org_votes": {
+          "Barcelona Merger Sub 2, Inc.": 2.75,
+          "Barcelona Merger Sub 3, LLC": 1.75,
+          "Broadcom Inc.": 2.75,
+          "VMware, Inc.": 2.75,
+          "Verona Holdco, Inc.": 0.5,
+          "Verona Merger Sub, Inc.": 1.75,
+          "Barcelona Merger Sub 3": 1.0,
+          "Broadcom": 1.0,
+          "Broadcom Common Stock": 1.0,
+          "Broadcom, Merger Sub 2": 1.0,
+          "Broadcom\u2019s": 1.0,
+          "Conversion": 1.0,
+          "LLC": 1.0,
+          "Merger Sub 3": 1.0,
+          "SEC": 1.0,
+          "Transactions": 1.0,
+          "VMware": 1.0,
+          "VMware Common Stock": 1.0,
+          "the European Union": 1.0,
+          "the First Merger": 1.0,
+          "the Holdco Surviving Company": 1.0,
+          "the Internal Revenue Code": 1.0,
+          "the Outside Date": 1.0,
+          "the Second Merger": 1.0,
+          "the Stock Consideration": 1.0,
+          "the Surviving Company": 1.0,
+          "the Third Merger": 1.0,
+          "the U.S. Securities and Exchange Commission": 1.0,
+          "the United States Hart-Scott-Rodino Antitrust Improvements Act": 1.0,
+          "the \u201cFirst Merger": 1.0,
+          "the \u201cHoldco Surviving Company": 1.0,
+          "the \u201cSurviving Company": 1.0
+        },
+        "org_sources": {
+          "Barcelona Merger Sub 2, Inc.": [
+            "regex",
+            "spacy",
+            "legal_rules"
+          ],
+          "Barcelona Merger Sub 3, LLC": [
+            "regex",
+            "legal_rules"
+          ],
+          "Broadcom Inc.": [
+            "regex",
+            "spacy",
+            "legal_rules"
+          ],
+          "VMware, Inc.": [
+            "regex",
+            "spacy",
+            "legal_rules"
+          ],
+          "Verona Holdco, Inc.": [
+            "regex"
+          ],
+          "Verona Merger Sub, Inc.": [
+            "regex",
+            "legal_rules"
+          ],
+          "Barcelona Merger Sub 3": [
+            "spacy"
+          ],
+          "Broadcom": [
+            "spacy"
+          ],
+          "Broadcom Common Stock": [
+            "spacy"
+          ],
+          "Broadcom, Merger Sub 2": [
+            "spacy"
+          ],
+          "Broadcom\u2019s": [
+            "spacy"
+          ],
+          "Conversion": [
+            "spacy"
+          ],
+          "LLC": [
+            "spacy"
+          ],
+          "Merger Sub 3": [
+            "spacy"
+          ],
+          "SEC": [
+            "spacy"
+          ],
+          "Transactions": [
+            "spacy"
+          ],
+          "VMware": [
+            "spacy"
+          ],
+          "VMware Common Stock": [
+            "spacy"
+          ],
+          "the European Union": [
+            "spacy"
+          ],
+          "the First Merger": [
+            "spacy"
+          ],
+          "the Holdco Surviving Company": [
+            "spacy"
+          ],
+          "the Internal Revenue Code": [
+            "spacy"
+          ],
+          "the Outside Date": [
+            "spacy"
+          ],
+          "the Second Merger": [
+            "spacy"
+          ],
+          "the Stock Consideration": [
+            "spacy"
+          ],
+          "the Surviving Company": [
+            "spacy"
+          ],
+          "the Third Merger": [
+            "spacy"
+          ],
+          "the U.S. Securities and Exchange Commission": [
+            "spacy"
+          ],
+          "the United States Hart-Scott-Rodino Antitrust Improvements Act": [
+            "spacy"
+          ],
+          "the \u201cFirst Merger": [
+            "spacy"
+          ],
+          "the \u201cHoldco Surviving Company": [
+            "spacy"
+          ],
+          "the \u201cSurviving Company": [
+            "spacy"
+          ]
+        },
+        "alias_debug": {
+          "Company": {
+            "candidate": "Broadcom Inc.",
+            "score": 2.75,
+            "sources": [
+              "regex",
+              "spacy",
+              "legal_rules"
+            ]
+          },
+          "Broadcom": {
+            "candidate": "Broadcom Inc.",
+            "score": 2.75,
+            "sources": [
+              "regex",
+              "spacy",
+              "legal_rules"
+            ]
+          },
+          "VMware": {
+            "candidate": "VMware, Inc.",
+            "score": 2.75,
+            "sources": [
+              "regex",
+              "spacy",
+              "legal_rules"
+            ]
+          },
+          "Merger Sub 1": {
+            "candidate": "Verona Merger Sub, Inc.",
+            "score": 1.75,
+            "sources": [
+              "regex",
+              "legal_rules"
+            ]
+          },
+          "Merger Sub 2": {
+            "candidate": "Barcelona Merger Sub 2, Inc.",
+            "score": 2.75,
+            "sources": [
+              "regex",
+              "spacy",
+              "legal_rules"
+            ]
+          },
+          "Merger Sub 3": {
+            "candidate": "Barcelona Merger Sub 3, LLC",
+            "score": 1.75,
+            "sources": [
+              "regex",
+              "legal_rules"
+            ]
+          },
+          "Holdco": {
+            "candidate": "VMware",
+            "score": 1.0,
+            "sources": [
+              "spacy"
+            ]
+          },
+          "First Merger": {
+            "candidate": "VMware",
+            "score": 1.0,
+            "sources": [
+              "spacy"
+            ]
+          },
+          "Surviving Company": {
+            "candidate": "the First Merger",
+            "score": 1.0,
+            "sources": [
+              "spacy"
+            ]
+          },
+          "Holdco Surviving Company": {
+            "candidate": "the Second Merger",
+            "score": 1.0,
+            "sources": [
+              "spacy"
+            ]
+          },
+          "VMware Common Stock": {
+            "candidate": "VMware",
+            "score": 1.0,
+            "sources": [
+              "spacy"
+            ]
+          },
+          "SEC": {
+            "candidate": "the U.S. Securities and Exchange Commission",
+            "score": 1.0,
+            "sources": [
+              "spacy"
+            ]
+          }
+        }
+      },
+      "backend_outputs": {
+        "regex": {
+          "orgs": [
+            "Barcelona Merger Sub 2, Inc.",
+            "Barcelona Merger Sub 3, LLC",
+            "Broadcom Inc.",
+            "VMware, Inc.",
+            "Verona Holdco, Inc.",
+            "Verona Merger Sub, Inc."
+          ],
+          "aliases": {
+            "Company": "Broadcom Inc.",
+            "Broadcom": "Broadcom Inc.",
+            "VMware": "VMware, Inc.",
+            "Merger Sub 1": "Verona Merger Sub, Inc.",
+            "Merger Sub 2": "Barcelona Merger Sub 2, Inc.",
+            "Merger Sub 3": "Barcelona Merger Sub 3, LLC"
+          }
+        },
+        "spacy": {
+          "orgs": [
+            "Barcelona Merger Sub 2, Inc.",
+            "Barcelona Merger Sub 3",
+            "Broadcom",
+            "Broadcom Common Stock",
+            "Broadcom Inc.",
+            "Broadcom, Merger Sub 2",
+            "Broadcom\u2019s",
+            "Conversion",
+            "Item 1.01 Entry",
+            "LLC",
+            "Merger Sub 3",
+            "SEC",
+            "The Merger Agreement",
+            "Transactions",
+            "VMware",
+            "VMware Common Stock",
+            "VMware, Inc.",
+            "the European Union",
+            "the First Merger",
+            "the Holdco Surviving Company",
+            "the Internal Revenue Code",
+            "the Merger Agreement",
+            "the Outside Date",
+            "the Second Merger",
+            "the Stock Consideration",
+            "the Surviving Company",
+            "the Third Merger",
+            "the U.S. Securities and Exchange Commission",
+            "the United States Hart-Scott-Rodino Antitrust Improvements Act",
+            "the \u201cFirst Merger",
+            "the \u201cHoldco Surviving Company",
+            "the \u201cMerger Agreement",
+            "the \u201cSurviving Company"
+          ],
+          "aliases": {
+            "Company": "Broadcom Inc.",
+            "Broadcom": "Broadcom Inc.",
+            "VMware": "VMware, Inc.",
+            "Holdco": "VMware",
+            "Merger Sub 2": "Barcelona Merger Sub 2, Inc.",
+            "Merger Sub 3": "LLC",
+            "First Merger": "VMware",
+            "Surviving Company": "the First Merger",
+            "Holdco Surviving Company": "the Second Merger",
+            "VMware Common Stock": "VMware",
+            "SEC": "the U.S. Securities and Exchange Commission"
+          }
+        },
+        "legal_rules": {
+          "orgs": [
+            "Barcelona Merger Sub 2, Inc.",
+            "Barcelona Merger Sub 3, LLC",
+            "Broadcom Inc.",
+            "VMware, Inc.",
+            "Verona Merger Sub, Inc."
+          ],
+          "aliases": {
+            "Company": "Broadcom Inc.",
+            "Broadcom": "Broadcom Inc.",
+            "VMware": "VMware, Inc.",
+            "Merger Sub 1": "Verona Merger Sub, Inc.",
+            "Merger Sub 2": "Barcelona Merger Sub 2, Inc.",
+            "Merger Sub 3": "Barcelona Merger Sub 3, LLC"
+          }
+        }
+      },
+      "timings": {
+        "regex": 0.001311067957431078,
+        "spacy": 0.3406362868845463,
+        "legal_rules": 0.0008510719053447247
+      }
+    },
+    {
+      "case": "broadcom_closing_2023",
+      "org": {
+        "tp": 6,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "alias": {
+        "tp": 6,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "event": {
+        "tp": 5,
+        "fp": 2,
+        "fn": 1,
+        "precision": 0.7142857142857143,
+        "recall": 0.8333333333333334,
+        "f1": 0.7692307692307692
+      },
+      "events": [
+        {
+          "event_type": "ACQUIRED",
+          "subject": "Broadcom Inc.",
+          "object": "VMware, Inc."
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Verona Merger Sub, Inc.",
+          "object": "VMware, Inc."
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Barcelona Merger Sub 2, Inc.",
+          "object": "Verona Holdco, Inc."
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "VMware, Inc.",
+          "object": "Verona Holdco, Inc."
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Verona Holdco, Inc.",
+          "object": "Broadcom Inc."
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Barcelona Merger Sub 3, LLC",
+          "object": "Broadcom Inc."
+        },
+        {
+          "event_type": "CONVERTED_TO",
+          "subject": "VMware, Inc.",
+          "object": "Delaware limited liability company"
+        }
+      ],
+      "fused": {
+        "orgs": [
+          "Barcelona Merger Sub 2, Inc.",
+          "Barcelona Merger Sub 3, LLC",
+          "Broadcom Inc.",
+          "VMware, Inc.",
+          "Verona Holdco, Inc.",
+          "Verona Merger Sub, Inc."
+        ],
+        "aliases": {
+          "Broadcom": "Broadcom Inc.",
+          "VMware": "VMware, Inc.",
+          "Holdco": "Verona Holdco, Inc.",
+          "Merger Sub 1": "Verona Merger Sub, Inc.",
+          "Merger Sub 2": "Barcelona Merger Sub 2, Inc.",
+          "Merger Sub 3": "Barcelona Merger Sub 3, LLC"
+        },
+        "org_votes": {
+          "Barcelona Merger Sub 2, Inc.": 1.75,
+          "Barcelona Merger Sub 3, LLC": 1.75,
+          "Broadcom Inc.": 2.75,
+          "VMware, Inc.": 2.75,
+          "Verona Holdco, Inc.": 1.75,
+          "Verona Merger Sub, Inc.": 1.75,
+          "Barcelona Merger Sub 3": 1.0,
+          "Broadcom": 1.0,
+          "Broadcom Common Shares": 1.0,
+          "Conversion": 1.0,
+          "LLC": 1.0,
+          "Merger Sub 2": 1.0,
+          "SEC": 1.0,
+          "VMware": 1.0,
+          "VMware Common Shares": 1.0,
+          "the Cash Consideration": 1.0,
+          "the Conversion": 1.0,
+          "the Effective Time": 1.0,
+          "the First Merger": 1.0,
+          "the Holdco Surviving Company": 1.0,
+          "the Second Merger": 1.0,
+          "the Stock Consideration": 1.0,
+          "the Surviving Company": 1.0,
+          "the U.S. Securities and Exchange Commission": 1.0,
+          "the \u201cEffective Time": 1.0,
+          "the \u201cFirst Merger": 1.0,
+          "the \u201cHoldco Surviving Company": 1.0,
+          "the \u201cMerger Consideration": 1.0,
+          "the \u201cSurviving Company": 1.0
+        },
+        "org_sources": {
+          "Barcelona Merger Sub 2, Inc.": [
+            "regex",
+            "legal_rules"
+          ],
+          "Barcelona Merger Sub 3, LLC": [
+            "regex",
+            "legal_rules"
+          ],
+          "Broadcom Inc.": [
+            "regex",
+            "spacy",
+            "legal_rules"
+          ],
+          "VMware, Inc.": [
+            "regex",
+            "spacy",
+            "legal_rules"
+          ],
+          "Verona Holdco, Inc.": [
+            "regex",
+            "legal_rules"
+          ],
+          "Verona Merger Sub, Inc.": [
+            "regex",
+            "legal_rules"
+          ],
+          "Barcelona Merger Sub 3": [
+            "spacy"
+          ],
+          "Broadcom": [
+            "spacy"
+          ],
+          "Broadcom Common Shares": [
+            "spacy"
+          ],
+          "Conversion": [
+            "spacy"
+          ],
+          "LLC": [
+            "spacy"
+          ],
+          "Merger Sub 2": [
+            "spacy"
+          ],
+          "SEC": [
+            "spacy"
+          ],
+          "VMware": [
+            "spacy"
+          ],
+          "VMware Common Shares": [
+            "spacy"
+          ],
+          "the Cash Consideration": [
+            "spacy"
+          ],
+          "the Conversion": [
+            "spacy"
+          ],
+          "the Effective Time": [
+            "spacy"
+          ],
+          "the First Merger": [
+            "spacy"
+          ],
+          "the Holdco Surviving Company": [
+            "spacy"
+          ],
+          "the Second Merger": [
+            "spacy"
+          ],
+          "the Stock Consideration": [
+            "spacy"
+          ],
+          "the Surviving Company": [
+            "spacy"
+          ],
+          "the U.S. Securities and Exchange Commission": [
+            "spacy"
+          ],
+          "the \u201cEffective Time": [
+            "spacy"
+          ],
+          "the \u201cFirst Merger": [
+            "spacy"
+          ],
+          "the \u201cHoldco Surviving Company": [
+            "spacy"
+          ],
+          "the \u201cMerger Consideration": [
+            "spacy"
+          ],
+          "the \u201cSurviving Company": [
+            "spacy"
+          ]
+        },
+        "alias_debug": {
+          "Broadcom": {
+            "candidate": "Broadcom Inc.",
+            "score": 2.75,
+            "sources": [
+              "regex",
+              "spacy",
+              "legal_rules"
+            ]
+          },
+          "VMware": {
+            "candidate": "VMware, Inc.",
+            "score": 2.75,
+            "sources": [
+              "regex",
+              "spacy",
+              "legal_rules"
+            ]
+          },
+          "Holdco": {
+            "candidate": "Verona Holdco, Inc.",
+            "score": 1.75,
+            "sources": [
+              "regex",
+              "legal_rules"
+            ]
+          },
+          "Merger Sub 1": {
+            "candidate": "Verona Merger Sub, Inc.",
+            "score": 1.75,
+            "sources": [
+              "regex",
+              "legal_rules"
+            ]
+          },
+          "Merger Sub 2": {
+            "candidate": "Barcelona Merger Sub 2, Inc.",
+            "score": 1.75,
+            "sources": [
+              "regex",
+              "legal_rules"
+            ]
+          },
+          "Merger Sub 3": {
+            "candidate": "Barcelona Merger Sub 3, LLC",
+            "score": 1.75,
+            "sources": [
+              "regex",
+              "legal_rules"
+            ]
+          },
+          "First Merger": {
+            "candidate": "VMware",
+            "score": 1.0,
+            "sources": [
+              "spacy"
+            ]
+          },
+          "Surviving Company": {
+            "candidate": "the First Merger",
+            "score": 1.0,
+            "sources": [
+              "spacy"
+            ]
+          },
+          "Holdco Surviving Company": {
+            "candidate": "the Second Merger",
+            "score": 1.0,
+            "sources": [
+              "spacy"
+            ]
+          },
+          "Third Merger": {
+            "candidate": "Broadcom",
+            "score": 1.0,
+            "sources": [
+              "spacy"
+            ]
+          },
+          "Mergers": {
+            "candidate": "Broadcom",
+            "score": 1.0,
+            "sources": [
+              "spacy"
+            ]
+          },
+          "VMware Common Share": {
+            "candidate": "VMware",
+            "score": 1.0,
+            "sources": [
+              "spacy"
+            ]
+          },
+          "SEC": {
+            "candidate": "the U.S. Securities and Exchange Commission",
+            "score": 1.0,
+            "sources": [
+              "spacy"
+            ]
+          }
+        }
+      },
+      "backend_outputs": {
+        "regex": {
+          "orgs": [
+            "Barcelona Merger Sub 2, Inc.",
+            "Barcelona Merger Sub 3, LLC",
+            "Broadcom Inc.",
+            "VMware, Inc.",
+            "Verona Holdco, Inc.",
+            "Verona Merger Sub, Inc."
+          ],
+          "aliases": {
+            "Broadcom": "Broadcom Inc.",
+            "VMware": "VMware, Inc.",
+            "Holdco": "Verona Holdco, Inc.",
+            "Merger Sub 1": "Verona Merger Sub, Inc.",
+            "Merger Sub 2": "Barcelona Merger Sub 2, Inc.",
+            "Merger Sub 3": "Barcelona Merger Sub 3, LLC"
+          }
+        },
+        "spacy": {
+          "orgs": [
+            "Barcelona Merger Sub 3",
+            "Broadcom",
+            "Broadcom Common Shares",
+            "Broadcom Inc.",
+            "Broadcom\u2019s Current Report on Form 8-K",
+            "Conversion",
+            "LLC",
+            "Merger Sub 2",
+            "SEC",
+            "VMware",
+            "VMware Common Shares",
+            "VMware, Inc.",
+            "the Cash Consideration",
+            "the Conversion",
+            "the Effective Time",
+            "the First Merger",
+            "the Holdco Surviving Company",
+            "the Merger Agreement",
+            "the Second Merger",
+            "the Stock Consideration",
+            "the Surviving Company",
+            "the U.S. Securities and Exchange Commission",
+            "the VMware Board of Directors",
+            "the \u201cEffective Time",
+            "the \u201cFirst Merger",
+            "the \u201cHoldco Surviving Company",
+            "the \u201cMerger Consideration",
+            "the \u201cSurviving Company"
+          ],
+          "aliases": {
+            "Broadcom": "Broadcom Inc.",
+            "VMware": "VMware, Inc.",
+            "Holdco": "VMware",
+            "Merger Sub 2": "Broadcom",
+            "Merger Sub 3": "Broadcom",
+            "First Merger": "VMware",
+            "Surviving Company": "the First Merger",
+            "Holdco Surviving Company": "the Second Merger",
+            "Third Merger": "Broadcom",
+            "Mergers": "Broadcom",
+            "VMware Common Share": "VMware",
+            "SEC": "the U.S. Securities and Exchange Commission"
+          }
+        },
+        "legal_rules": {
+          "orgs": [
+            "Barcelona Merger Sub 2, Inc.",
+            "Barcelona Merger Sub 3, LLC",
+            "Broadcom Inc.",
+            "VMware, Inc.",
+            "Verona Holdco, Inc.",
+            "Verona Merger Sub, Inc."
+          ],
+          "aliases": {
+            "Broadcom": "Broadcom Inc.",
+            "VMware": "VMware, Inc.",
+            "Holdco": "Verona Holdco, Inc.",
+            "Merger Sub 1": "Verona Merger Sub, Inc.",
+            "Merger Sub 2": "Barcelona Merger Sub 2, Inc.",
+            "Merger Sub 3": "Barcelona Merger Sub 3, LLC"
+          }
+        }
+      },
+      "timings": {
+        "regex": 0.000721160089597106,
+        "spacy": 0.2131002468522638,
+        "legal_rules": 0.0006457180716097355
+      }
+    },
+    {
+      "case": "broadcom_financing_negative_2023",
+      "org": null,
+      "alias": {
+        "tp": 0,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "event": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "events": [],
+      "fused": {
+        "orgs": [
+          "Barcelona Merger Sub 2, Inc.",
+          "Barcelona Merger Sub 3, LLC",
+          "Broadcom Inc.",
+          "VMware, Inc."
+        ],
+        "aliases": {
+          "Broadcom": "Broadcom Inc.",
+          "VMware": "VMware, Inc.",
+          "Merger Agreement": "Barcelona Merger Sub 3, LLC"
+        },
+        "org_votes": {
+          "Barcelona Merger Sub 2, Inc.": 1.5,
+          "Barcelona Merger Sub 3, LLC": 1.75,
+          "Broadcom Inc.": 2.75,
+          "VMware, Inc.": 2.75,
+          "Verona Holdco, Inc.": 0.5,
+          "Verona Merger Sub, Inc.": 0.5,
+          "Bank of America": 1.0,
+          "Barcelona Merger Sub 3": 1.0,
+          "Broadcom": 1.0,
+          "Broadcom\u2019s Consolidated Interest Coverage Ratio": 1.0,
+          "Definitive Material Agreement": 1.0,
+          "LLC": 1.0,
+          "Term Facilities": 1.0,
+          "Term Facility": 1.0,
+          "Term Loan Increase": 1.0,
+          "VMware": 1.0,
+          "the Acquisition": 1.0,
+          "the Funding Date": 1.0,
+          "the Outside Date": 1.0,
+          "the Term A-2 Facility": 1.0,
+          "the Term Facilities": 1.0,
+          "the \u201cEffective Date": 1.0,
+          "the \u201cFunding Date": 1.0
+        },
+        "org_sources": {
+          "Barcelona Merger Sub 2, Inc.": [
+            "regex",
+            "spacy"
+          ],
+          "Barcelona Merger Sub 3, LLC": [
+            "regex",
+            "legal_rules"
+          ],
+          "Broadcom Inc.": [
+            "regex",
+            "spacy",
+            "legal_rules"
+          ],
+          "VMware, Inc.": [
+            "regex",
+            "spacy",
+            "legal_rules"
+          ],
+          "Verona Holdco, Inc.": [
+            "regex"
+          ],
+          "Verona Merger Sub, Inc.": [
+            "regex"
+          ],
+          "Bank of America": [
+            "spacy"
+          ],
+          "Barcelona Merger Sub 3": [
+            "spacy"
+          ],
+          "Broadcom": [
+            "spacy"
+          ],
+          "Broadcom\u2019s Consolidated Interest Coverage Ratio": [
+            "spacy"
+          ],
+          "Definitive Material Agreement": [
+            "spacy"
+          ],
+          "LLC": [
+            "spacy"
+          ],
+          "Term Facilities": [
+            "spacy"
+          ],
+          "Term Facility": [
+            "spacy"
+          ],
+          "Term Loan Increase": [
+            "spacy"
+          ],
+          "VMware": [
+            "spacy"
+          ],
+          "the Acquisition": [
+            "spacy"
+          ],
+          "the Funding Date": [
+            "spacy"
+          ],
+          "the Outside Date": [
+            "spacy"
+          ],
+          "the Term A-2 Facility": [
+            "spacy"
+          ],
+          "the Term Facilities": [
+            "spacy"
+          ],
+          "the \u201cEffective Date": [
+            "spacy"
+          ],
+          "the \u201cFunding Date": [
+            "spacy"
+          ]
+        },
+        "alias_debug": {
+          "Broadcom": {
+            "candidate": "Broadcom Inc.",
+            "score": 2.75,
+            "sources": [
+              "regex",
+              "spacy",
+              "legal_rules"
+            ]
+          },
+          "VMware": {
+            "candidate": "VMware, Inc.",
+            "score": 2.75,
+            "sources": [
+              "regex",
+              "spacy",
+              "legal_rules"
+            ]
+          },
+          "Merger Agreement": {
+            "candidate": "Barcelona Merger Sub 3, LLC",
+            "score": 1.75,
+            "sources": [
+              "regex",
+              "legal_rules"
+            ]
+          }
+        }
+      },
+      "backend_outputs": {
+        "regex": {
+          "orgs": [
+            "Barcelona Merger Sub 2, Inc.",
+            "Barcelona Merger Sub 3, LLC",
+            "Broadcom Inc.",
+            "VMware, Inc.",
+            "Verona Holdco, Inc.",
+            "Verona Merger Sub, Inc."
+          ],
+          "aliases": {
+            "Broadcom": "Broadcom Inc.",
+            "VMware": "VMware, Inc.",
+            "Merger Agreement": "Barcelona Merger Sub 3, LLC"
+          }
+        },
+        "spacy": {
+          "orgs": [
+            "Bank of America",
+            "Barcelona Merger Sub 2, Inc.",
+            "Barcelona Merger Sub 3",
+            "Broadcom",
+            "Broadcom Inc.",
+            "Broadcom\u2019s Consolidated Interest Coverage Ratio",
+            "Definitive Material Agreement",
+            "Item 1.01 Entry",
+            "LLC",
+            "Term Facilities",
+            "Term Facility",
+            "Term Loan Increase",
+            "VMware",
+            "VMware, Inc.",
+            "the Acquisition",
+            "the Credit Agreement",
+            "the Funding Date",
+            "the Outside Date",
+            "the Term A-2 Facility",
+            "the Term Facilities",
+            "the \u201cEffective Date",
+            "the \u201cFunding Date",
+            "the \u201cMerger Agreement"
+          ],
+          "aliases": {
+            "Broadcom": "Broadcom Inc.",
+            "VMware": "VMware, Inc.",
+            "Merger Agreement": "LLC"
+          }
+        },
+        "legal_rules": {
+          "orgs": [
+            "Barcelona Merger Sub 3, LLC",
+            "Broadcom Inc.",
+            "VMware, Inc."
+          ],
+          "aliases": {
+            "Broadcom": "Broadcom Inc.",
+            "VMware": "VMware, Inc.",
+            "Merger Agreement": "Barcelona Merger Sub 3, LLC"
+          }
+        }
+      },
+      "timings": {
+        "regex": 0.0005927830934524536,
+        "spacy": 0.2224597770255059,
+        "legal_rules": 0.0006095119751989841
+      }
+    }
+  ]
+}

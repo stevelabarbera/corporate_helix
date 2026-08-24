@@ -1,0 +1,379 @@
+{
+  "schema_version": "m3.8.2.1-temporal-graph-v1",
+  "source_company": "Broadcom",
+  "source_cik": "0001730168",
+  "nodes": [
+    {
+      "node_id": "node:d9dd03f49beb2147c03b",
+      "canonical_name": "Broadcom Inc.",
+      "entity_key": "broadcom inc.",
+      "role": "COMPANY",
+      "observed_from": "2022-05-26",
+      "existence_start": null,
+      "existence_end": null,
+      "states": [],
+      "metadata": {
+        "existence_start_known": false
+      }
+    },
+    {
+      "node_id": "node:9036cd3b9fd3ab617a3e",
+      "canonical_name": "VMware, Inc.",
+      "entity_key": "vmware, inc.",
+      "role": "COMPANY",
+      "observed_from": "2022-05-26",
+      "existence_start": null,
+      "existence_end": null,
+      "states": [
+        {
+          "effective_date": "2023-11-22",
+          "state_type": "LEGAL_FORM",
+          "value": {
+            "from": "Delaware corporation",
+            "to": "Delaware limited liability company",
+            "result_name_explicitly_stated": false
+          },
+          "source_event_id": "evt:00a744df2cdb40009bd7"
+        },
+        {
+          "effective_date": "2023-11-22",
+          "state_type": "LEGAL_STATUS",
+          "value": "SURVIVING_ENTITY",
+          "source_event_id": "evt:700e263588ebfbc1f5fa"
+        }
+      ],
+      "metadata": {
+        "existence_start_known": false
+      }
+    },
+    {
+      "node_id": "node:41091fc0073841f2a98c",
+      "canonical_name": "Verona Holdco, Inc.",
+      "entity_key": "verona holdco, inc.",
+      "role": "ENTITY",
+      "observed_from": "2023-11-22",
+      "existence_start": null,
+      "existence_end": "2023-11-22",
+      "states": [
+        {
+          "effective_date": "2023-11-22",
+          "state_type": "LEGAL_STATUS",
+          "value": "MERGED_OUT",
+          "source_event_id": "evt:1122e24b1c1a7e64ca94"
+        },
+        {
+          "effective_date": "2023-11-22",
+          "state_type": "LEGAL_STATUS",
+          "value": "SURVIVING_ENTITY",
+          "source_event_id": "evt:e8ccf7ebf85eb4b76c0a"
+        }
+      ],
+      "metadata": {
+        "existence_start_known": false
+      }
+    },
+    {
+      "node_id": "node:bc784beffef0a72613a2",
+      "canonical_name": "Barcelona Merger Sub 3, LLC",
+      "entity_key": "barcelona merger sub 3, llc",
+      "role": "ENTITY",
+      "observed_from": "2023-11-22",
+      "existence_start": null,
+      "existence_end": null,
+      "states": [
+        {
+          "effective_date": "2023-11-22",
+          "state_type": "LEGAL_STATUS",
+          "value": "SURVIVING_ENTITY",
+          "source_event_id": "evt:1122e24b1c1a7e64ca94"
+        }
+      ],
+      "metadata": {
+        "existence_start_known": false
+      }
+    },
+    {
+      "node_id": "node:a8b16a59cf8ebf0d55ec",
+      "canonical_name": "Verona Merger Sub, Inc.",
+      "entity_key": "verona merger sub, inc.",
+      "role": "ENTITY",
+      "observed_from": "2023-11-22",
+      "existence_start": null,
+      "existence_end": "2023-11-22",
+      "states": [
+        {
+          "effective_date": "2023-11-22",
+          "state_type": "LEGAL_STATUS",
+          "value": "MERGED_OUT",
+          "source_event_id": "evt:700e263588ebfbc1f5fa"
+        }
+      ],
+      "metadata": {
+        "existence_start_known": false
+      }
+    },
+    {
+      "node_id": "node:e883a3bf73e6d8ec07f0",
+      "canonical_name": "Barcelona Merger Sub 2, Inc.",
+      "entity_key": "barcelona merger sub 2, inc.",
+      "role": "ENTITY",
+      "observed_from": "2023-11-22",
+      "existence_start": null,
+      "existence_end": "2023-11-22",
+      "states": [
+        {
+          "effective_date": "2023-11-22",
+          "state_type": "LEGAL_STATUS",
+          "value": "MERGED_OUT",
+          "source_event_id": "evt:e8ccf7ebf85eb4b76c0a"
+        }
+      ],
+      "metadata": {
+        "existence_start_known": false
+      }
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "edge:de5d001a03e7c4cce1ab",
+      "edge_type": "AGREED_TO_ACQUIRE",
+      "edge_class": "EVENT",
+      "subject_node_id": "node:d9dd03f49beb2147c03b",
+      "object_node_id": "node:9036cd3b9fd3ab617a3e",
+      "effective_date": "2022-05-26",
+      "end_date": "2023-11-22",
+      "source_event_id": "evt:b13d90fc8fccd47a4b5f",
+      "metadata": {
+        "closed_by_event_id": "evt:fe16af03c246594a462c"
+      }
+    },
+    {
+      "edge_id": "edge:ecd0efa9d203bd730e7f",
+      "edge_type": "MERGED_INTO",
+      "edge_class": "EVENT",
+      "subject_node_id": "node:41091fc0073841f2a98c",
+      "object_node_id": "node:bc784beffef0a72613a2",
+      "effective_date": "2023-11-22",
+      "end_date": null,
+      "source_event_id": "evt:1122e24b1c1a7e64ca94",
+      "metadata": {
+        "step": "Third Merger",
+        "survivor_stated": true
+      }
+    },
+    {
+      "edge_id": "edge:83b036e74b5febd97562",
+      "edge_type": "MERGED_INTO",
+      "edge_class": "EVENT",
+      "subject_node_id": "node:a8b16a59cf8ebf0d55ec",
+      "object_node_id": "node:9036cd3b9fd3ab617a3e",
+      "effective_date": "2023-11-22",
+      "end_date": null,
+      "source_event_id": "evt:700e263588ebfbc1f5fa",
+      "metadata": {
+        "step": "First Merger",
+        "survivor_stated": true
+      }
+    },
+    {
+      "edge_id": "edge:88f16cfafd2d1fa34e87",
+      "edge_type": "MERGED_INTO",
+      "edge_class": "EVENT",
+      "subject_node_id": "node:e883a3bf73e6d8ec07f0",
+      "object_node_id": "node:41091fc0073841f2a98c",
+      "effective_date": "2023-11-22",
+      "end_date": null,
+      "source_event_id": "evt:e8ccf7ebf85eb4b76c0a",
+      "metadata": {
+        "step": "Second Merger",
+        "survivor_stated": true
+      }
+    },
+    {
+      "edge_id": "edge:ea6e47ea369511004b1b",
+      "edge_type": "SUBSIDIARY_OF",
+      "edge_class": "STATE",
+      "subject_node_id": "node:bc784beffef0a72613a2",
+      "object_node_id": "node:d9dd03f49beb2147c03b",
+      "effective_date": "2023-11-22",
+      "end_date": null,
+      "source_event_id": "evt:eccf4b5e965563fee1f7",
+      "metadata": {
+        "step": "Post-Closing Ownership"
+      }
+    },
+    {
+      "edge_id": "edge:59385b910701c4314540",
+      "edge_type": "CORPORATE_OWNS",
+      "edge_class": "STATE",
+      "subject_node_id": "node:d9dd03f49beb2147c03b",
+      "object_node_id": "node:bc784beffef0a72613a2",
+      "effective_date": "2023-11-22",
+      "end_date": null,
+      "source_event_id": "evt:eccf4b5e965563fee1f7",
+      "metadata": {
+        "derived_from": "SUBSIDIARY_OF"
+      }
+    },
+    {
+      "edge_id": "edge:f924de250ce1765d1e06",
+      "edge_type": "ACQUIRED",
+      "edge_class": "EVENT",
+      "subject_node_id": "node:d9dd03f49beb2147c03b",
+      "object_node_id": "node:9036cd3b9fd3ab617a3e",
+      "effective_date": "2023-11-22",
+      "end_date": null,
+      "source_event_id": "evt:fe16af03c246594a462c",
+      "metadata": {}
+    },
+    {
+      "edge_id": "edge:d02216b1420b4a51fbf7",
+      "edge_type": "CORPORATE_OWNS",
+      "edge_class": "STATE",
+      "subject_node_id": "node:d9dd03f49beb2147c03b",
+      "object_node_id": "node:9036cd3b9fd3ab617a3e",
+      "effective_date": "2023-11-22",
+      "end_date": null,
+      "source_event_id": "evt:fe16af03c246594a462c",
+      "metadata": {
+        "derived_from": "ACQUIRED"
+      }
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt:b13d90fc8fccd47a4b5f",
+      "event_type": "AGREED_TO_ACQUIRE",
+      "effective_date": "2022-05-26",
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "1.01",
+        "accession": "0001193125-22-161016",
+        "filing_date": "2022-05-26",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000119312522161016/d525235d8k.htm"
+      },
+      "confidence": "HIGH",
+      "reason": "Item 1.01 states Broadcom entered into the merger agreement with VMware.",
+      "metadata": {}
+    },
+    {
+      "event_id": "evt:00a744df2cdb40009bd7",
+      "event_type": "CONVERTED_TO",
+      "effective_date": "2023-11-22",
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "2.01",
+        "accession": "0001140361-23-054354",
+        "filing_date": "2023-11-22",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036123054354/ef20015100_form8k.htm"
+      },
+      "confidence": "HIGH",
+      "reason": "VMware surviving company converted from a Delaware corporation to a Delaware LLC.",
+      "metadata": {
+        "from_legal_form": "Delaware corporation",
+        "to_legal_form": "Delaware limited liability company",
+        "result_name_explicitly_stated": false,
+        "do_not_infer_result_name": true,
+        "step": "Conversion"
+      }
+    },
+    {
+      "event_id": "evt:1122e24b1c1a7e64ca94",
+      "event_type": "MERGED_INTO",
+      "effective_date": "2023-11-22",
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "2.01",
+        "accession": "0001140361-23-054354",
+        "filing_date": "2023-11-22",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036123054354/ef20015100_form8k.htm"
+      },
+      "confidence": "HIGH",
+      "reason": "Holdco Surviving Company merged with and into Merger Sub 3, with Merger Sub 3 surviving.",
+      "metadata": {
+        "step": "Third Merger",
+        "survivor_stated": true
+      }
+    },
+    {
+      "event_id": "evt:700e263588ebfbc1f5fa",
+      "event_type": "MERGED_INTO",
+      "effective_date": "2023-11-22",
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "2.01",
+        "accession": "0001140361-23-054354",
+        "filing_date": "2023-11-22",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036123054354/ef20015100_form8k.htm"
+      },
+      "confidence": "HIGH",
+      "reason": "Merger Sub 1 merged with and into VMware, with VMware surviving.",
+      "metadata": {
+        "step": "First Merger",
+        "survivor_stated": true
+      }
+    },
+    {
+      "event_id": "evt:e8ccf7ebf85eb4b76c0a",
+      "event_type": "MERGED_INTO",
+      "effective_date": "2023-11-22",
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "2.01",
+        "accession": "0001140361-23-054354",
+        "filing_date": "2023-11-22",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036123054354/ef20015100_form8k.htm"
+      },
+      "confidence": "HIGH",
+      "reason": "Merger Sub 2 merged with and into Holdco, with Holdco surviving.",
+      "metadata": {
+        "step": "Second Merger",
+        "survivor_stated": true
+      }
+    },
+    {
+      "event_id": "evt:eccf4b5e965563fee1f7",
+      "event_type": "SUBSIDIARY_OF",
+      "effective_date": "2023-11-22",
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "2.01",
+        "accession": "0001140361-23-054354",
+        "filing_date": "2023-11-22",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036123054354/ef20015100_form8k.htm"
+      },
+      "confidence": "HIGH",
+      "reason": "Surviving Merger Sub 3 entity is a wholly owned subsidiary of Broadcom.",
+      "metadata": {
+        "step": "Post-Closing Ownership"
+      }
+    },
+    {
+      "event_id": "evt:fe16af03c246594a462c",
+      "event_type": "ACQUIRED",
+      "effective_date": "2023-11-22",
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "2.01",
+        "accession": "0001140361-23-054354",
+        "filing_date": "2023-11-22",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036123054354/ef20015100_form8k.htm"
+      },
+      "confidence": "HIGH",
+      "reason": "Item 2.01 states Broadcom completed its acquisition of VMware.",
+      "metadata": {}
+    }
+  ],
+  "summary": {
+    "node_count": 6,
+    "edge_count": 8,
+    "event_count": 7
+  }
+}

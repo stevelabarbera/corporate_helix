@@ -1,0 +1,631 @@
+{
+  "summary": {
+    "org_macro_f1": 0.9772727272727273,
+    "alias_macro_f1": 0.6538461538461539,
+    "event_macro_f1_all": 0.9615384615384616,
+    "event_macro_f1_positive_only": 0.9423076923076923,
+    "negative_control_fp_rate": 0.0,
+    "runtime_seconds": 1.5123390848748386
+  },
+  "cases": [
+    {
+      "case": "cisco_agreement_2023",
+      "org": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "alias": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "event": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "raw_events": [
+        {
+          "event_type": "AGREED_TO_ACQUIRE",
+          "subject": "Cisco Systems, Inc.",
+          "object": "Splunk Inc.",
+          "status": "COMPLETED",
+          "evidence": "Agreement. Agreement and Plan of Merger On September 20, 2023, Cisco Systems, Inc. (\u201c Cisco \u201d or the \u201c Company \u201d), entered into an Agreement and Plan of Merger (the \u201c Merger Agreement \u201d), by and among the Company, Splunk Inc., a Delaware corporation (\u201c Splunk \u201d), and Spirit Merger Corp., a Delaware corporation and wholly owned subsidiary of the Company (\u201c Merger Sub \u201d), pursuant to which Merger S"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Splunk Inc.",
+          "object": "Cisco Systems, Inc.",
+          "status": "PROPOSED",
+          "evidence": "it Merger Corp., a Delaware corporation and wholly owned subsidiary of the Company (\u201c Merger Sub \u201d), pursuant to which Merger Sub will merge with and into Splunk (the \u201c Merger \u201d), with Splunk surviving the Merger as a wholly-owned subsidiary of the Company. Capitalized terms used herein without definition shall have the respective meanings specified in the Merger Agreement. The Company\u2019s Board of Directors (the \u201c Board \u201d) has unan"
+        }
+      ],
+      "completed_events": [
+        {
+          "event_type": "AGREED_TO_ACQUIRE",
+          "subject": "Cisco Systems, Inc.",
+          "object": "Splunk Inc.",
+          "status": "COMPLETED",
+          "evidence": "Agreement. Agreement and Plan of Merger On September 20, 2023, Cisco Systems, Inc. (\u201c Cisco \u201d or the \u201c Company \u201d), entered into an Agreement and Plan of Merger (the \u201c Merger Agreement \u201d), by and among the Company, Splunk Inc., a Delaware corporation (\u201c Splunk \u201d), and Spirit Merger Corp., a Delaware corporation and wholly owned subsidiary of the Company (\u201c Merger Sub \u201d), pursuant to which Merger S"
+        }
+      ],
+      "fused": {
+        "orgs": [
+          "Cisco Systems, Inc.",
+          "Spirit Merger Corp.",
+          "Splunk Inc."
+        ],
+        "aliases": {
+          "Cisco": "Cisco Systems, Inc.",
+          "Company": "Cisco Systems, Inc.",
+          "Splunk": "Splunk Inc.",
+          "Merger Sub": "Spirit Merger Corp."
+        },
+        "org_votes": {
+          "Cisco Systems, Inc.": 1.75,
+          "Spirit Merger Corp.": 2.75,
+          "Splunk Inc.": 2.75,
+          "Cisco Systems": 1.0,
+          "Company": 1.0,
+          "Merger Sub": 1.0,
+          "SEC": 1.0,
+          "Splunk": 1.0,
+          "Splunk Board Recommendation Splunk": 1.0,
+          "Splunk Common Stock": 1.0,
+          "Splunk\u2019s": 1.0,
+          "Splunk\u2019s Unvested Company Shares": 1.0,
+          "The Splunk Board": 1.0,
+          "Unvested Company Share": 1.0,
+          "Unvested Company Shares": 1.0,
+          "the Effective Time": 1.0,
+          "the Merger Consideration": 1.0,
+          "the Proxy Statement that Splunk": 1.0,
+          "the Splunk Board": 1.0,
+          "the Splunk Board\u2019s Change of Recommendation": 1.0,
+          "the Splunk Common Stock": 1.0,
+          "the State of Delaware": 1.0,
+          "the U.S. Securities and Exchange Commission": 1.0,
+          "the \u201c Board \u201d": 1.0,
+          "the \u201c Effective Time": 1.0,
+          "the \u201c Merger Consideration": 1.0,
+          "the \u201c Splunk Board": 1.0
+        }
+      }
+    },
+    {
+      "case": "cisco_closing_2024",
+      "org": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "alias": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "event": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "raw_events": [
+        {
+          "event_type": "ACQUIRED",
+          "subject": "Cisco Systems, Inc.",
+          "object": "Splunk Inc.",
+          "status": "COMPLETED",
+          "evidence": "quisition or Disposition of Assets. On March 18, 2024, Cisco Systems, Inc., a Delaware corporation (the \u201c Company \u201d), completed the previously announced transaction with Splunk Inc., a Delaware corporation (\u201c Splunk \u201d), and Spirit Merger Corp., a Delaware corporation and wholly owned subsidiary of the Company (\u201c Merger Sub \u201d), pursuant to the Agreement and Plan of Merger, dated as of September 20"
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Spirit Merger Corp.",
+          "object": "Splunk Inc.",
+          "status": "COMPLETED",
+          "evidence": "Agreement \u201d), by and among the Company, Splunk and Merger Sub. Pursuant to the Merger Agreement, at the effective time of the Merger (the \u201c Effective Time \u201d), Merger Sub merged with and into Splunk (the \u201c Merger \u201d), with Splunk surviving the Merger as a wholly owned subsidiary of the Company. Capitalized terms used herein without definition have the meanings specified in the Merger Agreement. Merger Consideration As a result of the Merger, each shar"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Splunk Inc.",
+          "object": "Cisco Systems, Inc.",
+          "status": "COMPLETED",
+          "evidence": "ny, Splunk and Merger Sub. Pursuant to the Merger Agreement, at the effective time of the Merger (the \u201c Effective Time \u201d), Merger Sub merged with and into Splunk (the \u201c Merger \u201d), with Splunk surviving the Merger as a wholly owned subsidiary of the Company. Capitalized terms used herein without definition have the meanings specified in the Merger Agreement. Merger Consideration As a result of the Merger, each share of common sto"
+        }
+      ],
+      "completed_events": [
+        {
+          "event_type": "ACQUIRED",
+          "subject": "Cisco Systems, Inc.",
+          "object": "Splunk Inc.",
+          "status": "COMPLETED",
+          "evidence": "quisition or Disposition of Assets. On March 18, 2024, Cisco Systems, Inc., a Delaware corporation (the \u201c Company \u201d), completed the previously announced transaction with Splunk Inc., a Delaware corporation (\u201c Splunk \u201d), and Spirit Merger Corp., a Delaware corporation and wholly owned subsidiary of the Company (\u201c Merger Sub \u201d), pursuant to the Agreement and Plan of Merger, dated as of September 20"
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Spirit Merger Corp.",
+          "object": "Splunk Inc.",
+          "status": "COMPLETED",
+          "evidence": "Agreement \u201d), by and among the Company, Splunk and Merger Sub. Pursuant to the Merger Agreement, at the effective time of the Merger (the \u201c Effective Time \u201d), Merger Sub merged with and into Splunk (the \u201c Merger \u201d), with Splunk surviving the Merger as a wholly owned subsidiary of the Company. Capitalized terms used herein without definition have the meanings specified in the Merger Agreement. Merger Consideration As a result of the Merger, each shar"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Splunk Inc.",
+          "object": "Cisco Systems, Inc.",
+          "status": "COMPLETED",
+          "evidence": "ny, Splunk and Merger Sub. Pursuant to the Merger Agreement, at the effective time of the Merger (the \u201c Effective Time \u201d), Merger Sub merged with and into Splunk (the \u201c Merger \u201d), with Splunk surviving the Merger as a wholly owned subsidiary of the Company. Capitalized terms used herein without definition have the meanings specified in the Merger Agreement. Merger Consideration As a result of the Merger, each share of common sto"
+        }
+      ],
+      "fused": {
+        "orgs": [
+          "Cisco Systems, Inc.",
+          "Spirit Merger Corp.",
+          "Splunk Inc."
+        ],
+        "aliases": {
+          "Company": "Cisco Systems, Inc.",
+          "Splunk": "Splunk Inc.",
+          "Merger Sub": "Spirit Merger Corp."
+        },
+        "org_votes": {
+          "Cisco Systems, Inc.": 1.75,
+          "Spirit Merger Corp.": 2.75,
+          "Splunk Inc.": 2.75,
+          "Cisco Systems": 1.0,
+          "Company": 1.0,
+          "Merger Sub": 1.0,
+          "Splunk Common Stock": 1.0,
+          "Splunk\u2019s": 1.0,
+          "The Merger Consideration": 1.0,
+          "the Effective Time": 1.0,
+          "the Merger Consideration": 1.0,
+          "the Splunk Common Stock": 1.0,
+          "the \u201c Effective Time": 1.0,
+          "the \u201c Merger Consideration": 1.0
+        }
+      }
+    },
+    {
+      "case": "cisco_financing_negative_2024",
+      "org": null,
+      "alias": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "event": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "raw_events": [],
+      "completed_events": [],
+      "fused": {
+        "orgs": [
+          "Barclays Capital Inc.",
+          "Cisco Systems, Inc.",
+          "Citigroup Global Markets Inc.",
+          "Deutsche Bank Securities Inc.",
+          "Spirit Merger Corp.",
+          "Splunk Inc."
+        ],
+        "aliases": {
+          "Company": "Cisco Systems, Inc."
+        },
+        "org_votes": {
+          "Barclays Capital Inc.": 1.5,
+          "Cisco Systems, Inc.": 1.75,
+          "Citigroup Global Markets Inc.": 1.5,
+          "Company and BofA Securities, Inc.": 0.5,
+          "Deutsche Bank Securities Inc.": 1.5,
+          "J.P. Morgan Securities LLC": 0.5,
+          "Spirit Merger Corp.": 1.5,
+          "Splunk Inc.": 1.5,
+          "Wells Fargo Securities, LLC": 0.5,
+          "BofA Securities, Inc.": 1.0,
+          "Cisco Systems": 1.0,
+          "Company": 1.0,
+          "Indenture": 1.0,
+          "J.P. Morgan Securities": 1.0,
+          "LLC": 1.0,
+          "SEC": 1.0,
+          "The Bank of New York Mellon Trust Company": 1.0,
+          "Trustee": 1.0,
+          "Wells Fargo Securities": 1.0,
+          "the Base Indenture": 1.0,
+          "the First Supplemental Indenture": 1.0,
+          "the Securities and Exchange Commission": 1.0,
+          "the Special Mandatory Redemption Date": 1.0,
+          "the Special Mandatory Redemption End Date": 1.0,
+          "the \u201cFirst Supplemental Indenture": 1.0
+        }
+      }
+    },
+    {
+      "case": "broadcom_agreement_2022",
+      "org": {
+        "tp": 5,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.8333333333333334,
+        "f1": 0.9090909090909091
+      },
+      "alias": {
+        "tp": 6,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.8571428571428571,
+        "f1": 0.923076923076923
+      },
+      "event": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "raw_events": [
+        {
+          "event_type": "AGREED_TO_ACQUIRE",
+          "subject": "Broadcom Inc.",
+          "object": "VMware, Inc.",
+          "status": "COMPLETED",
+          "evidence": "ement. As previously announced, on May 26, 2022, Broadcom Inc., a Delaware corporation (the \u201cCompany\u201d or \u201cBroadcom\u201d), entered into an Agreement and Plan of Merger (the \u201cMerger Agreement\u201d) with VMware, Inc. (\u201cVMware\u201d), a Delaware corporation, Verona Holdco, Inc. a Delaware corporation and a direct wholly owned subsidiary of VMware (\u201cHoldco\u201d), Verona Merger Sub, Inc., a Delaware corporation and a dire"
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Verona Merger Sub, Inc.",
+          "object": "VMware, Inc.",
+          "status": "PROPOSED",
+          "evidence": "holly owned subsidiary of the Company (\u201cMerger Sub 3\u201d). The Merger Agreement provides that, upon the terms and subject to the conditions set forth therein, (i) Merger Sub 1 will be merged with and into VMware (the \u201cFirst Merger\u201d), with VMware continuing as the surviving corporation in the First Merger (the \u201cSurviving Company\u201d) and becoming a wholly owned subsidiary of HoldCo; (ii) following the First Merger, the Surviving Company will be converted from a Delaware"
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Broadcom Inc.",
+          "object": "Barcelona Merger Sub 3, LLC",
+          "status": "PROPOSED",
+          "evidence": "e Second Merger (the \u201cHoldco Surviving Company\u201d) and becoming a wholly owned subsidiary of Broadcom; and (iv) following the Second Merger, the Holdco Surviving Company will be merged with and into Merger Sub 3 (the \u201cThird Merger,\u201d and together with the First Merger, the Conversion and the Second Merger, the \u201cTransactions\u201d), with Merger Sub 3 continuing as the surviving limited liability company and as a wholly owned subsidiary of Broadcom. As a result of the Tran"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Barcelona Merger Sub 3, LLC",
+          "object": "Broadcom Inc.",
+          "status": "PROPOSED",
+          "evidence": "dco Surviving Company will be merged with and into Merger Sub 3 (the \u201cThird Merger,\u201d and together with the First Merger, the Conversion and the Second Merger, the \u201cTransactions\u201d), with Merger Sub 3 continuing as the surviving limited liability company and as a wholly owned subsidiary of Broadcom. As a result of the Transactions, each share of Class A common stock, par value $0.01 per share, of VMware (\u201cVMware Common Stock\u201d) issued and outstanding immediately prior to th"
+        },
+        {
+          "event_type": "CONVERTED_TO",
+          "subject": "VMware, Inc.",
+          "object": "Delaware limited liability company",
+          "status": "PROPOSED",
+          "evidence": "as the surviving corporation in the First Merger (the \u201cSurviving Company\u201d) and becoming a wholly owned subsidiary of HoldCo; (ii) following the First Merger, the Surviving Company will be converted from a Delaware corporation into a Delaware limited liability company (the \u201cConversion\u201d); (iii) following the Conversion, Merger Sub 2 will be merged with and into Holdco (the \u201cSecond Merger\u201d), with Holdco continuing as the survi"
+        }
+      ],
+      "completed_events": [
+        {
+          "event_type": "AGREED_TO_ACQUIRE",
+          "subject": "Broadcom Inc.",
+          "object": "VMware, Inc.",
+          "status": "COMPLETED",
+          "evidence": "ement. As previously announced, on May 26, 2022, Broadcom Inc., a Delaware corporation (the \u201cCompany\u201d or \u201cBroadcom\u201d), entered into an Agreement and Plan of Merger (the \u201cMerger Agreement\u201d) with VMware, Inc. (\u201cVMware\u201d), a Delaware corporation, Verona Holdco, Inc. a Delaware corporation and a direct wholly owned subsidiary of VMware (\u201cHoldco\u201d), Verona Merger Sub, Inc., a Delaware corporation and a dire"
+        }
+      ],
+      "fused": {
+        "orgs": [
+          "Barcelona Merger Sub 2, Inc.",
+          "Barcelona Merger Sub 3, LLC",
+          "Broadcom Inc.",
+          "VMware, Inc.",
+          "Verona Merger Sub, Inc."
+        ],
+        "aliases": {
+          "Company": "Broadcom Inc.",
+          "Broadcom": "Broadcom Inc.",
+          "VMware": "VMware, Inc.",
+          "Merger Sub 1": "Verona Merger Sub, Inc.",
+          "Merger Sub 2": "Barcelona Merger Sub 2, Inc.",
+          "Merger Sub 3": "Barcelona Merger Sub 3, LLC"
+        },
+        "org_votes": {
+          "Barcelona Merger Sub 2, Inc.": 2.75,
+          "Barcelona Merger Sub 3, LLC": 1.75,
+          "Broadcom Inc.": 2.75,
+          "VMware, Inc.": 2.75,
+          "Verona Holdco, Inc.": 0.5,
+          "Verona Merger Sub, Inc.": 1.75,
+          "Barcelona Merger Sub 3": 1.0,
+          "Broadcom": 1.0,
+          "Broadcom Common Stock": 1.0,
+          "Broadcom, Merger Sub 2": 1.0,
+          "Broadcom\u2019s": 1.0,
+          "Conversion": 1.0,
+          "LLC": 1.0,
+          "Merger Sub 3": 1.0,
+          "SEC": 1.0,
+          "Transactions": 1.0,
+          "VMware": 1.0,
+          "VMware Common Stock": 1.0,
+          "the European Union": 1.0,
+          "the First Merger": 1.0,
+          "the Holdco Surviving Company": 1.0,
+          "the Internal Revenue Code": 1.0,
+          "the Outside Date": 1.0,
+          "the Second Merger": 1.0,
+          "the Stock Consideration": 1.0,
+          "the Surviving Company": 1.0,
+          "the Third Merger": 1.0,
+          "the U.S. Securities and Exchange Commission": 1.0,
+          "the United States Hart-Scott-Rodino Antitrust Improvements Act": 1.0,
+          "the \u201cFirst Merger": 1.0,
+          "the \u201cHoldco Surviving Company": 1.0,
+          "the \u201cSurviving Company": 1.0
+        }
+      }
+    },
+    {
+      "case": "broadcom_closing_2023",
+      "org": {
+        "tp": 6,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "alias": {
+        "tp": 6,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "event": {
+        "tp": 5,
+        "fp": 2,
+        "fn": 1,
+        "precision": 0.7142857142857143,
+        "recall": 0.8333333333333334,
+        "f1": 0.7692307692307692
+      },
+      "raw_events": [
+        {
+          "event_type": "ACQUIRED",
+          "subject": "Broadcom Inc.",
+          "object": "VMware, Inc.",
+          "status": "COMPLETED",
+          "evidence": "Item 2.01 Completion of Acquisition or Disposition of Assets. On November 22, 2023, Broadcom Inc. (\u201cBroadcom\u201d) completed its acquisition of VMware, Inc. (\u201cVMware\u201d) pursuant to the Agreement and Plan of Merger (the \u201cMerger Agreement\u201d), dated as of May 26, 2022, by and among Broadcom, VMware, Verona Holdco, Inc., a direct wholly owned subsidiary of VMware (\u201cHoldco\u201d), Ve"
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Verona Merger Sub, Inc.",
+          "object": "VMware, Inc.",
+          "status": "COMPLETED",
+          "evidence": "ger Sub 3, LLC, a direct wholly owned subsidiary of Broadcom (\u201cMerger Sub 3\u201d). Pursuant to and subject to the terms and conditions of the Merger Agreement, (i) Merger Sub 1 merged with and into VMware (the \u201cFirst Merger\u201d), with VMware continuing as the surviving corporation in the First Merger (the \u201cSurviving Company\u201d) and becoming a wholly owned subsidiary of Holdco; (ii) following the First Merger, the Surviving Company was converted from a Delaware cor"
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Barcelona Merger Sub 2, Inc.",
+          "object": "Verona Holdco, Inc.",
+          "status": "COMPLETED",
+          "evidence": "the Surviving Company was converted from a Delaware corporation into a Delaware limited liability company (the \u201cConversion\u201d); (iii) following the Conversion, Merger Sub 2 merged with and into Holdco (the \u201cSecond Merger\u201d), with Holdco continuing as the surviving corporation in the Second Merger (the \u201cHoldco Surviving Company\u201d) and becoming a wholly owned subsidiary of Broadcom; and (iv) following the Second Merger, the Holdco Surviving Company merged wit"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "VMware, Inc.",
+          "object": "Verona Holdco, Inc.",
+          "status": "COMPLETED",
+          "evidence": "diary of Broadcom (\u201cMerger Sub 3\u201d). Pursuant to and subject to the terms and conditions of the Merger Agreement, (i) Merger Sub 1 merged with and into VMware (the \u201cFirst Merger\u201d), with VMware continuing as the surviving corporation in the First Merger (the \u201cSurviving Company\u201d) and becoming a wholly owned subsidiary of Holdco; (ii) following the First Merger, the Surviving Company was converted from a Delaware corporation into a Delaware limited liability company (the \u201cConversion\u201d); (iii) following the"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Verona Holdco, Inc.",
+          "object": "Broadcom Inc.",
+          "status": "COMPLETED",
+          "evidence": "Delaware corporation into a Delaware limited liability company (the \u201cConversion\u201d); (iii) following the Conversion, Merger Sub 2 merged with and into Holdco (the \u201cSecond Merger\u201d), with Holdco continuing as the surviving corporation in the Second Merger (the \u201cHoldco Surviving Company\u201d) and becoming a wholly owned subsidiary of Broadcom; and (iv) following the Second Merger, the Holdco Surviving Company merged with and into Merger Sub 3, with Merger Sub 3 continuing as the surviving limited liability company and"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Barcelona Merger Sub 3, LLC",
+          "object": "Broadcom Inc.",
+          "status": "COMPLETED",
+          "evidence": "ldco Surviving Company\u201d) and becoming a wholly owned subsidiary of Broadcom; and (iv) following the Second Merger, the Holdco Surviving Company merged with and into Merger Sub 3, with Merger Sub 3 continuing as the surviving limited liability company and as a wholly owned subsidiary of Broadcom (the \u201cThird Merger\u201d and together with the First Merger, the Conversion and the Second Merger, the \u201cMergers\u201d). Each share of Class A common stock, par value $0.01 per share, of"
+        },
+        {
+          "event_type": "CONVERTED_TO",
+          "subject": "VMware, Inc.",
+          "object": "Delaware limited liability company",
+          "status": "COMPLETED",
+          "evidence": "s the surviving corporation in the First Merger (the \u201cSurviving Company\u201d) and becoming a wholly owned subsidiary of Holdco; (ii) following the First Merger, the Surviving Company was converted from a Delaware corporation into a Delaware limited liability company (the \u201cConversion\u201d); (iii) following the Conversion, Merger Sub 2 merged with and into Holdco (the \u201cSecond Merger\u201d), with Holdco continuing as the surviving co"
+        }
+      ],
+      "completed_events": [
+        {
+          "event_type": "ACQUIRED",
+          "subject": "Broadcom Inc.",
+          "object": "VMware, Inc.",
+          "status": "COMPLETED",
+          "evidence": "Item 2.01 Completion of Acquisition or Disposition of Assets. On November 22, 2023, Broadcom Inc. (\u201cBroadcom\u201d) completed its acquisition of VMware, Inc. (\u201cVMware\u201d) pursuant to the Agreement and Plan of Merger (the \u201cMerger Agreement\u201d), dated as of May 26, 2022, by and among Broadcom, VMware, Verona Holdco, Inc., a direct wholly owned subsidiary of VMware (\u201cHoldco\u201d), Ve"
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Verona Merger Sub, Inc.",
+          "object": "VMware, Inc.",
+          "status": "COMPLETED",
+          "evidence": "ger Sub 3, LLC, a direct wholly owned subsidiary of Broadcom (\u201cMerger Sub 3\u201d). Pursuant to and subject to the terms and conditions of the Merger Agreement, (i) Merger Sub 1 merged with and into VMware (the \u201cFirst Merger\u201d), with VMware continuing as the surviving corporation in the First Merger (the \u201cSurviving Company\u201d) and becoming a wholly owned subsidiary of Holdco; (ii) following the First Merger, the Surviving Company was converted from a Delaware cor"
+        },
+        {
+          "event_type": "MERGED_INTO",
+          "subject": "Barcelona Merger Sub 2, Inc.",
+          "object": "Verona Holdco, Inc.",
+          "status": "COMPLETED",
+          "evidence": "the Surviving Company was converted from a Delaware corporation into a Delaware limited liability company (the \u201cConversion\u201d); (iii) following the Conversion, Merger Sub 2 merged with and into Holdco (the \u201cSecond Merger\u201d), with Holdco continuing as the surviving corporation in the Second Merger (the \u201cHoldco Surviving Company\u201d) and becoming a wholly owned subsidiary of Broadcom; and (iv) following the Second Merger, the Holdco Surviving Company merged wit"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "VMware, Inc.",
+          "object": "Verona Holdco, Inc.",
+          "status": "COMPLETED",
+          "evidence": "diary of Broadcom (\u201cMerger Sub 3\u201d). Pursuant to and subject to the terms and conditions of the Merger Agreement, (i) Merger Sub 1 merged with and into VMware (the \u201cFirst Merger\u201d), with VMware continuing as the surviving corporation in the First Merger (the \u201cSurviving Company\u201d) and becoming a wholly owned subsidiary of Holdco; (ii) following the First Merger, the Surviving Company was converted from a Delaware corporation into a Delaware limited liability company (the \u201cConversion\u201d); (iii) following the"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Verona Holdco, Inc.",
+          "object": "Broadcom Inc.",
+          "status": "COMPLETED",
+          "evidence": "Delaware corporation into a Delaware limited liability company (the \u201cConversion\u201d); (iii) following the Conversion, Merger Sub 2 merged with and into Holdco (the \u201cSecond Merger\u201d), with Holdco continuing as the surviving corporation in the Second Merger (the \u201cHoldco Surviving Company\u201d) and becoming a wholly owned subsidiary of Broadcom; and (iv) following the Second Merger, the Holdco Surviving Company merged with and into Merger Sub 3, with Merger Sub 3 continuing as the surviving limited liability company and"
+        },
+        {
+          "event_type": "SUBSIDIARY_OF",
+          "subject": "Barcelona Merger Sub 3, LLC",
+          "object": "Broadcom Inc.",
+          "status": "COMPLETED",
+          "evidence": "ldco Surviving Company\u201d) and becoming a wholly owned subsidiary of Broadcom; and (iv) following the Second Merger, the Holdco Surviving Company merged with and into Merger Sub 3, with Merger Sub 3 continuing as the surviving limited liability company and as a wholly owned subsidiary of Broadcom (the \u201cThird Merger\u201d and together with the First Merger, the Conversion and the Second Merger, the \u201cMergers\u201d). Each share of Class A common stock, par value $0.01 per share, of"
+        },
+        {
+          "event_type": "CONVERTED_TO",
+          "subject": "VMware, Inc.",
+          "object": "Delaware limited liability company",
+          "status": "COMPLETED",
+          "evidence": "s the surviving corporation in the First Merger (the \u201cSurviving Company\u201d) and becoming a wholly owned subsidiary of Holdco; (ii) following the First Merger, the Surviving Company was converted from a Delaware corporation into a Delaware limited liability company (the \u201cConversion\u201d); (iii) following the Conversion, Merger Sub 2 merged with and into Holdco (the \u201cSecond Merger\u201d), with Holdco continuing as the surviving co"
+        }
+      ],
+      "fused": {
+        "orgs": [
+          "Barcelona Merger Sub 2, Inc.",
+          "Barcelona Merger Sub 3, LLC",
+          "Broadcom Inc.",
+          "VMware, Inc.",
+          "Verona Holdco, Inc.",
+          "Verona Merger Sub, Inc."
+        ],
+        "aliases": {
+          "Broadcom": "Broadcom Inc.",
+          "VMware": "VMware, Inc.",
+          "Holdco": "Verona Holdco, Inc.",
+          "Merger Sub 1": "Verona Merger Sub, Inc.",
+          "Merger Sub 2": "Barcelona Merger Sub 2, Inc.",
+          "Merger Sub 3": "Barcelona Merger Sub 3, LLC"
+        },
+        "org_votes": {
+          "Barcelona Merger Sub 2, Inc.": 1.75,
+          "Barcelona Merger Sub 3, LLC": 1.75,
+          "Broadcom Inc.": 2.75,
+          "VMware, Inc.": 2.75,
+          "Verona Holdco, Inc.": 1.75,
+          "Verona Merger Sub, Inc.": 1.75,
+          "Barcelona Merger Sub 3": 1.0,
+          "Broadcom": 1.0,
+          "Broadcom Common Shares": 1.0,
+          "Conversion": 1.0,
+          "LLC": 1.0,
+          "Merger Sub 2": 1.0,
+          "SEC": 1.0,
+          "VMware": 1.0,
+          "VMware Common Shares": 1.0,
+          "the Cash Consideration": 1.0,
+          "the Conversion": 1.0,
+          "the Effective Time": 1.0,
+          "the First Merger": 1.0,
+          "the Holdco Surviving Company": 1.0,
+          "the Second Merger": 1.0,
+          "the Stock Consideration": 1.0,
+          "the Surviving Company": 1.0,
+          "the U.S. Securities and Exchange Commission": 1.0,
+          "the \u201cEffective Time": 1.0,
+          "the \u201cFirst Merger": 1.0,
+          "the \u201cHoldco Surviving Company": 1.0,
+          "the \u201cMerger Consideration": 1.0,
+          "the \u201cSurviving Company": 1.0
+        }
+      }
+    },
+    {
+      "case": "broadcom_financing_negative_2023",
+      "org": null,
+      "alias": {
+        "tp": 0,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "event": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "raw_events": [],
+      "completed_events": [],
+      "fused": {
+        "orgs": [
+          "Barcelona Merger Sub 2, Inc.",
+          "Barcelona Merger Sub 3, LLC",
+          "Broadcom Inc.",
+          "VMware, Inc."
+        ],
+        "aliases": {
+          "Broadcom": "Broadcom Inc.",
+          "VMware": "VMware, Inc.",
+          "Merger Agreement": "Barcelona Merger Sub 3, LLC"
+        },
+        "org_votes": {
+          "Barcelona Merger Sub 2, Inc.": 1.5,
+          "Barcelona Merger Sub 3, LLC": 1.75,
+          "Broadcom Inc.": 2.75,
+          "VMware, Inc.": 2.75,
+          "Verona Holdco, Inc.": 0.5,
+          "Verona Merger Sub, Inc.": 0.5,
+          "Bank of America": 1.0,
+          "Barcelona Merger Sub 3": 1.0,
+          "Broadcom": 1.0,
+          "Broadcom\u2019s Consolidated Interest Coverage Ratio": 1.0,
+          "Definitive Material Agreement": 1.0,
+          "LLC": 1.0,
+          "Term Facilities": 1.0,
+          "Term Facility": 1.0,
+          "Term Loan Increase": 1.0,
+          "VMware": 1.0,
+          "the Acquisition": 1.0,
+          "the Funding Date": 1.0,
+          "the Outside Date": 1.0,
+          "the Term A-2 Facility": 1.0,
+          "the Term Facilities": 1.0,
+          "the \u201cEffective Date": 1.0,
+          "the \u201cFunding Date": 1.0
+        }
+      }
+    }
+  ]
+}

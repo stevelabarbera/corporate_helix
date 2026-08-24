@@ -1,0 +1,106 @@
+{
+  "schema_version": "m3.8.3-canonical-events-v1",
+  "source_company": "Cisco",
+  "source_cik": "0000858877",
+  "events": [
+    {
+      "event_id": "evt:ccdacf393673801e3bc9",
+      "event_type": "MERGED_INTO",
+      "effective_date": "2024-03-18",
+      "status": "ASSERTED_FROM_FILING",
+      "parties": {
+        "acquirer": null,
+        "target": null,
+        "subject": "Merger Sub",
+        "object_entity": "Splunk",
+        "result_entity": null
+      },
+      "confidence": "HIGH",
+      "metadata": {
+        "sequence_index": 1,
+        "survivor_stated": false
+      },
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "2.01",
+        "accession": "0001193125-24-070175",
+        "filing_date": "2024-03-18",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/858877/000119312524070175/d783088d8k.htm"
+      },
+      "reason": "Generic 'merged with and into' transaction-lineage pattern."
+    },
+    {
+      "event_id": "evt:fc3c88d865e59caa2412",
+      "event_type": "SUBSIDIARY_OF",
+      "effective_date": "2024-03-18",
+      "status": "ASSERTED_FROM_FILING",
+      "parties": {
+        "acquirer": null,
+        "target": null,
+        "subject": "with Splunk surviving the Merger",
+        "object_entity": "the Company",
+        "result_entity": null
+      },
+      "confidence": "HIGH",
+      "metadata": {},
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "2.01",
+        "accession": "0001193125-24-070175",
+        "filing_date": "2024-03-18",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/858877/000119312524070175/d783088d8k.htm"
+      },
+      "reason": "Generic wholly-owned-subsidiary pattern."
+    },
+    {
+      "event_id": "evt:a811b910ff29f39c01b5",
+      "event_type": "M&A_CANDIDATE",
+      "effective_date": "2024-02-26",
+      "status": "CANDIDATE",
+      "parties": {
+        "acquirer": null,
+        "target": null,
+        "subject": null,
+        "object_entity": null,
+        "result_entity": null
+      },
+      "confidence": "REVIEW",
+      "metadata": {},
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "1.01",
+        "accession": "0001193125-24-046231",
+        "filing_date": "2024-02-26",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/858877/000119312524046231/d751183d8k.htm"
+      },
+      "reason": "M&A language detected but generic party extraction was inconclusive."
+    },
+    {
+      "event_id": "evt:7757a6ec2c32618f9ca8",
+      "event_type": "M&A_CANDIDATE",
+      "effective_date": "2023-09-21",
+      "status": "CANDIDATE",
+      "parties": {
+        "acquirer": null,
+        "target": null,
+        "subject": null,
+        "object_entity": null,
+        "result_entity": null
+      },
+      "confidence": "REVIEW",
+      "metadata": {},
+      "provenance": {
+        "provider": "sec_edgar",
+        "form": "8-K",
+        "sec_item": "1.01",
+        "accession": "0001193125-23-239165",
+        "filing_date": "2023-09-21",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/858877/000119312523239165/d464532d8k.htm"
+      },
+      "reason": "M&A language detected but generic party extraction was inconclusive."
+    }
+  ]
+}
