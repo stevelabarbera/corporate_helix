@@ -1,3 +1,32 @@
 data/gleif/20260804-0800-gleif-goldencopy-rr-golden-copy.json
 data/gleif/20260804-0800-gleif-goldencopy-lei2-last-day 2.json
 data/gleif/20260804-0800-gleif-goldencopy-lei2-last-day 3.json
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Python bytecode/cache
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Python virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Python tooling/cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# IDE/editor junk
+.vscode/
+.idea/
+*.swp
+*.swo
