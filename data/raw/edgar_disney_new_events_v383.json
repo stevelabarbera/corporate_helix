@@ -1,0 +1,11 @@
+{
+  "schema_version": "m3.8.3-edgar-events-raw-v1",
+  "generated_at": "2026-08-24T04:25:19.154158+00:00",
+  "company": "The Walt Disney Company",
+  "cik": "0001744489",
+  "window": {
+    "start": "2019-01-01",
+    "end": "2019-12-31"
+  },
+  "filings": []
+}

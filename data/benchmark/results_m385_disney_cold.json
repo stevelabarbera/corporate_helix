@@ -1,0 +1,839 @@
+{
+  "schema_version": "m3.8.5-cold-run-v1",
+  "filings": [
+    {
+      "source_file": "./data/raw/edgar_disney_old_events_v383.json",
+      "company": "The Walt Disney Company",
+      "cik": "0001001039",
+      "filing_date": "2018-06-21",
+      "accession": "0000950157-18-000744",
+      "form": "8-K",
+      "items": "1.01,8.01,9.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "orgs": [
+            "BNP Paribas Securities Corp.",
+            "Citigroup Global Markets Inc.",
+            "Disney will make a cash payment to New Fox, Inc.",
+            "TWDC Holdco 613 Corp.",
+            "Twenty-First Century Fox, Inc.",
+            "Voting Agreement with Murdoch Family Trust and Cruden Financial Services LLC",
+            "WDC Merger Enterprises I, Inc.",
+            "WDC Merger Enterprises II, Inc."
+          ],
+          "aliases": {
+            "New Disney": "TWDC Holdco 613 Corp.",
+            "Delta Sub": "WDC Merger Enterprises I, Inc.",
+            "Wax Sub": "WDC Merger Enterprises II, Inc.",
+            "21CF": "Twenty-First Century Fox, Inc.",
+            "New Fox": "Disney will make a cash payment to New Fox, Inc.",
+            "Stockholders": "Voting Agreement with Murdoch Family Trust and Cruden Financial Services LLC"
+          },
+          "raw_events": [],
+          "completed_events": [],
+          "proposed_events": [],
+          "org_votes": {
+            "BNP Paribas Securities Corp.": 1.5,
+            "Citigroup Global Markets Inc.": 1.5,
+            "Delaware General Corporation": 0.5,
+            "Disney will make a cash payment to New Fox, Inc.": 1.75,
+            "TWC Merger Enterprises 1, LLC": 0.5,
+            "TWC Merger Enterprises 2 Corp.": 0.5,
+            "TWDC Holdco 613 Corp.": 2.75,
+            "Twenty-First Century Fox, Inc.": 1.75,
+            "Voting Agreement with Murdoch Family Trust and Cruden Financial Services LLC": 1.75,
+            "WDC Merger Enterprises I, Inc.": 2.75,
+            "WDC Merger Enterprises II, Inc.": 2.75,
+            "Amended and Restated Agreement and Plan of Merger": 1.0,
+            "Amended and Restated Voting Agreement": 1.0,
+            "BNP Paribas": 1.0,
+            "Big Ten Network": 1.0,
+            "Commitment Letter Disney": 1.0,
+            "Cruden Financial Services": 1.0,
+            "DIS": 1.0,
+            "Delta Sub": 1.0,
+            "Disney": 1.0,
+            "Disney’s": 1.0,
+            "Distribution": 1.0,
+            "Enterprises 2 Corp.": 1.0,
+            "Fox Broadcasting Company": 1.0,
+            "Fox Business Network": 1.0,
+            "Fox Sports": 1.0,
+            "Fox Television Stations Group": 1.0,
+            "Fox, Inc.": 1.0,
+            "HSBC Bank USA": 1.0,
+            "HSBC Securities (USA) Inc.": 1.0,
+            "JPMorgan Chase Bank": 1.0,
+            "LLC": 1.0,
+            "Murdoch Family Trust": 1.0,
+            "New Disney": 1.0,
+            "New Disney’s": 1.0,
+            "RBC Capital Markets": 1.0,
+            "Royal Bank of Canada": 1.0,
+            "Stockholders": 1.0,
+            "TWC": 1.0,
+            "TWC Merger Enterprises 1": 1.0,
+            "The Amended and Restated Voting Agreement amends": 1.0,
+            "The Walt Disney Company": 1.0,
+            "the 21CF Merger": 1.0,
+            "the Amended and Restated Voting Agreement": 1.0,
+            "the Australian Taxation Office": 1.0,
+            "the Average Disney Price": 1.0,
+            "the Average Disney Stock Price": 1.0,
+            "the Bridge Facility": 1.0,
+            "the Exchange Ratio": 1.0,
+            "the Fox News Channel": 1.0,
+            "the Merger Consideration": 1.0,
+            "the New York Stock Exchange": 1.0,
+            "the Original Voting Agreement": 1.0,
+            "the Required Governmental Consents": 1.0,
+            "the Securities and Exchange Commission": 1.0,
+            "the “Average Disney Price": 1.0,
+            "the “Merger Consideration": 1.0,
+            "the “Stock Consideration": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "source_file": "./data/raw/edgar_disney_old_events_v383.json",
+      "company": "The Walt Disney Company",
+      "cik": "0001001039",
+      "filing_date": "2017-12-14",
+      "accession": "0000950157-17-001598",
+      "form": "8-K",
+      "items": "1.01,5.02,5.03,8.01,9.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "orgs": [
+            "Merger LLC",
+            "Murdoch Family Trust and Cruden Financial Services LLC",
+            "TWC Merger Enterprises 1, LLC",
+            "TWC Merger Enterprises 2 Corp."
+          ],
+          "aliases": {
+            "Merger Sub": "TWC Merger Enterprises 2 Corp.",
+            "Merger LLC": "TWC Merger Enterprises 1, LLC",
+            "Subsequent Merger": "Merger LLC",
+            "Mergers": "Merger LLC",
+            "Stockholders": "Murdoch Family Trust and Cruden Financial Services LLC"
+          },
+          "raw_events": [],
+          "completed_events": [],
+          "proposed_events": [],
+          "org_votes": {
+            "Merger LLC": 1.75,
+            "Murdoch Family Trust and Cruden Financial Services LLC": 1.75,
+            "Surviving Corporation": 0.5,
+            "TWC Merger Enterprises 1, LLC": 1.75,
+            "TWC Merger Enterprises 2 Corp.": 2.75,
+            "0.2745 Disney": 1.0,
+            "Cruden Financial Services": 1.0,
+            "Disney": 1.0,
+            "Disney’s": 1.0,
+            "FCC": 1.0,
+            "Fox Business Network": 1.0,
+            "Fox News Channel": 1.0,
+            "LLC": 1.0,
+            "Murdoch Family Trust": 1.0,
+            "Stockholders": 1.0,
+            "TWC Merger Enterprises 1": 1.0,
+            "The Walt Disney Company": 1.0,
+            "Transactions": 1.0,
+            "a Company Change in Recommendation": 1.0,
+            "the 21CF Termination Fee": 1.0,
+            "the Corporate Sub": 1.0,
+            "the Disney Termination Fee": 1.0,
+            "the Federal Communications Commission": 1.0,
+            "the Initial Merger": 1.0,
+            "the Surviving Corporation": 1.0,
+            "the Termination Date": 1.0,
+            "the “Disney Termination Fee": 1.0,
+            "the “Effective Time": 1.0,
+            "the “Surviving Corporation": 1.0,
+            "the “Termination Date": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "source_file": "./data/raw/edgar_21cf_events_v383.json",
+      "company": "Twenty-First Century Fox",
+      "cik": "0001308161",
+      "filing_date": "2019-03-20",
+      "accession": "0000950157-19-000308",
+      "form": "8-K",
+      "items": "1.01,1.02,2.01,3.01,3.03,5.01,5.02,5.03,9.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "orgs": [
+            "New Newscorp Inc",
+            "News Corporation"
+          ],
+          "aliases": {},
+          "raw_events": [],
+          "completed_events": [],
+          "proposed_events": [],
+          "org_votes": {
+            "Agreement Assignment is qualified in its entirety by the full text of the News Corp": 0.5,
+            "Agreement that had been assigned to FOX. The foregoing summary of the News Corp": 0.5,
+            "Amendment to News Corp": 0.5,
+            "New Newscorp Inc": 1.5,
+            "News Corp": 0.5,
+            "News Corporation": 1.5,
+            "Pursuant to the News Corp": 0.5,
+            "Distribution": 1.0,
+            "FOX": 1.0,
+            "FOX, News Corporation and News Corp Holdings UK & Ireland": 1.0,
+            "News Corporation and News Corp Holdings UK & Ireland": 1.0,
+            "Shared Contract": 1.0,
+            "the FOX Business": 1.0,
+            "the FOX Liabilities": 1.0,
+            "the News Corp Separation Agreement": 1.0,
+            "the News Corp Separation Agreement Assignment": 1.0,
+            "the News Corp Separation Agreement Assignment, News Corporation and News Corp Holdings UK & Ireland": 1.0,
+            "the Remainco Business": 1.0,
+            "the Tax Matters Agreement": 1.0,
+            "the “ Shared Contracts": 1.0,
+            "the “ Tax Matters Agreement": 1.0,
+            "the “News Corp Separation Agreement": 1.0,
+            "the “News Corp Separation Agreement Assignment": 1.0
+          }
+        },
+        {
+          "item": "2.01",
+          "orgs": [],
+          "aliases": {},
+          "raw_events": [],
+          "completed_events": [],
+          "proposed_events": [],
+          "org_votes": {
+            "Disney": 1.0,
+            "Disney Common Stock": 1.0,
+            "Distribution": 1.0,
+            "FOX": 1.0,
+            "Nasdaq": 1.0,
+            "Old Disney": 1.0,
+            "Old Disney Common Stock": 1.0,
+            "Old Disney Stock": 1.0,
+            "RSU": 1.0,
+            "TFCFA": 1.0,
+            "the 21 Effective Time": 1.0,
+            "the 21CF Effective Time": 1.0,
+            "the 21CF Merger": 1.0,
+            "the Average Parent Stock Price": 1.0,
+            "the Base Exchange Ratio": 1.0,
+            "the Disney Effective Time": 1.0,
+            "the Disney Merger": 1.0,
+            "the Equity Adjustment Amount": 1.0,
+            "the Hook Stock Shares": 1.0,
+            "the Merger Effective Date": 1.0,
+            "the New York Stock Exchange": 1.0,
+            "the Registration Statement": 1.0,
+            "the Securities and Exchange Commission": 1.0,
+            "the Transaction Tax": 1.0,
+            "the “ Merger Consideration": 1.0,
+            "the “ Stock Consideration": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "source_file": "./data/raw/edgar_21cf_events_v383.json",
+      "company": "Twenty-First Century Fox",
+      "cik": "0001308161",
+      "filing_date": "2019-03-19",
+      "accession": "0001193125-19-079034",
+      "form": "8-K",
+      "items": "2.01,8.01,9.01",
+      "sections": [
+        {
+          "item": "2.01",
+          "orgs": [
+            "Fox Corporation"
+          ],
+          "aliases": {
+            "FOX": "Fox Corporation"
+          },
+          "raw_events": [],
+          "completed_events": [],
+          "proposed_events": [],
+          "org_votes": {
+            "Distribution Merger Sub, Inc.": 0.5,
+            "Fox Corporation": 2.75,
+            "FOX": 1.0,
+            "FOX Broadcasting Company": 1.0,
+            "FOX Business Network": 1.0,
+            "FOX Sports": 1.0,
+            "FOX Television Stations Group": 1.0,
+            "The Walt Disney Company": 1.0,
+            "the Amended and Restated Agreement and Plan of Merger": 1.0,
+            "the Amended and Restated Distribution Agreement and Plan of Merger": 1.0,
+            "the Distribution Adjustment Multiple": 1.0,
+            "the FOX News Channel": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "source_file": "./data/raw/edgar_21cf_events_v383.json",
+      "company": "Twenty-First Century Fox",
+      "cik": "0001308161",
+      "filing_date": "2019-03-15",
+      "accession": "0001193125-19-076823",
+      "form": "8-K",
+      "items": "1.01,2.03,9.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "orgs": [
+            "Deutsche Bank Securities Inc.",
+            "TWDC Holdco 613 Corp.",
+            "Twenty-First Century Fox, Inc.",
+            "WDC Merger Enterprises I, Inc.",
+            "WDC Merger Enterprises II, Inc."
+          ],
+          "aliases": {
+            "Company": "Twenty-First Century Fox, Inc.",
+            "21CF": "Twenty-First Century Fox, Inc.",
+            "Deutsche Bank": "Deutsche Bank Securities Inc."
+          },
+          "raw_events": [],
+          "completed_events": [],
+          "proposed_events": [],
+          "org_votes": {
+            "Deutsche Bank Securities Inc.": 2.75,
+            "N.A. and Deutsche Bank Securities Inc.": 0.5,
+            "TWDC Holdco 613 Corp.": 1.5,
+            "Twenty-First Century Fox, Inc.": 1.75,
+            "WDC Merger Enterprises I, Inc.": 1.5,
+            "WDC Merger Enterprises II, Inc.": 1.5,
+            "Base Rate": 1.0,
+            "Borrower": 1.0,
+            "Citibank": 1.0,
+            "Co-Documentation Agents": 1.0,
+            "Co-Syndication Agents": 1.0,
+            "Company": 1.0,
+            "Deutsche Bank": 1.0,
+            "Dividend": 1.0,
+            "Eurodollar Rate": 1.0,
+            "Fox": 1.0,
+            "Fox Corporation": 1.0,
+            "Fox, Inc.": 1.0,
+            "Goldman Sachs": 1.0,
+            "Goldman Sachs Bank USA": 1.0,
+            "JPM": 1.0,
+            "JPMorgan Chase Bank": 1.0,
+            "Lenders": 1.0,
+            "Morgan Stanley": 1.0,
+            "Morgan Stanley Bank": 1.0,
+            "N.A.": 1.0,
+            "The Walt Disney Company": 1.0,
+            "the Amended and Restated Agreement and Plan of Merger": 1.0,
+            "the Bridge Lenders": 1.0,
+            "the Disney Acquisition(as": 1.0,
+            "the Eurodollar Rate": 1.0,
+            "the Federal Funds Rate": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "source_file": "./data/raw/edgar_21cf_events_v383.json",
+      "company": "Twenty-First Century Fox",
+      "cik": "0001308161",
+      "filing_date": "2019-01-25",
+      "accession": "0001193125-19-017201",
+      "form": "8-K",
+      "items": "1.01,2.03,9.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "orgs": [
+            "Century Fox America, Inc.",
+            "Citigroup Global Markets Inc.",
+            "Twenty-First Century Fox, Inc."
+          ],
+          "aliases": {
+            "21CFA": "Century Fox America, Inc.",
+            "Company": "Twenty-First Century Fox, Inc."
+          },
+          "raw_events": [],
+          "completed_events": [],
+          "proposed_events": [],
+          "org_votes": {
+            "Century Fox America, Inc.": 1.75,
+            "Citigroup Global Markets Inc.": 1.5,
+            "Fenner & Smith Incorporated": 0.5,
+            "Joint Lead Arrangers and Joint Bookrunners and Deutsche Bank Securities Inc.": 0.5,
+            "Twenty-First Century Fox, Inc.": 1.75,
+            "Amendment": 1.0,
+            "Bank of America": 1.0,
+            "Borrower": 1.0,
+            "Citibank": 1.0,
+            "Co-Administrative Agents": 1.0,
+            "Co-Documentation Agents": 1.0,
+            "Company": 1.0,
+            "Deutsche Bank AG New York Branch": 1.0,
+            "Deutsche Bank Securities Inc.": 1.0,
+            "Disney’s": 1.0,
+            "Dividend": 1.0,
+            "Fox America, Inc.": 1.0,
+            "Fox, Inc.": 1.0,
+            "GS": 1.0,
+            "Goldman Sachs Bank USA": 1.0,
+            "J.P. Morgan Securities": 1.0,
+            "JPMorgan Chase": 1.0,
+            "JPMorgan Chase Bank": 1.0,
+            "Joint Lead Arrangers": 1.0,
+            "Lenders": 1.0,
+            "Merrill Lynch": 1.0,
+            "Morgan Stanley Bank": 1.0,
+            "Pierce, Fenner & Smith Incorporated": 1.0,
+            "The Walt Disney Company": 1.0,
+            "Transactions": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "source_file": "./data/raw/edgar_21cf_events_v383.json",
+      "company": "Twenty-First Century Fox",
+      "cik": "0001308161",
+      "filing_date": "2018-10-22",
+      "accession": "0001193125-18-304343",
+      "form": "8-K",
+      "items": "1.01,3.03,9.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "orgs": [
+            "Century Fox America, Inc.",
+            "TWDC Holdco 613 Corp.",
+            "Twenty-First Century Fox, Inc.",
+            "WDC Merger Enterprises I, Inc.",
+            "WDC Merger Enterprises II, Inc."
+          ],
+          "aliases": {
+            "21CF": "Twenty-First Century Fox, Inc.",
+            "Company": "Twenty-First Century Fox, Inc.",
+            "New Disney": "TWDC Holdco 613 Corp.",
+            "21CFA": "Century Fox America, Inc."
+          },
+          "raw_events": [],
+          "completed_events": [],
+          "proposed_events": [],
+          "org_votes": {
+            "Century Fox America, Inc.": 1.75,
+            "TWDC Holdco 613 Corp.": 2.75,
+            "Twenty-First Century Fox, Inc.": 1.75,
+            "WDC Merger Enterprises I, Inc.": 1.5,
+            "WDC Merger Enterprises II, Inc.": 1.5,
+            "21st Century Fox America, Inc.": 1.0,
+            "Amended and Restated Agreement and Plan of Merger": 1.0,
+            "Amendments": 1.0,
+            "Consent Solicitations": 1.0,
+            "Disney": 1.0,
+            "Fox, Inc.": 1.0,
+            "New Disney": 1.0,
+            "Supplemental Indentures": 1.0,
+            "The Supplemental Indentures": 1.0,
+            "The Walt Disney Company": 1.0,
+            "the 21CFA Indentures": 1.0,
+            "the Consent Solicitations": 1.0,
+            "the Exchange Offers": 1.0,
+            "the Merger the Company": 1.0,
+            "the Supplemental Indentures": 1.0,
+            "the “21CFA Indentures": 1.0,
+            "the “Consent Solicitations": 1.0,
+            "the “Exchange Offers": 1.0,
+            "the “Supplemental Indentures": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "source_file": "./data/raw/edgar_21cf_events_v383.json",
+      "company": "Twenty-First Century Fox",
+      "cik": "0001308161",
+      "filing_date": "2018-10-11",
+      "accession": "0001193125-18-297676",
+      "form": "8-K",
+      "items": "2.01,9.01",
+      "sections": [
+        {
+          "item": "2.01",
+          "orgs": [
+            "BSkyB Holdco, Inc.",
+            "Century Fox UK Nominees Limited",
+            "Comcast Corporation",
+            "Sky plc",
+            "Twenty-First Century Fox, Inc."
+          ],
+          "aliases": {
+            "Seller": "BSkyB Holdco, Inc.",
+            "21CF": "Twenty-First Century Fox, Inc.",
+            "Company": "Twenty-First Century Fox, Inc.",
+            "Sky": "Sky plc"
+          },
+          "raw_events": [],
+          "completed_events": [],
+          "proposed_events": [],
+          "org_votes": {
+            "BSkyB Holdco, Inc.": 1.75,
+            "Century Fox UK Nominees Limited": 1.5,
+            "Comcast Corporation": 1.5,
+            "Sky plc": 2.75,
+            "Twenty-First Century Fox, Inc.": 1.75,
+            "Company": 1.0,
+            "Fox, Inc.": 1.0,
+            "Holdco, Inc.": 1.0,
+            "Sky": 1.0,
+            "the Securities and Exchange Commission": 1.0,
+            "the Sky Shares Sale": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "source_file": "./data/raw/edgar_21cf_events_v383.json",
+      "company": "Twenty-First Century Fox",
+      "cik": "0001308161",
+      "filing_date": "2018-10-09",
+      "accession": "0001193125-18-295425",
+      "form": "8-K",
+      "items": "1.01,1.02,8.01,9.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "orgs": [
+            "BSkyB Holdco, Inc.",
+            "Century Fox UK Nominees Limited",
+            "Comcast Corporation",
+            "Sky plc",
+            "Twenty-First Century Fox, Inc."
+          ],
+          "aliases": {
+            "Seller": "BSkyB Holdco, Inc.",
+            "21CF": "Twenty-First Century Fox, Inc.",
+            "Company": "Twenty-First Century Fox, Inc.",
+            "Sky": "Sky plc"
+          },
+          "raw_events": [],
+          "completed_events": [],
+          "proposed_events": [],
+          "org_votes": {
+            "BSkyB Holdco, Inc.": 1.75,
+            "Century Fox UK Nominees Limited": 1.5,
+            "Comcast Corporation": 1.5,
+            "Sky plc": 2.75,
+            "Twenty-First Century Fox, Inc.": 1.75,
+            "Fox, Inc.": 1.0,
+            "Holdco, Inc.": 1.0,
+            "Sky": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "source_file": "./data/raw/edgar_21cf_events_v383.json",
+      "company": "Twenty-First Century Fox",
+      "cik": "0001308161",
+      "filing_date": "2018-09-24",
+      "accession": "0001193125-18-280447",
+      "form": "8-K",
+      "items": "1.01,8.01,9.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "orgs": [
+            "Century Fox America, Inc.",
+            "Sky plc",
+            "TWDC Holdco 613 Corp.",
+            "Twenty-First Century Fox, Inc.",
+            "WDC Merger Enterprises I, Inc.",
+            "WDC Merger Enterprises II, Inc."
+          ],
+          "aliases": {
+            "Sky": "Sky plc",
+            "21CF": "Twenty-First Century Fox, Inc.",
+            "Company": "Twenty-First Century Fox, Inc.",
+            "21CFA": "Century Fox America, Inc."
+          },
+          "raw_events": [],
+          "completed_events": [],
+          "proposed_events": [],
+          "org_votes": {
+            "Agreement party thereto and J.P. Morgan Europe Limited": 0.5,
+            "Century Fox America, Inc.": 1.75,
+            "Sky plc": 2.75,
+            "TWDC Holdco 613 Corp.": 1.5,
+            "Twenty-First Century Fox, Inc.": 1.75,
+            "WDC Merger Enterprises I, Inc.": 1.5,
+            "WDC Merger Enterprises II, Inc.": 1.5,
+            "21st Century Fox America": 1.0,
+            "Company": 1.0,
+            "Disney": 1.0,
+            "Fox, Inc.": 1.0,
+            "J.P. Morgan Europe Limited": 1.0,
+            "Sky": 1.0,
+            "The Walt Disney Company": 1.0,
+            "the Amended and Restated Agreement and Plan of Merger": 1.0,
+            "the Consent and Reimbursement Agreement": 1.0,
+            "the Parent Regulatory Termination Fee": 1.0,
+            "the UK Announcement": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "source_file": "./data/raw/edgar_21cf_events_v383.json",
+      "company": "Twenty-First Century Fox",
+      "cik": "0001308161",
+      "filing_date": "2018-07-11",
+      "accession": "0001193125-18-215753",
+      "form": "8-K",
+      "items": "1.01,8.01,9.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "orgs": [
+            "Century Fox America, Inc.",
+            "TWDC Holdco 613 Corp.",
+            "To provide additional financing in connection with the increased offer for Sky plc",
+            "Twenty-First Century Fox, Inc.",
+            "WDC Merger Enterprises II, Inc."
+          ],
+          "aliases": {
+            "Sky": "To provide additional financing in connection with the increased offer for Sky plc",
+            "21CF": "Twenty-First Century Fox, Inc.",
+            "Company": "Twenty-First Century Fox, Inc.",
+            "21CFA": "Century Fox America, Inc."
+          },
+          "raw_events": [],
+          "completed_events": [],
+          "proposed_events": [],
+          "org_votes": {
+            "Century Fox America, Inc.": 1.75,
+            "TWDC Holdco 613 Corp.": 1.5,
+            "To provide additional financing in connection with the increased offer for Sky plc": 1.75,
+            "Twenty-First Century Fox, Inc.": 1.75,
+            "WDC Merger Enterprises I, Inc.": 0.5,
+            "WDC Merger Enterprises II, Inc.": 1.5,
+            "21st Century Fox America, Inc.": 1.0,
+            "Company": 1.0,
+            "Disney": 1.0,
+            "Fox, Inc.": 1.0,
+            "J.P. Morgan Europe Limited": 1.0,
+            "Sky": 1.0,
+            "Sky plc": 1.0,
+            "The Walt Disney Company": 1.0,
+            "Unaffiliated Sky Shareholders": 1.0,
+            "WDC Merger Enterprises": 1.0,
+            "the Amended and Restated Agreement": 1.0,
+            "the Co-Operation Agreement": 1.0,
+            "the Consent and Reimbursement Agreement": 1.0,
+            "the Independent Committee": 1.0,
+            "the Original Sky Transaction": 1.0,
+            "the Parent Regulatory Termination Fee": 1.0,
+            "the Reimbursement Fee": 1.0,
+            "the UK Announcement": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "source_file": "./data/raw/edgar_21cf_events_v383.json",
+      "company": "Twenty-First Century Fox",
+      "cik": "0001308161",
+      "filing_date": "2018-06-21",
+      "accession": "0001193125-18-199619",
+      "form": "8-K",
+      "items": "1.01,9.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "orgs": [
+            "Agreement with Murdoch Family Trust and Cruden Financial Services LLC",
+            "Century Fox, Inc.",
+            "Distribution Merger Sub, Inc.",
+            "Enterprises II, Inc.",
+            "New Fox, Inc.",
+            "TWDC Holdco 613 Corp.",
+            "Twenty-First Century Fox, Inc.",
+            "WDC Merger Enterprises I, Inc."
+          ],
+          "aliases": {
+            "21CF": "Century Fox, Inc.",
+            "Delta Sub": "WDC Merger Enterprises I, Inc.",
+            "Wax Sub": "Enterprises II, Inc.",
+            "New Fox": "New Fox, Inc.",
+            "Stockholders": "Agreement with Murdoch Family Trust and Cruden Financial Services LLC",
+            "Distribution Merger Sub": "Distribution Merger Sub, Inc.",
+            "New Disney": "TWDC Holdco 613 Corp."
+          },
+          "raw_events": [
+            {
+              "event_type": "MERGED_INTO",
+              "subject": "Distribution Merger Sub, Inc.",
+              "object": "Century Fox, Inc.",
+              "status": "PROPOSED",
+              "evidence": "ted Distribution Merger Agreement ”) The Amended and Restated Distribution Merger Agreement provides that at 8:00 a.m. (New York City time) on the closing date Distribution Merger Sub will be merged with and into 21CF, with 21CF surviving the merger (the “ Distribution Merger ”). Following completion of the Distribution Merger, each 21CF stockholder (other than holders of the hook stock shares) will continue to hold a number of shares of 21CF, with the amount of such sha",
+              "lifecycle": "FINAL"
+            }
+          ],
+          "completed_events": [],
+          "proposed_events": [
+            {
+              "event_type": "MERGED_INTO",
+              "subject": "Distribution Merger Sub, Inc.",
+              "object": "Century Fox, Inc.",
+              "status": "PROPOSED",
+              "evidence": "ted Distribution Merger Agreement ”) The Amended and Restated Distribution Merger Agreement provides that at 8:00 a.m. (New York City time) on the closing date Distribution Merger Sub will be merged with and into 21CF, with 21CF surviving the merger (the “ Distribution Merger ”). Following completion of the Distribution Merger, each 21CF stockholder (other than holders of the hook stock shares) will continue to hold a number of shares of 21CF, with the amount of such sha",
+              "lifecycle": "FINAL"
+            }
+          ],
+          "org_votes": {
+            "Agreement with Murdoch Family Trust and Cruden Financial Services LLC": 1.75,
+            "Century Fox, Inc.": 1.75,
+            "Delaware General Corporation": 0.5,
+            "Distribution Merger Sub, Inc.": 1.75,
+            "Enterprises II, Inc.": 1.75,
+            "New Fox, Inc.": 1.75,
+            "TWC Merger Enterprises 1, LLC": 0.5,
+            "TWC Merger Enterprises 2 Corp.": 0.5,
+            "TWDC Holdco 613 Corp.": 2.75,
+            "Twenty-First Century Fox, Inc.": 1.75,
+            "WDC Merger Enterprises I, Inc.": 2.75,
+            "Amended and Restated Agreement and Plan of Merger": 1.0,
+            "Amended and Restated Distribution Agreement and Plan of Merger": 1.0,
+            "Big Ten Network": 1.0,
+            "Broadridge Corporate Issuer Solutions New York": 1.0,
+            "Cruden Financial Services": 1.0,
+            "DIS": 1.0,
+            "Delta Sub": 1.0,
+            "Disney": 1.0,
+            "Disney Shareholder Services": 1.0,
+            "Disney’s": 1.0,
+            "Distribution": 1.0,
+            "Enterprises 2 Corp.": 1.0,
+            "Fox": 1.0,
+            "Fox Broadcasting Company": 1.0,
+            "Fox Business Network": 1.0,
+            "Fox Sports": 1.0,
+            "Fox Television Stations Group": 1.0,
+            "Fox, Inc.": 1.0,
+            "LLC": 1.0,
+            "Murdoch Family Trust": 1.0,
+            "NY": 1.0,
+            "New Disney": 1.0,
+            "New Disney’s": 1.0,
+            "SEC": 1.0,
+            "Stockholders": 1.0,
+            "TWC": 1.0,
+            "TWC Merger Enterprises 1": 1.0,
+            "The Amended and Restated Voting Agreement amends": 1.0,
+            "The Walt Disney Company": 1.0,
+            "WDC Merger Enterprises II, Inc.": 1.0,
+            "the 21CF Merger": 1.0,
+            "the Amended and Restated Voting Agreement": 1.0,
+            "the Australian Taxation Office": 1.0,
+            "the Average Disney Price": 1.0,
+            "the Average Disney Stock Price": 1.0,
+            "the Distribution Merger": 1.0,
+            "the Exchange Ratio": 1.0,
+            "the Fox News Channel": 1.0,
+            "the Merger Consideration": 1.0,
+            "the New Disney": 1.0,
+            "the New York Stock Exchange": 1.0,
+            "the Original Voting Agreement": 1.0,
+            "the Required Governmental Consents": 1.0,
+            "the Securities Exchange Act": 1.0,
+            "the Securities and Exchange Commission": 1.0,
+            "the “ Average Disney Price": 1.0,
+            "the “ Merger Consideration": 1.0,
+            "the “ Stock Consideration": 1.0,
+            "xiv": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "source_file": "./data/raw/edgar_21cf_events_v383.json",
+      "company": "Twenty-First Century Fox",
+      "cik": "0001308161",
+      "filing_date": "2017-12-15",
+      "accession": "0001193125-17-370718",
+      "form": "8-K",
+      "items": "1.01,5.02,5.03,9.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "orgs": [
+            "Merger LLC",
+            "TWC Merger Enterprises 1, LLC",
+            "TWC Merger Enterprises 2 Corp.",
+            "Twenty-First Century Fox, Inc."
+          ],
+          "aliases": {
+            "21CF": "Twenty-First Century Fox, Inc.",
+            "Merger Sub": "TWC Merger Enterprises 2 Corp.",
+            "Merger LLC": "TWC Merger Enterprises 1, LLC",
+            "Subsequent Merger": "Merger LLC",
+            "Mergers": "Merger LLC"
+          },
+          "raw_events": [],
+          "completed_events": [],
+          "proposed_events": [],
+          "org_votes": {
+            "Financial Services LLC": 0.5,
+            "Merger LLC": 1.75,
+            "Surviving Corporation": 0.5,
+            "TWC Merger Enterprises 1, LLC": 1.75,
+            "TWC Merger Enterprises 2 Corp.": 2.75,
+            "Twenty-First Century Fox, Inc.": 1.75,
+            "0.2745 Disney": 1.0,
+            "Big Ten Network": 1.0,
+            "Cruden Financial Services LLC": 1.0,
+            "Disney": 1.0,
+            "Disney’s": 1.0,
+            "Federal Communications Commission": 1.0,
+            "Fox": 1.0,
+            "Fox Broadcasting Company": 1.0,
+            "Fox Business Network": 1.0,
+            "Fox News Channel": 1.0,
+            "Fox Sports": 1.0,
+            "Fox Television Stations Group": 1.0,
+            "Fox, Inc.": 1.0,
+            "LLC": 1.0,
+            "Murdoch Family Trust": 1.0,
+            "Performance Stock Unit": 1.0,
+            "Restricted Stock Unit": 1.0,
+            "Stockholders": 1.0,
+            "TWC Merger Enterprises 1": 1.0,
+            "The Initial Merger": 1.0,
+            "The Walt Disney Company": 1.0,
+            "Transactions": 1.0,
+            "Warranties": 1.0,
+            "a Company Change in Recommendation": 1.0,
+            "an Alternative Company Acquisition Agreement": 1.0,
+            "the Corporate Sub": 1.0,
+            "the Disney Termination Fee": 1.0,
+            "the Effective Time of the Initial Merger": 1.0,
+            "the Initial Merger": 1.0,
+            "the Required Governmental Consents": 1.0,
+            "the Retention RSU Grant": 1.0,
+            "the Surviving Corporation": 1.0,
+            "the Termination Date": 1.0,
+            "the “Disney Termination Fee": 1.0,
+            "the “Effective Time": 1.0,
+            "the “Surviving Corporation": 1.0
+          }
+        }
+      ]
+    }
+  ]
+}

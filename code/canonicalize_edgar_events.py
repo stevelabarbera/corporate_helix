@@ -5,7 +5,20 @@ from pathlib import Path
 
 ALLOWED={
  "AGREED_TO_ACQUIRE","ACQUIRED","MERGED_INTO","CONVERTED_TO",
- "RENAMED_TO","M&A_CANDIDATE"
+ "RENAMED_TO","M&A_CANDIDATE",
+ # DIVESTED_TO / AGREED_TO_DIVEST added [date: see CONTEXT.md changelog] to
+ # handle divestiture filings (Lumen->Brightspeed ILEC sale, Lumen->Colt EMEA
+ # sale) correctly. Reframing these as ACQUIRED with target=<filer> was
+ # considered and rejected: it would read as "buyer acquired the ENTIRE
+ # filer company", which is factually wrong for a partial-business
+ # divestiture, not just imprecise. subject=<filer, the seller>,
+ # result_entity=<buyer>, mirroring CONVERTED_TO's subject/result shape.
+ # Security/ASM rationale (from user): divested subsidiary entities need to
+ # stay as trackable nodes with their ownership edge flipped to the new
+ # owner, not disappear from the graph — this also supports catching
+ # transition-period risk (divested infra sometimes still runs on the
+ # seller's systems for months post-close under a TSA).
+ "DIVESTED_TO","AGREED_TO_DIVEST"
 }
 
 def eid(e):
