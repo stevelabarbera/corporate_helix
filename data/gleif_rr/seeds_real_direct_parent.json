@@ -1,0 +1,31 @@
+{
+  "schema_version": "corporate-asm-seeds-v1",
+  "seed_count": 1,
+  "seeds": [
+    {
+      "node_id": "ent:ef6a19d98def3ccafd9974ea",
+      "legal_name": "Desjardins Holding financier inc.",
+      "jurisdiction": "CA-QC",
+      "provider_entity_ids": [
+        "lei:549300COKYB5EGSU1838"
+      ],
+      "seed_type": "related_legal_entity",
+      "corporate_seed_confidence": "high",
+      "infrastructure_attribution_confidence": "unknown",
+      "disposition": "SAFE_WITH_CONTEXT",
+      "relationship_evidence": [
+        {
+          "predicate": "DIRECT_ACCOUNTING_PARENT",
+          "counterpart_node_id": "node:71096263cb43f605706b8c10",
+          "counterpart_name": "GESTION PLACEMENTS DESJARDINS INC.",
+          "providers": [
+            "gleif"
+          ],
+          "source_relationship_key": "rel:047d176ae20cb527f80a735d"
+        }
+      ],
+      "asm_instruction": "Use as an organization/name seed for downstream infrastructure discovery; do not auto-attribute assets from this corporate edge alone."
+    }
+  ],
+  "safety_note": "Corporate relationship evidence proposes entities to investigate. It does not establish infrastructure ownership or ASM attribution."
+}

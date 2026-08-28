@@ -37,8 +37,11 @@ def normalize_provider_result(result):
         r=deepcopy(rel)
         sn=normalize_legal_name(rel.get("subject_name")); on=normalize_legal_name(rel.get("object_name"))
         jn=normalize_jurisdiction(rel.get("jurisdiction"))
-        sk=make_entity_key(sn,None)
-        ok=lookup.get((on,jn)) or make_entity_key(on,jn)
+        attrs=rel.get("attributes") or {}
+        sjn=normalize_jurisdiction(attrs.get("child_jurisdiction") or attrs.get("subject_jurisdiction"))
+        ojn=normalize_jurisdiction(attrs.get("parent_jurisdiction") or attrs.get("object_jurisdiction") or rel.get("jurisdiction"))
+        sk=lookup.get((sn,sjn)) or make_entity_key(sn,sjn)
+        ok=lookup.get((on,ojn)) or make_entity_key(on,ojn)
         r["identity"]={
             "subject_name_raw":rel.get("subject_name"),
             "subject_name_normalized":sn,

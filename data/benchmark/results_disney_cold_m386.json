@@ -1,0 +1,79 @@
+{
+  "parser": "FROZEN_M3.8.5",
+  "elapsed_seconds": 1.5216292380355299,
+  "cases": [
+    {
+      "case": "disney_2017_original_agreement",
+      "accession": "0000950157-17-001598",
+      "orgs": [
+        "Merger LLC",
+        "Murdoch Family Trust and Cruden Financial Services LLC",
+        "TWC Merger Enterprises 1, LLC",
+        "TWC Merger Enterprises 2 Corp."
+      ],
+      "aliases": {
+        "Merger Sub": "TWC Merger Enterprises 2 Corp.",
+        "Merger LLC": "TWC Merger Enterprises 1, LLC",
+        "Subsequent Merger": "Merger LLC",
+        "Mergers": "Merger LLC",
+        "Stockholders": "Murdoch Family Trust and Cruden Financial Services LLC"
+      },
+      "raw_events": [],
+      "completed_events": []
+    },
+    {
+      "case": "disney_2018_amended_agreement",
+      "accession": "0000950157-18-000744",
+      "orgs": [
+        "BNP Paribas Securities Corp.",
+        "Citigroup Global Markets Inc.",
+        "Disney will make a cash payment to New Fox, Inc.",
+        "TWDC Holdco 613 Corp.",
+        "Twenty-First Century Fox, Inc.",
+        "Voting Agreement with Murdoch Family Trust and Cruden Financial Services LLC",
+        "WDC Merger Enterprises I, Inc.",
+        "WDC Merger Enterprises II, Inc."
+      ],
+      "aliases": {
+        "New Disney": "TWDC Holdco 613 Corp.",
+        "Delta Sub": "WDC Merger Enterprises I, Inc.",
+        "Wax Sub": "WDC Merger Enterprises II, Inc.",
+        "21CF": "Twenty-First Century Fox, Inc.",
+        "New Fox": "Disney will make a cash payment to New Fox, Inc.",
+        "Stockholders": "Voting Agreement with Murdoch Family Trust and Cruden Financial Services LLC"
+      },
+      "raw_events": [],
+      "completed_events": []
+    },
+    {
+      "case": "fox_2019_separation",
+      "accession": "0001193125-19-079034",
+      "orgs": [
+        "Fox Corporation"
+      ],
+      "aliases": {
+        "FOX": "Fox Corporation"
+      },
+      "raw_events": [],
+      "completed_events": []
+    },
+    {
+      "case": "disney_2019_closing",
+      "accession": "0000950157-19-000301",
+      "orgs": [
+        "Fox Corporation",
+        "TWDC Enterprises 18 Corp.",
+        "TWDC Holdco 613 Corp.",
+        "Twenty-First Century Fox, Inc.",
+        "WDC Merger Enterprises I, Inc.",
+        "WDC Merger Enterprises II, Inc."
+      ],
+      "aliases": {
+        "21CF": "Twenty-First Century Fox, Inc.",
+        "FOX": "Fox Corporation"
+      },
+      "raw_events": [],
+      "completed_events": []
+    }
+  ]
+}

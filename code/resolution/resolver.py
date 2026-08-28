@@ -1,6 +1,7 @@
 from __future__ import annotations
 from copy import deepcopy
 import hashlib
+from normalization.names import normalize_legal_name
 
 def _stable(parts):
     payload = "|".join((p or "").strip() for p in parts)
@@ -14,14 +15,13 @@ def _alias_id(alias_norm, jurisdiction_norm):
 
 def _root_from_result(result):
     name = result.get("resolved_name") or result.get("query")
-    name_norm = None
-    if result.get("relationships"):
-        name_norm = result["relationships"][0].get("identity", {}).get("subject_name_normalized")
-    if not name_norm:
-        name_norm = (name or "").casefold().strip()
+    # Root identity must come from the provider's resolved root name.  The old
+    # implementation borrowed the first relationship subject, which only held
+    # for EDGAR's parent->subsidiary shape and breaks child->parent providers.
+    name_norm = normalize_legal_name(name) if name else ""
 
     # Use explicit SEC root evidence jurisdiction if present.
-    jurisdiction = None
+    jurisdiction = (result.get("metadata") or {}).get("root_jurisdiction")
     for ent in result.get("entities", []):
         attrs = ent.get("attributes") or {}
         if (attrs.get("relationship_label") or "").casefold() == "ultimate parent":
@@ -156,6 +156,16 @@ def _merge_nodes(target, source, reason):
         "review_required": False,
     }
 
+
+def normalize_jurisdiction_for_compare(default_j, rel, side):
+    attrs = rel.get("attributes") or {}
+    raw = attrs.get("child_jurisdiction" if side == "subject" else "parent_jurisdiction")
+    if raw is None:
+        return default_j
+    # Keep dependency direction simple: relationship attrs generally already use the same
+    # ISO-style jurisdiction forms as normalized provider data.
+    return str(raw).strip().upper() or default_j
+
 def resolve_provider_results(results):
     """
     M3 v1 resolver.
@@ -205,6 +215,15 @@ def resolve_provider_results(results):
         for rel in result.get("relationships", []):
             edge = _canonicalize_relationship(rel, root)
             if edge:
+                ident = rel.get("identity") or {}
+                root_norm = root.get("canonical_name_normalized")
+                root_j = root.get("jurisdiction")
+                if (ident.get("subject_name_normalized") == root_norm and
+                        normalize_jurisdiction_for_compare(ident.get("jurisdiction_normalized"), rel, side="subject") == root_j):
+                    edge["subject_node_id"] = root["node_id"]
+                if (ident.get("object_name_normalized") == root_norm and
+                        normalize_jurisdiction_for_compare(ident.get("jurisdiction_normalized"), rel, side="object") == root_j):
+                    edge["object_node_id"] = root["node_id"]
                 graph["relationships"].append(edge)
 
     # Resolve nodes conservatively.

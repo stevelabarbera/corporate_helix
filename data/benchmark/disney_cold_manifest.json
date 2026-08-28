@@ -1,0 +1,33 @@
+{
+  "schema_version": "m386-disney-cold-v1",
+  "cases": [
+    {
+      "id": "disney_2017_original_agreement",
+      "accession": "0000950157-17-001598",
+      "item": "1.01",
+      "filing_date": "2017-12-14",
+      "url": "https://www.sec.gov/Archives/edgar/data/1001039/000095015717001598/form8k.htm"
+    },
+    {
+      "id": "disney_2018_amended_agreement",
+      "accession": "0000950157-18-000744",
+      "item": "1.01",
+      "filing_date": "2018-06-20",
+      "url": "https://www.sec.gov/Archives/edgar/data/1001039/000095015718000744/form8k.htm"
+    },
+    {
+      "id": "fox_2019_separation",
+      "accession": "0001193125-19-079034",
+      "item": "2.01",
+      "filing_date": "2019-03-19",
+      "url": "https://www.sec.gov/Archives/edgar/data/1308161/000119312519079034/d721340d8k.htm"
+    },
+    {
+      "id": "disney_2019_closing",
+      "accession": "0000950157-19-000301",
+      "item": "EXPLANATORY NOTE",
+      "filing_date": "2019-03-20",
+      "url": "https://www.sec.gov/Archives/edgar/data/1744489/000095015719000301/form8k-12b.htm"
+    }
+  ]
+}
