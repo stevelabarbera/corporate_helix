@@ -1,0 +1,209 @@
+{
+  "provider": "gleif",
+  "query": "GESTION PLACEMENTS DESJARDINS INC.",
+  "resolved_name": "GESTION PLACEMENTS DESJARDINS INC.",
+  "provider_entity_id": "lei:010PWNH4K3BLIC3I7R03",
+  "entities": [
+    {
+      "provider": "gleif",
+      "provider_entity_id": "lei:549300COKYB5EGSU1838",
+      "legal_name": "Desjardins Holding financier inc.",
+      "jurisdiction": "CA-QC",
+      "registration_number": null,
+      "status": null,
+      "former_names": [],
+      "addresses": [],
+      "attributes": {
+        "relationship_label": "parent",
+        "lei": "549300COKYB5EGSU1838"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "provider": "gleif",
+      "subject_name": "GESTION PLACEMENTS DESJARDINS INC.",
+      "predicate": "DIRECT_ACCOUNTING_PARENT",
+      "object_name": "Desjardins Holding financier inc.",
+      "jurisdiction": "CA-QC",
+      "ownership_percent": null,
+      "relationship_status": "active",
+      "former_names": [],
+      "evidence": [
+        {
+          "provider": "gleif",
+          "evidence_type": "structured_corporate_relationship",
+          "source_url": null,
+          "source_document_id": "gleif-rr:010PWNH4K3BLIC3I7R03:IS_DIRECTLY_CONSOLIDATED_BY:549300COKYB5EGSU1838",
+          "source_date": "2024-10-07T19:01:38+02:00",
+          "as_of_date": null,
+          "extraction_method": "gleif_rr_golden_copy",
+          "coverage": "lei_relationship_records",
+          "raw_record": {
+            "RelationshipRecord": {
+              "Relationship": {
+                "StartNode": {
+                  "NodeID": {
+                    "$": "010PWNH4K3BLIC3I7R03"
+                  },
+                  "NodeIDType": {
+                    "$": "LEI"
+                  }
+                },
+                "EndNode": {
+                  "NodeID": {
+                    "$": "549300COKYB5EGSU1838"
+                  },
+                  "NodeIDType": {
+                    "$": "LEI"
+                  }
+                },
+                "RelationshipType": {
+                  "$": "IS_DIRECTLY_CONSOLIDATED_BY"
+                },
+                "RelationshipPeriods": {
+                  "RelationshipPeriod": [
+                    {
+                      "StartDate": {
+                        "$": "2021-01-01T01:00:00+01:00"
+                      },
+                      "EndDate": {
+                        "$": "2021-12-31T01:00:00+01:00"
+                      },
+                      "PeriodType": {
+                        "$": "ACCOUNTING_PERIOD"
+                      }
+                    },
+                    {
+                      "StartDate": {
+                        "$": "2017-12-06T01:00:00+01:00"
+                      },
+                      "PeriodType": {
+                        "$": "RELATIONSHIP_PERIOD"
+                      }
+                    }
+                  ]
+                },
+                "RelationshipStatus": {
+                  "$": "ACTIVE"
+                },
+                "RelationshipQualifiers": {
+                  "RelationshipQualifier": [
+                    {
+                      "QualifierDimension": {
+                        "$": "ACCOUNTING_STANDARD"
+                      }
+                    }
+                  ]
+                }
+              },
+              "Registration": {
+                "InitialRegistrationDate": {
+                  "$": "2023-08-08T17:16:54+02:00"
+                },
+                "LastUpdateDate": {
+                  "$": "2024-10-07T19:01:38+02:00"
+                },
+                "RegistrationStatus": {
+                  "$": "LAPSED"
+                },
+                "NextRenewalDate": {
+                  "$": "2024-10-07T17:03:24+02:00"
+                },
+                "ManagingLOU": {
+                  "$": "529900F6BNUR3RJ2WH29"
+                },
+                "ValidationSources": {
+                  "$": "ENTITY_SUPPLIED_ONLY"
+                },
+                "ValidationDocuments": {
+                  "$": "SUPPORTING_DOCUMENTS"
+                }
+              }
+            }
+          },
+          "attributes": {
+            "gleif_relationship_type": "IS_DIRECTLY_CONSOLIDATED_BY",
+            "start_lei": "010PWNH4K3BLIC3I7R03",
+            "end_lei": "549300COKYB5EGSU1838",
+            "registration_status": "LAPSED",
+            "validation_sources": "ENTITY_SUPPLIED_ONLY",
+            "validation_documents": "SUPPORTING_DOCUMENTS",
+            "validation_reference": null,
+            "managing_lou": "529900F6BNUR3RJ2WH29",
+            "initial_registration_date": "2023-08-08T17:16:54+02:00",
+            "last_update_date": "2024-10-07T19:01:38+02:00"
+          }
+        }
+      ],
+      "attributes": {
+        "child_lei": "010PWNH4K3BLIC3I7R03",
+        "parent_lei": "549300COKYB5EGSU1838",
+        "child_jurisdiction": "CA-QC",
+        "parent_jurisdiction": "CA-QC",
+        "corporate_relationship_confidence": "high",
+        "infrastructure_attribution_confidence": "unknown",
+        "gleif_relationship_type": "IS_DIRECTLY_CONSOLIDATED_BY"
+      }
+    }
+  ],
+  "warnings": [],
+  "metadata": {
+    "resolved_lei": "010PWNH4K3BLIC3I7R03",
+    "root_jurisdiction": "CA-QC",
+    "source_shape": "gleif_rr_golden_copy_v1",
+    "level1_enrichment": {
+      "level1_index": "data/processed/gleif_lei.sqlite",
+      "child": {
+        "lei": "010PWNH4K3BLIC3I7R03",
+        "state": "RESOLVED",
+        "level1": {
+          "lei": "010PWNH4K3BLIC3I7R03",
+          "legal_name": "GESTION PLACEMENTS DESJARDINS INC.",
+          "legal_name_normalized": "gestion placements desjardins inc.",
+          "legal_jurisdiction": "CA-QC",
+          "entity_status": "ACTIVE",
+          "entity_category": "GENERAL",
+          "legal_form_code": "UG3Z",
+          "other_legal_form": null,
+          "legal_address_country": "CA",
+          "legal_address_region": "CA-QC",
+          "legal_address_city": "Montreal",
+          "hq_country": "CA",
+          "hq_region": "CA-QC",
+          "hq_city": "Lévis",
+          "registration_status": "LAPSED",
+          "initial_registration_date": "2012-11-26T16:01:00+01:00",
+          "last_update_date": "2024-10-07T19:01:38+02:00",
+          "managing_lou": "529900F6BNUR3RJ2WH29",
+          "validation_sources": "FULLY_CORROBORATED"
+        }
+      },
+      "parent": {
+        "lei": "549300COKYB5EGSU1838",
+        "state": "RESOLVED",
+        "level1": {
+          "lei": "549300COKYB5EGSU1838",
+          "legal_name": "Desjardins Holding financier inc.",
+          "legal_name_normalized": "desjardins holding financier inc.",
+          "legal_jurisdiction": "CA-QC",
+          "entity_status": "ACTIVE",
+          "entity_category": "GENERAL",
+          "legal_form_code": "UG3Z",
+          "other_legal_form": null,
+          "legal_address_country": "CA",
+          "legal_address_region": "CA-QC",
+          "legal_address_city": "MONTRÉAL",
+          "hq_country": "CA",
+          "hq_region": "CA-QC",
+          "hq_city": "Montreal",
+          "registration_status": "ISSUED",
+          "initial_registration_date": "2015-12-02T03:08:00+01:00",
+          "last_update_date": "2025-08-15T18:18:18+02:00",
+          "managing_lou": "529900F6BNUR3RJ2WH29",
+          "validation_sources": "FULLY_CORROBORATED"
+        }
+      }
+    }
+  }
+}
