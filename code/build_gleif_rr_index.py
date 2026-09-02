@@ -29,6 +29,12 @@ CREATE TABLE IF NOT EXISTS relationships (
     relationship_start TEXT,
     relationship_end TEXT,
 
+    accounting_start TEXT,
+    accounting_end TEXT,
+
+    document_filing_start TEXT,
+    document_filing_end TEXT,
+
     registration_status TEXT,
     initial_registration_date TEXT,
     last_update_date TEXT,
@@ -107,10 +113,6 @@ def create_lookup_indexes(conn):
 
 
 def records(path):
-    """
-    Stream individual RelationshipRecord objects from the zipped GLEIF
-    Relationship Records Golden Copy without loading the complete file.
-    """
     with zipfile.ZipFile(path) as z:
         names = z.namelist()
 
@@ -138,36 +140,47 @@ def records(path):
                         yield json.loads(
                             "".join(buf).rstrip().rstrip(",")
                         )
-
                         active = False
                         buf = []
 
 
-def relationship_period(rel):
+def relationship_periods(rel):
     """
-    Extract the first relationship period when present.
+    Return periods keyed by GLEIF PeriodType.
 
-    GLEIF RR periods may evolve in later milestones; for M4.2B we preserve
-    the first structured period rather than attempting temporal inference.
+    Example:
+        {
+            "RELATIONSHIP_PERIOD": (start, end),
+            "ACCOUNTING_PERIOD": (start, end),
+            "DOCUMENT_FILING_PERIOD": (start, end),
+        }
     """
-    periods = rel.get("RelationshipPeriods")
+    result = {}
+
+    container = rel.get("RelationshipPeriods") or {}
+    periods = container.get("RelationshipPeriod") if isinstance(container, dict) else None
 
     if not periods:
-        return None, None
+        return result
 
     if isinstance(periods, dict):
-        period = periods.get("RelationshipPeriod")
+        periods = [periods]
 
-        if isinstance(period, list):
-            period = period[0] if period else None
+    for period in periods:
+        if not isinstance(period, dict):
+            continue
 
-        if isinstance(period, dict):
-            return (
-                _v(period, "StartDate"),
-                _v(period, "EndDate"),
-            )
+        period_type = _v(period, "PeriodType")
 
-    return None, None
+        if not period_type:
+            continue
+
+        result[period_type] = (
+            _v(period, "StartDate"),
+            _v(period, "EndDate"),
+        )
+
+    return result
 
 
 UPSERT = """
@@ -176,18 +189,29 @@ INSERT INTO relationships (
     parent_lei,
     relationship_type,
     relationship_status,
+
     relationship_start,
     relationship_end,
+
+    accounting_start,
+    accounting_end,
+
+    document_filing_start,
+    document_filing_end,
+
     registration_status,
     initial_registration_date,
     last_update_date,
+
     managing_lou,
     validation_sources,
     validation_documents,
     validation_reference,
+
     source_file
 )
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
 ON CONFLICT(
     child_lei,
     parent_lei,
@@ -195,15 +219,25 @@ ON CONFLICT(
 )
 DO UPDATE SET
     relationship_status = excluded.relationship_status,
+
     relationship_start = excluded.relationship_start,
     relationship_end = excluded.relationship_end,
+
+    accounting_start = excluded.accounting_start,
+    accounting_end = excluded.accounting_end,
+
+    document_filing_start = excluded.document_filing_start,
+    document_filing_end = excluded.document_filing_end,
+
     registration_status = excluded.registration_status,
     initial_registration_date = excluded.initial_registration_date,
     last_update_date = excluded.last_update_date,
+
     managing_lou = excluded.managing_lou,
     validation_sources = excluded.validation_sources,
     validation_documents = excluded.validation_documents,
     validation_reference = excluded.validation_reference,
+
     source_file = excluded.source_file
 """
 
@@ -213,16 +247,11 @@ def main():
         description="Build local SQLite index from GLEIF Level 2 RR Golden Copy."
     )
 
-    ap.add_argument(
-        "--zip",
-        required=True,
-        help="GLEIF Relationship Records Golden Copy ZIP",
-    )
+    ap.add_argument("--zip", required=True)
 
     ap.add_argument(
         "--out",
         default="data/processed/gleif_rr.sqlite",
-        help="Output SQLite database",
     )
 
     ap.add_argument(
@@ -243,6 +272,10 @@ def main():
         raise SystemExit(f"Input ZIP does not exist: {args.zip}")
 
     os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
+
+    # Rebuild cleanly because the period schema changed.
+    if os.path.exists(args.out):
+        os.remove(args.out)
 
     conn = sqlite3.connect(args.out)
     configure_database(conn)
@@ -281,7 +314,22 @@ def main():
                 incomplete += 1
                 continue
 
-            start_date, end_date = relationship_period(rel)
+            periods = relationship_periods(rel)
+
+            relationship_period = periods.get(
+                "RELATIONSHIP_PERIOD",
+                (None, None),
+            )
+
+            accounting_period = periods.get(
+                "ACCOUNTING_PERIOD",
+                (None, None),
+            )
+
+            filing_period = periods.get(
+                "DOCUMENT_FILING_PERIOD",
+                (None, None),
+            )
 
             batch.append(
                 (
@@ -289,15 +337,25 @@ def main():
                     parent_lei,
                     relationship_type,
                     _v(rel, "RelationshipStatus"),
-                    start_date,
-                    end_date,
+
+                    relationship_period[0],
+                    relationship_period[1],
+
+                    accounting_period[0],
+                    accounting_period[1],
+
+                    filing_period[0],
+                    filing_period[1],
+
                     _v(reg, "RegistrationStatus"),
                     _v(reg, "InitialRegistrationDate"),
                     _v(reg, "LastUpdateDate"),
+
                     _v(reg, "ManagingLOU"),
                     _v(reg, "ValidationSources"),
                     _v(reg, "ValidationDocuments"),
                     _v(reg, "ValidationReference"),
+
                     os.path.basename(args.zip),
                 )
             )
@@ -336,36 +394,19 @@ def main():
         write_metadata(conn, "build_status", "complete")
         conn.commit()
 
-    except KeyboardInterrupt:
-        if batch:
-            conn.executemany(UPSERT, batch)
-            conn.commit()
-
-        write_metadata(conn, "records_scanned", scanned)
-        write_metadata(conn, "records_indexed_supported", indexed)
-        write_metadata(conn, "build_status", "interrupted")
-        conn.commit()
-
-        print(
-            "\nInterrupted. Committed relationship rows are preserved.",
-            file=sys.stderr,
-        )
-
-        raise SystemExit(130)
-
     finally:
         conn.close()
 
     elapsed = time.time() - started
 
-    print(file=sys.stderr)
-    print("GLEIF Level 2 relationship index complete.", file=sys.stderr)
-    print(f"  scanned     : {scanned:,}", file=sys.stderr)
-    print(f"  supported   : {indexed:,}", file=sys.stderr)
-    print(f"  unsupported : {unsupported:,}", file=sys.stderr)
-    print(f"  incomplete  : {incomplete:,}", file=sys.stderr)
-    print(f"  seconds     : {elapsed:,.1f}", file=sys.stderr)
-    print(f"  database    : {args.out}", file=sys.stderr)
+    print()
+    print("GLEIF Level 2 relationship index complete.")
+    print(f"  scanned     : {scanned:,}")
+    print(f"  supported   : {indexed:,}")
+    print(f"  unsupported : {unsupported:,}")
+    print(f"  incomplete  : {incomplete:,}")
+    print(f"  seconds     : {elapsed:,.1f}")
+    print(f"  database    : {args.out}")
 
 
 if __name__ == "__main__":
