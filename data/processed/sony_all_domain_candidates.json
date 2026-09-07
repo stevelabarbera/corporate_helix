@@ -1,0 +1,10 @@
+{
+  "schema": "corporation-helix-domain-candidates/v1",
+  "candidates": [],
+  "summary": {
+    "total": 0,
+    "auto": 0,
+    "review": 0,
+    "reject": 0
+  }
+}

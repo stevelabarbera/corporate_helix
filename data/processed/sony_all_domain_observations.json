@@ -1,0 +1,1389 @@
+{
+  "observations": [
+    {
+      "entity_lei": "213800QAWRVQ3Z7HGA73",
+      "entity_name": "SONY MUSIC ENTERTAINMENT INTERNATIONAL LIMITED",
+      "domain": "electronics.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://electronics.sony.com/",
+      "observed_value": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+      "subject_name": "SONY MUSIC ENTERTAINMENT INTERNATIONAL LIMITED",
+      "subject_identifier": "213800QAWRVQ3Z7HGA73",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MUSIC ENTERTAINMENT INTERNATIONAL LIMITED\" official website",
+        "title": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "213800QAWRVQ3Z7HGA73",
+      "entity_name": "SONY MUSIC ENTERTAINMENT INTERNATIONAL LIMITED",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/",
+      "observed_value": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+      "subject_name": "SONY MUSIC ENTERTAINMENT INTERNATIONAL LIMITED",
+      "subject_identifier": "213800QAWRVQ3Z7HGA73",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MUSIC ENTERTAINMENT INTERNATIONAL LIMITED\" official website",
+        "title": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "213800QAWRVQ3Z7HGA73",
+      "entity_name": "SONY MUSIC ENTERTAINMENT INTERNATIONAL LIMITED",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/your-account-for-playstation/",
+      "observed_value": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+      "subject_name": "SONY MUSIC ENTERTAINMENT INTERNATIONAL LIMITED",
+      "subject_identifier": "213800QAWRVQ3Z7HGA73",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MUSIC ENTERTAINMENT INTERNATIONAL LIMITED\" official website",
+        "title": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "213800QAWRVQ3Z7HGA73",
+      "entity_name": "SONY MUSIC ENTERTAINMENT INTERNATIONAL LIMITED",
+      "domain": "en.wikipedia.org",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://en.wikipedia.org/wiki/Sony",
+      "observed_value": "Sony - Wikipedia",
+      "subject_name": "SONY MUSIC ENTERTAINMENT INTERNATIONAL LIMITED",
+      "subject_identifier": "213800QAWRVQ3Z7HGA73",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MUSIC ENTERTAINMENT INTERNATIONAL LIMITED\" official website",
+        "title": "Sony - Wikipedia",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "213800QAWRVQ3Z7HGA73",
+      "entity_name": "SONY MUSIC ENTERTAINMENT INTERNATIONAL LIMITED",
+      "domain": "www.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.sony.com/electronics/support",
+      "observed_value": "Support for Sony products | Sony USA",
+      "subject_name": "SONY MUSIC ENTERTAINMENT INTERNATIONAL LIMITED",
+      "subject_identifier": "213800QAWRVQ3Z7HGA73",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MUSIC ENTERTAINMENT INTERNATIONAL LIMITED\" official website",
+        "title": "Support for Sony products | Sony USA",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "3358001MDMNCG5B9YL75",
+      "entity_name": "SONY INDIA SOFTWARE CENTRE PRIVATE LIMITED",
+      "domain": "electronics.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://electronics.sony.com/",
+      "observed_value": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+      "subject_name": "SONY INDIA SOFTWARE CENTRE PRIVATE LIMITED",
+      "subject_identifier": "3358001MDMNCG5B9YL75",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY INDIA SOFTWARE CENTRE PRIVATE LIMITED\" official website",
+        "title": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "3358001MDMNCG5B9YL75",
+      "entity_name": "SONY INDIA SOFTWARE CENTRE PRIVATE LIMITED",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/",
+      "observed_value": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+      "subject_name": "SONY INDIA SOFTWARE CENTRE PRIVATE LIMITED",
+      "subject_identifier": "3358001MDMNCG5B9YL75",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY INDIA SOFTWARE CENTRE PRIVATE LIMITED\" official website",
+        "title": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "3358001MDMNCG5B9YL75",
+      "entity_name": "SONY INDIA SOFTWARE CENTRE PRIVATE LIMITED",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/your-account-for-playstation/",
+      "observed_value": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+      "subject_name": "SONY INDIA SOFTWARE CENTRE PRIVATE LIMITED",
+      "subject_identifier": "3358001MDMNCG5B9YL75",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY INDIA SOFTWARE CENTRE PRIVATE LIMITED\" official website",
+        "title": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "3358001MDMNCG5B9YL75",
+      "entity_name": "SONY INDIA SOFTWARE CENTRE PRIVATE LIMITED",
+      "domain": "en.wikipedia.org",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://en.wikipedia.org/wiki/Sony",
+      "observed_value": "Sony - Wikipedia",
+      "subject_name": "SONY INDIA SOFTWARE CENTRE PRIVATE LIMITED",
+      "subject_identifier": "3358001MDMNCG5B9YL75",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY INDIA SOFTWARE CENTRE PRIVATE LIMITED\" official website",
+        "title": "Sony - Wikipedia",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "3358001MDMNCG5B9YL75",
+      "entity_name": "SONY INDIA SOFTWARE CENTRE PRIVATE LIMITED",
+      "domain": "www.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.sony.com/electronics/support",
+      "observed_value": "Support for Sony products | Sony USA",
+      "subject_name": "SONY INDIA SOFTWARE CENTRE PRIVATE LIMITED",
+      "subject_identifier": "3358001MDMNCG5B9YL75",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY INDIA SOFTWARE CENTRE PRIVATE LIMITED\" official website",
+        "title": "Support for Sony products | Sony USA",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "335800FRUCUEYBHWBG79",
+      "entity_name": "SONY MUSIC ENTERTAINMENT INDIA PRIVATE LIMITED",
+      "domain": "electronics.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://electronics.sony.com/",
+      "observed_value": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+      "subject_name": "SONY MUSIC ENTERTAINMENT INDIA PRIVATE LIMITED",
+      "subject_identifier": "335800FRUCUEYBHWBG79",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MUSIC ENTERTAINMENT INDIA PRIVATE LIMITED\" official website",
+        "title": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "335800FRUCUEYBHWBG79",
+      "entity_name": "SONY MUSIC ENTERTAINMENT INDIA PRIVATE LIMITED",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/",
+      "observed_value": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+      "subject_name": "SONY MUSIC ENTERTAINMENT INDIA PRIVATE LIMITED",
+      "subject_identifier": "335800FRUCUEYBHWBG79",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MUSIC ENTERTAINMENT INDIA PRIVATE LIMITED\" official website",
+        "title": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "335800FRUCUEYBHWBG79",
+      "entity_name": "SONY MUSIC ENTERTAINMENT INDIA PRIVATE LIMITED",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/your-account-for-playstation/",
+      "observed_value": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+      "subject_name": "SONY MUSIC ENTERTAINMENT INDIA PRIVATE LIMITED",
+      "subject_identifier": "335800FRUCUEYBHWBG79",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MUSIC ENTERTAINMENT INDIA PRIVATE LIMITED\" official website",
+        "title": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "335800FRUCUEYBHWBG79",
+      "entity_name": "SONY MUSIC ENTERTAINMENT INDIA PRIVATE LIMITED",
+      "domain": "en.wikipedia.org",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://en.wikipedia.org/wiki/Sony",
+      "observed_value": "Sony - Wikipedia",
+      "subject_name": "SONY MUSIC ENTERTAINMENT INDIA PRIVATE LIMITED",
+      "subject_identifier": "335800FRUCUEYBHWBG79",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MUSIC ENTERTAINMENT INDIA PRIVATE LIMITED\" official website",
+        "title": "Sony - Wikipedia",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "335800FRUCUEYBHWBG79",
+      "entity_name": "SONY MUSIC ENTERTAINMENT INDIA PRIVATE LIMITED",
+      "domain": "www.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.sony.com/electronics/support",
+      "observed_value": "Support for Sony products | Sony USA",
+      "subject_name": "SONY MUSIC ENTERTAINMENT INDIA PRIVATE LIMITED",
+      "subject_identifier": "335800FRUCUEYBHWBG79",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MUSIC ENTERTAINMENT INDIA PRIVATE LIMITED\" official website",
+        "title": "Support for Sony products | Sony USA",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "3538007JZG50U0XKBV89",
+      "entity_name": "ソニーベンチャーズ株式会社",
+      "domain": "www.reddit.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.reddit.com/r/SisterWives/",
+      "observed_value": "The TLC Show Sister Wives - Reddit",
+      "subject_name": "ソニーベンチャーズ株式会社",
+      "subject_identifier": "3538007JZG50U0XKBV89",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"ソニーベンチャーズ株式会社\" official website",
+        "title": "The TLC Show Sister Wives - Reddit",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "3538007JZG50U0XKBV89",
+      "entity_name": "ソニーベンチャーズ株式会社",
+      "domain": "www.reddit.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.reddit.com/r/HomeImprovement/comments/6c4fwz/home_depot_vs_lowes_who_do_you_prefer_and_why/",
+      "observed_value": "Home Depot vs. Lowe's Who do you prefer and why? - Reddit",
+      "subject_name": "ソニーベンチャーズ株式会社",
+      "subject_identifier": "3538007JZG50U0XKBV89",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"ソニーベンチャーズ株式会社\" official website",
+        "title": "Home Depot vs. Lowe's Who do you prefer and why? - Reddit",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "3538007JZG50U0XKBV89",
+      "entity_name": "ソニーベンチャーズ株式会社",
+      "domain": "www.reddit.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.reddit.com/r/HomeDepot/comments/1bosdv5/besteasiest_starting_job_at_home_depot_for/",
+      "observed_value": "Best/easiest starting job at Home Depot for someone with no ... - Reddit",
+      "subject_name": "ソニーベンチャーズ株式会社",
+      "subject_identifier": "3538007JZG50U0XKBV89",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"ソニーベンチャーズ株式会社\" official website",
+        "title": "Best/easiest starting job at Home Depot for someone with no ... - Reddit",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "3538007JZG50U0XKBV89",
+      "entity_name": "ソニーベンチャーズ株式会社",
+      "domain": "www.reddit.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.reddit.com/r/HomeImprovement/comments/ryezne/water_heater_from_home_depot_vs_one_from_plumber/",
+      "observed_value": "Water heater from Home Depot vs one from plumber - Reddit",
+      "subject_name": "ソニーベンチャーズ株式会社",
+      "subject_identifier": "3538007JZG50U0XKBV89",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"ソニーベンチャーズ株式会社\" official website",
+        "title": "Water heater from Home Depot vs one from plumber - Reddit",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "3538007JZG50U0XKBV89",
+      "entity_name": "ソニーベンチャーズ株式会社",
+      "domain": "www.reddit.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.reddit.com/r/HomeDepot/comments/uckhau/home_depot_credit_card/",
+      "observed_value": "Home Depot Credit Card : r/HomeDepot - Reddit",
+      "subject_name": "ソニーベンチャーズ株式会社",
+      "subject_identifier": "3538007JZG50U0XKBV89",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"ソニーベンチャーズ株式会社\" official website",
+        "title": "Home Depot Credit Card : r/HomeDepot - Reddit",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "353800RQG3JW99567S31",
+      "entity_name": "ソニー株式会社",
+      "domain": "en.visitbergen.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://en.visitbergen.com/",
+      "observed_value": "Visit Bergen - Official Bergen (Norway) Tourist Information Site",
+      "subject_name": "ソニー株式会社",
+      "subject_identifier": "353800RQG3JW99567S31",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"ソニー株式会社\" official website",
+        "title": "Visit Bergen - Official Bergen (Norway) Tourist Information Site",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "353800RQG3JW99567S31",
+      "entity_name": "ソニー株式会社",
+      "domain": "www.visitbergen.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.visitbergen.com/",
+      "observed_value": "Visit Bergen - De Offisielle reiselivssidene for Bergen og regionen",
+      "subject_name": "ソニー株式会社",
+      "subject_identifier": "353800RQG3JW99567S31",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"ソニー株式会社\" official website",
+        "title": "Visit Bergen - De Offisielle reiselivssidene for Bergen og regionen",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "353800RQG3JW99567S31",
+      "entity_name": "ソニー株式会社",
+      "domain": "en.visitbergen.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://en.visitbergen.com/things-to-do",
+      "observed_value": "Top 25 Things To Do in Bergen, Norway - The Complete Guide (2026)",
+      "subject_name": "ソニー株式会社",
+      "subject_identifier": "353800RQG3JW99567S31",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"ソニー株式会社\" official website",
+        "title": "Top 25 Things To Do in Bergen, Norway - The Complete Guide (2026)",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "353800RQG3JW99567S31",
+      "entity_name": "ソニー株式会社",
+      "domain": "www.visitbergen.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.visitbergen.com/hva-skjer",
+      "observed_value": "Hva skjer i Bergen og regionen - visitBergen.com",
+      "subject_name": "ソニー株式会社",
+      "subject_identifier": "353800RQG3JW99567S31",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"ソニー株式会社\" official website",
+        "title": "Hva skjer i Bergen og regionen - visitBergen.com",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "353800RQG3JW99567S31",
+      "entity_name": "ソニー株式会社",
+      "domain": "de.visitbergen.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://de.visitbergen.com/",
+      "observed_value": "Bergen - eine UNESCO-Welterbestadt!",
+      "subject_name": "ソニー株式会社",
+      "subject_identifier": "353800RQG3JW99567S31",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"ソニー株式会社\" official website",
+        "title": "Bergen - eine UNESCO-Welterbestadt!",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "5493003AP2HY7BTV8H64",
+      "entity_name": "SONY EUROPE B.V.",
+      "domain": "electronics.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://electronics.sony.com/",
+      "observed_value": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+      "subject_name": "SONY EUROPE B.V.",
+      "subject_identifier": "5493003AP2HY7BTV8H64",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY EUROPE B.V.\" official website",
+        "title": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "5493003AP2HY7BTV8H64",
+      "entity_name": "SONY EUROPE B.V.",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/",
+      "observed_value": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+      "subject_name": "SONY EUROPE B.V.",
+      "subject_identifier": "5493003AP2HY7BTV8H64",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY EUROPE B.V.\" official website",
+        "title": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "5493003AP2HY7BTV8H64",
+      "entity_name": "SONY EUROPE B.V.",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/your-account-for-playstation/",
+      "observed_value": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+      "subject_name": "SONY EUROPE B.V.",
+      "subject_identifier": "5493003AP2HY7BTV8H64",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY EUROPE B.V.\" official website",
+        "title": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "5493003AP2HY7BTV8H64",
+      "entity_name": "SONY EUROPE B.V.",
+      "domain": "en.wikipedia.org",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://en.wikipedia.org/wiki/Sony",
+      "observed_value": "Sony - Wikipedia",
+      "subject_name": "SONY EUROPE B.V.",
+      "subject_identifier": "5493003AP2HY7BTV8H64",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY EUROPE B.V.\" official website",
+        "title": "Sony - Wikipedia",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "5493003AP2HY7BTV8H64",
+      "entity_name": "SONY EUROPE B.V.",
+      "domain": "www.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.sony.com/electronics/support",
+      "observed_value": "Support for Sony products | Sony USA",
+      "subject_name": "SONY EUROPE B.V.",
+      "subject_identifier": "5493003AP2HY7BTV8H64",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY EUROPE B.V.\" official website",
+        "title": "Support for Sony products | Sony USA",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "5493005M7S82SGBTH640",
+      "entity_name": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED",
+      "domain": "electronics.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://electronics.sony.com/",
+      "observed_value": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+      "subject_name": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED",
+      "subject_identifier": "5493005M7S82SGBTH640",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED\" official website",
+        "title": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "5493005M7S82SGBTH640",
+      "entity_name": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/",
+      "observed_value": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+      "subject_name": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED",
+      "subject_identifier": "5493005M7S82SGBTH640",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED\" official website",
+        "title": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "5493005M7S82SGBTH640",
+      "entity_name": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/your-account-for-playstation/",
+      "observed_value": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+      "subject_name": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED",
+      "subject_identifier": "5493005M7S82SGBTH640",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED\" official website",
+        "title": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "5493005M7S82SGBTH640",
+      "entity_name": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED",
+      "domain": "en.wikipedia.org",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://en.wikipedia.org/wiki/Sony",
+      "observed_value": "Sony - Wikipedia",
+      "subject_name": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED",
+      "subject_identifier": "5493005M7S82SGBTH640",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED\" official website",
+        "title": "Sony - Wikipedia",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "5493005M7S82SGBTH640",
+      "entity_name": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED",
+      "domain": "www.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.sony.com/electronics/support",
+      "observed_value": "Support for Sony products | Sony USA",
+      "subject_name": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED",
+      "subject_identifier": "5493005M7S82SGBTH640",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED\" official website",
+        "title": "Support for Sony products | Sony USA",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "549300LTJZIUDF1CAC25",
+      "entity_name": "Sony Overseas Holding B.V.",
+      "domain": "electronics.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://electronics.sony.com/",
+      "observed_value": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+      "subject_name": "Sony Overseas Holding B.V.",
+      "subject_identifier": "549300LTJZIUDF1CAC25",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"Sony Overseas Holding B.V.\" official website",
+        "title": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "549300LTJZIUDF1CAC25",
+      "entity_name": "Sony Overseas Holding B.V.",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/",
+      "observed_value": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+      "subject_name": "Sony Overseas Holding B.V.",
+      "subject_identifier": "549300LTJZIUDF1CAC25",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"Sony Overseas Holding B.V.\" official website",
+        "title": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "549300LTJZIUDF1CAC25",
+      "entity_name": "Sony Overseas Holding B.V.",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/your-account-for-playstation/",
+      "observed_value": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+      "subject_name": "Sony Overseas Holding B.V.",
+      "subject_identifier": "549300LTJZIUDF1CAC25",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"Sony Overseas Holding B.V.\" official website",
+        "title": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "549300LTJZIUDF1CAC25",
+      "entity_name": "Sony Overseas Holding B.V.",
+      "domain": "en.wikipedia.org",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://en.wikipedia.org/wiki/Sony",
+      "observed_value": "Sony - Wikipedia",
+      "subject_name": "Sony Overseas Holding B.V.",
+      "subject_identifier": "549300LTJZIUDF1CAC25",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"Sony Overseas Holding B.V.\" official website",
+        "title": "Sony - Wikipedia",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "549300LTJZIUDF1CAC25",
+      "entity_name": "Sony Overseas Holding B.V.",
+      "domain": "www.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.sony.com/electronics/support",
+      "observed_value": "Support for Sony products | Sony USA",
+      "subject_name": "Sony Overseas Holding B.V.",
+      "subject_identifier": "549300LTJZIUDF1CAC25",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"Sony Overseas Holding B.V.\" official website",
+        "title": "Support for Sony products | Sony USA",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "6994005PEQLC6Z0WH063",
+      "entity_name": "Sony Depthsensing Solutions",
+      "domain": "electronics.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://electronics.sony.com/",
+      "observed_value": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+      "subject_name": "Sony Depthsensing Solutions",
+      "subject_identifier": "6994005PEQLC6Z0WH063",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"Sony Depthsensing Solutions\" official website",
+        "title": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "6994005PEQLC6Z0WH063",
+      "entity_name": "Sony Depthsensing Solutions",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/",
+      "observed_value": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+      "subject_name": "Sony Depthsensing Solutions",
+      "subject_identifier": "6994005PEQLC6Z0WH063",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"Sony Depthsensing Solutions\" official website",
+        "title": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "6994005PEQLC6Z0WH063",
+      "entity_name": "Sony Depthsensing Solutions",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/your-account-for-playstation/",
+      "observed_value": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+      "subject_name": "Sony Depthsensing Solutions",
+      "subject_identifier": "6994005PEQLC6Z0WH063",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"Sony Depthsensing Solutions\" official website",
+        "title": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "6994005PEQLC6Z0WH063",
+      "entity_name": "Sony Depthsensing Solutions",
+      "domain": "en.wikipedia.org",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://en.wikipedia.org/wiki/Sony",
+      "observed_value": "Sony - Wikipedia",
+      "subject_name": "Sony Depthsensing Solutions",
+      "subject_identifier": "6994005PEQLC6Z0WH063",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"Sony Depthsensing Solutions\" official website",
+        "title": "Sony - Wikipedia",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "6994005PEQLC6Z0WH063",
+      "entity_name": "Sony Depthsensing Solutions",
+      "domain": "www.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.sony.com/electronics/support",
+      "observed_value": "Support for Sony products | Sony USA",
+      "subject_name": "Sony Depthsensing Solutions",
+      "subject_identifier": "6994005PEQLC6Z0WH063",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"Sony Depthsensing Solutions\" official website",
+        "title": "Support for Sony products | Sony USA",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "335800KMX7RKKX96PO79",
+      "entity_name": "SONY PICTURES FILMS INDIA PRIVATE LIMITED",
+      "domain": "electronics.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://electronics.sony.com/",
+      "observed_value": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+      "subject_name": "SONY PICTURES FILMS INDIA PRIVATE LIMITED",
+      "subject_identifier": "335800KMX7RKKX96PO79",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY PICTURES FILMS INDIA PRIVATE LIMITED\" official website",
+        "title": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "335800KMX7RKKX96PO79",
+      "entity_name": "SONY PICTURES FILMS INDIA PRIVATE LIMITED",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/",
+      "observed_value": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+      "subject_name": "SONY PICTURES FILMS INDIA PRIVATE LIMITED",
+      "subject_identifier": "335800KMX7RKKX96PO79",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY PICTURES FILMS INDIA PRIVATE LIMITED\" official website",
+        "title": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "335800KMX7RKKX96PO79",
+      "entity_name": "SONY PICTURES FILMS INDIA PRIVATE LIMITED",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/your-account-for-playstation/",
+      "observed_value": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+      "subject_name": "SONY PICTURES FILMS INDIA PRIVATE LIMITED",
+      "subject_identifier": "335800KMX7RKKX96PO79",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY PICTURES FILMS INDIA PRIVATE LIMITED\" official website",
+        "title": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "335800KMX7RKKX96PO79",
+      "entity_name": "SONY PICTURES FILMS INDIA PRIVATE LIMITED",
+      "domain": "en.wikipedia.org",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://en.wikipedia.org/wiki/Sony",
+      "observed_value": "Sony - Wikipedia",
+      "subject_name": "SONY PICTURES FILMS INDIA PRIVATE LIMITED",
+      "subject_identifier": "335800KMX7RKKX96PO79",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY PICTURES FILMS INDIA PRIVATE LIMITED\" official website",
+        "title": "Sony - Wikipedia",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "335800KMX7RKKX96PO79",
+      "entity_name": "SONY PICTURES FILMS INDIA PRIVATE LIMITED",
+      "domain": "www.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.sony.com/electronics/support",
+      "observed_value": "Support for Sony products | Sony USA",
+      "subject_name": "SONY PICTURES FILMS INDIA PRIVATE LIMITED",
+      "subject_identifier": "335800KMX7RKKX96PO79",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY PICTURES FILMS INDIA PRIVATE LIMITED\" official website",
+        "title": "Support for Sony products | Sony USA",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "335800Y7JLZCZH8XVS36",
+      "entity_name": "SONY MUSIC PUBLISHING (INDIA) PRIVATE LIMITED",
+      "domain": "electronics.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://electronics.sony.com/",
+      "observed_value": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+      "subject_name": "SONY MUSIC PUBLISHING (INDIA) PRIVATE LIMITED",
+      "subject_identifier": "335800Y7JLZCZH8XVS36",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MUSIC PUBLISHING (INDIA) PRIVATE LIMITED\" official website",
+        "title": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "335800Y7JLZCZH8XVS36",
+      "entity_name": "SONY MUSIC PUBLISHING (INDIA) PRIVATE LIMITED",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/",
+      "observed_value": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+      "subject_name": "SONY MUSIC PUBLISHING (INDIA) PRIVATE LIMITED",
+      "subject_identifier": "335800Y7JLZCZH8XVS36",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MUSIC PUBLISHING (INDIA) PRIVATE LIMITED\" official website",
+        "title": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "335800Y7JLZCZH8XVS36",
+      "entity_name": "SONY MUSIC PUBLISHING (INDIA) PRIVATE LIMITED",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/your-account-for-playstation/",
+      "observed_value": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+      "subject_name": "SONY MUSIC PUBLISHING (INDIA) PRIVATE LIMITED",
+      "subject_identifier": "335800Y7JLZCZH8XVS36",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MUSIC PUBLISHING (INDIA) PRIVATE LIMITED\" official website",
+        "title": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "335800Y7JLZCZH8XVS36",
+      "entity_name": "SONY MUSIC PUBLISHING (INDIA) PRIVATE LIMITED",
+      "domain": "en.wikipedia.org",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://en.wikipedia.org/wiki/Sony",
+      "observed_value": "Sony - Wikipedia",
+      "subject_name": "SONY MUSIC PUBLISHING (INDIA) PRIVATE LIMITED",
+      "subject_identifier": "335800Y7JLZCZH8XVS36",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MUSIC PUBLISHING (INDIA) PRIVATE LIMITED\" official website",
+        "title": "Sony - Wikipedia",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "335800Y7JLZCZH8XVS36",
+      "entity_name": "SONY MUSIC PUBLISHING (INDIA) PRIVATE LIMITED",
+      "domain": "www.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.sony.com/electronics/support",
+      "observed_value": "Support for Sony products | Sony USA",
+      "subject_name": "SONY MUSIC PUBLISHING (INDIA) PRIVATE LIMITED",
+      "subject_identifier": "335800Y7JLZCZH8XVS36",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MUSIC PUBLISHING (INDIA) PRIVATE LIMITED\" official website",
+        "title": "Support for Sony products | Sony USA",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "549300CJ08WKF0TLAQ08",
+      "entity_name": "PULSE INNOVATIONS LTD.",
+      "domain": "play.google.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://play.google.com/store/apps/details?id=com.d2l.brightspace.student.android&hl=en-US",
+      "observed_value": "Brightspace Pulse - Apps on Google Play",
+      "subject_name": "PULSE INNOVATIONS LTD.",
+      "subject_identifier": "549300CJ08WKF0TLAQ08",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"PULSE INNOVATIONS LTD.\" official website",
+        "title": "Brightspace Pulse - Apps on Google Play",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "549300CJ08WKF0TLAQ08",
+      "entity_name": "PULSE INNOVATIONS LTD.",
+      "domain": "apps.brightspace.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://apps.brightspace.com/pulse/launch",
+      "observed_value": "Pulse Student Mobile App - D2L",
+      "subject_name": "PULSE INNOVATIONS LTD.",
+      "subject_identifier": "549300CJ08WKF0TLAQ08",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"PULSE INNOVATIONS LTD.\" official website",
+        "title": "Pulse Student Mobile App - D2L",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "549300CJ08WKF0TLAQ08",
+      "entity_name": "PULSE INNOVATIONS LTD.",
+      "domain": "pulse.concentrix.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://pulse.concentrix.com/",
+      "observed_value": "PULSE Login",
+      "subject_name": "PULSE INNOVATIONS LTD.",
+      "subject_identifier": "549300CJ08WKF0TLAQ08",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"PULSE INNOVATIONS LTD.\" official website",
+        "title": "PULSE Login",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.\nThe last 30x error message was:\nFound"
+      }
+    },
+    {
+      "entity_lei": "549300CJ08WKF0TLAQ08",
+      "entity_name": "PULSE INNOVATIONS LTD.",
+      "domain": "community.d2l.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://community.d2l.com/brightspace/kb/articles/4603-sign-into-brightspace-pulse",
+      "observed_value": "Sign into Brightspace Pulse - Brightspace",
+      "subject_name": "PULSE INNOVATIONS LTD.",
+      "subject_identifier": "549300CJ08WKF0TLAQ08",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"PULSE INNOVATIONS LTD.\" official website",
+        "title": "Sign into Brightspace Pulse - Brightspace",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "549300CJ08WKF0TLAQ08",
+      "entity_name": "PULSE INNOVATIONS LTD.",
+      "domain": "identity.pulsesoftware.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://identity.pulsesoftware.com/signin",
+      "observed_value": "Login",
+      "subject_name": "PULSE INNOVATIONS LTD.",
+      "subject_identifier": "549300CJ08WKF0TLAQ08",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"PULSE INNOVATIONS LTD.\" official website",
+        "title": "Login",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "549300EWDLT4SXFEFA76",
+      "entity_name": "SONY MOBILE COMMUNICATIONS AB",
+      "domain": "electronics.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://electronics.sony.com/",
+      "observed_value": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+      "subject_name": "SONY MOBILE COMMUNICATIONS AB",
+      "subject_identifier": "549300EWDLT4SXFEFA76",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MOBILE COMMUNICATIONS AB\" official website",
+        "title": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "549300EWDLT4SXFEFA76",
+      "entity_name": "SONY MOBILE COMMUNICATIONS AB",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/",
+      "observed_value": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+      "subject_name": "SONY MOBILE COMMUNICATIONS AB",
+      "subject_identifier": "549300EWDLT4SXFEFA76",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MOBILE COMMUNICATIONS AB\" official website",
+        "title": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "549300EWDLT4SXFEFA76",
+      "entity_name": "SONY MOBILE COMMUNICATIONS AB",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/your-account-for-playstation/",
+      "observed_value": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+      "subject_name": "SONY MOBILE COMMUNICATIONS AB",
+      "subject_identifier": "549300EWDLT4SXFEFA76",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MOBILE COMMUNICATIONS AB\" official website",
+        "title": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "549300EWDLT4SXFEFA76",
+      "entity_name": "SONY MOBILE COMMUNICATIONS AB",
+      "domain": "en.wikipedia.org",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://en.wikipedia.org/wiki/Sony",
+      "observed_value": "Sony - Wikipedia",
+      "subject_name": "SONY MOBILE COMMUNICATIONS AB",
+      "subject_identifier": "549300EWDLT4SXFEFA76",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MOBILE COMMUNICATIONS AB\" official website",
+        "title": "Sony - Wikipedia",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "549300EWDLT4SXFEFA76",
+      "entity_name": "SONY MOBILE COMMUNICATIONS AB",
+      "domain": "www.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.sony.com/electronics/support",
+      "observed_value": "Support for Sony products | Sony USA",
+      "subject_name": "SONY MOBILE COMMUNICATIONS AB",
+      "subject_identifier": "549300EWDLT4SXFEFA76",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY MOBILE COMMUNICATIONS AB\" official website",
+        "title": "Support for Sony products | Sony USA",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "549300PBW7OURNSVGL39",
+      "entity_name": "HAWK-EYE INNOVATIONS LIMITED",
+      "domain": "en.m.wikipedia.org",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://en.m.wikipedia.org/wiki/Hawk",
+      "observed_value": "Hawk - Wikipedia",
+      "subject_name": "HAWK-EYE INNOVATIONS LIMITED",
+      "subject_identifier": "549300PBW7OURNSVGL39",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"HAWK-EYE INNOVATIONS LIMITED\" official website",
+        "title": "Hawk - Wikipedia",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "549300PBW7OURNSVGL39",
+      "entity_name": "HAWK-EYE INNOVATIONS LIMITED",
+      "domain": "www.britannica.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.britannica.com/animal/hawk-bird",
+      "observed_value": "Hawk | Types, Diet, & Facts | Britannica",
+      "subject_name": "HAWK-EYE INNOVATIONS LIMITED",
+      "subject_identifier": "549300PBW7OURNSVGL39",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"HAWK-EYE INNOVATIONS LIMITED\" official website",
+        "title": "Hawk | Types, Diet, & Facts | Britannica",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "549300PBW7OURNSVGL39",
+      "entity_name": "HAWK-EYE INNOVATIONS LIMITED",
+      "domain": "m.imdb.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://m.imdb.com/title/tt27550719/",
+      "observed_value": "The Hawk (TV Series 2026– ) - IMDb",
+      "subject_name": "HAWK-EYE INNOVATIONS LIMITED",
+      "subject_identifier": "549300PBW7OURNSVGL39",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"HAWK-EYE INNOVATIONS LIMITED\" official website",
+        "title": "The Hawk (TV Series 2026– ) - IMDb",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "549300PBW7OURNSVGL39",
+      "entity_name": "HAWK-EYE INNOVATIONS LIMITED",
+      "domain": "www.netflix.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.netflix.com/tudum/articles/the-hawk-cast-guide",
+      "observed_value": "The Hawk Cast: Will Ferrell, Molly Shannon, Jimmy Tatro, Fortune ...",
+      "subject_name": "HAWK-EYE INNOVATIONS LIMITED",
+      "subject_identifier": "549300PBW7OURNSVGL39",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"HAWK-EYE INNOVATIONS LIMITED\" official website",
+        "title": "The Hawk Cast: Will Ferrell, Molly Shannon, Jimmy Tatro, Fortune ...",
+        "snippet": null,
+        "verification_error": "IncompleteRead: IncompleteRead(3522149 bytes read)"
+      }
+    },
+    {
+      "entity_lei": "549300PBW7OURNSVGL39",
+      "entity_name": "HAWK-EYE INNOVATIONS LIMITED",
+      "domain": "ownyardlife.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://ownyardlife.com/15-types-of-hawks-in-arizona-with-pictures-and-identification/",
+      "observed_value": "15 Types of Hawks in Arizona (With Pictures and Identification)",
+      "subject_name": "HAWK-EYE INNOVATIONS LIMITED",
+      "subject_identifier": "549300PBW7OURNSVGL39",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"HAWK-EYE INNOVATIONS LIMITED\" official website",
+        "title": "15 Types of Hawks in Arizona (With Pictures and Identification)",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "AJOW550HA7E8YNKF5D89",
+      "entity_name": "SONY GLOBAL TREASURY SERVICES PLC",
+      "domain": "electronics.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://electronics.sony.com/",
+      "observed_value": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+      "subject_name": "SONY GLOBAL TREASURY SERVICES PLC",
+      "subject_identifier": "AJOW550HA7E8YNKF5D89",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY GLOBAL TREASURY SERVICES PLC\" official website",
+        "title": "Sony Electronics - Televisions, Audio, Cameras, Mobile, Video Cameras",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    },
+    {
+      "entity_lei": "AJOW550HA7E8YNKF5D89",
+      "entity_name": "SONY GLOBAL TREASURY SERVICES PLC",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/",
+      "observed_value": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+      "subject_name": "SONY GLOBAL TREASURY SERVICES PLC",
+      "subject_identifier": "AJOW550HA7E8YNKF5D89",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY GLOBAL TREASURY SERVICES PLC\" official website",
+        "title": "PlayStation® Official Site: Consoles, Games, Accessories & More",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "AJOW550HA7E8YNKF5D89",
+      "entity_name": "SONY GLOBAL TREASURY SERVICES PLC",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-us/your-account-for-playstation/",
+      "observed_value": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+      "subject_name": "SONY GLOBAL TREASURY SERVICES PLC",
+      "subject_identifier": "AJOW550HA7E8YNKF5D89",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY GLOBAL TREASURY SERVICES PLC\" official website",
+        "title": "Your account for PlayStation | PS Store, PS Plus and the best PS5 ...",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "AJOW550HA7E8YNKF5D89",
+      "entity_name": "SONY GLOBAL TREASURY SERVICES PLC",
+      "domain": "en.wikipedia.org",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://en.wikipedia.org/wiki/Sony",
+      "observed_value": "Sony - Wikipedia",
+      "subject_name": "SONY GLOBAL TREASURY SERVICES PLC",
+      "subject_identifier": "AJOW550HA7E8YNKF5D89",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY GLOBAL TREASURY SERVICES PLC\" official website",
+        "title": "Sony - Wikipedia",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "AJOW550HA7E8YNKF5D89",
+      "entity_name": "SONY GLOBAL TREASURY SERVICES PLC",
+      "domain": "www.sony.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.sony.com/electronics/support",
+      "observed_value": "Support for Sony products | Sony USA",
+      "subject_name": "SONY GLOBAL TREASURY SERVICES PLC",
+      "subject_identifier": "AJOW550HA7E8YNKF5D89",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "\"SONY GLOBAL TREASURY SERVICES PLC\" official website",
+        "title": "Support for Sony products | Sony USA",
+        "snippet": null,
+        "verification_error": "HTTPError: HTTP Error 403: Forbidden"
+      }
+    }
+  ],
+  "discovery_summary": {
+    "entity_count": 15,
+    "entities_with_candidates": 15,
+    "entities_with_verified_official_site": 0,
+    "seed_count": 75,
+    "candidate_discovery_observations": 75,
+    "verified_official_site_declarations": 0,
+    "search_error_count": 0
+  },
+  "search_errors": []
+}

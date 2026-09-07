@@ -1,0 +1,20 @@
+{
+  "seeds": [
+    {
+      "entity_lei": "5493005M7S82SGBTH640",
+      "entity_name": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED",
+      "url": "https://www.playstation.com/en-ie/legal/",
+      "provider": "WEB_SEARCH",
+      "query": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED official website",
+      "title": "Legal (Ireland)"
+    },
+    {
+      "entity_lei": "549300PBW7OURNSVGL39",
+      "entity_name": "HAWK-EYE INNOVATIONS LIMITED",
+      "url": "https://www.hawkeyeinnovations.com/terms-of-service",
+      "provider": "WEB_SEARCH",
+      "query": "HAWK-EYE INNOVATIONS LIMITED official website",
+      "title": "Hawk-Eye | Terms & Conditions"
+    }
+  ]
+}

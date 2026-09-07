@@ -139,23 +139,28 @@ def expand_company(root, lei_db, rr_db):
 
     lei_conn = connect(lei_db)
 
-    results = []
-
-    seen = set()
+    results_by_lei = {}
 
     for raw in relationships:
         rel = describe_relation(root["lei"], raw)
         related_lei = rel["related_lei"]
 
-        key = (
-            related_lei,
-            rel["relationship"],
-        )
+        # One entity per LEI. Preserve multiple relationship
+        # assertions on the same corporate entity.
+        if related_lei in results_by_lei:
+            existing = results_by_lei[related_lei]
 
-        if key in seen:
+            if rel["relationship"] not in existing["relationships"]:
+                existing["relationships"].append(
+                    rel["relationship"]
+                )
+
+            if rel["raw_relationship"] not in existing["raw_relationships"]:
+                existing["raw_relationships"].append(
+                    rel["raw_relationship"]
+                )
+
             continue
-
-        seen.add(key)
 
         identity = lookup_lei(
             lei_conn,
@@ -179,8 +184,17 @@ def expand_company(root, lei_db, rr_db):
             "name": name,
             "lei": related_lei,
             "jurisdiction": jurisdiction,
+
             "relationship": rel["relationship"],
+            "relationships": [
+                rel["relationship"],
+            ],
+
             "raw_relationship": rel["raw_relationship"],
+            "raw_relationships": [
+                rel["raw_relationship"],
+            ],
+
             "direction": rel["direction"],
 
             "entity_status": entity_status,
@@ -225,12 +239,11 @@ def expand_company(root, lei_db, rr_db):
             "enrichment_state": enrichment_state,
         }
 
-        results.append(result)
+        results_by_lei[related_lei] = result
 
     lei_conn.close()
 
-    return results
-
+    return list(results_by_lei.values())
 
 def choose_root(candidates, requested_lei=None):
     if requested_lei:
@@ -319,11 +332,16 @@ def print_report(root, results):
         print()
         print(result["name"])
 
-        print(
-            f"  Relationship : "
-            f"{result['relationship']}"
-        )
+        relationships = result.get("relationships") or [
+        result.get("relationship")
+        ]
 
+        print(
+            "  Relationships: "
+            + ", ".join(
+                r for r in relationships if r
+            )
+        )
         print(
             f"  LEI          : "
             f"{result['lei']}"
@@ -402,40 +420,50 @@ def main():
 
     args = ap.parse_args()
 
-    candidates = find_company(
-        args.lei_index,
-        args.company,
-    )
+    if args.lei:
+        conn = connect(args.lei_index)
+        root = lookup_lei(conn, args.lei)
+        conn.close()
 
-    if not candidates:
-        raise SystemExit(
-            f'No GLEIF Level 1 matches found for "{args.company}".'
+        if not root:
+            raise SystemExit(
+                f"LEI not found in local Level 1 index: {args.lei}"
+            )
+
+    else:
+        candidates = find_company(
+            args.lei_index,
+            args.company,
         )
 
-    root = choose_root(
-        candidates,
-        args.lei,
-    )
+        if not candidates:
+            raise SystemExit(
+                f'No GLEIF Level 1 matches found for "{args.company}".'
+            )
 
-    if root is None:
-        print_candidates(candidates)
-
-        print(
-            "Root identity is ambiguous."
+        root = choose_root(
+            candidates,
         )
 
-        print(
-            "Run again with:"
-        )
+        if root is None:
+            print_candidates(candidates)
 
-        print()
-        print(
-            '  python3 code/helix_company.py '
-            f'--company "{args.company}" '
-            "--lei <LEI>"
-        )
+            print(
+                "Root identity is ambiguous."
+            )
 
-        raise SystemExit(2)
+            print(
+                "Run again with:"
+            )
+
+            print()
+            print(
+                '  python3 code/helix_company.py '
+                f'--company "{args.company}" '
+                "--lei <LEI>"
+            )
+
+            raise SystemExit(2)
 
     results = expand_company(
         root,

@@ -30,3 +30,6 @@ htmlcov/
 .idea/
 *.swp
 *.swo
+data/processed/gleif_lei.sqlite
+data/processed/gleif_rr.sqlite
+data/processed/gleif_lei.sqlite

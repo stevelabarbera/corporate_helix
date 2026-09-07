@@ -1,0 +1,74 @@
+{
+  "observations": [
+    {
+      "entity_lei": "5493005M7S82SGBTH640",
+      "entity_name": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED",
+      "domain": "www.playstation.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.playstation.com/en-ie/legal/",
+      "observed_value": "Legal (Ireland)",
+      "subject_name": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED",
+      "subject_identifier": "5493005M7S82SGBTH640",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED official website",
+        "title": "Legal (Ireland)",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "5493005M7S82SGBTH640",
+      "entity_name": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED",
+      "domain": "www.playstation.com",
+      "provider": "OFFICIAL_SITE",
+      "evidence_type": "OFFICIAL_WEBSITE",
+      "reference": "https://www.playstation.com/en-ie/legal/",
+      "observed_value": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED",
+      "subject_name": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED",
+      "subject_identifier": "5493005M7S82SGBTH640",
+      "supports_attribution": true,
+      "raw": {
+        "match_method": "normalized_exact_legal_name",
+        "title": "Legal (Ireland)",
+        "http_status": 200
+      }
+    },
+    {
+      "entity_lei": "549300PBW7OURNSVGL39",
+      "entity_name": "HAWK-EYE INNOVATIONS LIMITED",
+      "domain": "www.hawkeyeinnovations.com",
+      "provider": "WEB_SEARCH",
+      "evidence_type": "CANDIDATE_DISCOVERY",
+      "reference": "https://www.hawkeyeinnovations.com/terms-of-service",
+      "observed_value": "Hawk-Eye | Terms & Conditions",
+      "subject_name": "HAWK-EYE INNOVATIONS LIMITED",
+      "subject_identifier": "549300PBW7OURNSVGL39",
+      "supports_attribution": null,
+      "raw": {
+        "discovery_provider": "WEB_SEARCH",
+        "query": "HAWK-EYE INNOVATIONS LIMITED official website",
+        "title": "Hawk-Eye | Terms & Conditions",
+        "snippet": null
+      }
+    },
+    {
+      "entity_lei": "549300PBW7OURNSVGL39",
+      "entity_name": "HAWK-EYE INNOVATIONS LIMITED",
+      "domain": "www.hawkeyeinnovations.com",
+      "provider": "OFFICIAL_SITE",
+      "evidence_type": "OFFICIAL_WEBSITE",
+      "reference": "https://www.hawkeyeinnovations.com/terms-of-service",
+      "observed_value": "HAWK-EYE INNOVATIONS LIMITED",
+      "subject_name": "HAWK-EYE INNOVATIONS LIMITED",
+      "subject_identifier": "549300PBW7OURNSVGL39",
+      "supports_attribution": true,
+      "raw": {
+        "match_method": "normalized_exact_legal_name",
+        "title": "Hawk-Eye | Terms & Conditions Hawkeye | Digital media sports technology company",
+        "http_status": 200
+      }
+    }
+  ]
+}
