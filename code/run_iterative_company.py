@@ -10,11 +10,7 @@ HERE = Path(__file__).resolve().parent
 if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 
-from expansion_bridges import (
-    DomainCandidateExpansionProvider,
-    GleifCompanyExpansionProvider,
-    company_seed,
-)
+from expansion_bridges import GleifCompanyExpansionProvider, company_seed
 from iterative_expansion import run_expansion
 
 
@@ -24,15 +20,12 @@ def main() -> None:
     ap.add_argument("--lei", required=True, help="Explicit root LEI for this first vertical slice")
     ap.add_argument("--lei-index", default="data/processed/gleif_lei.sqlite")
     ap.add_argument("--rr-index", default="data/processed/gleif_rr.sqlite")
-    ap.add_argument("--domain-candidates", help="Evaluated M4.3B domain-candidate JSON")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
 
     seed = company_seed(args.company, args.lei)
-    providers = [GleifCompanyExpansionProvider(args.lei_index, args.rr_index)]
-    if args.domain_candidates:
-        providers.append(DomainCandidateExpansionProvider.from_json(args.domain_candidates))
-    result = run_expansion([seed], providers, max_iterations=5)
+    provider = GleifCompanyExpansionProvider(args.lei_index, args.rr_index)
+    result = run_expansion([seed], [provider], max_iterations=5)
 
     if args.json:
         print(json.dumps(result.to_dict(), indent=2, ensure_ascii=False))
@@ -62,41 +55,15 @@ def main() -> None:
     print()
     print(f"Legal entities    : {len(legal)}")
     print(f"Accepted corporate: {len(accepted)}")
-    domains = [f for f in result.facts if f.fact_type == "DOMAIN"]
-    accepted_domains = [f for f in domains if f.status == "ACCEPTED"]
-    review_domains = [f for f in domains if f.status == "REVIEW"]
-    rejected_domains = [f for f in domains if f.status == "REJECTED"]
-
     print(f"Review corporate  : {len(review)}")
-    print(f"Domains           : {len(domains)}")
-    print(f"Accepted domains  : {len(accepted_domains)}")
-    print(f"Review domains    : {len(review_domains)}")
-    print(f"Rejected domains  : {len(rejected_domains)}")
     print()
 
     for fact in sorted(legal, key=lambda f: (f.value.casefold(), f.identifier or "")):
         print(f"[{fact.status}/{fact.confidence}] {fact.value}")
         print(f"  LEI             : {fact.identifier or '-'}")
-        relationships = list(fact.metadata.get("relationships") or [])
-        if not relationships:
-            for ev in fact.evidence:
-                for rel in ev.get("relationships") or []:
-                    if rel and rel not in relationships:
-                        relationships.append(rel)
-        print(f"  Relationships   : {', '.join(relationships) or '-'}")
+        print(f"  Relationships   : {', '.join(fact.metadata.get('relationships') or []) or '-'}")
         print(f"  Corp confidence : {fact.metadata.get('corporate_confidence') or '-'}")
         print(f"  Infra confidence: {fact.metadata.get('infrastructure_attribution_confidence') or '-'}")
-
-    if domains:
-        print()
-        print("DOMAIN FACTS")
-        print("-" * 72)
-        for fact in sorted(domains, key=lambda f: f.value.casefold()):
-            print(f"[{fact.status}/{fact.confidence}] {fact.value}")
-            print(f"  Entity          : {fact.metadata.get('entity_name') or '-'}")
-            print(f"  Entity LEI      : {fact.metadata.get('entity_lei') or '-'}")
-            print(f"  M4.3B decision  : {fact.metadata.get('m43b_disposition') or '-'}")
-            print(f"  Infra confidence: {fact.metadata.get('infrastructure_attribution_confidence') or '-'}")
 
 
 if __name__ == "__main__":

@@ -28,6 +28,8 @@ class OfficialSiteObservation:
     matched_name: str | None
     exact_legal_name_match: bool
     match_method: str | None
+    official_declaration_match: bool = False
+    declaration_reason: str | None = None
     status_code: int | None = None
 
 
@@ -88,6 +90,64 @@ def normalize_text(text: str | None) -> str:
     return re.sub(r"\s+", " ", value).strip()
 
 
+
+_SELF_IDENTIFICATION_MARKERS = (
+    "registered office",
+    "registered address",
+    "company number",
+    "registration number",
+    "registered in",
+    "incorporated in",
+    "all rights reserved",
+    "copyright",
+    "website is operated by",
+    "website operated by",
+    "site is operated by",
+    "owned and operated by",
+)
+
+_LEGAL_PATH_MARKERS = (
+    "/legal",
+    "/terms",
+    "/privacy",
+    "/imprint",
+    "/company-information",
+    "/company_info",
+    "/corporate-information",
+)
+
+
+def _legal_name_occurrences(page: str, legal_name: str) -> list[int]:
+    if not page or not legal_name:
+        return []
+    starts: list[int] = []
+    pos = 0
+    while True:
+        idx = page.find(legal_name, pos)
+        if idx < 0:
+            break
+        starts.append(idx)
+        pos = idx + max(1, len(legal_name))
+    return starts
+
+
+def _declaration_signal(url: str, normalized_page: str, normalized_legal: str) -> tuple[bool, str | None]:
+    for idx in _legal_name_occurrences(normalized_page, normalized_legal):
+        left = max(0, idx - 320)
+        right = min(len(normalized_page), idx + len(normalized_legal) + 320)
+        window = normalized_page[left:right]
+
+        for marker in _SELF_IDENTIFICATION_MARKERS:
+            if marker in window:
+                return True, f"nearby_self_identification:{marker.replace(' ', '_')}"
+
+    path = (urlsplit(url).path or "").casefold()
+    if any(marker in path for marker in _LEGAL_PATH_MARKERS):
+        return False, "legal_path_without_self_identification"
+
+    return False, "exact_name_without_self_identification"
+
+
 def inspect_html(url: str, html_text: str, legal_name: str) -> OfficialSiteObservation:
     parser = _VisibleTextParser()
     parser.feed(html_text)
@@ -100,6 +160,15 @@ def inspect_html(url: str, html_text: str, legal_name: str) -> OfficialSiteObser
     normalized_legal = normalize_text(legal_name)
     exact = bool(normalized_legal and normalized_legal in normalized_page)
 
+    official_declaration = False
+    declaration_reason = None
+    if exact:
+        official_declaration, declaration_reason = _declaration_signal(
+            url,
+            normalized_page,
+            normalized_legal,
+        )
+
     return OfficialSiteObservation(
         url=url,
         domain=host,
@@ -107,7 +176,13 @@ def inspect_html(url: str, html_text: str, legal_name: str) -> OfficialSiteObser
         page_text=parser.text,
         matched_name=legal_name if exact else None,
         exact_legal_name_match=exact,
-        match_method="normalized_exact_legal_name" if exact else None,
+        match_method=(
+            "normalized_exact_legal_name+self_identification"
+            if official_declaration
+            else ("normalized_exact_legal_name" if exact else None)
+        ),
+        official_declaration_match=official_declaration,
+        declaration_reason=declaration_reason,
         status_code=None,
     )
 
@@ -131,5 +206,7 @@ def fetch_and_inspect(url: str, legal_name: str, timeout: int = 20) -> OfficialS
             matched_name=result.matched_name,
             exact_legal_name_match=result.exact_legal_name_match,
             match_method=result.match_method,
+            official_declaration_match=result.official_declaration_match,
+            declaration_reason=result.declaration_reason,
             status_code=getattr(resp, "status", None),
         )

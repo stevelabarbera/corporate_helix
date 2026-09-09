@@ -2383,3 +2383,973 @@ Expansion
 The durable resume rule remains: **structured corporate evidence first,
 auditable domain attribution second, ASM expansion only after
 infrastructure evidence is strong enough.**
+
+------------------------------------------------------------------------
+
+# 29. CURRENT-STATE OVERRIDE — M4.3B / M4.3C VALIDATED
+
+This section supersedes older `NEXT` markers in Sections 27 and 28 where
+those markers conflict with the state below. Preserve the older sections as
+engineering history, but resume from this section.
+
+## 29.1 M4.3B domain attribution layer — COMPLETE / VALIDATED
+
+The corporate-entity-to-domain contract is now implemented and tested.
+
+Primary implementation areas:
+
+``` text
+code/domain_candidates.py
+code/domain_discovery.py
+code/rdap_evidence.py
+code/providers/domain_rdap.py
+code/providers/official_site.py
+code/providers/web_search.py
+```
+
+The domain candidate policy deliberately keeps corporate confidence separate
+from infrastructure attribution confidence.
+
+Current disposition model:
+
+``` text
+AUTO
+REVIEW
+REJECT
+```
+
+Current infrastructure confidence levels:
+
+``` text
+UNKNOWN
+LOW
+MEDIUM
+HIGH
+```
+
+Key policy behavior:
+
+``` text
+contradictory ownership / supports_attribution=False
+    -> REJECT / HIGH
+
+identity-grade assertion
+    -> AUTO / HIGH
+
+two or more distinct corroborating evidence types
+    -> REVIEW / MEDIUM
+
+one corroborating signal
+    -> REVIEW / LOW
+
+no usable attribution evidence
+    -> REVIEW / UNKNOWN
+
+candidate discovery alone
+    -> REVIEW / UNKNOWN
+```
+
+Raw RDAP registrant/organization data is corroborating evidence only. An
+interpreted RDAP attribution match may be identity-grade. Corporate HIGH is
+never sufficient by itself to produce infrastructure HIGH.
+
+Official-site discovery was validated with two Sony-family seeds:
+
+``` text
+SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED
+LEI: 5493005M7S82SGBTH640
+verified domain: www.playstation.com
+
+HAWK-EYE INNOVATIONS LIMITED
+LEI: 549300PBW7OURNSVGL39
+verified domain: www.hawkeyeinnovations.com
+```
+
+Both produced:
+
+``` text
+disposition: AUTO
+infrastructure attribution confidence: HIGH
+```
+
+The broad search-engine discovery experiment remains useful as a negative
+benchmark. It produced many candidate observations but zero verified
+official-site declarations. Search results are therefore discovery input,
+not attribution truth.
+
+## 29.2 M4.3C iterative expansion engine — COMPLETE / LIVE VALIDATED
+
+Helix now has a generic iterative expansion core.
+
+Primary implementation:
+
+``` text
+code/iterative_expansion.py
+code/expansion_bridges.py
+code/run_iterative_company.py
+```
+
+Core fact contract includes:
+
+``` text
+fact_type
+value
+subject
+identifier
+source
+confidence
+status
+pivot_eligible
+iteration_discovered
+evidence
+metadata
+```
+
+Confidence levels:
+
+``` text
+UNKNOWN
+LOW
+MEDIUM
+HIGH
+```
+
+Statuses:
+
+``` text
+ACCEPTED
+REVIEW
+REJECTED
+```
+
+A fact may recurse only when all three conditions are true:
+
+``` text
+status == ACCEPTED
+confidence == HIGH
+pivot_eligible == true
+```
+
+Durable rule:
+
+> Helix recursively expands accepted knowledge, not guesses.
+
+The iterative engine supports:
+
+``` text
+trusted seed frontier
+provider expansion
+fact deduplication / merge
+promotion of new trusted pivots
+per-provider failure isolation
+iteration caps
+convergence detection
+```
+
+Current stop reasons include:
+
+``` text
+NO_PIVOT_ELIGIBLE_SEEDS
+NO_NEW_TRUSTED_PIVOTS
+MAX_ITERATIONS_REACHED
+```
+
+The GLEIF/company bridge maps structured legal entities into trusted
+corporate facts while preserving relationship evidence. Multiple GLEIF
+relationship observations can collapse into one entity fact without losing
+relationship provenance.
+
+The M4.3B domain bridge does not rescore domain evidence. It treats
+`domain_candidates.py` as the policy authority and maps evaluated candidates
+into the iterative fact model:
+
+``` text
+M4.3B AUTO + HIGH
+    -> DOMAIN / ACCEPTED / HIGH / pivot eligible
+
+M4.3B REVIEW
+    -> DOMAIN / REVIEW / existing infrastructure confidence / no pivot
+
+M4.3B REJECT
+    -> DOMAIN / REJECTED / existing infrastructure confidence / no pivot
+
+AUTO without HIGH
+    -> REVIEW / no pivot
+```
+
+## 29.3 Live Sony recursive-expansion checkpoint
+
+Known-good command:
+
+``` bash
+python3 code/run_iterative_company.py \
+  --company "Sony" \
+  --lei 529900R5WX9N2OI2N910 \
+  --domain-candidates data/processed/sony_official_site_candidates.json
+```
+
+Known-good live result:
+
+``` text
+Converged         : True
+Stop reason       : NO_NEW_TRUSTED_PIVOTS
+Iterations run    : 3
+
+Iteration 1: frontier=1  discovered=15 new=15 new_pivots=15 errors=0
+Iteration 2: frontier=15 discovered=2  new=2  new_pivots=2  errors=0
+Iteration 3: frontier=2  discovered=0  new=0  new_pivots=0  errors=0
+
+Legal entities    : 15
+Accepted corporate: 15
+Review corporate  : 0
+
+Domains           : 2
+Accepted domains  : 2
+Review domains    : 0
+Rejected domains  : 0
+```
+
+Accepted domain facts:
+
+``` text
+www.hawkeyeinnovations.com
+    entity: HAWK-EYE INNOVATIONS LIMITED
+    LEI: 549300PBW7OURNSVGL39
+    M4.3B decision: AUTO
+    infrastructure confidence: HIGH
+
+www.playstation.com
+    entity: SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED
+    LEI: 5493005M7S82SGBTH640
+    M4.3B decision: AUTO
+    infrastructure confidence: HIGH
+```
+
+The legal-entity output correctly preserves relationship labels such as:
+
+``` text
+DIRECT_ACCOUNTING_CHILD
+ULTIMATE_ACCOUNTING_CHILD
+```
+
+This live run validates the complete path:
+
+``` text
+company root
+    -> trusted GLEIF legal entities
+    -> independently attributed domain candidates
+    -> accepted HIGH domain pivots
+    -> convergence when no provider consumes the new domain frontier
+```
+
+## 29.4 Trust boundary — NON-NEGOTIABLE
+
+The current architecture distinguishes three states that must never be
+collapsed:
+
+``` text
+discovered fact != accepted fact != expansion pivot
+```
+
+The main confidence separation remains:
+
+``` text
+corporate relationship confidence
+    !=
+infrastructure attribution confidence
+```
+
+A corporate relationship can be HIGH while infrastructure attribution remains
+UNKNOWN. Only independent infrastructure/domain evidence can promote the
+infrastructure side.
+
+False-positive ASM attribution remains worse than conservative REVIEW.
+
+## 29.5 Hybrid operating model
+
+Helix should support three entry paths through the same expansion machinery.
+
+``` text
+A. ZERO-KNOWLEDGE / GREENFIELD
+   company name
+      -> structured corporate sources
+      -> entities / aliases / M&A
+      -> trusted domains / ASNs / IPs
+      -> feed accepted discoveries back into expansion
+      -> repeat until convergence
+
+B. CUSTOMER-SUPPLIED
+   domains / ASNs / IPs / CIDRs / known M&A
+      -> explicit customer-supplied assertions
+      -> same evidence and expansion pipeline
+
+C. EXISTING ASM
+   known domains / subdomains / IPs / CIDRs / ASNs / org observations /
+   certificates / WHOIS-RDAP evidence / prior attribution
+      -> same graph and iterative expansion engine
+```
+
+The intent is not three products. They are three seed modes for one auditable
+evidence graph.
+
+## 29.6 NEXT — virtual analyst / hypothesis layer
+
+The next major functional addition is an LLM-backed virtual analyst that helps
+Helix decide what to investigate when deterministic discovery reaches a
+semantic gap.
+
+Durable principle:
+
+> The analyst is allowed to guess what to investigate. Helix is not allowed
+> to guess what is true.
+
+The analyst must not directly create trusted graph state. It may propose
+hypotheses and review decisions which must still pass deterministic policy and
+corroboration before becoming trusted recursive pivots.
+
+Proposed initial package:
+
+``` text
+code/analysts/
+    __init__.py
+    base.py
+    llm_analyst.py
+```
+
+Proposed contract:
+
+``` text
+analyze(
+    pivot,
+    known_facts,
+    observations,
+    unresolved_candidates,
+    iteration,
+) -> AnalystDecision[]
+```
+
+Initial decision types:
+
+``` text
+PROPOSE_ALIAS
+PROPOSE_DOMAIN
+PROPOSE_ENTITY
+PROPOSE_SEARCH
+ACCEPT_REVIEW
+REJECT_REVIEW
+ABSTAIN
+```
+
+Every analyst decision should retain:
+
+``` text
+decision
+subject
+proposed_value
+confidence
+reason
+model
+prompt_version
+input_evidence_ids
+iteration
+```
+
+The first implementation should reuse the guarded-LLM design principles from
+M3.6 rather than creating a second uncontrolled LLM path. Existing code to
+inspect before implementation:
+
+``` text
+code/ollama_adjudicate.py
+code/adjudication/engine.py
+code/adjudication/evidence_packet.py
+code/adjudication/policies.py
+```
+
+Initial trust behavior should be conservative:
+
+``` text
+LLM hypothesis
+    -> proposed investigation / targeted corroboration
+    -> deterministic evidence collection
+    -> domain/entity policy evaluation
+    -> only ACCEPTED + HIGH + pivot-eligible facts recurse
+```
+
+`LLM_ACCEPTED` should initially mean "analyst-supported candidate requiring
+corroboration," not automatic HIGH trust.
+
+## 29.7 Near-term cleanup / hardening
+
+Do not block the virtual analyst on these, but keep them visible:
+
+``` text
+- normalize canonical DOMAIN identity to the registrable domain where
+  appropriate, while preserving observed hostnames such as `www.*` in
+  evidence/metadata;
+- revisit `merge_fact()` arbitration so contradictory/rejected evidence cannot
+  be promoted merely because an unrelated observation has a higher status;
+- add GLEIF alternate-language / alternate-name indexing for friendlier root
+  resolution;
+- add a lightweight `helix_doctor.py` repository/index preflight;
+- align Level 1 and Level 2 GLEIF snapshot dates when convenient;
+- preserve the automated-search negative corpus for future analyst evaluation.
+```
+
+## 29.8 Two-computer repository hygiene
+
+The project is actively used from two Macs. A recent office-machine checkout
+contained tracked files in Git/HEAD that were absent from the physical working
+tree. Restoring those paths from `HEAD` rematerialized them successfully.
+
+Before switching machines, use a lightweight sanity check in addition to the
+Git GUI:
+
+``` bash
+git status -sb
+git rev-parse --short HEAD
+```
+
+Before leaving the machine after new code is created, verify that new files are
+actually tracked/committed rather than merely present locally.
+
+Avoid keeping unresolved stash-conflict markers in `.gitignore`.
+
+## 29.9 Resume checklist — CURRENT
+
+1. Read Section 29 first; it is the current-state override.
+2. Confirm `git status -sb` is clean and local `main` is aligned with
+   `origin/main`.
+3. Confirm the GLEIF SQLite indexes exist before debugging resolution logic.
+4. Known-good Sony root LEI: `529900R5WX9N2OI2N910`.
+5. Known-good corporate expansion: 15 accepted HIGH legal entities.
+6. Known-good iterative run: 3 iterations, 2 accepted HIGH domain facts, clean
+   `NO_NEW_TRUSTED_PIVOTS` convergence.
+7. Preserve corporate confidence separately from infrastructure attribution
+   confidence.
+8. REVIEW and REJECT facts do not recurse by default.
+9. Begin the virtual-analyst work by inspecting the existing guarded LLM
+   adjudication implementation before creating `code/analysts/`.
+10. Keep analyst output advisory until deterministic evidence promotes a fact
+    to ACCEPTED / HIGH / pivot-eligible.
+
+------------------------------------------------------------------------
+
+# 30. UPDATED MILESTONE SNAPSHOT
+
+``` text
+Foundation / canonical evidence / normalization / resolution
+  M0-M3.7                                           COMPLETE / VALIDATED
+
+Legal event extraction
+  M3.8 / M3.9                                       WORKS, PARKED FROM MVP CRITICAL PATH
+
+GLEIF / corporate expansion
+  M4.1 Full Level 1 SQLite identity index           COMPLETE
+  M4.2 RR -> automatic Level 1 enrichment           COMPLETE
+  M4.2B Persistent Level 2 relationship index       COMPLETE / VALIDATED
+  M4.3A Internal company expansion CLI              COMPLETE / VALIDATED
+  M4.3B Domain candidate/evidence layer             COMPLETE / VALIDATED
+  M4.3C Iterative trusted-fact expansion            COMPLETE / LIVE VALIDATED
+
+Current live benchmark
+  Sony legal entities                              15 ACCEPTED / HIGH
+  Sony attributed domains                          2 ACCEPTED / HIGH
+  iterative convergence                            3 ITERATIONS / CLEAN
+
+Next major functionality
+  Virtual analyst / semantic hypothesis layer       NEXT
+
+Operator usability / hardening
+  GLEIF alternate-name/alias index                  OPEN
+  canonical registrable-domain normalization        OPEN
+  merge/arbitration hardening                       OPEN
+  helix_doctor.py index/repo preflight              OPEN
+  aligned Level 1 / Level 2 snapshot dates          CLEANUP
+
+ASM handoff / expansion
+  approved registrable-domain export                UPCOMING
+  Subfinder integration                             UPCOMING
+  source-yield instrumentation                      UPCOMING
+  EDGAR/M&A/historical identity combined workflow   AFTER CURRENT DOMAIN/ANALYST CONTRACT
+  second structured provider                        LATER
+```
+
+Current durable resume rule:
+
+> **Structured evidence establishes truth. Iterative expansion propagates only
+> trusted facts. The virtual analyst may generate hypotheses, but deterministic
+> corroboration controls what becomes accepted graph state and what is allowed
+> to recurse.**
+
+
+------------------------------------------------------------------------
+
+# 34. SESSION UPDATE --- 2026-09-09
+
+## 34.1 NTT stress test validated the architecture and exposed attribution noise
+
+A second large benchmark was deliberately run against **NTT** rather than
+continuing to tune only against Sony.
+
+Root resolution from the company string `NTT` succeeded without an operator
+supplied LEI:
+
+```text
+Root query        : NTT
+Root LEI          : 353800VHQU5VIXVUA841
+Root source       : M4.3D_ROOT_RESOLVER
+Root legal name   : ＮＴＴ株式会社
+```
+
+The zero-knowledge iterative domain run remained structurally healthy:
+
+```text
+Legal entities    : 130
+Domain facts      : 509
+Accepted domains  : 27
+Review domains    : 482
+Rejected domains  : 0
+Search errors     : 0
+Iterations run    : 3
+Converged         : True
+Stop reason       : NO_NEW_TRUSTED_PIVOTS
+```
+
+This was useful precisely because NTT is a less friendly benchmark than Sony:
+a large corporate family, repeated/shared branding, similarly named entities,
+shared corporate web properties, and many third-party pages mentioning exact
+legal names.
+
+The run exposed a precision problem in the `OFFICIAL_WEBSITE` path. An exact
+legal-name occurrence on a page, even when combined with a nearby generic legal
+or copyright marker, is not sufficient proof that the target legal entity
+operates the site. Third-party pages such as Wikipedia/business directories can
+contain the target legal name while also containing their own copyright/legal
+language.
+
+The important conclusion is not that iterative expansion failed. Root
+resolution, GLEIF expansion, search, REVIEW containment, convergence, and error
+handling all remained healthy. The weakness was localized to infrastructure
+attribution precision.
+
+Preserve this NTT run as **NTT Attribution Baseline #1**.
+
+## 34.2 Official-site precision work
+
+M4.3B official-site precision v2 introduced a distinction between:
+
+```text
+exact_legal_name_match
+```
+
+and the stronger:
+
+```text
+official_declaration_match
+```
+
+The v2 isolated verifier suite validated:
+
+```text
+PASS test_third_party_exact_name_is_not_official
+PASS test_registered_office_declaration_is_official
+PASS test_copyright_footer_declaration_is_official
+PASS test_legal_path_alone_is_not_enough
+PASS test_domain_discovery_does_not_promote_plain_exact_name
+PASS test_domain_discovery_promotes_qualified_declaration
+
+6 passed / 0 failed
+```
+
+However, the subsequent NTT run still produced 27 AUTO/HIGH domains. This
+showed that generic marker proximity is itself too permissive. A third-party
+page can mention the target entity and have its own legal/footer language near
+that mention.
+
+A v3 experiment tightened the concept further toward a legal name being
+syntactically bound to a self-identification declaration, e.g.:
+
+```text
+Copyright 2026 TARGET LEGAL ENTITY
+This website is operated by TARGET LEGAL ENTITY
+TARGET LEGAL ENTITY registered office ...
+```
+
+rather than merely finding the target name and unrelated copyright/legal text
+on the same page.
+
+Do not continue turning the HTML verifier into the entire attribution engine.
+The NTT experiment led to the more important architecture decision below.
+
+## 34.3 Formal Helix / ASM architectural boundary
+
+The project now adopts this as a formal architectural rule:
+
+> **Helix may consume and reason over infrastructure telemetry at arbitrary
+> depth, but it does not duplicate the infrastructure collection capabilities
+> of an ASM platform. Limited collection is permitted only for zero-knowledge
+> bootstrap necessary to establish initial ASM seeds.**
+
+This separates **evidence acquisition** from **evidence interpretation**.
+
+Helix owns:
+
+```text
+corporate identity
+corporate relationships / lineage / M&A context
+evidence normalization
+evidence correlation
+infrastructure attribution policy
+AUTO / REVIEW / REJECT decisions
+evidence-gap reporting
+advisory analyst reasoning
+```
+
+ASM/customer systems own infrastructure collection such as:
+
+```text
+subdomain enumeration
+IP discovery / scanning
+CIDR / ASN collection
+certificate / CT collection
+DNS collection
+HTTP fingerprinting
+port / service discovery
+screenshots / technologies
+other infrastructure telemetry
+```
+
+Helix should be capable of consuming all of that telemetry when supplied.
+
+The existence of an evidence interpreter in Helix does **not** imply that Helix
+must contain a collector for that evidence.
+
+Examples:
+
+```text
+Helix understands ASN ownership evidence       YES
+Helix must enumerate ASN/CIDR space             NO
+
+Helix understands certificate evidence          YES
+Helix must mine certificate transparency        NO
+
+Helix understands WHOIS/RDAP evidence           YES
+Lightweight RDAP during bootstrap               PERMITTED
+Full infrastructure enumeration                 NO
+```
+
+This prevents Corporation Helix from accidentally becoming another ASM scanner.
+
+## 34.4 Bootstrap exception
+
+Zero-knowledge operation still requires enough infrastructure discovery to
+bridge:
+
+```text
+company
+  -> corporate graph
+  -> credible initial infrastructure seed(s)
+  -> ASM
+```
+
+Therefore limited bootstrap discovery remains in scope. Search, lightweight
+RDAP/WHOIS checks, and official/legal/privacy-site verification may be used when
+necessary to establish initial seeds.
+
+Once ASM/customer telemetry is available, Helix should consume that evidence
+rather than recreate the downstream collection system.
+
+## 34.5 Evidence efficacy waterfall
+
+For a candidate domain, the current preferred evidence order is conceptually:
+
+```text
+1. RDAP / WHOIS
+2. IP / ASN / netblock ownership
+3. TLS certificate evidence
+4. HTTP legal / privacy / copyright / operator declarations
+```
+
+This is an **attribution-efficacy ordering**, not a requirement that Helix fetch
+all four itself.
+
+Interpretation examples:
+
+```text
+RDAP registrant exact corporate match      useful positive evidence
+RDAP redacted / privacy proxy / MarkMonitor inconclusive
+company-owned ASN/netblock                  useful corroboration
+AWS/Azure/Cloudflare/Akamai ASN             generally inconclusive for ownership
+certificate organization identity           useful evidence
+DV certificate                              little ownership evidence
+privacy controller / legal operator         useful evidence
+third-party page mentioning legal name      not ownership evidence
+```
+
+Negative/conflicting evidence must remain distinct from missing evidence.
+
+## 34.6 M4.3E — Evidence Contract + Evidence Gaps
+
+M4.3E was started and its first independent layer is now implemented.
+
+New file:
+
+```text
+code/evidence_contract.py
+```
+
+New validation:
+
+```text
+tests/test_evidence_contract.py
+```
+
+Architecture note:
+
+```text
+M43E_EVIDENCE_CONTRACT.md
+```
+
+The new vendor-neutral contract introduces:
+
+```text
+InfrastructureObservation
+EvidenceCapability
+EvidenceAvailability
+EvidenceGap
+```
+
+Initial `EvidenceCapability` vocabulary:
+
+```text
+RDAP_WHOIS
+IP_ASN_OWNERSHIP
+TLS_CERTIFICATE
+DNS
+HTTP_LEGAL_PRIVACY
+CUSTOMER_ASSERTION
+```
+
+Availability states:
+
+```text
+PROVIDED
+MISSING
+INCONCLUSIVE
+CONTRADICTORY
+```
+
+This distinction is intentional:
+
+```text
+MISSING
+"We were not given this evidence."
+
+INCONCLUSIVE
+"We were given it, but it does not establish ownership."
+
+CONTRADICTORY
+"We were given evidence that conflicts with the proposed attribution."
+```
+
+`EvidenceGap` identifies evidence that would materially help resolve an
+unsettled attribution and provides an ordered request for the missing
+capability.
+
+Example conceptual output:
+
+```text
+Candidate: example.com
+Disposition: REVIEW
+
+RDAP/WHOIS       INCONCLUSIVE — privacy/redacted
+IP/ASN           MISSING
+TLS certificate  MISSING
+HTTP legal       MISSING
+
+Evidence gaps:
+  1. Provide IP + ASN/netblock ownership evidence.
+  2. Provide TLS certificate organization/SAN/history evidence.
+  3. Provide legal/privacy/operator evidence.
+```
+
+Contradictory evidence is deliberately **not** reported as merely missing; it
+must be handled by attribution policy.
+
+M4.3E independent validation completed successfully:
+
+```text
+PASS test_no_observations_requests_waterfall
+PASS test_provided_capability_is_not_gap
+PASS test_redacted_whois_is_inconclusive_gap
+PASS test_cloud_asn_can_be_inconclusive
+PASS test_contradiction_not_called_missing
+PASS test_vendor_neutral_mapping
+
+6 passed / 0 failed
+```
+
+## 34.7 Evidence requests are not truth
+
+Preserve this trust rule:
+
+> **An evidence request is not evidence. An LLM suggestion is not evidence.
+> Neither may become a recursive pivot.**
+
+Only observations that pass deterministic attribution policy may create trusted
+facts/pivots.
+
+This extends the existing project principle:
+
+```text
+discovered fact != accepted fact != expansion pivot
+```
+
+and:
+
+> **Helix recursively expands accepted knowledge, not guesses.**
+
+## 34.8 LLM analyst remains advisory
+
+The NTT zero-knowledge benchmark described above did **not** use the LLM
+analyst. It is therefore a clean deterministic baseline.
+
+The existing LLM analyst remains outside the trust boundary:
+
+```text
+Helix REVIEW / evidence gaps
+        ->
+LLM analyst
+        ->
+PROPOSE_ALIAS / PROPOSE_BRAND / PROPOSE_DOMAIN /
+PROPOSE_SEARCH / PROPOSE_ENTITY
+        ->
+pivot_eligible = False
+```
+
+The future high-value role for the LLM is to reason about unresolved evidence
+gaps and suggest what should be investigated next, not to convert a hypothesis
+into accepted attribution.
+
+Longer-term comparison:
+
+```text
+Baseline 1  deterministic zero knowledge
+Baseline 2  deterministic + supplied ASM evidence
+Baseline 3  deterministic + ASM evidence + advisory LLM analyst
+```
+
+The desired result is greater coverage/depth without increasing false AUTO
+attribution.
+
+## 34.9 NTT Attribution Benchmark #2 — future checkpoint
+
+Do not repeatedly tune against NTT immediately. Preserve today's run and return
+to it after the evidence-ingestion architecture is connected.
+
+Progressive benchmark:
+
+```text
+A  Helix zero-knowledge bootstrap only
+B  + supplied WHOIS/RDAP evidence
+C  + supplied IP/ASN ownership
+D  + supplied certificate evidence
+E  + supplied HTTP/legal/privacy evidence
+F  + advisory LLM analyst
+```
+
+Track at minimum:
+
+```text
+correct AUTO
+false AUTO
+REVIEW count
+REJECT count
+corporate/entity coverage
+evidence gaps resolved
+false recursive pivots
+```
+
+Sony remains a useful smaller positive-control benchmark. NTT is the larger
+stress/torture benchmark.
+
+## 34.10 Next implementation step
+
+M4.3E phase 1 is independently green.
+
+Next:
+
+```text
+supplied ASM/customer observations
+        ->
+InfrastructureObservation
+        ->
+bridge / normalize into DomainEvidence
+        ->
+existing M4.3B deterministic attribution policy
+        ->
+DomainCandidate
+        ->
+AUTO / REVIEW / REJECT
+        ->
+attach EvidenceGap[] to unresolved REVIEW candidates
+```
+
+Do this before adding new infrastructure collectors.
+
+After the generic bridge is stable, vendor-specific/customer-specific adapters
+can map their native schemas into the common observation contract without
+changing Helix attribution semantics.
+
+## 34.11 Revised near-term feature order
+
+```text
+1. M4.3E phase 2
+   InfrastructureObservation -> DomainEvidence bridge
+   EvidenceGap integration into REVIEW candidates
+
+2. Generic ASM/customer evidence ingestion adapter
+   Vendor-neutral first; vendor-specific adapters later
+
+3. Multi-evidence attribution policy hardening
+   Deterministic composition of supplied WHOIS/RDAP, ASN, cert,
+   legal/privacy and contradiction evidence
+
+4. Legal/privacy evidence extraction refinement
+   One evidence provider, not the whole attribution engine
+
+5. Corporate aliases / brands / historical identities
+
+6. M&A / corporate event / temporal intelligence
+
+7. LLM analyst over unresolved evidence gaps
+   Advisory only; never direct truth/pivot authority
+
+8. Model/provider abstraction and escalation (future M4.4)
+
+9. NTT Attribution Benchmark #2
+
+10. Production API / persistent customer workflow / review UX
+```
+
+## 34.12 End-of-day state
+
+The September 9 work should be considered productive architectural hardening,
+not a detour.
+
+Validated today:
+
+```text
+NTT root resolution / large-family expansion       healthy
+iterative convergence                              healthy
+search error handling                              healthy
+REVIEW containment                                 healthy
+official-site attribution precision                identified as weak boundary
+Helix-vs-ASM responsibility boundary               formalized
+M4.3E evidence contract                            IMPLEMENTED
+M4.3E evidence-gap model                           IMPLEMENTED
+M4.3E tests                                        6 / 6 PASS
+```
+
+The project should resume from **M4.3E phase 2**, not from additional scanner
+development or further NTT-specific tuning.

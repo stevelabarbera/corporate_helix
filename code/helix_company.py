@@ -8,6 +8,8 @@ import sqlite3
 import sys
 from pathlib import Path
 
+from root_entity_resolver import resolve_company_root
+
 
 RELATIONSHIP_LABELS = {
     "IS_DIRECTLY_CONSOLIDATED_BY": "DIRECT_ACCOUNTING_PARENT",
@@ -431,31 +433,38 @@ def main():
             )
 
     else:
-        candidates = find_company(
-            args.lei_index,
-            args.company,
+        resolution = resolve_company_root(
+            company=args.company,
+            lei_db=args.lei_index,
+            rr_db=args.rr_index,
         )
 
-        if not candidates:
-            raise SystemExit(
-                f'No GLEIF Level 1 matches found for "{args.company}".'
-            )
+        if resolution.status != "AUTO_RESOLVED" or not resolution.root:
+            print()
+            print("=" * 72)
+            print("CORPORATION HELIX — ROOT ENTITY RESOLUTION")
+            print("=" * 72)
+            print(f"Query      : {args.company}")
+            print(f"Resolution : {resolution.status}")
+            print(f"Confidence : {resolution.confidence}")
+            print(f"Reason     : {resolution.reason}")
+            print()
+            print("Top root candidates:")
 
-        root = choose_root(
-            candidates,
-        )
+            for i, candidate in enumerate(resolution.candidates[:10], 1):
+                print(f"[{i}] {candidate.legal_name or candidate.lei}")
+                print(f"    LEI      : {candidate.lei}")
+                print(
+                    f"    Coverage : "
+                    f"{candidate.matched_seed_count}/"
+                    f"{candidate.total_seed_count} "
+                    f"({candidate.coverage:.0%})"
+                )
+                print(f"    Score    : {candidate.score:.2f}")
 
-        if root is None:
-            print_candidates(candidates)
-
-            print(
-                "Root identity is ambiguous."
-            )
-
-            print(
-                "Run again with:"
-            )
-
+            print()
+            print("Root identity was not safe to select automatically.")
+            print("Operator override:")
             print()
             print(
                 '  python3 code/helix_company.py '
@@ -464,6 +473,16 @@ def main():
             )
 
             raise SystemExit(2)
+
+        conn = connect(args.lei_index)
+        root = lookup_lei(conn, resolution.root.lei)
+        conn.close()
+
+        if not root:
+            raise SystemExit(
+                "Resolved root LEI was not found in the local Level 1 index: "
+                f"{resolution.root.lei}"
+            )
 
     results = expand_company(
         root,

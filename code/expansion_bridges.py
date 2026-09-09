@@ -145,105 +145,255 @@ class GleifCompanyExpansionProvider:
 DOMAIN_FACT_TYPE = "DOMAIN"
 
 
-def _candidate_value(candidate: Any, name: str, default: Any = None) -> Any:
-    if isinstance(candidate, dict):
-        return candidate.get(name, default)
-    return getattr(candidate, name, default)
-
-
-def _enum_value(value: Any) -> str:
-    return str(getattr(value, "value", value) or "").upper()
-
-
 def domain_candidate_to_fact(candidate: Any) -> HelixFact:
-    """Map an already-evaluated M4.3B DomainCandidate into M4.3C.
+    """Convert an already-evaluated M4.3B DomainCandidate into an M4.3C fact.
 
-    This bridge does not rescore evidence. domain_candidates.py remains the
-    attribution-policy authority.
+    The domain-candidate policy remains authoritative. This bridge does not
+    rescore evidence and never upgrades a REVIEW candidate because its related
+    corporate entity has HIGH confidence.
     """
-    domain = str(_candidate_value(candidate, "candidate_domain") or "").strip().lower()
-    if not domain:
-        raise ValueError("Domain candidate is missing candidate_domain")
+    from domain_candidates import Disposition, InfrastructureConfidence
 
-    disposition = _enum_value(_candidate_value(candidate, "disposition", "REVIEW"))
-    infra_conf = _enum_value(
-        _candidate_value(candidate, "infrastructure_attribution_confidence", "UNKNOWN")
-    ) or "UNKNOWN"
+    disposition = candidate.disposition
+    infra_confidence = candidate.infrastructure_attribution_confidence
 
-    if disposition == "AUTO" and infra_conf == "HIGH":
-        status, confidence, pivot = "ACCEPTED", "HIGH", True
-    elif disposition == "REJECT":
-        status, confidence, pivot = "REJECTED", infra_conf or "HIGH", False
+    if hasattr(disposition, "value"):
+        disposition_value = disposition.value
     else:
-        status, confidence, pivot = "REVIEW", infra_conf or "UNKNOWN", False
+        disposition_value = str(disposition)
 
-    raw_evidence = _candidate_value(candidate, "evidence", []) or []
-    evidence: list[dict[str, Any]] = []
-    for item in raw_evidence:
-        if isinstance(item, dict):
-            evidence.append(dict(item))
-        elif hasattr(item, "__dict__"):
-            row = dict(item.__dict__)
-            if "evidence_type" in row:
-                row["evidence_type"] = getattr(row["evidence_type"], "value", row["evidence_type"])
-            evidence.append(row)
+    if hasattr(infra_confidence, "value"):
+        confidence_value = infra_confidence.value
+    else:
+        confidence_value = str(infra_confidence)
 
-    entity_lei = _candidate_value(candidate, "entity_lei")
-    entity_name = _candidate_value(candidate, "entity_name")
-    relationships = list(_candidate_value(candidate, "relationships", []) or [])
+    disposition_value = disposition_value.upper()
+    confidence_value = confidence_value.upper()
+
+    if disposition_value == Disposition.AUTO.value:
+        status = "ACCEPTED"
+    elif disposition_value == Disposition.REJECT.value:
+        status = "REJECTED"
+    else:
+        status = "REVIEW"
+
+    pivot_eligible = (
+        disposition_value == Disposition.AUTO.value
+        and confidence_value == InfrastructureConfidence.HIGH.value
+    )
+
+    # DomainEvidence contains enums, so use the candidate's canonical serializer
+    # when available to keep evidence JSON-safe and auditable.
+    if hasattr(candidate, "to_dict"):
+        serialized = candidate.to_dict()
+        evidence = list(serialized.get("evidence") or [])
+    else:
+        serialized = {}
+        evidence = []
 
     return HelixFact(
         fact_type=DOMAIN_FACT_TYPE,
-        value=domain,
-        subject=str(entity_name) if entity_name else None,
-        identifier=domain,
-        source="M4.3B_DOMAIN_CANDIDATE",
-        confidence=confidence,
+        value=str(candidate.candidate_domain),
+        subject=str(candidate.entity_name),
+        identifier=(str(candidate.entity_lei) if candidate.entity_lei else None),
+        source="DOMAIN_CANDIDATES",
+        confidence=confidence_value,
         status=status,
-        pivot_eligible=pivot,
+        pivot_eligible=pivot_eligible,
         evidence=evidence,
         metadata={
-            "entity_name": entity_name,
-            "entity_lei": entity_lei,
-            "relationships": relationships,
-            "registrable_domain": _candidate_value(candidate, "registrable_domain"),
-            "corporate_confidence": _candidate_value(candidate, "corporate_confidence", "UNKNOWN"),
-            "infrastructure_attribution_confidence": infra_conf,
-            "m43b_disposition": disposition,
-            "review_reason": _candidate_value(candidate, "review_reason"),
-            "jurisdiction": _candidate_value(candidate, "jurisdiction"),
+            "entity_name": candidate.entity_name,
+            "entity_lei": candidate.entity_lei,
+            "relationships": list(candidate.relationships or []),
+            "jurisdiction": candidate.jurisdiction,
+            "registrable_domain": candidate.registrable_domain,
+            "corporate_confidence": candidate.corporate_confidence,
+            "infrastructure_attribution_confidence": confidence_value,
+            "domain_disposition": disposition_value,
+            "review_reason": candidate.review_reason,
+            "policy_source": "M4.3B_DOMAIN_CANDIDATES",
         },
     )
 
 
-def load_domain_candidate_records(path: str) -> list[dict[str, Any]]:
-    import json
-    with open(path, "r", encoding="utf-8") as fh:
-        payload = json.load(fh)
-    if isinstance(payload, list):
-        return payload
-    if isinstance(payload, dict) and isinstance(payload.get("candidates"), list):
-        return payload["candidates"]
-    raise ValueError("Expected a candidate list or {'candidates': [...]} payload")
-
-
 class DomainCandidateExpansionProvider:
-    """Expose evaluated M4.3B domain candidates to matching LEGAL_ENTITY pivots."""
+    """Generic M4.3C adapter for an existing domain-candidate producer.
 
-    def __init__(self, candidates: Iterable[Any]) -> None:
-        self.by_lei: dict[str, list[Any]] = {}
-        for candidate in candidates:
-            lei = str(_candidate_value(candidate, "entity_lei") or "").strip()
-            if lei:
-                self.by_lei.setdefault(lei, []).append(candidate)
+    ``candidate_fn`` receives the current trusted corporate pivot and iteration
+    number and returns already-evaluated DomainCandidate objects. The provider
+    converts those records to HelixFacts; it does not perform attribution.
+    """
 
-    @classmethod
-    def from_json(cls, path: str) -> "DomainCandidateExpansionProvider":
-        return cls(load_domain_candidate_records(path))
+    def __init__(
+        self,
+        candidate_fn: Callable[[HelixFact, int], Iterable[Any]],
+        *,
+        accepted_pivot_types: Iterable[str] = (ROOT_FACT_TYPE, LEGAL_ENTITY_FACT_TYPE),
+    ) -> None:
+        self.candidate_fn = candidate_fn
+        self.accepted_pivot_types = {str(x).strip().upper() for x in accepted_pivot_types}
+
+    def __call__(self, pivot: HelixFact, iteration: int) -> Iterable[HelixFact]:
+        if pivot.fact_type.strip().upper() not in self.accepted_pivot_types:
+            return []
+        candidates = self.candidate_fn(pivot, iteration) or []
+        return [domain_candidate_to_fact(candidate) for candidate in candidates]
+
+
+class SeededOfficialSiteDomainProvider:
+    """M4.3C bridge from trusted LEGAL_ENTITY pivots into M4.3B domain policy.
+
+    Seed URLs are candidate-discovery inputs only.  They do not become trusted
+    domain facts unless the existing M4.3B discovery/verifier emits evidence
+    that evaluates to AUTO/HIGH.
+    """
+
+    def __init__(
+        self,
+        seeds: Iterable[dict[str, Any]],
+        *,
+        verify_official: bool = True,
+        timeout: int = 20,
+        observation_fn: Callable[..., list[dict[str, Any]]] | None = None,
+        candidates_fn: Callable[..., Iterable[Any]] | None = None,
+    ) -> None:
+        if observation_fn is None:
+            from domain_discovery import build_discovery_observations
+            observation_fn = build_discovery_observations
+        if candidates_fn is None:
+            from domain_candidates import candidates_from_observations
+            candidates_fn = candidates_from_observations
+
+        self.seeds = [dict(seed) for seed in seeds]
+        self.verify_official = verify_official
+        self.timeout = timeout
+        self.observation_fn = observation_fn
+        self.candidates_fn = candidates_fn
+
+    @staticmethod
+    def _entity_from_fact(pivot: HelixFact) -> Any:
+        from domain_candidates import CorporateEntity
+
+        return CorporateEntity(
+            entity_name=pivot.value,
+            entity_lei=pivot.identifier,
+            relationships=list(pivot.metadata.get("relationships") or []),
+            corporate_confidence=str(
+                pivot.metadata.get("corporate_confidence") or pivot.confidence or "UNKNOWN"
+            ).upper(),
+            jurisdiction=pivot.metadata.get("jurisdiction"),
+            source=pivot.source,
+        )
+
+    @staticmethod
+    def _seed_matches(pivot: HelixFact, seed: dict[str, Any]) -> bool:
+        seed_lei = seed.get("entity_lei") or seed.get("lei")
+        if seed_lei and pivot.identifier:
+            return str(seed_lei) == str(pivot.identifier)
+
+        seed_name = seed.get("entity_name") or seed.get("name")
+        if seed_name:
+            return str(seed_name).casefold().strip() == pivot.value.casefold().strip()
+
+        return False
 
     def __call__(self, pivot: HelixFact, iteration: int) -> Iterable[HelixFact]:
         if pivot.fact_type.strip().upper() != LEGAL_ENTITY_FACT_TYPE:
             return []
-        if not pivot.identifier:
+
+        matching_seeds = [seed for seed in self.seeds if self._seed_matches(pivot, seed)]
+        if not matching_seeds:
             return []
-        return [domain_candidate_to_fact(c) for c in self.by_lei.get(pivot.identifier, [])]
+
+        entity = self._entity_from_fact(pivot)
+        observations = self.observation_fn(
+            [entity],
+            matching_seeds,
+            verify_official=self.verify_official,
+            timeout=self.timeout,
+        )
+        candidates = self.candidates_fn([entity], observations) or []
+        return [domain_candidate_to_fact(candidate) for candidate in candidates]
+
+class DiscoveringOfficialSiteDomainProvider:
+    """Zero-knowledge LEGAL_ENTITY -> web discovery -> M4.3B attribution bridge.
+
+    Search results are candidate provenance only. A domain becomes recursive
+    only if the existing verifier + M4.3B policy promote it to AUTO/HIGH.
+    """
+
+    def __init__(
+        self,
+        *,
+        max_results_per_entity: int = 5,
+        verify_official: bool = True,
+        timeout: int = 20,
+        discovery_fn=None,
+        observation_fn=None,
+        candidates_fn=None,
+    ) -> None:
+        if discovery_fn is None or observation_fn is None:
+            from domain_discovery import (
+                build_discovery_observations,
+                discover_all_entity_seeds,
+            )
+            discovery_fn = discovery_fn or discover_all_entity_seeds
+            observation_fn = observation_fn or build_discovery_observations
+
+        if candidates_fn is None:
+            from domain_candidates import candidates_from_observations
+            candidates_fn = candidates_fn or candidates_from_observations
+
+        self.max_results_per_entity = max(1, int(max_results_per_entity))
+        self.verify_official = verify_official
+        self.timeout = timeout
+        self.discovery_fn = discovery_fn
+        self.observation_fn = observation_fn
+        self.candidates_fn = candidates_fn
+        self.search_errors = []
+
+    @staticmethod
+    def _entity_from_fact(pivot: HelixFact):
+        from domain_candidates import CorporateEntity
+
+        return CorporateEntity(
+            entity_name=pivot.value,
+            entity_lei=pivot.identifier,
+            relationships=list(pivot.metadata.get("relationships") or []),
+            corporate_confidence=str(
+                pivot.metadata.get("corporate_confidence")
+                or pivot.confidence
+                or "UNKNOWN"
+            ).upper(),
+            jurisdiction=pivot.metadata.get("jurisdiction"),
+            source=pivot.source,
+        )
+
+    def __call__(self, pivot: HelixFact, iteration: int):
+        if pivot.fact_type.strip().upper() != LEGAL_ENTITY_FACT_TYPE:
+            return []
+
+        entity = self._entity_from_fact(pivot)
+
+        seeds, errors = self.discovery_fn(
+            [entity],
+            max_results_per_entity=self.max_results_per_entity,
+            timeout=self.timeout,
+        )
+
+        if errors:
+            self.search_errors.extend(errors)
+
+        if not seeds:
+            return []
+
+        observations = self.observation_fn(
+            [entity],
+            seeds,
+            verify_official=self.verify_official,
+            timeout=self.timeout,
+        )
+
+        candidates = self.candidates_fn([entity], observations) or []
+        return [domain_candidate_to_fact(candidate) for candidate in candidates]
+

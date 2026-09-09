@@ -136,7 +136,7 @@ def build_discovery_observations(
             discovery_observation["raw"]["verification_error"] = f"{type(exc).__name__}: {exc}"
             continue
 
-        if inspected.exact_legal_name_match:
+        if inspected.official_declaration_match:
             observations.append({
                 "entity_lei": entity.entity_lei,
                 "entity_name": entity.entity_name,
@@ -150,6 +150,9 @@ def build_discovery_observations(
                 "supports_attribution": True,
                 "raw": {
                     "match_method": inspected.match_method,
+                    "declaration_reason": inspected.declaration_reason,
+                    "exact_legal_name_match": inspected.exact_legal_name_match,
+                    "official_declaration_match": inspected.official_declaration_match,
                     "title": inspected.title,
                     "http_status": inspected.status_code,
                 },
