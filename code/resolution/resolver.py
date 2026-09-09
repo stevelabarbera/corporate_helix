@@ -144,6 +144,13 @@ def _merge_nodes(target, source, reason):
     for x in source.get("provider_entity_ids") or []:
         if x and x not in target["provider_entity_ids"]:
             target["provider_entity_ids"].append(x)
+    # Preserve role markers (e.g. "root") from either side. Without this, a
+    # later result's root node merging into an already-resolved plain entity
+    # node (possible once multiple companies' graphs are combined) silently
+    # drops the "root" tag from the merged node.
+    for role in source.get("roles") or []:
+        if role not in target.setdefault("roles", []):
+            target["roles"].append(role)
     seen = {(a["name_normalized"], a.get("jurisdiction")) for a in target.get("aliases", [])}
     for a in source.get("aliases", []):
         key = (a["name_normalized"], a.get("jurisdiction"))
