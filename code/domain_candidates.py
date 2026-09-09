@@ -226,17 +226,45 @@ def normalize_domain(value: str) -> str:
 
 def registrable_domain(host: str) -> str:
     """
-    Conservative v1 fallback.
+    Public-suffix-list-aware registrable domain.
 
-    We do NOT ship a hand-written public-suffix list here. Without a PSL-aware
-    dependency this returns the last two labels, which is sufficient for common
-    .com/.net/.org tests but NOT authoritative for suffixes such as co.uk.
-
-    Production Subfinder export should use a PSL-aware implementation.
+    Uses tldextract (bundled/cached PSL snapshot) instead of a naive
+    last-two-labels split. The naive approach returns the suffix itself for
+    any compound public suffix -- e.g. "example.co.uk" -> "co.uk" -- which
+    would make an ASM-scope export authoritative for an entire eTLD instead
+    of one entity's domain. That is exactly the over-broad-attribution
+    failure mode this project is built to avoid, so this is treated as a
+    correctness requirement, not a cosmetic upgrade.
     """
     host = normalize_domain(host)
-    labels = host.split(".")
-    return ".".join(labels[-2:])
+    try:
+        import tldextract
+    except ImportError as exc:
+        raise RuntimeError(
+            "registrable_domain() requires the 'tldextract' package "
+            "(pip install tldextract) to correctly handle compound public "
+            "suffixes such as co.uk/com.au/co.jp."
+        ) from exc
+
+    # suffix_list_urls=() disables the live network fetch to publicsuffix.org:
+    # a domain-scoping decision must be reproducible offline/in CI, not depend
+    # on an outbound HTTP call succeeding at runtime. This uses tldextract's
+    # bundled snapshot instead. include_psl_private_domains=True treats
+    # hosting-platform suffixes (github.io, herokuapp.com, etc.) as suffixes
+    # too, so a subdomain on a shared platform never collapses into an
+    # over-broad "registrable domain" that isn't actually the entity's own.
+    extractor = tldextract.TLDExtract(
+        suffix_list_urls=(),
+        include_psl_private_domains=True,
+    )
+    extracted = extractor(host)
+    if not extracted.suffix or not extracted.domain:
+        # No recognized public suffix (e.g. a bare label or an unlisted TLD).
+        # Conservative fallback: do not guess: use the fully normalized host,
+        # since collapsing to two labels here would carry the same
+        # over-broad-suffix risk this function exists to prevent.
+        return host
+    return f"{extracted.domain}.{extracted.suffix}"
 
 
 def _unique_evidence(items: Iterable[DomainEvidence]) -> list[DomainEvidence]:
