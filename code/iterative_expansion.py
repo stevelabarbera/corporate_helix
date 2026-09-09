@@ -41,8 +41,24 @@ def merge_fact(a,b):
     for k,v in b.metadata.items(): a.metadata.setdefault(k,v)
     cr={"UNKNOWN":0,"LOW":1,"MEDIUM":2,"HIGH":3}; sr={"REJECTED":0,"REVIEW":1,"ACCEPTED":2}
     if cr.get(b.confidence,0)>cr.get(a.confidence,0): a.confidence=b.confidence; promoted=True
-    if sr.get(b.status,0)>sr.get(a.status,0): a.status=b.status; promoted=True
-    if b.pivot_eligible and not a.pivot_eligible: a.pivot_eligible=True; promoted=True
+    # REJECTED is sticky: a status ordinal comparison alone must never promote a
+    # fact out of REJECTED, since REJECTED usually represents explicit
+    # contradictory/distinctness evidence, not merely "low confidence." Silently
+    # letting a later, unrelated ACCEPTED/REVIEW observation for the same key
+    # overwrite that is exactly the false-positive-ASM-scope failure mode this
+    # architecture is built to avoid. Flag it for human review instead.
+    if a.status=="REJECTED" and b.status!="REJECTED":
+        flags=a.metadata.setdefault("review_flags",[])
+        flags.append({
+            "reason":"conflicting_status_after_rejection",
+            "incoming_status":b.status,
+            "incoming_confidence":b.confidence,
+            "incoming_source":b.source,
+        })
+    elif sr.get(b.status,0)>sr.get(a.status,0):
+        a.status=b.status; promoted=True
+    if b.pivot_eligible and not a.pivot_eligible and a.status!="REJECTED":
+        a.pivot_eligible=True; promoted=True
     return promoted
 
 def run_expansion(seeds,providers,max_iterations=10):
