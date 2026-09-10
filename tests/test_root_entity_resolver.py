@@ -215,6 +215,48 @@ def test_competing_informative_families_still_require_review():
         print("PASS test_competing_informative_families_still_require_review")
 
 
+def test_sole_uncontested_candidate_resolves_without_exact_string_match():
+    # Smaller-company shape: one GLEIF entity, no reported relationships,
+    # query is a fair phrase match but not the full legal-name string.
+    with tempfile.TemporaryDirectory() as d:
+        lei, rr, lc, rc = make_dbs(Path(d))
+        add_entity(lc, "X", "Hawkeye Innovations Ltd", "GB")
+        lc.commit(); rc.commit(); lc.close(); rc.close()
+
+        result = resolve_company_root("Hawkeye Innovations", str(lei), str(rr))
+        assert result.status == "AUTO_RESOLVED"
+        assert result.confidence == "MEDIUM"
+        assert result.root.lei == "X"
+        print("PASS test_sole_uncontested_candidate_resolves_without_exact_string_match")
+
+
+def test_sole_uncontested_gate_does_not_apply_when_a_second_candidate_exists():
+    # Same shape, but now there's a second, distinct GLEIF entity that also
+    # matched the query -- real ambiguity, so this must still require review
+    # even though neither is an exact full-string match.
+    with tempfile.TemporaryDirectory() as d:
+        lei, rr, lc, rc = make_dbs(Path(d))
+        add_entity(lc, "X", "Hawkeye Innovations Ltd", "GB")
+        add_entity(lc, "Y", "Hawkeye Innovations Inc", "US")
+        lc.commit(); rc.commit(); lc.close(); rc.close()
+
+        result = resolve_company_root("Hawkeye Innovations", str(lei), str(rr))
+        assert result.status == "REVIEW_REQUIRED"
+        print("PASS test_sole_uncontested_gate_does_not_apply_when_a_second_candidate_exists")
+
+
+def test_sole_uncontested_gate_requires_active_status():
+    # A single dissolved/inactive entity should not silently auto-resolve.
+    with tempfile.TemporaryDirectory() as d:
+        lei, rr, lc, rc = make_dbs(Path(d))
+        add_entity(lc, "X", "Hawkeye Innovations Ltd", "GB", status="INACTIVE")
+        lc.commit(); rc.commit(); lc.close(); rc.close()
+
+        result = resolve_company_root("Hawkeye Innovations", str(lei), str(rr))
+        assert result.status == "REVIEW_REQUIRED"
+        print("PASS test_sole_uncontested_gate_requires_active_status")
+
+
 if __name__ == "__main__":
     suite = [
         test_acronym_token_matching_rejects_substrings,
@@ -226,6 +268,9 @@ if __name__ == "__main__":
         test_cycle_is_bounded,
         test_isolated_lexical_matches_do_not_dilute_real_convergence,
         test_competing_informative_families_still_require_review,
+        test_sole_uncontested_candidate_resolves_without_exact_string_match,
+        test_sole_uncontested_gate_does_not_apply_when_a_second_candidate_exists,
+        test_sole_uncontested_gate_requires_active_status,
     ]
 
     failed = 0
