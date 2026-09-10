@@ -5,8 +5,13 @@ attribution decisions. No web search, no live HTML fetch, no network calls
 at all: this consumes evidence someone else already collected (per the
 Helix/ASM architectural boundary, CORPORATION_HELIX_CONTEXT.md sec 34.3).
 
-Input format (vendor-neutral -- write a thin adapter to produce this from
-whatever your ASM tool or sqlite table actually looks like):
+Accepts two input formats, auto-detected by file extension:
+
+  --input evidence.json   Vendor-neutral nested JSON (shape below)
+  --input evidence.csv    Flat CSV, one row per observation
+                           (see code/parsers/csv_parser.py for columns)
+
+JSON shape:
 
 {
   "entities": [
@@ -28,6 +33,7 @@ whatever your ASM tool or sqlite table actually looks like):
 
 Usage:
     python3 ingest_supplied_evidence.py --input evidence.json [--out candidates.json] [--json]
+    python3 ingest_supplied_evidence.py --input evidence.csv
 """
 from __future__ import annotations
 
@@ -44,6 +50,9 @@ from evidence_contract import EvidenceGap, InfrastructureObservation, identify_e
 
 
 def load_supplied_evidence(path: Path) -> tuple[list[CorporateEntity], list[dict]]:
+    if path.suffix.lower() == ".csv":
+        from parsers.csv_parser import load_csv_evidence
+        return load_csv_evidence(path)
     payload = json.loads(path.read_text(encoding="utf-8"))
     entities = [CorporateEntity.from_mapping(e) for e in payload.get("entities", [])]
     return entities, payload.get("subjects", [])

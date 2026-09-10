@@ -1,0 +1,7 @@
+entity_lei,entity_name,domain,capability,provider,availability,observed_value,supports_attribution,reference
+5493005M7S82SGBTH640,SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED,www.playstation.com,RDAP_WHOIS,asm-tool,PROVIDED,Sony Interactive Entertainment LLC,true,
+5493005M7S82SGBTH640,SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED,www.playstation.com,IP_ASN_OWNERSHIP,asm-tool,PROVIDED,AS-SONY,true,
+5493005M7S82SGBTH640,SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED,www.playstation.com,CUSTOMER_ASSERTION,customer,PROVIDED,Confirmed by security team,true,
+549300PBW7OURNSVGL39,HAWK-EYE INNOVATIONS LIMITED,www.hawkeyeinnovations.com,IP_ASN_OWNERSHIP,asm-tool,PROVIDED,AS16509 (Amazon),true,
+549300PBW7OURNSVGL39,HAWK-EYE INNOVATIONS LIMITED,www.hawkeyeinnovations.com,TLS_CERTIFICATE,asm-tool,INCONCLUSIVE,"DV certificate, no org field",,
+549300OXHX97T7TAJB83,NTT RESEARCH INC,malicious-lookalike.example,RDAP_WHOIS,asm-tool,CONTRADICTORY,Registrant: Unrelated Third Party LLC,,
