@@ -61,11 +61,49 @@ def test_end_to_end_supplied_evidence_reproduces_ntt_conflict():
     print("PASS test_end_to_end_supplied_evidence_reproduces_ntt_conflict")
 
 
+def test_gap_report_lists_missing_capabilities_in_priority_order():
+    from evidence_bridge import bridge_observations  # noqa: F401 (documents intent)
+    from ingest_supplied_evidence import build_gap_report
+
+    subjects = [
+        {"entity_lei": "LEI-A", "domain": "example.com", "observations": [
+            {"capability": "RDAP_WHOIS", "provider": "asm-tool", "availability": "PROVIDED", "supports_attribution": True},
+        ]},
+    ]
+    report = build_gap_report(subjects)
+    gaps = report[("LEI-A", "example.com")]
+    capabilities = [g.capability.value for g in gaps]
+    # RDAP_WHOIS was supplied, so it must NOT appear as a gap; everything else
+    # in the waterfall that was not supplied should.
+    assert "RDAP_WHOIS" not in capabilities
+    assert "IP_ASN_OWNERSHIP" in capabilities
+    assert "TLS_CERTIFICATE" in capabilities
+    assert "HTTP_LEGAL_PRIVACY" in capabilities
+    assert [g.priority for g in gaps] == sorted(g.priority for g in gaps)
+    print("PASS test_gap_report_lists_missing_capabilities_in_priority_order")
+
+
+def test_gap_report_marks_inconclusive_reason_distinctly():
+    from ingest_supplied_evidence import build_gap_report
+
+    subjects = [
+        {"entity_lei": "LEI-A", "domain": "example.com", "observations": [
+            {"capability": "TLS_CERTIFICATE", "provider": "asm-tool", "availability": "INCONCLUSIVE"},
+        ]},
+    ]
+    report = build_gap_report(subjects)
+    gaps = {g.capability.value: g for g in report[("LEI-A", "example.com")]}
+    assert "inconclusive" in gaps["TLS_CERTIFICATE"].reason.lower()
+    print("PASS test_gap_report_marks_inconclusive_reason_distinctly")
+
+
 if __name__ == "__main__":
     suite = [
         test_candidate_level_conflict_downgrades_both,
         test_candidate_level_single_claimant_unaffected,
         test_end_to_end_supplied_evidence_reproduces_ntt_conflict,
+        test_gap_report_lists_missing_capabilities_in_priority_order,
+        test_gap_report_marks_inconclusive_reason_distinctly,
     ]
     failed = 0
     for test in suite:
