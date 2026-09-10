@@ -52,6 +52,8 @@ class EvidenceType(str, Enum):
     WHOIS_REGISTRANT = "WHOIS_REGISTRANT"
     CERTIFICATE_ORG = "CERTIFICATE_ORG"
     CERTIFICATE_DOMAIN = "CERTIFICATE_DOMAIN"
+    ASN_OWNERSHIP = "ASN_OWNERSHIP"
+    LEGAL_PRIVACY_DECLARATION = "LEGAL_PRIVACY_DECLARATION"
     EDGAR_REFERENCE = "EDGAR_REFERENCE"
     DNS_OBSERVATION = "DNS_OBSERVATION"
     CUSTOMER_SUPPLIED = "CUSTOMER_SUPPLIED"
@@ -76,6 +78,8 @@ CORROBORATING = {
     EvidenceType.RDAP_ORG,
     EvidenceType.CERTIFICATE_ORG,
     EvidenceType.CERTIFICATE_DOMAIN,
+    EvidenceType.ASN_OWNERSHIP,
+    EvidenceType.LEGAL_PRIVACY_DECLARATION,
     EvidenceType.EDGAR_REFERENCE,
     EvidenceType.DNS_OBSERVATION,
 }
@@ -456,6 +460,38 @@ def match_entity(
     raise ValueError("Observation must include entity_lei or entity_name.")
 
 
+def flag_shared_domain_conflicts(candidates: list["DomainCandidate"]) -> list["DomainCandidate"]:
+    """
+    An AUTO/HIGH candidate is a claim of exclusive official-site ownership by
+    one specific legal entity. If two or more DISTINCT entities both reach
+    AUTO/HIGH for the exact same registrable domain, that contradiction is
+    itself evidence something is wrong -- most likely a shared corporate
+    portal being independently (mis)attributed to several subsidiaries. This
+    mirrors the equivalent guard in iterative_expansion.run_expansion() so
+    both entry points into domain attribution get the same guarantee.
+    """
+    groups: dict[str, list[DomainCandidate]] = {}
+    for c in candidates:
+        if c.disposition is Disposition.AUTO and c.infrastructure_attribution_confidence is InfrastructureConfidence.HIGH:
+            groups.setdefault(c.registrable_domain, []).append(c)
+
+    for domain, group in groups.items():
+        distinct = {(c.entity_lei or c.entity_name).casefold() for c in group}
+        if len(distinct) <= 1:
+            continue
+        for c in group:
+            others = sorted({c2.entity_name for c2 in group if c2 is not c})
+            c.disposition = Disposition.REVIEW
+            c.infrastructure_attribution_confidence = InfrastructureConfidence.MEDIUM
+            c.review_reason = (
+                f"Shared-domain conflict: {', '.join(others)} also reached "
+                f"AUTO/HIGH for {domain}. Multiple distinct legal entities "
+                f"cannot all be the exclusive official site of the same "
+                f"domain; downgraded for manual review."
+            )
+    return candidates
+
+
 def candidates_from_observations(
     entities: list[CorporateEntity],
     observations: list[dict[str, Any]],
@@ -496,6 +532,7 @@ def candidates_from_observations(
         for (_, domain), (entity, evs) in grouped.items()
     ]
 
+    candidates = flag_shared_domain_conflicts(candidates)
     candidates.sort(
         key=lambda c: (
             c.disposition.value,

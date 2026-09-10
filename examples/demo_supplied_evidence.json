@@ -1,0 +1,61 @@
+{
+  "entities": [
+    {"entity_lei": "5493005M7S82SGBTH640", "entity_name": "SONY INTERACTIVE ENTERTAINMENT EUROPE LIMITED"},
+    {"entity_lei": "549300OXHX97T7TAJB83", "entity_name": "NTT RESEARCH, INC."},
+    {"entity_lei": "LEI-DOCOMO-BIZ", "entity_name": "NTT DOCOMO BUSINESS"},
+    {"entity_lei": "LEI-FINANCE", "entity_name": "NTT FINANCE"},
+    {"entity_lei": "549300PBW7OURNSVGL39", "entity_name": "HAWK-EYE INNOVATIONS LIMITED"}
+  ],
+  "subjects": [
+    {
+      "entity_lei": "5493005M7S82SGBTH640",
+      "domain": "www.playstation.com",
+      "observations": [
+        {"capability": "RDAP_WHOIS", "provider": "asm-tool", "availability": "PROVIDED",
+         "observed_value": "Sony Interactive Entertainment LLC", "supports_attribution": true},
+        {"capability": "IP_ASN_OWNERSHIP", "provider": "asm-tool", "availability": "PROVIDED",
+         "observed_value": "AS-SONY", "supports_attribution": true},
+        {"capability": "CUSTOMER_ASSERTION", "provider": "customer", "availability": "PROVIDED",
+         "observed_value": "Confirmed by security team", "supports_attribution": true}
+      ]
+    },
+    {
+      "entity_lei": "549300PBW7OURNSVGL39",
+      "domain": "www.hawkeyeinnovations.com",
+      "observations": [
+        {"capability": "IP_ASN_OWNERSHIP", "provider": "asm-tool", "availability": "PROVIDED",
+         "observed_value": "AS16509 (Amazon)", "supports_attribution": true},
+        {"capability": "TLS_CERTIFICATE", "provider": "asm-tool", "availability": "INCONCLUSIVE",
+         "observed_value": "DV certificate, no org field"}
+      ]
+    },
+    {
+      "entity_lei": "LEI-DOCOMO-BIZ",
+      "domain": "www.nttdata.com",
+      "observations": [
+        {"capability": "HTTP_LEGAL_PRIVACY", "provider": "asm-tool", "availability": "PROVIDED",
+         "observed_value": "Group companies page mentions NTT DOCOMO Business", "supports_attribution": true},
+        {"capability": "CUSTOMER_ASSERTION", "provider": "analyst-a", "availability": "PROVIDED",
+         "observed_value": "Analyst tagged this as DOCOMO Business's site", "supports_attribution": true}
+      ]
+    },
+    {
+      "entity_lei": "LEI-FINANCE",
+      "domain": "www.nttdata.com",
+      "observations": [
+        {"capability": "HTTP_LEGAL_PRIVACY", "provider": "asm-tool", "availability": "PROVIDED",
+         "observed_value": "Group companies page mentions NTT Finance", "supports_attribution": true},
+        {"capability": "CUSTOMER_ASSERTION", "provider": "analyst-b", "availability": "PROVIDED",
+         "observed_value": "A different analyst tagged this as NTT Finance's site", "supports_attribution": true}
+      ]
+    },
+    {
+      "entity_lei": "549300OXHX97T7TAJB83",
+      "domain": "malicious-lookalike.example",
+      "observations": [
+        {"capability": "RDAP_WHOIS", "provider": "asm-tool", "availability": "CONTRADICTORY",
+         "observed_value": "Registrant: Unrelated Third Party LLC"}
+      ]
+    }
+  ]
+}

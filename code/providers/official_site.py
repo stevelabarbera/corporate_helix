@@ -116,6 +116,44 @@ _LEGAL_PATH_MARKERS = (
     "/corporate-information",
 )
 
+# Known third-party reference/aggregator/directory sites. These routinely
+# mention a target company's exact legal name AND carry their own generic
+# copyright/legal footer on the same page -- which is precisely the false
+# positive the NTT stress test exposed (see CORPORATION_HELIX_CONTEXT.md
+# sec 34.1-34.2): the footer belongs to the SITE, not the target entity, but
+# proximity-based marker matching can't tell the difference on its own.
+#
+# This is intentionally a narrow, explicit exclusion list -- not an attempt
+# to make the declaration heuristic itself smarter/more general. A page on
+# one of these domains can still register exact_legal_name_match (useful,
+# visible signal), it just can never become an official_declaration_match.
+# Extend this list as new false-positive sources turn up; do not turn this
+# file into a general web-classification engine.
+_THIRD_PARTY_REFERENCE_DOMAINS = frozenset({
+    "wikipedia.org",
+    "wikidata.org",
+    "wikimedia.org",
+    "crunchbase.com",
+    "bloomberg.com",
+    "opencorporates.com",
+    "zoominfo.com",
+    "dnb.com",
+    "linkedin.com",
+    "glassdoor.com",
+    "indeed.com",
+    "pitchbook.com",
+    "owler.com",
+    "rocketreach.co",
+    "sec.gov",
+    "sec.report",
+    "annualreports.com",
+})
+
+
+def _is_third_party_reference_domain(host: str) -> bool:
+    host = (host or "").casefold()
+    return any(host == d or host.endswith("." + d) for d in _THIRD_PARTY_REFERENCE_DOMAINS)
+
 
 def _legal_name_occurrences(page: str, legal_name: str) -> list[int]:
     if not page or not legal_name:
@@ -162,7 +200,9 @@ def inspect_html(url: str, html_text: str, legal_name: str) -> OfficialSiteObser
 
     official_declaration = False
     declaration_reason = None
-    if exact:
+    if exact and _is_third_party_reference_domain(host):
+        declaration_reason = "third_party_reference_domain"
+    elif exact:
         official_declaration, declaration_reason = _declaration_signal(
             url,
             normalized_page,

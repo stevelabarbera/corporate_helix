@@ -441,6 +441,21 @@ def resolve_company_root(
             and (second is None or margin >= 8.0)
         )
 
+        # A single candidate with no competing entity at all is a different,
+        # safer case than unique_exact: there's no similarly-named alternative
+        # to be confused with, so requiring the query to equal the FULL legal
+        # name string (unique_exact's bar) is stricter than the ambiguity
+        # actually calls for. This is the common shape for smaller companies
+        # with no reported GLEIF relationships -- e.g. querying "Hawkeye
+        # Innovations" against a lone "Hawkeye Innovations Ltd" entity -- and
+        # without this gate it always fell to REVIEW_REQUIRED/LOW regardless
+        # of how unambiguous the match was.
+        sole_uncontested = (
+            len(candidates) == 1
+            and top.name_match >= 0.90
+            and top.entity_status == "ACTIVE"
+        )
+
         if topology_strong:
             status = "AUTO_RESOLVED"
             confidence = "HIGH"
@@ -456,6 +471,14 @@ def resolve_company_root(
             reason = (
                 "One active exact legal-name match remains the strongest root "
                 "after relationship-graph inspection."
+            )
+        elif sole_uncontested:
+            status = "AUTO_RESOLVED"
+            confidence = "MEDIUM"
+            reason = (
+                "Exactly one active GLEIF entity matched the query as a "
+                "complete name phrase, and no other candidate exists to "
+                "compete with it."
             )
         else:
             status = "REVIEW_REQUIRED"
