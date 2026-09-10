@@ -24,6 +24,45 @@ def test_dedupe():
  def b(x,n): return [HelixFact("DOMAIN","SONY.COM",status="ACCEPTED",confidence="HIGH",pivot_eligible=True,evidence=[{"p":"b"}])] if x.fact_type=="COMPANY" else []
  r=run_expansion([t("COMPANY","Sony")],[a,b]); ds=[f for f in r.facts if f.fact_type=="DOMAIN"]; assert len(ds)==1 and len(ds[0].evidence)==2
 
+def test_shared_domain_conflict_downgrades_all_claimants():
+    # Real case from an NTT run: two distinct subsidiaries (different LEIs,
+    # different names) both independently reached ACCEPTED/HIGH claiming the
+    # exact same shared corporate-portal domain as their own official site.
+    def p(x, n): return []
+    seeds = [
+        HelixFact("DOMAIN", "www.nttdata.com", identifier="LEI-DOCOMO-BIZ", subject="NTT DOCOMO BUSINESS",
+                  source="TEST", status="ACCEPTED", confidence="HIGH", pivot_eligible=True),
+        HelixFact("DOMAIN", "www.nttdata.com", identifier="LEI-FINANCE", subject="NTT FINANCE",
+                  source="TEST", status="ACCEPTED", confidence="HIGH", pivot_eligible=True),
+    ]
+    r = run_expansion(seeds, [p], max_iterations=1)
+    assert all(f.status == "REVIEW" and f.pivot_eligible is False for f in r.facts)
+    assert all(f.metadata.get("review_flags") for f in r.facts)
+
+def test_shared_domain_conflict_does_not_affect_single_claimant():
+    def p(x, n): return []
+    seeds = [
+        HelixFact("DOMAIN", "research.example", identifier="LEI-A", subject="Example Research Inc.",
+                  source="TEST", status="ACCEPTED", confidence="HIGH", pivot_eligible=True),
+    ]
+    r = run_expansion(seeds, [p], max_iterations=1)
+    assert r.facts[0].status == "ACCEPTED" and not r.facts[0].metadata.get("review_flags")
+
+def test_shared_domain_conflict_ignores_non_accepted_facts():
+    # Two different subjects sharing a domain value while merely under
+    # REVIEW must not spuriously trigger the conflict guard.
+    def p(x, n): return []
+    seeds = [
+        HelixFact("DOMAIN", "shared.example", identifier="LEI-A", subject="A Inc.",
+                  source="TEST", status="REVIEW", confidence="UNKNOWN", pivot_eligible=False),
+        HelixFact("DOMAIN", "shared.example", identifier="LEI-B", subject="B Inc.",
+                  source="TEST", status="REVIEW", confidence="UNKNOWN", pivot_eligible=False),
+    ]
+    r = run_expansion(seeds, [p], max_iterations=1)
+    assert all(f.status == "REVIEW" for f in r.facts)
+    assert not any(f.metadata.get("review_flags") for f in r.facts)
+
+
 def test_failure_isolated():
  def bad(x,n): raise RuntimeError("boom")
  def good(x,n): return [t("LEGAL_ENTITY","Sony Europe B.V.")] if x.fact_type=="COMPANY" else []

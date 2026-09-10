@@ -32,6 +32,51 @@ class ExpansionResult:
 
 Provider=Callable[[HelixFact,int],Iterable[HelixFact]]
 
+def _flag_shared_domain_conflicts(facts):
+    """
+    A domain fact reaching ACCEPTED/HIGH means "this specific legal entity's
+    official site." That is structurally exclusive: the same domain cannot be
+    the self-declared official site of two DIFFERENT legal entities (barring
+    an actual parent/subsidiary identity, which would show up as the same
+    entity, not two). Real run against NTT surfaced exactly this: six
+    distinct subsidiaries (different LEIs, different names -- DOCOMO
+    Business, Finance, Anode Energy, Security Japan, Security, Limited
+    Japan) each independently reached ACCEPTED/HIGH claiming
+    www.nttdata.com, because the official-site declaration check verifies a
+    name + marker are near each other on a page, not that the page is
+    SPECIFICALLY about the entity being checked. A shared corporate portal
+    can legitimately mention many group-company names near boilerplate
+    legal text without being any one of them's distinct official site.
+
+    This does not try to fix the underlying page-parsing precision (that is
+    the "don't turn this into the entire attribution engine" trap). It is a
+    downstream consistency check: when the trust boundary is about to accept
+    mutually-exclusive high-confidence claims about the same resource, that
+    contradiction itself is evidence something is wrong, and per the
+    project's own standing rule (false positive is worse than REVIEW) all
+    of them are downgraded to REVIEW rather than left as independent AUTOs.
+    """
+    groups={}
+    for f in facts:
+        if f.fact_type!="DOMAIN" or f.status!="ACCEPTED" or f.confidence!="HIGH":
+            continue
+        groups.setdefault(f.value.strip().casefold(),[]).append(f)
+
+    for domain,group in groups.items():
+        distinct=set((f.identifier or f.subject or "").strip().casefold() for f in group)
+        distinct.discard("")
+        if len(distinct)<=1:
+            continue
+        for f in group:
+            others=sorted({f2.subject or f2.identifier or "?" for f2 in group if f2 is not f})
+            f.status="REVIEW"; f.pivot_eligible=False
+            f.metadata.setdefault("review_flags",[]).append({
+                "reason":"shared_domain_conflicting_entities",
+                "domain":domain,
+                "other_claimants":others,
+            })
+    return facts
+
 def merge_fact(a,b):
     promoted=False
     seen={json.dumps(e,sort_keys=True,default=str) for e in a.evidence}
@@ -68,7 +113,8 @@ def run_expansion(seeds,providers,max_iterations=10):
         if s.key() in facts: merge_fact(facts[s.key()],s)
         else: facts[s.key()]=s
     frontier=[f for f in facts.values() if f.can_pivot()]; records=[]
-    if not frontier: return ExpansionResult(True,"NO_PIVOT_ELIGIBLE_SEEDS",0,list(facts.values()),records)
+    if not frontier:
+        return ExpansionResult(True,"NO_PIVOT_ELIGIBLE_SEEDS",0,_flag_shared_domain_conflicts(list(facts.values())),records)
     for n in range(1,max_iterations+1):
         found=[]; errors=[]
         for pivot in frontier:
@@ -88,6 +134,7 @@ def run_expansion(seeds,providers,max_iterations=10):
                 old=facts[k]; was=old.can_pivot()
                 if merge_fact(old,f) and not was and old.can_pivot() and k not in queued: nxt.append(old); queued.add(k)
         records.append(ExpansionIteration(n,len(frontier),len(found),new,len(nxt),errors))
-        if not nxt: return ExpansionResult(True,"NO_NEW_TRUSTED_PIVOTS",n,list(facts.values()),records)
+        if not nxt:
+            return ExpansionResult(True,"NO_NEW_TRUSTED_PIVOTS",n,_flag_shared_domain_conflicts(list(facts.values())),records)
         frontier=nxt
-    return ExpansionResult(False,"MAX_ITERATIONS_REACHED",max_iterations,list(facts.values()),records)
+    return ExpansionResult(False,"MAX_ITERATIONS_REACHED",max_iterations,_flag_shared_domain_conflicts(list(facts.values())),records)
