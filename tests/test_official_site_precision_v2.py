@@ -59,6 +59,53 @@ def test_legal_path_alone_is_not_enough():
     print("PASS test_legal_path_alone_is_not_enough")
 
 
+def test_denylisted_reference_domain_cannot_declare_even_with_marker_nearby():
+    # This is the actual NTT-run failure mode (CONTEXT.md sec 34.1-34.2): a
+    # third-party page mentions the target's exact legal name AND has its own
+    # unrelated copyright/legal footer nearby. Before this fix, that combo
+    # alone was enough to satisfy official_declaration_match.
+    html = f"""
+    <html><head><title>{LEGAL} - Wikipedia</title></head>
+    <body><h1>{LEGAL}</h1><p>{LEGAL} is a technology research subsidiary.</p>
+    <footer>Text is available under CC BY-SA. Copyright and related rights info.</footer>
+    </body></html>
+    """
+    result = inspect_html("https://en.wikipedia.org/wiki/NTT_Research", html, LEGAL)
+    assert result.exact_legal_name_match is True
+    assert result.official_declaration_match is False
+    assert result.declaration_reason == "third_party_reference_domain"
+    print("PASS test_denylisted_reference_domain_cannot_declare_even_with_marker_nearby")
+
+
+def test_genuine_self_declaration_on_non_listed_domain_still_passes():
+    html = f"""
+    <html><body><main>Research</main>
+    <footer>Copyright 2026 {LEGAL}. All rights reserved.</footer></body></html>
+    """
+    result = inspect_html("https://research.example/", html, LEGAL)
+    assert result.official_declaration_match is True
+    print("PASS test_genuine_self_declaration_on_non_listed_domain_still_passes")
+
+
+def test_unlisted_third_party_site_is_a_known_open_gap():
+    # Honesty check, not a passing guarantee: a third-party site NOT on the
+    # denylist, with its own copyright footer near the target's name, is
+    # NOT caught by this fix. This test documents that limitation on
+    # purpose so it can't silently regress into looking "fixed" -- if this
+    # assertion starts failing, someone made the heuristic itself smarter
+    # (see the module docstring: don't turn this into a classification
+    # engine) rather than extending the explicit denylist, and that
+    # decision deserves a deliberate review, not a silent test change.
+    html = f"""
+    <html><body><h1>{LEGAL}</h1><p>{LEGAL} profile.</p>
+    <footer>Copyright 2026 SomeRandomDirectory.example. All rights reserved.</footer>
+    </body></html>
+    """
+    result = inspect_html("https://www.somerandomdirectory.example/ntt-research", html, LEGAL)
+    assert result.official_declaration_match is True  # known gap, not a target to fix here
+    print("PASS test_unlisted_third_party_site_is_a_known_open_gap (documents an open limitation)")
+
+
 def _entity():
     return CorporateEntity(
         entity_name=LEGAL,
@@ -143,6 +190,9 @@ if __name__ == "__main__":
         test_registered_office_declaration_is_official,
         test_copyright_footer_declaration_is_official,
         test_legal_path_alone_is_not_enough,
+        test_denylisted_reference_domain_cannot_declare_even_with_marker_nearby,
+        test_genuine_self_declaration_on_non_listed_domain_still_passes,
+        test_unlisted_third_party_site_is_a_known_open_gap,
         test_domain_discovery_does_not_promote_plain_exact_name,
         test_domain_discovery_promotes_qualified_declaration,
     ]
