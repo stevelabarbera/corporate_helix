@@ -1,0 +1,18 @@
+{
+  "company": "Tenable Holdings, Inc.",
+  "cik": "0001660280",
+  "filings": [
+    {
+      "accession": "0001660280-23-000134",
+      "filing_date": "2023-10-02",
+      "form": "8-K",
+      "items": "2.01",
+      "sections": [
+        {
+          "item": "2.01",
+          "text": "Item 2.01 Completion of Acquisition or Disposition of Assets.\n\nOn October 2, 2023, Tenable, Inc., a Delaware corporation (\"Purchaser\") and a wholly owned subsidiary of Tenable Holdings, Inc., a Delaware corporation (\"Tenable\"), completed its previously announced acquisition (the \"Acquisition\") of Ermetic Ltd., a company organized under the laws of the State of Israel (\"Ermetic\"). The Acquisition was effectuated pursuant to a Share Purchase Agreement, dated as of September 7, 2023 (the \"SPA\") by and among Purchaser, Ermetic, each of the shareholders of Ermetic identified in the SPA or joined to the SPA pursuant to a joinder agreement (collectively, the \"Sellers\"), and Shareholder Representative Services LLC, a Colorado limited liability company, solely in its capacity as the representative, agent and attorney-in-fact of the indemnitors under the SPA. Under the terms of the SPA, the Purchaser acquired all of the outstanding share capital of Ermetic from the Sellers for approximately $240 million in cash and $25 million in Tenable restricted stock and restricted stock units, subject to certain customary purchase price adjustments as set forth in the SPA.\n\nThe foregoing description of the SPA and the Acquisition does not purport to be complete and is qualified in its entirety by reference to the SPA, which was filed as Exhibit 2.1 to Tenable's Current Report on Form 8-K filed with the Securities and Exchange Commission on September 7, 2023 and is incorporated into this report by reference."
+        }
+      ]
+    }
+  ]
+}
