@@ -46,7 +46,7 @@ def load_sections(paths):
 # names like "Murdoch Family Trust and Cruden Financial Services LLC" still
 # match. Capping the run at 8 words prevents swallowing an entire clause
 # even if it happens to contain other capitalized words.
-CORP=r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|Ltd\.?|Limited|PLC|plc)"
+CORP=r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|Ltd\.?|Limited|PLC|plc|Company)"
 _WORD=r"(?:[A-Z][A-Za-z0-9&.'’-]*|[0-9][A-Za-z0-9&.'’-]*)"
 _CONNECTOR=r"(?:of|and|the|for)"
 ENT=re.compile(
@@ -99,7 +99,15 @@ class LegalRulesBackend:
         return {"orgs":sorted(set(orgs)),"aliases":aliases}
 
 def bad_org(name):
-    x=(name or "").casefold()
+    x=(name or "").casefold().strip()
+    if x in ("the company","company","the corporation","corporation"):
+        # "the Company"/"the Corporation" is a near-universal generic
+        # self-reference convention in SEC filings (a filer aliasing
+        # itself), not a real company name on its own -- distinct from a
+        # genuine multi-word name that happens to END in "Company" (e.g.
+        # "The Walt Disney Company"), which this exact-match check does
+        # not reject.
+        return True
     return any(b in x for b in ("section ","article ","item ","form ","rule ","schedule ",
         "general corporation law","merger agreement","credit agreement","senior notes","board of directors"))
 

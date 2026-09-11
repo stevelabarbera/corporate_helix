@@ -31,7 +31,7 @@ def load_sections(paths):
 # up to a corporate suffix) could match an entire sentence instead of an
 # entity name on real EDGAR text. Fixed identically here since this file
 # still has its own live test (test_legal_ensemble_v2.py).
-CORP=r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|Ltd\.?|Limited|PLC|plc)"
+CORP=r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|Ltd\.?|Limited|PLC|plc|Company)"
 _WORD=r"(?:[A-Z][A-Za-z0-9&.'’-]*|[0-9][A-Za-z0-9&.'’-]*)"
 _CONNECTOR=r"(?:of|and|the|for)"
 ENT=re.compile(
@@ -84,7 +84,9 @@ class LegalRulesBackend:
         return {"orgs":sorted(set(orgs)),"aliases":aliases}
 
 def bad_org(name):
-    x=(name or "").casefold()
+    x=(name or "").casefold().strip()
+    if x in ("the company","company","the corporation","corporation"):
+        return True
     return any(b in x for b in ("section ","article ","item ","form ","rule ","schedule ",
         "general corporation law","merger agreement","credit agreement","senior notes","board of directors"))
 

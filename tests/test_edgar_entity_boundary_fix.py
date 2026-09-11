@@ -80,6 +80,30 @@ def test_hyphenated_name_still_matches():
     print("PASS test_hyphenated_name_still_matches")
 
 
+def test_company_suffix_is_recognized():
+    # "The Walt Disney Company" has no Inc./Corp./LLC suffix at all -- its
+    # legal name genuinely ends in the plain word "Company". Before this
+    # fix, ANY company using this extremely common naming convention (Ford
+    # Motor Company, The Boeing Company, The Coca-Cola Company, etc.) was
+    # entirely invisible to entity extraction. Found via a real Disney 8-K,
+    # not a hypothetical.
+    backend = m385.RegexBackend()
+    result = backend.parse('On December 13, 2017, The Walt Disney Company ("Disney") entered into an Agreement and Plan of Merger.')
+    assert "The Walt Disney Company" in result["orgs"], result["orgs"]
+    print("PASS test_company_suffix_is_recognized")
+
+
+def test_generic_self_reference_the_company_is_not_a_false_positive():
+    # The flip side of the fix above: "the Company" is a near-universal
+    # generic self-reference convention in SEC filings and must NOT be
+    # extracted as if it were a real, distinctly-named entity.
+    backend = m385.RegexBackend()
+    result = backend.parse("References in this report to the Company refer to the registrant and its subsidiaries.")
+    assert "the Company" not in [o.casefold() for o in result["orgs"]]
+    assert "The Company" not in result["orgs"]
+    print("PASS test_generic_self_reference_the_company_is_not_a_false_positive")
+
+
 if __name__ == "__main__":
     suite = [
         test_regex_backend_does_not_swallow_preceding_clause,
@@ -87,6 +111,8 @@ if __name__ == "__main__":
         test_numeric_token_in_entity_name_still_matches,
         test_legal_rules_backend_same_fix_applies,
         test_hyphenated_name_still_matches,
+        test_company_suffix_is_recognized,
+        test_generic_self_reference_the_company_is_not_a_false_positive,
     ]
     failed = 0
     for test in suite:
