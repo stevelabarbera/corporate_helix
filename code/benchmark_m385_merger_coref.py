@@ -28,13 +28,36 @@ def load_sections(paths):
                 }
     return out
 
+# Corporate-entity name regex, shared by RegexBackend and LegalRulesBackend.
+#
+# The previous version anchored only on an initial capital letter and a
+# trailing corporate suffix, with an unrestricted character class (including
+# spaces and lowercase runs) in between. Because the suffix pattern is rare,
+# the "shortest match" a non-greedy quantifier finds often still spans an
+# entire sentence back to the nearest preceding capitalized word -- e.g. on
+# real EDGAR text this matched "Disney will make a cash payment to New Fox,
+# Inc." as a single organization name instead of "New Fox, Inc.", which then
+# poisoned the alias map ("New Fox" -> that whole sentence) and suppressed
+# event detection entirely for the filing.
+#
+# WORD requires each token in the name to itself start with a capital letter
+# or a digit (entity names commonly include numbers, e.g. "TWDC Holdco 613
+# Corp."); CONNECTOR whitelists a small set of lowercase joining words so
+# names like "Murdoch Family Trust and Cruden Financial Services LLC" still
+# match. Capping the run at 8 words prevents swallowing an entire clause
+# even if it happens to contain other capitalized words.
+CORP=r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|Ltd\.?|Limited|PLC|plc)"
+_WORD=r"(?:[A-Z][A-Za-z0-9&.'’-]*|[0-9][A-Za-z0-9&.'’-]*)"
+_CONNECTOR=r"(?:of|and|the|for)"
+ENT=re.compile(
+    r"\b("+_WORD+r"(?:[\s-]+(?:"+_WORD+r"|"+_CONNECTOR+r")){0,7}"+r",?\s*"+CORP+r")(?![A-Za-z.])"
+)
+
 class RegexBackend:
     name="regex"
-    CORP=r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|Ltd\.?|Limited|PLC|plc)"
-    ENT=re.compile(r"\b([A-Z][A-Za-z0-9&.'’ -]{1,80}?(?:,\s*)?"+CORP+r")(?![A-Za-z.])")
     def parse(self,text):
         orgs=[];aliases={}
-        for m in self.ENT.finditer(text):
+        for m in ENT.finditer(text):
             ent=norm(m.group(1));orgs.append(ent)
             tail=text[m.end():m.end()+260]
             pm=re.match(r"\s*(?:,\s*(?:a|an)\s+[^()]{0,150})?\s*\(([^)]{1,220})\)",tail,re.S)
@@ -62,11 +85,9 @@ class SpacyBackend:
 
 class LegalRulesBackend:
     name="legal_rules"
-    CORP=r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|Ltd\.?|Limited|PLC|plc)"
-    ENT=re.compile(r"\b([A-Z][A-Za-z0-9&.'’ -]{1,80}?(?:,\s*)?"+CORP+r")(?![A-Za-z.])")
     def parse(self,text):
         orgs=[];aliases={}
-        for m in self.ENT.finditer(text):
+        for m in ENT.finditer(text):
             ent=norm(m.group(1))
             tail=text[m.end():m.end()+260]
             pm=re.match(r"\s*(?:,\s*(?:a|an)\s+[^()]{0,150})?\s*\(([^)]{1,220})\)",tail,re.S)

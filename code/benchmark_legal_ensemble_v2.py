@@ -24,13 +24,25 @@ def load_sections(paths):
                 out[(f.get("accession"),s.get("item"))]=s.get("text","")
     return out
 
+
+# Corporate-entity name regex, shared by RegexBackend and LegalRulesBackend.
+# See benchmark_m385_merger_coref.py for the full explanation of why the
+# previous version (initial capital + unrestricted run of any characters
+# up to a corporate suffix) could match an entire sentence instead of an
+# entity name on real EDGAR text. Fixed identically here since this file
+# still has its own live test (test_legal_ensemble_v2.py).
+CORP=r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|Ltd\.?|Limited|PLC|plc)"
+_WORD=r"(?:[A-Z][A-Za-z0-9&.'’-]*|[0-9][A-Za-z0-9&.'’-]*)"
+_CONNECTOR=r"(?:of|and|the|for)"
+ENT=re.compile(
+    r"\b("+_WORD+r"(?:[\s-]+(?:"+_WORD+r"|"+_CONNECTOR+r")){0,7}"+r",?\s*"+CORP+r")(?![A-Za-z.])"
+)
+
 class RegexBackend:
     name="regex"
-    CORP=r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|Ltd\.?|Limited|PLC|plc)"
-    ENT=re.compile(r"\b([A-Z][A-Za-z0-9&.'’ -]{1,80}?(?:,\s*)?"+CORP+r")(?![A-Za-z.])")
     def parse(self,text):
         orgs=[];aliases={}
-        for m in self.ENT.finditer(text):
+        for m in ENT.finditer(text):
             ent=norm(m.group(1));orgs.append(ent)
             tail=text[m.end():m.end()+260]
             pm=re.match(r"\s*(?:,\s*(?:a|an)\s+[^()]{0,150})?\s*\(([^)]{1,220})\)",tail,re.S)
@@ -58,11 +70,9 @@ class SpacyBackend:
 
 class LegalRulesBackend:
     name="legal_rules"
-    CORP=r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|Ltd\.?|Limited|PLC|plc)"
-    ENT=re.compile(r"\b([A-Z][A-Za-z0-9&.'’ -]{1,80}?(?:,\s*)?"+CORP+r")(?![A-Za-z.])")
     def parse(self,text):
         orgs=[];aliases={}
-        for m in self.ENT.finditer(text):
+        for m in ENT.finditer(text):
             ent=norm(m.group(1))
             tail=text[m.end():m.end()+260]
             pm=re.match(r"\s*(?:,\s*(?:a|an)\s+[^()]{0,150})?\s*\(([^)]{1,220})\)",tail,re.S)
