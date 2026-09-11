@@ -101,15 +101,38 @@ class EdgarMAExpansionProvider:
         *,
         fetch_filings_fn: Callable[[HelixFact], dict[str, Any] | None] | None = None,
         accepted_pivot_types: Iterable[str] = (ROOT_FACT_TYPE, LEGAL_ENTITY_FACT_TYPE),
+        spacy_model: str = "en_core_web_sm",
     ) -> None:
         self.fetch_filings_fn = fetch_filings_fn or _default_fetch_filings
         self.accepted_pivot_types = {str(t).strip().upper() for t in accepted_pivot_types}
         self._parser = _load_parser_module()
+        # Match the actual validated benchmark ensemble exactly (see
+        # benchmark_m385_merger_coref.py main(): weights
+        # {"regex": 0.5, "spacy": 1.0, "legal_rules": 1.25}, threshold 1.5).
+        # An earlier version of this provider used only regex + legal_rules
+        # at threshold 1.0 -- which meant any org mentioned WITHOUT a nearby
+        # alias-defining parenthetical (e.g. a later mention in an exhibit
+        # index, after the entity's already been introduced) scored only
+        # 0.5 and was silently dropped, since legal_rules requires an alias
+        # pattern to vote at all. spaCy's NER is what the real ensemble
+        # relies on to catch exactly that case. Falls back to the 2-backend
+        # version only if spaCy/the model genuinely isn't available.
+        try:
+            self._backends = [
+                self._parser.RegexBackend(),
+                self._parser.SpacyBackend(spacy_model),
+                self._parser.LegalRulesBackend(),
+            ]
+            self._weights = {"regex": 0.5, "spacy": 1.0, "legal_rules": 1.25}
+            self._threshold = 1.5
+        except Exception:
+            self._backends = [self._parser.RegexBackend(), self._parser.LegalRulesBackend()]
+            self._weights = {"regex": 0.5, "legal_rules": 1.25}
+            self._threshold = 1.0
 
     def _parse_filing_section(self, text: str, item: str | None) -> tuple[dict, dict]:
-        backends = [self._parser.RegexBackend(), self._parser.LegalRulesBackend()]
-        outputs = {b.name: b.parse(text) for b in backends}
-        fused = self._parser.fuse(outputs, {"regex": 0.5, "legal_rules": 1.25}, 1.0)
+        outputs = {b.name: b.parse(text) for b in self._backends}
+        fused = self._parser.fuse(outputs, self._weights, self._threshold)
         events = self._parser.infer_events(text, fused["aliases"], fused["orgs"], item)
         return fused, self._parser.completed_only(events)
 
