@@ -130,7 +130,14 @@ def resolve(name,aliases):
 
 def known_prefix(raw,orgs):
     raw=norm(raw)
-    hits=[o for o in orgs if raw and raw.startswith(o)]
+    if not raw:return None
+    # The caller's capture regex stops at the first '.'/';', which very often
+    # lands INSIDE the org's own legal suffix (e.g. captures "Acme Corp"
+    # instead of "Acme Corp."), so a direct startswith() against orgs
+    # (which keep their trailing period) silently misses a real match.
+    # Compare with trailing periods stripped from both sides as well.
+    raw_bare=raw.rstrip(".")
+    hits=[o for o in orgs if raw.startswith(o) or raw_bare.startswith(o.rstrip("."))]
     return sorted(hits,key=len,reverse=True)[0] if hits else None
 
 def temporal_status(fragment):
@@ -203,9 +210,12 @@ def infer_events(text,aliases,orgs,item):
     m=re.search(r"\bentered into an? Agreement and Plan of Merger\b",text,re.I)
     if m:
         acq=None
-        for a in ("Company","Broadcom","Cisco"):
-            if a in aliases and aliases[a] in text[:m.start()]:
-                acq=aliases[a];break
+        # "the Company"/"Company" is a near-universal 8-K self-reference
+        # convention (a filer aliasing itself), not specific to any one
+        # company -- unlike a hardcoded list of company names, which would
+        # only ever match the exact companies this parser was tuned against.
+        if "Company" in aliases and aliases["Company"] in text[:m.start()]:
+            acq=aliases["Company"]
         if not acq:
             prior=[o for o in orgs if o in text[:m.start()]]
             if prior:acq=prior[-1]
@@ -213,8 +223,11 @@ def infer_events(text,aliases,orgs,item):
         wm=re.search(r"\bwith\s+([^.;]{2,180})",after,re.I)
         if wm:target=known_prefix(wm.group(1),orgs)
         if not target:
-            for a in ("Splunk","VMware"):
-                if a in aliases:target=aliases[a];break
+            # General fallback: whichever known org is mentioned earliest
+            # in the text immediately following the merger-agreement clause
+            # (and isn't the acquirer) is the most likely counterparty.
+            candidates=[o for o in orgs if o!=acq and o in after]
+            if candidates:target=min(candidates,key=lambda o:after.find(o))
         if acq and target:
             add_event(out,"AGREED_TO_ACQUIRE",acq,target,"COMPLETED",text[max(0,m.start()-120):m.end()+240])
 
@@ -222,15 +235,19 @@ def infer_events(text,aliases,orgs,item):
     m=re.search(r"\bcompleted\s+(?:its acquisition of|the previously announced transaction with)\s+([^.;]{2,180})",text,re.I)
     if m:
         target=known_prefix(m.group(1),orgs)
-        if not target:
-            for a in ("Splunk","VMware"):
-                if a in aliases:target=aliases[a];break
         acq=None
-        for a in ("Company","Broadcom","Cisco"):
-            if a in aliases:acq=aliases[a];break
+        if "Company" in aliases and aliases["Company"] in text[:m.start()]:
+            acq=aliases["Company"]
         if not acq:
             prior=[o for o in orgs if o in text[:m.start()]]
             if prior:acq=prior[-1]
+        if not target:
+            # General fallback, mirroring the acquirer-side one above: the
+            # known org mentioned earliest after this clause, excluding
+            # whichever org was already identified as the acquirer.
+            after=text[m.end():m.end()+400]
+            candidates=[o for o in orgs if o!=acq and o in after]
+            if candidates:target=min(candidates,key=lambda o:after.find(o))
         if acq and target:
             add_event(out,"ACQUIRED",acq,target,"COMPLETED",text[max(0,m.start()-120):m.end()+220])
 
