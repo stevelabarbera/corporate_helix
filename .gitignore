@@ -33,3 +33,10 @@ htmlcov/
 data/processed/gleif_lei.sqlite
 data/processed/gleif_rr.sqlite
 data/processed/gleif_lei.sqlite
+code 2.zip
+data/gleif_rr.zip
+data/processed/gleif_lei.sqlite-shm
+data/processed/gleif_lei.sqlite-wal
+data/processed/gleif_rr.sqlite-shm
+data/processed/gleif_rr.sqlite-wal
+code.zip
