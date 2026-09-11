@@ -1,0 +1,30 @@
+{
+  "company": "The Walt Disney Company",
+  "cik": "0001001039 / 0001744489",
+  "filings": [
+    {
+      "accession": "0000950157-17-001599",
+      "filing_date": "2017-12-14",
+      "form": "8-K",
+      "items": "1.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "text": "Item 1.01. Entry into a Material Definitive Agreement.\n\nOn December 13, 2017, The Walt Disney Company (\"Disney\"), TWC Merger Enterprises 2 Corp., a Delaware corporation and wholly owned subsidiary of Disney (\"Merger Sub\"), TWC Merger Enterprises 1, LLC, a Delaware limited liability company and wholly owned subsidiary of Disney (\"Merger LLC\"), and Twenty-First Century Fox (\"21CF\") entered into an Agreement and Plan of Merger (the \"Merger Agreement\"), pursuant to which, subject to the terms and conditions of the Merger Agreement, immediately following the Distribution (as defined below), Merger Sub will merge with and into 21CF (the \"Initial Merger\"), with 21CF to be the surviving corporation (the \"Surviving Corporation\"), which will be followed, immediately after the effective time of the Initial Merger (the \"Effective Time\"), by a merger of the Surviving Corporation with and into Merger LLC (the \"Subsequent Merger\", and together with the Initial Merger, the \"Mergers\"), with Merger LLC to be the surviving entity in the Subsequent Merger. As a result of the Initial Merger, 21CF will become a wholly owned subsidiary of Disney. The Board of Directors of Disney and 21CF approved the Initial Merger and the Merger Agreement.\n\nVoting Agreement\n\nOn December 13, 2017, concurrently with the execution of the Merger Agreement, Disney entered into a voting agreement with Murdoch Family Trust and Cruden Financial Services LLC (collectively, the \"Stockholders\").\n\nItem 9.01 Financial Statements and Exhibits.\n\n(d) Exhibits.\n\nExhibit 2.1: Agreement and Plan of Merger, dated as of December 13, 2017, among Twenty-First Century Fox Inc., The Walt Disney Company, TWC Merger Enterprises 2 Corp. and TWC Merger Enterprises 1, LLC\nExhibit 3.1: Amended and Restated Bylaws of The Walt Disney Company as of December 13, 2017\nExhibit 10.1: Voting Agreement, dated as of December 13, 2017, among The Walt Disney Company, Murdoch Family Trust and Cruden Financial Services LLC\n\nSIGNATURE\n\nPursuant to the requirements of the Securities Exchange Act of 1934, the registrant has duly caused this report to be signed on its behalf by the undersigned hereunto duly authorized.\n\nTHE WALT DISNEY COMPANY"
+        }
+      ]
+    },
+    {
+      "accession": "0000950157-19-000949",
+      "filing_date": "2019-08-29",
+      "form": "8-K",
+      "items": "2.01",
+      "sections": [
+        {
+          "item": "2.01",
+          "text": "Item 2.01. Completion of Acquisition or Disposition of Assets.\n\nAs previously announced, on May 3, 2019, The Walt Disney Company (\"Disney\"), Fox Cable Networks, LLC (\"FCN\"), a Delaware limited liability company and a wholly owned subsidiary of Disney, and Diamond Sports Group, LLC (\"Buyer\"), a Delaware limited liability company and a wholly owned subsidiary of Sinclair Broadcast Group, Inc. (\"Sinclair\"), entered into an Equity Purchase Agreement (the \"Purchase Agreement\"). Pursuant to the Purchase Agreement, Disney and FCN agreed to sell FCN's interests in Fox Sports Net, LLC (\"FSN\") to Buyer for a purchase price equal to $9.6 billion in cash, subject to adjustments as set forth in the Purchase Agreement (the \"FSN Sale\").\n\nOn August 23, 2019 (the \"Closing Date\"), upon the terms and conditions set forth in the Purchase Agreement, the FSN Sale was completed.\n\nDisney acquired FSN and the regional sports networks on March 20, 2019 when it consummated the transactions contemplated by the Amended and Restated Agreement and Plan of Merger, dated as of June 20, 2018 (the \"Acquisition Agreement\"), among Twenty-First Century Fox, Inc. (now known as TFCF Corporation) (\"21CF\"), TWDC Enterprises 18 Corp. (formerly known as The Walt Disney Company) (\"Legacy Disney\"), Disney, WDC Merger Enterprises I, Inc. and WDC Merger Enterprises II, Inc., pursuant to which, among other things, (i) WDC Merger Enterprises I, Inc. merged with and into Legacy Disney, with Legacy Disney surviving such merger as a wholly owned subsidiary of Disney and (ii) WDC Merger Enterprises II, Inc. merged with and into 21CF, with 21CF surviving such merger as a wholly owned subsidiary of Disney (the \"Acquisition\")."
+        }
+      ]
+    }
+  ]
+}

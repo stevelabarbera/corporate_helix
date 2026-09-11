@@ -1,0 +1,19 @@
+{
+  "company": "The Walt Disney Company",
+  "aliases_ok": ["Disney", "TWDC Holdco 613 Corp.", "TWDC Enterprises 18 Corp."],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "Earlier tonight (unrelated bug-fix work on the entity-boundary regex), I saw fragments of Disney's real 2018 8-K text, including the 'Disney will make a cash payment to New Fox, Inc.' and Murdoch Family Trust sentences. That prior exposure means this gold record is not perfectly blind the way the Lumen one was. The events below were still selected and dated from independent, non-SEC sources before writing this file, and none of the specific event/status values were copied from anything I'd previously seen in the 8-K text -- but full blindness cannot be claimed here.",
+  "gold_sources": [
+    "https://tvradioschedules.fandom.com/wiki/Acquisition_of_21st_Century_Fox_by_Disney",
+    "https://thewaltdisneycompany.com/the-walt-disney-company-signs-amended-acquisition-agreement-to-acquire-twenty-first-century-fox-inc-for-71-3-billion-in-cash-and-stock/",
+    "https://thewaltdisneycompany.com/disney-and-21st-century-fox-announce-per-share-value-in-connection-with-71-billion-acquisition/",
+    "https://investors.thewaltdisneycompany.com/news/news-details/2019/Sinclair-Completes-Acquisition-of-Regional-Sports-Networks-From-Disney-08-23-2019/default.aspx"
+  ],
+  "note": "The single most structurally tricky real case tested so far: THREE different registrant identities are involved across the saga -- CIK 1001039 ('The Walt Disney Company' in 2017, later renamed 'TWDC Enterprises 18 Corp.' post-close), CIK 1744489 ('TWDC Holdco 613 Corp.' pre-close, renamed 'The Walt Disney Company' post-close -- this is Disney's CIK today), and CIK 1308161 (Twenty-First Century Fox, Inc.). A holdco restructuring, not just a rebrand.",
+  "events": [
+    {"id": "disney-1", "counterparty": "Twenty-First Century Fox, Inc.", "event_type": "AGREED_TO_ACQUIRE", "status": "COMPLETED", "approx_date": "2017-12", "notes": "Original Merger Agreement, filed under old Disney CIK 1001039"},
+    {"id": "disney-2", "counterparty": "Twenty-First Century Fox, Inc.", "event_type": "AGREED_TO_ACQUIRE", "status": "COMPLETED", "approx_date": "2018-06", "notes": "Amended and Restated Agreement and Plan of Merger, raised offer to $71.3B; supersedes disney-1"},
+    {"id": "disney-3", "counterparty": "Twenty-First Century Fox, Inc.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2019-03-20", "notes": "Closing, filed under new CIK 1744489"},
+    {"id": "disney-4", "counterparty": "Sinclair Broadcast Group, Inc.", "event_type": "DIVESTED_BUSINESS", "status": "COMPLETED", "approx_date": "2019-08-23", "notes": "DOJ-mandated divestiture of Fox Sports Net (RSNs), required as a condition of the 21CF acquisition"}
+  ]
+}
