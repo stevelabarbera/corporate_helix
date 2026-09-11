@@ -1,0 +1,30 @@
+{
+  "company": "CenturyLink, Inc.",
+  "cik": "0000018926",
+  "filings": [
+    {
+      "accession": "0001193125-16-758973",
+      "filing_date": "2016-11-03",
+      "form": "8-K",
+      "items": "1.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "text": "Item 1.01 Entry into a Material Definitive Agreement\n\nOn October 31, 2016, CenturyLink, Inc. (\"CenturyLink\") entered into an Agreement and Plan of Merger (the \"Merger\nAgreement\") with Level 3 Communications, Inc., a Delaware corporation (\"Level 3\"), Wildcat Merger Sub 1 LLC, a Delaware limited liability company and an indirect wholly-owned subsidiary of CenturyLink (\"Merger Sub\n1\"), and WWG Merger Sub LLC, a Delaware limited liability company and an indirect wholly-owned subsidiary of CenturyLink (\"Merger Sub 2\").\n\nThe Merger Agreement provides, among other things, that subject to the satisfaction or waiver of the conditions set forth therein\n(i) Merger Sub 1 will merge with and into Level 3 (the \"Initial Merger\"), with Level 3 surviving the Initial Merger as an indirect wholly-owned subsidiary of CenturyLink, and (ii) immediately following the effective time of the\nInitial Merger, Level 3 shall merge with and into Merger Sub 2 (the \"Subsequent Merger\" and, together with the Initial Merger, the \"Combination\"), with Merger Sub 2 surviving the Subsequent Merger as an indirect wholly-owned\nsubsidiary of CenturyLink.\n\nUnder the Merger Agreement, at the effective time of the Initial Merger, each outstanding share of Level 3\ncommon stock, par value $0.01 per share (the \"Level 3 Common Stock\"), other than shares held by holders who properly exercise appraisal rights, will be converted into the right to receive $26.50 in cash, without interest, and 1.4286 shares\nof CenturyLink common stock, par value $1.00 per share (the \"CenturyLink Common Stock\") (the \"Merger Consideration\").\n\nThe Merger Agreement provides that CenturyLink and Level 3 may mutually agree to terminate the Merger Agreement before completing the\nCombination. The Merger Agreement further provides that, under certain circumstances involving a termination of the\nMerger Agreement, Level 3 may be obligated to pay CenturyLink a termination fee of $737.5 million and CenturyLink may be obligated to pay Level 3 a termination fee of $471.5 million."
+        }
+      ]
+    },
+    {
+      "accession": "0001193125-17-329388",
+      "filing_date": "2017-11-01",
+      "form": "8-K",
+      "items": "2.01",
+      "sections": [
+        {
+          "item": "2.01",
+          "text": "Introductory Note\n\nOn November 1, 2017, CenturyLink, Inc. (hereafter referred to as \"we\", \"us\", \"our\" or\n\"CenturyLink\") completed its previously-announced acquisition (the \"Acquisition\") of Level 3 Communications, Inc. (\"Level 3\") and took various financing and other related actions, as discussed further below.\n\nItem 2.01 Completion of Acquisition or Disposition of Assets.\n\nOn November 1, 2017, pursuant\nto the terms and conditions of the previously-announced Agreement and Plan of Merger, dated as of October 31, 2016 (the \"Merger Agreement\"), among Level 3, CenturyLink, Wildcat Merger Sub I LLC (\"Merger Sub 1\") and WWG\nMerger Sub LLC (\"Merger Sub 2\"), Merger Sub 1 merged with and into Level 3 (the \"Initial Merger\") and immediately thereafter Level 3 merged with and into Merger Sub 2 (the \"Subsequent Merger\"), with Merger Sub\n2 surviving such merger as an indirect wholly-owned subsidiary of CenturyLink under the name of Level 3 Parent, LLC (\"Level 3 Parent\").\n\nIn connection with the Initial Merger, each outstanding share of Level 3 common stock, par value $0.01 per share (the \"LVLT Common\nStock\"), other than shares held by holders who have properly exercised appraisal rights (\"dissenting shares\") and shares owned by CenturyLink, Level 3 or their respective subsidiaries, was converted into the right to receive\n$26.50 in cash, without interest, and 1.4286 shares of our common stock, par value $1.00 per share (\"CTL Common Stock\"), with cash paid in lieu of fractional shares."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "company": "Lumen Technologies, Inc.",
+  "aliases_ok": ["CenturyLink, Inc.", "CenturyLink"],
+  "gold_established_blind": true,
+  "gold_sources": [
+    "https://www.financecharts.com/stocks/LUMN/profile",
+    "https://www.companieshistory.com/lumen-technologies/",
+    "https://www.sec.gov/Archives/edgar/data/18926/000001892626000014/lumn-20251231.htm (10-K acquisitions/divestitures summary, used only to confirm dates, not to look at any 8-K text)"
+  ],
+  "note": "Gold events below were written from independent, non-8-K sources BEFORE any 8-K filing text was fetched or parsed. Scoped to 2016+ (recent, well-documented, in the era where structured 8-K item metadata is reliable) rather than the full multi-decade acquisition history.",
+  "events": [
+    {"id": "lumen-1", "counterparty": "Level 3 Communications, Inc.", "event_type": "AGREED_TO_ACQUIRE", "status": "COMPLETED", "approx_date": "2016-10", "notes": "Announced Oct/Nov 2016, closed Nov 1, 2017"},
+    {"id": "lumen-2", "counterparty": "Level 3 Communications, Inc.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2017-11", "notes": "Closing of the above agreement"},
+    {"id": "lumen-3", "counterparty": "Brightspeed / Connect Holding II LLC (Apollo Global Management affiliate)", "event_type": "DIVESTED_BUSINESS", "status": "COMPLETED", "approx_date": "2022", "notes": "ILEC assets in 20 states, announced Aug 2021"},
+    {"id": "lumen-4", "counterparty": "Stonepeak Infrastructure Partners", "event_type": "DIVESTED_BUSINESS", "status": "COMPLETED", "approx_date": "2022", "notes": "Latin America business, ~$2.7B"},
+    {"id": "lumen-5", "counterparty": "Colt Technology Services", "event_type": "DIVESTED_BUSINESS", "status": "COMPLETED", "approx_date": "2023", "notes": "EMEA business"}
+  ]
+}
