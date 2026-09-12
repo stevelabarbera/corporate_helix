@@ -145,7 +145,7 @@ def infer_events(text,aliases,orgs):
                 if a in aliases:target=aliases[a];break
         if acq and target:out.append({"event_type":"AGREED_TO_ACQUIRE","subject":acq,"object":target})
 
-    m=re.search(r"\bcompleted\s+(?:its acquisition of|the previously announced transaction with)\s+([^.;]{2,180})",text,re.I)
+    m=re.search(r"\bcompleted\s+(?:its(?:\s+previously[- ]announced)?\s+acquisition\s*(?:\([^)]{0,80}\))?\s*of|the previously announced transaction with)\s+([^.;]{2,180})",text,re.I)
     if m:
         target=known_prefix(m.group(1),orgs)
         if not target:

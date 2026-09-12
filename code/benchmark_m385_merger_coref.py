@@ -211,7 +211,8 @@ def infer_events(text,aliases,orgs,item):
     financing=any(x in low[:2200] for x in ("credit agreement","senior notes","underwriting agreement",
         "partial financing of the proposed acquisition","term loan"))
     merger_exec="entered into an agreement and plan of merger" in low[:2200]
-    closing=("completed its acquisition" in low[:1000] or "completed the previously announced transaction" in low[:1000])
+    closing=("completed its acquisition" in low[:1000] or "completed the previously announced transaction" in low[:1000]
+        or "completed its previously" in low[:1000])
     if item=="1.01" and financing and not merger_exec:return out
 
     # Agreement itself is a completed legal event.
@@ -239,8 +240,15 @@ def infer_events(text,aliases,orgs,item):
         if acq and target:
             add_event(out,"AGREED_TO_ACQUIRE",acq,target,"COMPLETED",text[max(0,m.start()-120):m.end()+240])
 
-    # Closing
-    m=re.search(r"\bcompleted\s+(?:its acquisition of|the previously announced transaction with)\s+([^.;]{2,180})",text,re.I)
+    # Closing. The bracketed "(the \"Acquisition\")"-style aside and the
+    # "previously[- ]announced" variant are both real phrasing found on
+    # actual filings (Lumen/CenturyLink and Tenable both use them) that the
+    # narrower original pattern -- "completed its acquisition of" /
+    # "completed the previously announced transaction with" -- missed
+    # entirely, despite orgs/aliases being extracted correctly in both
+    # cases. Confirmed independently on two unrelated companies before
+    # generalizing here, not a guess.
+    m=re.search(r"\bcompleted\s+(?:its(?:\s+previously[- ]announced)?\s+acquisition\s*(?:\([^)]{0,80}\))?\s*of|the previously announced transaction with)\s+([^.;]{2,180})",text,re.I)
     if m:
         target=known_prefix(m.group(1),orgs)
         acq=None

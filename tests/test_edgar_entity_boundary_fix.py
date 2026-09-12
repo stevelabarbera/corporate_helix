@@ -104,6 +104,53 @@ def test_generic_self_reference_the_company_is_not_a_false_positive():
     print("PASS test_generic_self_reference_the_company_is_not_a_false_positive")
 
 
+def test_closing_phrasing_previously_announced_parenthetical():
+    # Real text from Lumen/CenturyLink's actual closing 8-K: "completed its
+    # previously-announced acquisition (the "Acquisition") of X" -- the
+    # original pattern only matched "completed its acquisition of X" or
+    # "completed the previously announced transaction with X", missing this
+    # entirely despite orgs/aliases being extracted correctly.
+    text = ('On November 1, 2017, CenturyLink, Inc. completed its previously-announced '
+            'acquisition (the "Acquisition") of Level 3 Communications, Inc.')
+    aliases = {}
+    orgs = ["CenturyLink, Inc.", "Level 3 Communications, Inc."]
+    events = m385.infer_events(text, aliases, orgs, "2.01")
+    completed = m385.completed_only(events)
+    assert any(
+        e["event_type"] == "ACQUIRED" and e["subject"] == "CenturyLink, Inc."
+        and e["object"] == "Level 3 Communications, Inc." for e in completed
+    ), completed
+    print("PASS test_closing_phrasing_previously_announced_parenthetical")
+
+
+def test_closing_phrasing_previously_announced_no_hyphen():
+    # Real text from Tenable's actual Ermetic closing 8-K: "previously
+    # announced" without the hyphen, a slightly different real-world variant.
+    text = ('Tenable, Inc. completed its previously announced acquisition (the "Acquisition") '
+            'of Ermetic Ltd., a company organized under the laws of the State of Israel.')
+    aliases = {}
+    orgs = ["Tenable, Inc.", "Ermetic Ltd."]
+    events = m385.infer_events(text, aliases, orgs, "2.01")
+    completed = m385.completed_only(events)
+    assert any(
+        e["event_type"] == "ACQUIRED" and e["subject"] == "Tenable, Inc."
+        and e["object"] == "Ermetic Ltd." for e in completed
+    ), completed
+    print("PASS test_closing_phrasing_previously_announced_no_hyphen")
+
+
+def test_closing_phrasing_original_patterns_still_work():
+    # Guard against regressing the two patterns that already worked.
+    text1 = "Cisco completed its acquisition of Splunk Inc. today."
+    events1 = m385.completed_only(m385.infer_events(text1, {}, ["Cisco", "Splunk Inc."], "2.01"))
+    assert any(e["event_type"] == "ACQUIRED" and e["object"] == "Splunk Inc." for e in events1)
+
+    text2 = "Disney completed the previously announced transaction with Fox Corp. for various assets."
+    events2 = m385.completed_only(m385.infer_events(text2, {}, ["Disney", "Fox Corp."], "2.01"))
+    assert any(e["event_type"] == "ACQUIRED" and e["object"] == "Fox Corp." for e in events2)
+    print("PASS test_closing_phrasing_original_patterns_still_work")
+
+
 if __name__ == "__main__":
     suite = [
         test_regex_backend_does_not_swallow_preceding_clause,
@@ -113,6 +160,9 @@ if __name__ == "__main__":
         test_hyphenated_name_still_matches,
         test_company_suffix_is_recognized,
         test_generic_self_reference_the_company_is_not_a_false_positive,
+        test_closing_phrasing_previously_announced_parenthetical,
+        test_closing_phrasing_previously_announced_no_hyphen,
+        test_closing_phrasing_original_patterns_still_work,
     ]
     failed = 0
     for test in suite:
