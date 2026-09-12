@@ -93,6 +93,29 @@ def test_two_hop_recursion_through_run_expansion():
     assert names == {"Cisco Systems, Inc.", "Splunk Inc.", "Acme Telemetry, Inc."}
 
 
+def test_real_10k_filing_discovers_two_acquisitions_end_to_end():
+    # Full pipeline: real Tenable 10-K text -> EdgarMAExpansionProvider ->
+    # HelixFacts, proving the REGISTRANT_SELF_REFERENCE sentinel correctly
+    # resolves to the pivot in other_party(), not just that infer_events()
+    # produces the right raw event.
+    tenk_text = (
+        'In October 2023, we acquired Ermetic Ltd. ("Ermetic"), an innovative cloud-native '
+        "application protection platform company. We acquired 100% of Ermetic equity through "
+        "a share purchase agreement for total consideration of $243.8 million.\n\n"
+        'In June 2022, we acquired Bit Discovery, Inc. ("Bit Discovery"), a leader in external '
+        "attack surface management. We acquired 100% of Bit Discovery equity for $43.8 million in cash."
+    )
+    data = {
+        "company": "Tenable Holdings, Inc.", "cik": "0001660280",
+        "filings": [{"accession": "0001660280-24-000033", "filing_date": "2024-02-28", "form": "10-K",
+                     "items": "", "sections": [{"item": "NOTES", "text": tenk_text}]}],
+    }
+    provider = EdgarMAExpansionProvider(fetch_filings_fn=lambda p: data)
+    facts = list(provider(_pivot("Tenable Holdings, Inc."), 1))
+    names = {f.value for f in facts}
+    assert names == {"Ermetic Ltd.", "Bit Discovery, Inc."}
+
+
 def test_recursion_terminates_when_nothing_new_found():
     # Guard against infinite loops: if EDGAR has nothing for anyone, expansion
     # must converge immediately, not error or hang.

@@ -151,6 +151,57 @@ def test_closing_phrasing_original_patterns_still_work():
     print("PASS test_closing_phrasing_original_patterns_still_work")
 
 
+def test_10k_declarative_acquisition_pattern():
+    # Real text from Tenable's actual 10-K Business Combinations footnote.
+    # Distinct document style from every 8-K pattern above: first-person
+    # ("we acquired X"), never names the acquirer explicitly. Before this
+    # pattern existed, infer_events() produced zero events for this text
+    # even though orgs/aliases were extracted correctly -- there was no 10-K
+    # discovery capability in this codebase at all.
+    text = (
+        'In October 2023, we acquired Ermetic Ltd. ("Ermetic"), an innovative cloud-native '
+        "application protection platform company. We acquired 100% of Ermetic equity through "
+        "a share purchase agreement for total consideration of $243.8 million."
+    )
+    aliases = {"Ermetic": "Ermetic Ltd."}
+    orgs = ["Ermetic Ltd."]
+    events = m385.completed_only(m385.infer_events(text, aliases, orgs, None))
+    assert any(
+        e["event_type"] == "ACQUIRED" and e["subject"] == "REGISTRANT_SELF_REFERENCE"
+        and e["object"] == "Ermetic Ltd." for e in events
+    ), events
+    print("PASS test_10k_declarative_acquisition_pattern")
+
+
+def test_10k_pattern_resolves_short_alias_form():
+    # Real text: "we acquired Bit Discovery" uses the short alias-defined
+    # name, not the full legal name with suffix -- known_prefix() alone
+    # can't match this (the raw capture is SHORTER than the real org
+    # string), so this also exercises the alias-resolution fallback.
+    text = (
+        'In June 2022, we acquired Bit Discovery, Inc. ("Bit Discovery"), a leader in external '
+        "attack surface management. We acquired 100% of Bit Discovery equity for $43.8 million in cash."
+    )
+    aliases = {"Bit Discovery": "Bit Discovery, Inc."}
+    orgs = ["Bit Discovery, Inc."]
+    events = m385.completed_only(m385.infer_events(text, aliases, orgs, None))
+    assert any(
+        e["event_type"] == "ACQUIRED" and e["object"] == "Bit Discovery, Inc." for e in events
+    ), events
+    print("PASS test_10k_pattern_resolves_short_alias_form")
+
+
+def test_10k_pattern_does_not_fire_on_8k_style_text():
+    # Guard: the new pattern must not spuriously match ordinary 8-K text
+    # that happens to contain the word "acquired" in a different
+    # construction.
+    text = "Cisco completed its acquisition of Splunk Inc. today."
+    events = m385.completed_only(m385.infer_events(text, {}, ["Cisco", "Splunk Inc."], "2.01"))
+    self_ref_events = [e for e in events if e["subject"] == "REGISTRANT_SELF_REFERENCE"]
+    assert self_ref_events == [], self_ref_events
+    print("PASS test_10k_pattern_does_not_fire_on_8k_style_text")
+
+
 if __name__ == "__main__":
     suite = [
         test_regex_backend_does_not_swallow_preceding_clause,
@@ -163,6 +214,9 @@ if __name__ == "__main__":
         test_closing_phrasing_previously_announced_parenthetical,
         test_closing_phrasing_previously_announced_no_hyphen,
         test_closing_phrasing_original_patterns_still_work,
+        test_10k_declarative_acquisition_pattern,
+        test_10k_pattern_resolves_short_alias_form,
+        test_10k_pattern_does_not_fire_on_8k_style_text,
     ]
     failed = 0
     for test in suite:

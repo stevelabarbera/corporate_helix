@@ -300,6 +300,33 @@ def infer_events(text,aliases,orgs,item):
         status="PROPOSED" if "will" in lead else ("COMPLETED" if "was" in lead or item=="2.01" else temporal_status(frag))
         add_event(out,"CONVERTED_TO",aliases["VMware"],"Delaware limited liability company",status,frag)
 
+    # 10-K/annual-report style declarative acquisition statement. Distinct
+    # from every pattern above, which all assume 8-K-style third-person
+    # contract language ("X entered into an Agreement...", "X completed its
+    # acquisition of Y"). A 10-K's Business Combinations footnote is written
+    # in first person about the filer itself: "In October 2023, we acquired
+    # Ermetic Ltd. ('Ermetic')... We acquired 100% of Ermetic's equity...".
+    # Found via Tenable's real 10-K text -- confirmed this pattern was
+    # entirely unmatched by anything above (orgs extracted fine, zero events
+    # produced) before this was added, not a hypothetical gap.
+    #
+    # The acquirer side is always "we"/the registrant itself in this style,
+    # never a named org -- REGISTRANT_SELF_REFERENCE is a sentinel the
+    # calling provider (edgar_ma_provider.other_party) resolves to whichever
+    # pivot company is actually being queried, the same way "the Company"
+    # resolves for the 8-K patterns above.
+    for m in re.finditer(r"\bwe acquired\s+(?:100%\s+of\s+)?([A-Z][^.;,]{1,120}?)(?:'s equity|,|\.|;)", text, re.I):
+        raw = m.group(1).strip()
+        target = known_prefix(raw, orgs)
+        if not target:
+            resolved = resolve(raw, aliases)
+            if resolved in orgs:
+                target = resolved
+        if not target:
+            continue
+        frag = text[max(0, m.start() - 100):m.end() + 200]
+        add_event(out, "ACQUIRED", "REGISTRANT_SELF_REFERENCE", target, "COMPLETED", frag)
+
     # Keep proposed mechanics in raw output, but completed_only controls graph mutation / benchmark.
     return out
 

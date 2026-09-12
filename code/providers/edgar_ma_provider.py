@@ -71,7 +71,18 @@ def other_party(event: dict[str, Any], pivot_name: str) -> str | None:
     discovered company. Returns None if neither side matches the pivot
     (ambiguous; skipped rather than guessed) or if both sides do (a
     self-referential/garbled extraction).
+
+    REGISTRANT_SELF_REFERENCE is a sentinel emitted by infer_events()'s
+    10-K-style declarative-acquisition pattern ("we acquired X"), where the
+    filing text never names the acquirer explicitly -- it's always the
+    filer itself. Always resolves to the pivot, the same way "the Company"
+    resolves for 8-K-style patterns.
     """
+    if event.get("subject") == "REGISTRANT_SELF_REFERENCE":
+        return event.get("object")
+    if event.get("object") == "REGISTRANT_SELF_REFERENCE":
+        return event.get("subject")
+
     pivot_key = identity_key(pivot_name)
     subject_key = identity_key(event.get("subject") or "")
     object_key = identity_key(event.get("object") or "")
