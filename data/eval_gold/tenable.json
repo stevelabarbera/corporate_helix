@@ -1,18 +1,23 @@
 {
   "company": "Tenable Holdings, Inc.",
   "aliases_ok": ["Tenable", "Tenable, Inc.", "Tenable Network Security, Inc."],
-  "gold_established_blind": true,
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "The first pass at this gold list (Indegy, Cymptom, Bit Discovery, Ermetic) was independently researched before any 8-K text was examined. Two more real acquisitions -- Alsid and Accurics -- were then caught not by my research but by the user (a former Bit Discovery/Tenable employee) manually reading Tenable's actual 10-K tax footnote and noticing they were missing from the list I'd built. That's a real gap in my independent research, corrected here rather than left standing. Alsid/Accurics dates and prices were then confirmed via independent press sources before being added.",
   "gold_sources": [
     "https://www.cooley.com/news/coverage/2024/2024-06-06-tenable-to-acquire-eureka-security",
-    "https://www.darkreading.com/cyber-risk/tenable-acquire-ai-security-apex",
     "https://siliconangle.com/2023/09/07/tenable-acquire-cloud-security-startup-ermetic-240-million/",
-    "https://www.sec.gov/Archives/edgar/data/1660280/000166028024000033/tenb-20231231.htm (10-K acquisitions note, used only to confirm dollar amounts/dates, not to look at any 8-K text)"
+    "https://www.securityweek.com/tenable-acquire-accurics-160m-deal/",
+    "https://investors.tenable.com/news-releases/news-release-details/tenable-completes-acquisition-accurics",
+    "https://www.msspalert.com/news/tenable-buys-accurics-cspm-mergers-acquisitions (Alsid, April 2021)",
+    "User's own manual review of Tenable's 10-K acquisitions/tax footnote, which surfaced Alsid and Accurics"
   ],
-  "note": "Tenable's own acquisitions since its 2018 IPO, all small-to-mid-size private-company purchases. Scoped to the four most independently-corroborated ones. Not yet checked whether each of these actually generated its own standalone 8-K Item 1.01/2.01 (vs. only being disclosed via 10-K footnote) -- that itself is worth learning from this run, since a private all-cash acquisition below certain materiality thresholds is not always required to get its own 8-K.",
+  "note": "Tenable's own acquisitions since its 2018 IPO. The Alsid/Accurics gap is itself evidence for last message's finding: the 10-K's acquisitions/tax footnote is a real, valuable discovery source distinct from 8-Ks -- but it is noisy, oblique financial-disclosure text (deferred tax benefits, valuation-allowance releases), not a clean structured list, so a parser built to extract it would need real work, not a simple keyword scan. Not yet checked whether Alsid/Accurics each generated their own standalone 8-K.",
   "events": [
-    {"id": "tenable-1", "counterparty": "Indegy Ltd.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2020-07", "notes": "OT/industrial security"},
-    {"id": "tenable-2", "counterparty": "Cymptom Ltd.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2022-02", "notes": "$23.0M"},
-    {"id": "tenable-3", "counterparty": "Bit Discovery, Inc.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2022-06", "notes": "$43.8M, external attack surface management"},
-    {"id": "tenable-4", "counterparty": "Ermetic Ltd.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2023-09", "notes": "$240-265M reported variably in press, 10-K says $243.8M total purchase price"}
+    {"id": "tenable-1", "counterparty": "Indegy Ltd.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2020-07", "notes": "OT/industrial security, ~$78M per SecurityWeek"},
+    {"id": "tenable-2", "counterparty": "Alsid SAS", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2021-04", "notes": "Active Directory security, ~$98M; found via user's manual 10-K review, not my initial research"},
+    {"id": "tenable-3", "counterparty": "Accurics, Inc.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2021-10-01", "notes": "Cloud-native/IaC security, ~$160M; found via user's manual 10-K review, not my initial research"},
+    {"id": "tenable-4", "counterparty": "Cymptom Ltd.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2022-02", "notes": "$23.0M"},
+    {"id": "tenable-5", "counterparty": "Bit Discovery, Inc.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2022-06", "notes": "$44.5M announced/$43.8M final, external attack surface management -- confirmed to have NO standalone Item 1.01/2.01 8-K, only an earnings-8-K mention (see area notes)"},
+    {"id": "tenable-6", "counterparty": "Ermetic Ltd.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2023-10-02", "notes": "$240-265M reported variably in press, 10-K says $243.8M total purchase price"}
   ]
 }
