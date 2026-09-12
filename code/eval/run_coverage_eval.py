@@ -29,29 +29,45 @@ GOLD_DIR = Path(__file__).resolve().parents[2] / "data" / "eval_gold"
 RAW_DIR = Path(__file__).resolve().parents[2] / "data" / "eval_raw"
 
 
-def system_events_for_company(company: str, raw_paths: list[Path]) -> list[SystemEvent]:
+def system_events_for_company(company: str, raw_paths: list[Path], aliases: list[str] | None = None) -> list[SystemEvent]:
+    """
+    Run discovery for every known name the company has gone by, not just
+    its current one. A real filing from before a rebrand/restructuring
+    (Lumen was CenturyLink until 2020; Disney's holdco swapped names with
+    its own former self at closing) never mentions the CURRENT name at
+    all -- querying only that name silently produces zero events, which
+    looks identical to "the parser found nothing" even when it actually
+    would have, under the name the filing itself uses. This tries every
+    alias from the gold file's aliases_ok list as its own pivot and merges
+    results, deduping by (counterparty, event_type, status).
+    """
     combined_filings = []
     for path in raw_paths:
         data = json.loads(path.read_text())
         combined_filings.extend(data.get("filings", []))
-
     fixture = {"company": company, "cik": "", "filings": combined_filings}
     provider = EdgarMAExpansionProvider(fetch_filings_fn=lambda p: fixture)
-    pivot = HelixFact(
-        fact_type="COMPANY", value=company, identifier=None,
-        source="SEED", confidence="HIGH", status="ACCEPTED", pivot_eligible=True,
-    )
-    facts = list(provider(pivot, 1))
 
-    events = []
-    for fact in facts:
-        for ev in fact.evidence:
-            events.append(SystemEvent(
-                counterparty=fact.value,
-                event_type=ev.get("event_type", ""),
-                status=ev.get("status", ""),
-                accession=ev.get("accession", ""),
-            ))
+    seen: set[tuple[str, str, str]] = set()
+    events: list[SystemEvent] = []
+    for name in [company, *(aliases or [])]:
+        pivot = HelixFact(
+            fact_type="COMPANY", value=name, identifier=None,
+            source="SEED", confidence="HIGH", status="ACCEPTED", pivot_eligible=True,
+        )
+        facts = list(provider(pivot, 1))
+        for fact in facts:
+            for ev in fact.evidence:
+                key = (fact.value, ev.get("event_type", ""), ev.get("status", ""))
+                if key in seen:
+                    continue
+                seen.add(key)
+                events.append(SystemEvent(
+                    counterparty=fact.value,
+                    event_type=ev.get("event_type", ""),
+                    status=ev.get("status", ""),
+                    accession=ev.get("accession", ""),
+                ))
     return events
 
 
@@ -73,7 +89,7 @@ def main() -> int:
             print(f"[{company}] no raw filing data found in data/eval_raw/{stem}*.json -- skipping")
             continue
 
-        system_events = system_events_for_company(company, raw_paths)
+        system_events = system_events_for_company(company, raw_paths, gold_data.get("aliases_ok"))
         report = score_company(company, gold_events, system_events)
         reports.append(report)
 
