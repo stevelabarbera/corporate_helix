@@ -1,64 +1,41 @@
 #!/usr/bin/env python3
-"""
-General-purpose SEC EDGAR company resolution and 8-K M&A filing fetch.
-
-Network acquisition is intentionally separate from parsing so provider tests
-can inject fixture-backed filing data.
-"""
 from __future__ import annotations
-
-import json
-import re
-import urllib.request
+import json, re, urllib.request
 from html import unescape
-from typing import Any
+from typing import Any, Iterable
+from parsers.edgar_longform_locator import locate_ma_regions
 
 SEC_DATA = "https://data.sec.gov"
 SEC_ARCHIVE = "https://www.sec.gov/Archives/edgar/data"
 SEC_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
 
-_SUFFIX_RE = re.compile(
-    r"\b(corp(oration)?|inc(orporated)?|company|co|llc|l\.l\.c\.|ltd|limited|plc)\.?\s*$",
-    re.I,
-)
-
+_SUFFIX_RE = re.compile(r"\b(corp(oration)?|inc(orporated)?|company|co|llc|l\.l\.c\.|ltd|limited|plc)\.?\s*$", re.I)
 
 def identity_key(name: str) -> str:
-    """Name-comparison key only; not a canonical legal-entity identifier."""
     n = re.sub(r"[^a-z0-9 ]+", " ", (name or "").casefold())
     n = _SUFFIX_RE.sub("", n)
     return " ".join(n.split())
-
 
 def _get_json(url: str, user_agent: str) -> Any:
     req = urllib.request.Request(url, headers={"User-Agent": user_agent})
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.loads(resp.read().decode("utf-8", "replace"))
 
-
 def _get_text(url: str, user_agent: str) -> str:
-    req = urllib.request.Request(
-        url, headers={"User-Agent": user_agent, "Accept-Encoding": "identity"}
-    )
+    req = urllib.request.Request(url, headers={"User-Agent": user_agent, "Accept-Encoding": "identity"})
     with urllib.request.urlopen(req, timeout=60) as resp:
         return resp.read().decode("utf-8", "replace")
 
-
-def resolve_cik_by_name(
-    name: str, user_agent: str, *, tickers: dict | None = None
-) -> str | None:
+def resolve_cik_by_name(name: str, user_agent: str, *, tickers: dict | None = None) -> str | None:
     if tickers is None:
         tickers = _get_json(SEC_TICKERS_URL, user_agent)
-
     target = identity_key(name)
     if not target:
         return None
-
     for row in tickers.values():
         if identity_key(row.get("title", "")) == target:
             return str(row["cik_str"]).zfill(10)
     return None
-
 
 def strip_html(s: str) -> str:
     s = re.sub(r"(?is)<(script|style).*?>.*?</\1>", " ", s)
@@ -68,7 +45,6 @@ def strip_html(s: str) -> str:
     s = re.sub(r"[ \t]+", " ", s)
     s = re.sub(r"\n{3,}", "\n\n", s)
     return s.strip()
-
 
 def item_sections(text: str) -> list[dict[str, str]]:
     marker = re.compile(r"(?m)^\s*Item\s+(\d\.\d{2})\.?\s")
@@ -80,56 +56,92 @@ def item_sections(text: str) -> list[dict[str, str]]:
         sections.append({"item": m.group(1), "text": text[start:end].strip()})
     return sections
 
-
-def fetch_8k_ma_filings(
-    cik: str, user_agent: str, *, start: str = "2015-01-01", end: str = "2026-12-31"
-) -> dict[str, Any]:
-    """
-    Fetch recent 8-K/8-K-A Item 1.01/2.01 filings.
-
-    Historical limitation preserved/documented:
-    this currently reads submissions["filings"]["recent"] only. The start/end
-    arguments therefore do NOT guarantee exhaustive historical coverage for
-    prolific filers whose older submissions live in SEC history files.
-    Long-form and historical retrieval are separate follow-up work.
-    """
+def _load_submissions(cik: str, user_agent: str) -> tuple[str, dict[str, Any]]:
     cik10 = str(int(cik)).zfill(10)
-    submissions = _get_json(f"{SEC_DATA}/submissions/CIK{cik10}.json", user_agent)
-    company_name = submissions.get("name")
-    recent = submissions["filings"]["recent"]
+    return cik10, _get_json(f"{SEC_DATA}/submissions/CIK{cik10}.json", user_agent)
 
+def _document_url(cik: str, accession: str, primary_doc: str) -> str:
+    return f"{SEC_ARCHIVE}/{int(cik)}/{accession.replace('-', '')}/{primary_doc}"
+
+def _rv(recent: dict[str, Any], field: str, i: int, default=None):
+    vals = recent.get(field)
+    if not vals or i >= len(vals):
+        return default
+    return vals[i]
+
+def _collect_recent_8k_filings(cik: str, user_agent: str, submissions: dict[str, Any], *, start: str, end: str):
+    recent = submissions["filings"]["recent"]
     filings = []
-    for i, form in enumerate(recent["form"]):
+    for i, form in enumerate(recent.get("form", [])):
         if form not in ("8-K", "8-K/A"):
             continue
-        filing_date = recent["filingDate"][i]
+        filing_date = _rv(recent, "filingDate", i, "")
         if not (start <= filing_date <= end):
             continue
-        items = (recent.get("items") or [""] * len(recent["form"]))[i] or ""
+        items = _rv(recent, "items", i, "") or ""
         if not ("1.01" in items or "2.01" in items):
             continue
-
-        accession = recent["accessionNumber"][i]
-        primary_doc = recent["primaryDocument"][i]
-        accession_nodash = accession.replace("-", "")
-        doc_url = f"{SEC_ARCHIVE}/{int(cik)}/{accession_nodash}/{primary_doc}"
-
-        html = _get_text(doc_url, user_agent)
-        text = strip_html(html)
-        sections = [s for s in item_sections(text) if s["item"] in ("1.01", "2.01")]
-        if not sections:
+        accession = _rv(recent, "accessionNumber", i)
+        primary_doc = _rv(recent, "primaryDocument", i)
+        if not accession or not primary_doc:
             continue
+        doc_url = _document_url(cik, accession, primary_doc)
+        text = strip_html(_get_text(doc_url, user_agent))
+        sections = [s for s in item_sections(text) if s["item"] in ("1.01", "2.01")]
+        if sections:
+            filings.append({
+                "accession": accession, "filing_date": filing_date, "form": form, "items": items,
+                "primary_document": primary_doc, "document_url": doc_url, "sections": sections,
+            })
+    return filings
 
-        filings.append({
-            "accession": accession,
-            "filing_date": filing_date,
-            "form": form,
-            "items": items,
-            # Added in the trust/provenance hardening pass. These fields make
-            # an emitted Helix evidence record traceable back to its SEC source.
-            "primary_document": primary_doc,
-            "document_url": doc_url,
-            "sections": sections,
-        })
+def _collect_recent_longform_filings(cik: str, user_agent: str, submissions: dict[str, Any], *, forms: Iterable[str], start: str, end: str):
+    accepted = set(forms)
+    recent = submissions["filings"]["recent"]
+    filings = []
+    for i, form in enumerate(recent.get("form", [])):
+        if form not in accepted:
+            continue
+        filing_date = _rv(recent, "filingDate", i, "")
+        if not (start <= filing_date <= end):
+            continue
+        accession = _rv(recent, "accessionNumber", i)
+        primary_doc = _rv(recent, "primaryDocument", i)
+        if not accession or not primary_doc:
+            continue
+        doc_url = _document_url(cik, accession, primary_doc)
+        text = strip_html(_get_text(doc_url, user_agent))
+        regions = locate_ma_regions(text, form=form)
+        if regions:
+            filings.append({
+                "accession": accession, "filing_date": filing_date, "form": form, "items": "",
+                "primary_document": primary_doc, "document_url": doc_url,
+                "sections": regions, "longform_locator": True,
+            })
+    return filings
 
-    return {"company": company_name, "cik": cik10, "filings": filings}
+def fetch_8k_ma_filings(cik: str, user_agent: str, *, start: str = "2015-01-01", end: str = "2026-12-31") -> dict[str, Any]:
+    cik10, submissions = _load_submissions(cik, user_agent)
+    filings = _collect_recent_8k_filings(cik10, user_agent, submissions, start=start, end=end)
+    return {"company": submissions.get("name"), "cik": cik10, "filings": filings}
+
+def fetch_longform_ma_filings(
+    cik: str, user_agent: str, *,
+    forms: Iterable[str] = ("10-K", "10-K/A"),
+    start: str = "2015-01-01", end: str = "2026-12-31",
+) -> dict[str, Any]:
+    cik10, submissions = _load_submissions(cik, user_agent)
+    filings = _collect_recent_longform_filings(cik10, user_agent, submissions, forms=forms, start=start, end=end)
+    return {"company": submissions.get("name"), "cik": cik10, "filings": filings}
+
+def fetch_ma_filings(
+    cik: str, user_agent: str, *,
+    start: str = "2015-01-01", end: str = "2026-12-31",
+    longform_forms: Iterable[str] = ("10-K", "10-K/A"),
+) -> dict[str, Any]:
+    """Fetch 8-K M&A sections plus 10-K long-form locator regions from one submissions read."""
+    cik10, submissions = _load_submissions(cik, user_agent)
+    filings = _collect_recent_8k_filings(cik10, user_agent, submissions, start=start, end=end)
+    filings += _collect_recent_longform_filings(cik10, user_agent, submissions, forms=longform_forms, start=start, end=end)
+    filings.sort(key=lambda f: (f.get("filing_date") or "", f.get("accession") or ""))
+    return {"company": submissions.get("name"), "cik": cik10, "filings": filings}

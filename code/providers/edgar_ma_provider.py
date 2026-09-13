@@ -18,8 +18,12 @@ The default is now conservative:
 - a separate explicit authorize_pivot_fn must approve a candidate before it
   may recurse.
 
-This separation preserves discovery value without letting parser inference
-silently cross Helix's graph-mutation trust boundary.
+Long-form note (2026-09-13)
+---------------------------
+The live default acquisition path now includes locator-selected 10-K regions
+in addition to 8-K Item 1.01/2.01 sections. The locator only expands the text
+examined by the existing production extractor; it does not weaken the trust
+boundary or authorize recursion.
 """
 from __future__ import annotations
 
@@ -33,7 +37,7 @@ from providers.edgar_resolver import identity_key
 
 
 def _default_fetch_filings(pivot: HelixFact) -> dict[str, Any] | None:
-    from providers.edgar_resolver import fetch_8k_ma_filings, resolve_cik_by_name
+    from providers.edgar_resolver import fetch_ma_filings, resolve_cik_by_name
 
     user_agent = "CorporationHelix research contact@example.com"
     cik = pivot.identifier if (pivot.identifier or "").isdigit() else None
@@ -41,7 +45,7 @@ def _default_fetch_filings(pivot: HelixFact) -> dict[str, Any] | None:
         cik = resolve_cik_by_name(pivot.value, user_agent)
     if not cik:
         return None
-    return fetch_8k_ma_filings(cik, user_agent)
+    return fetch_ma_filings(cik, user_agent)
 
 
 def other_party(event: dict[str, Any], pivot_name: str) -> str | None:
@@ -74,9 +78,6 @@ class EdgarMAExpansionProvider:
     Default candidates remain REVIEW/MEDIUM and non-pivotable. An explicit
     authorize_pivot_fn can promote a specific event to ACCEPTED/HIGH when a
     separate deterministic/adjudication policy has enough evidence.
-
-    This callback is intentionally separate from parsing so future policy can
-    evolve without contaminating extraction logic.
     """
 
     def __init__(
@@ -137,15 +138,17 @@ class EdgarMAExpansionProvider:
                         "object": event.get("object"),
                         "pivot_name": pivot.value,
                         "extraction_rule": event.get("extraction_rule"),
-                        # Preserve the exact parser evidence fragment. Previously
-                        # this was thrown away even though infer_events created it.
                         "source_text": event.get("evidence"),
-                        # Lets an analyst re-identify the exact input section even
-                        # when the live filing is later re-fetched/reformatted.
                         "section_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
                         "parser_ensemble": ensemble,
                         "parser_org_votes": fused.get("org_votes", {}),
                         "parser_aliases": fused.get("aliases", {}),
+                        "locator_version": section.get("locator_version"),
+                        "locator_region_number": section.get("region_number"),
+                        "locator_start_char": section.get("start_char"),
+                        "locator_end_char": section.get("end_char"),
+                        "locator_terms": section.get("locator_terms"),
+                        "locator_hits": section.get("locator_hits"),
                     }
 
                     authorized = False
@@ -167,9 +170,6 @@ class EdgarMAExpansionProvider:
 
                     if key in seen:
                         seen[key].evidence.append(evidence_entry)
-                        # Never promote a candidate merely because it appeared
-                        # multiple times. Only explicit authorization may cross
-                        # the trust boundary.
                         if authorized:
                             seen[key].status = "ACCEPTED"
                             seen[key].confidence = "HIGH"
