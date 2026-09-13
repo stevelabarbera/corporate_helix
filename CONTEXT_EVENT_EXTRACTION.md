@@ -206,3 +206,18 @@ target: the 10-Q locator (highest value), the Disney voting-fusion fix,
 or expanding the gold set to more of the original ten companies (Six
 Flags, Chili's/Brinker, Paramount, Ford, Tesla, AIG, Netflix still
 untested).
+
+## EDGAR M&A trust-boundary hardening
+
+The EDGAR M&A extraction path was hardened after implementation review so that
+heuristic parser output does not automatically authorize recursive graph
+expansion, source/parser provenance survives into the evidence layer, validated
+parser behavior lives in production code rather than benchmark code, and parser
+degradation cannot occur silently.
+
+See:
+
+- `CONTEXT_EVENT_EXTRACTION_HARDENING.md`
+- `docs/DECISIONS_EDGAR_MA.md`
+
+Implementation checkpoint: `9d9c061` (`harden EDGAR M&A trust boundary and provenance`)
