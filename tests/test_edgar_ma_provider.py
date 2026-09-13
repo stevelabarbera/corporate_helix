@@ -20,6 +20,12 @@ def _pivot(name: str) -> HelixFact:
     )
 
 
+def _authorize_all(event, pivot, evidence):
+    # Test-only adjudication hook: proves the recursion mechanism still works
+    # when a separate trust policy explicitly authorizes a parser candidate.
+    return True
+
+
 def test_other_party_returns_the_non_pivot_side():
     event = {"subject": "Cisco Systems, Inc.", "object": "Splunk Inc.", "status": "COMPLETED"}
     assert other_party(event, "Cisco Systems, Inc.") == "Splunk Inc."
@@ -27,31 +33,50 @@ def test_other_party_returns_the_non_pivot_side():
 
 
 def test_other_party_returns_none_when_ambiguous():
-    # Both sides match (or neither does) -- must not guess.
     event = {"subject": "Acme Inc.", "object": "Acme Inc.", "status": "COMPLETED"}
     assert other_party(event, "Acme Inc.") is None
     event2 = {"subject": "Foo Inc.", "object": "Bar Inc.", "status": "COMPLETED"}
     assert other_party(event2, "Unrelated Corp.") is None
 
 
-def test_real_cisco_filing_discovers_splunk():
+def test_real_cisco_filing_discovers_splunk_as_review_candidate():
     data = json.loads((RAW_DIR / "edgar_cisco_events_v3831.json").read_text())
     provider = EdgarMAExpansionProvider(fetch_filings_fn=lambda p: data)
     facts = list(provider(_pivot("Cisco Systems, Inc."), 1))
-    names = {f.value for f in facts}
-    assert "Splunk Inc." in names
+
     splunk = next(f for f in facts if f.value == "Splunk Inc.")
-    assert splunk.pivot_eligible is True
     assert splunk.fact_type == "LEGAL_ENTITY"
+    assert splunk.status == "REVIEW"
+    assert splunk.confidence == "MEDIUM"
+    assert splunk.pivot_eligible is False
     assert len(splunk.evidence) >= 1
 
 
-def test_real_broadcom_filing_discovers_vmware():
+def test_real_broadcom_filing_discovers_vmware_as_review_candidate():
     data = json.loads((RAW_DIR / "edgar_broadcom_events_v3831.json").read_text())
     provider = EdgarMAExpansionProvider(fetch_filings_fn=lambda p: data)
     facts = list(provider(_pivot("Broadcom Inc."), 1))
-    names = {f.value for f in facts}
-    assert "VMware, Inc." in names
+    vmware = next(f for f in facts if f.value == "VMware, Inc.")
+    assert vmware.status == "REVIEW"
+    assert vmware.pivot_eligible is False
+
+
+def test_edgar_evidence_preserves_event_provenance():
+    data = json.loads((RAW_DIR / "edgar_cisco_events_v3831.json").read_text())
+    provider = EdgarMAExpansionProvider(fetch_filings_fn=lambda p: data)
+    facts = list(provider(_pivot("Cisco Systems, Inc."), 1))
+    splunk = next(f for f in facts if f.value == "Splunk Inc.")
+    ev = splunk.evidence[0]
+
+    assert ev["accession"]
+    assert ev["event_type"]
+    assert ev["subject"]
+    assert ev["object"]
+    assert ev["source_text"]
+    assert ev["extraction_rule"]
+    assert ev["section_sha256"]
+    assert ev["parser_ensemble"]["mode"] == "VALIDATED_3_BACKEND"
+    assert ev["trust_decision"] == "PARSER_CANDIDATE_REQUIRES_ADJUDICATION"
 
 
 def test_edgar_has_nothing_returns_empty_not_error():
@@ -60,10 +85,7 @@ def test_edgar_has_nothing_returns_empty_not_error():
     assert facts == []
 
 
-def test_two_hop_recursion_through_run_expansion():
-    # Real Cisco data for hop 1; a synthetic Splunk filing for hop 2, to prove
-    # a newly-discovered LEGAL_ENTITY fact actually re-enters the frontier and
-    # gets the same treatment, not just a one-shot lookup.
+def test_default_parser_candidate_does_not_recursively_pivot():
     real_cisco = json.loads((RAW_DIR / "edgar_cisco_events_v3831.json").read_text())
     synthetic_splunk = {
         "company": "Splunk Inc.", "cik": "9999999999",
@@ -83,9 +105,42 @@ def test_two_hop_recursion_through_run_expansion():
             return real_cisco
         if "splunk" in pivot.value.casefold():
             return synthetic_splunk
-        return None  # Acme Telemetry: not a public filer -- natural termination
+        return None
 
     provider = EdgarMAExpansionProvider(fetch_filings_fn=fixture_fetch)
+    result = run_expansion([_pivot("Cisco Systems, Inc.")], [provider], max_iterations=5)
+
+    names = {f.value for f in result.facts}
+    assert "Splunk Inc." in names
+    assert "Acme Telemetry, Inc." not in names
+
+
+def test_two_hop_recursion_requires_explicit_authorization():
+    real_cisco = json.loads((RAW_DIR / "edgar_cisco_events_v3831.json").read_text())
+    synthetic_splunk = {
+        "company": "Splunk Inc.", "cik": "9999999999",
+        "filings": [{
+            "accession": "0000000000-00-000001", "filing_date": "2019-05-01",
+            "form": "8-K", "items": "2.01",
+            "sections": [{"item": "2.01", "text": (
+                'Splunk Inc. ("Splunk") today announced that it has completed its '
+                'acquisition of Acme Telemetry, Inc. ("Acme Telemetry"), pursuant to '
+                "the previously announced Agreement and Plan of Merger."
+            )}],
+        }],
+    }
+
+    def fixture_fetch(pivot):
+        if "cisco" in pivot.value.casefold():
+            return real_cisco
+        if "splunk" in pivot.value.casefold():
+            return synthetic_splunk
+        return None
+
+    provider = EdgarMAExpansionProvider(
+        fetch_filings_fn=fixture_fetch,
+        authorize_pivot_fn=_authorize_all,
+    )
     result = run_expansion([_pivot("Cisco Systems, Inc.")], [provider], max_iterations=5)
 
     assert result.converged is True
@@ -93,11 +148,7 @@ def test_two_hop_recursion_through_run_expansion():
     assert names == {"Cisco Systems, Inc.", "Splunk Inc.", "Acme Telemetry, Inc."}
 
 
-def test_real_10k_filing_discovers_two_acquisitions_end_to_end():
-    # Full pipeline: real Tenable 10-K text -> EdgarMAExpansionProvider ->
-    # HelixFacts, proving the REGISTRANT_SELF_REFERENCE sentinel correctly
-    # resolves to the pivot in other_party(), not just that infer_events()
-    # produces the right raw event.
+def test_real_10k_filing_discovers_two_review_candidates_end_to_end():
     tenk_text = (
         'In October 2023, we acquired Ermetic Ltd. ("Ermetic"), an innovative cloud-native '
         "application protection platform company. We acquired 100% of Ermetic equity through "
@@ -107,18 +158,21 @@ def test_real_10k_filing_discovers_two_acquisitions_end_to_end():
     )
     data = {
         "company": "Tenable Holdings, Inc.", "cik": "0001660280",
-        "filings": [{"accession": "0001660280-24-000033", "filing_date": "2024-02-28", "form": "10-K",
-                     "items": "", "sections": [{"item": "NOTES", "text": tenk_text}]}],
+        "filings": [{
+            "accession": "0001660280-24-000033",
+            "filing_date": "2024-02-28",
+            "form": "10-K",
+            "items": "",
+            "sections": [{"item": "NOTES", "text": tenk_text}],
+        }],
     }
     provider = EdgarMAExpansionProvider(fetch_filings_fn=lambda p: data)
     facts = list(provider(_pivot("Tenable Holdings, Inc."), 1))
-    names = {f.value for f in facts}
-    assert names == {"Ermetic Ltd.", "Bit Discovery, Inc."}
+    assert {f.value for f in facts} == {"Ermetic Ltd.", "Bit Discovery, Inc."}
+    assert all(f.status == "REVIEW" and not f.pivot_eligible for f in facts)
 
 
 def test_recursion_terminates_when_nothing_new_found():
-    # Guard against infinite loops: if EDGAR has nothing for anyone, expansion
-    # must converge immediately, not error or hang.
     provider = EdgarMAExpansionProvider(fetch_filings_fn=lambda p: None)
     result = run_expansion([_pivot("Nobody Files Anything Inc.")], [provider], max_iterations=10)
     assert result.converged is True

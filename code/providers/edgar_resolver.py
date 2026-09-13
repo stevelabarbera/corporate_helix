@@ -2,21 +2,8 @@
 """
 General-purpose SEC EDGAR company resolution and 8-K M&A filing fetch.
 
-The existing fetch_edgar_events_v383.py's resolve_company() only recognizes
-three hardcoded companies (Broadcom, Cisco, Splunk) -- fine for building and
-testing the parser against known cases, but it means "give Helix a company
-name and find everything" was never actually possible; you could only ask
-about a company already in that dict. This replaces that with SEC's public
-company_tickers.json (the same source fetch_edgar_v4.py already uses for a
-different purpose), so any SEC-registered company can be resolved by name.
-
-Every function that hits the network is exposed separately and accepts
-injection points, so the recursive M&A expansion built on top of this
-(providers/edgar_ma_provider.py) can be tested fully offline against
-fixture data -- this sandbox has no network access to sec.gov itself, so
-that offline path is how everything here was actually verified tonight.
-A live smoke test against the real SEC API still needs to run somewhere
-with network access before this is trusted in production.
+Network acquisition is intentionally separate from parsing so provider tests
+can inject fixture-backed filing data.
 """
 from __future__ import annotations
 
@@ -37,7 +24,7 @@ _SUFFIX_RE = re.compile(
 
 
 def identity_key(name: str) -> str:
-    """Normalize a company name for identity comparison (ignores legal suffix)."""
+    """Name-comparison key only; not a canonical legal-entity identifier."""
     n = re.sub(r"[^a-z0-9 ]+", " ", (name or "").casefold())
     n = _SUFFIX_RE.sub("", n)
     return " ".join(n.split())
@@ -60,12 +47,6 @@ def _get_text(url: str, user_agent: str) -> str:
 def resolve_cik_by_name(
     name: str, user_agent: str, *, tickers: dict | None = None
 ) -> str | None:
-    """
-    Resolve a company name to a zero-padded 10-digit CIK using SEC's public
-    company_tickers.json. Returns None if no confident match is found --
-    callers should treat that as "not an SEC filer" (or a name variant we
-    couldn't match), not as an error.
-    """
     if tickers is None:
         tickers = _get_json(SEC_TICKERS_URL, user_agent)
 
@@ -90,7 +71,6 @@ def strip_html(s: str) -> str:
 
 
 def item_sections(text: str) -> list[dict[str, str]]:
-    """Split an 8-K's body text into its numbered Item sections."""
     marker = re.compile(r"(?m)^\s*Item\s+(\d\.\d{2})\.?\s")
     matches = list(marker.finditer(text))
     sections = []
@@ -105,10 +85,13 @@ def fetch_8k_ma_filings(
     cik: str, user_agent: str, *, start: str = "2015-01-01", end: str = "2026-12-31"
 ) -> dict[str, Any]:
     """
-    Fetch every 8-K/8-K-A filing for a CIK with an Item 1.01 or 2.01, and
-    return the parsed section text for each -- the same shape as the
-    data/raw/edgar_*.json fixtures already in this repo, so the same
-    downstream parsing code works on both live and fixture data.
+    Fetch recent 8-K/8-K-A Item 1.01/2.01 filings.
+
+    Historical limitation preserved/documented:
+    this currently reads submissions["filings"]["recent"] only. The start/end
+    arguments therefore do NOT guarantee exhaustive historical coverage for
+    prolific filers whose older submissions live in SEC history files.
+    Long-form and historical retrieval are separate follow-up work.
     """
     cik10 = str(int(cik)).zfill(10)
     submissions = _get_json(f"{SEC_DATA}/submissions/CIK{cik10}.json", user_agent)
@@ -142,6 +125,10 @@ def fetch_8k_ma_filings(
             "filing_date": filing_date,
             "form": form,
             "items": items,
+            # Added in the trust/provenance hardening pass. These fields make
+            # an emitted Helix evidence record traceable back to its SEC source.
+            "primary_document": primary_doc,
+            "document_url": doc_url,
             "sections": sections,
         })
 

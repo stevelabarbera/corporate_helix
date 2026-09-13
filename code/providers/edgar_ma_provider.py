@@ -1,58 +1,38 @@
 #!/usr/bin/env python3
 """
-Corporation Helix -- EDGAR M&A recursive discovery provider.
+Corporation Helix -- EDGAR M&A discovery provider.
 
-The goal (as scoped): given a company, find every merger/acquisition it has
-been part of, and for every OTHER company that surfaces, recurse -- find
-every merger/acquisition THAT company has been part of, and so on, until
-nothing new turns up.
+Trust-boundary note (2026-09-13)
+--------------------------------
+Parser inference is candidate-generation evidence, not identity-grade evidence.
 
-This plugs into the same iterative_expansion.run_expansion() engine already
-used for GLEIF-based expansion (see expansion_bridges.py) rather than being
-a second bespoke recursion loop: HelixFact objects this provider emits get
-fed straight back into run_expansion()'s frontier, so they're eligible for
-further EDGAR recursion AND for every other registered provider (a GLEIF
-identity lookup, domain attribution, etc.) without any extra wiring.
+Historically this provider converted every completed parser event directly
+into ACCEPTED/HIGH/pivot_eligible=True. Because several extraction branches
+use deliberate heuristics ("nearest prior org", "earliest org after clause"),
+a parser mistake could therefore become a recursive graph pivot and expand
+ASM scope.
 
-Why recursion naturally terminates in practice: most subsidiaries stop
-filing under their own name once fully absorbed into an acquirer (their
-financials get consolidated into the parent's reports). That's not a bug in
-this provider -- it's the real shape of SEC reporting. When EDGAR has
-nothing left to say about a company, that is exactly the "reviewed
-candidate, data unknown/minimal" state the GLEIF fallback provider
-(gleif_identity_fallback_provider.py) is meant to catch: GLEIF's
-relationship data does not require independent SEC-filer status, so it can
-often keep the ownership thread going past the point where EDGAR goes
-quiet.
+The default is now conservative:
+- completed parser events are emitted as REVIEW/MEDIUM;
+- they are NOT pivot eligible;
+- a separate explicit authorize_pivot_fn must approve a candidate before it
+  may recurse.
+
+This separation preserves discovery value without letting parser inference
+silently cross Helix's graph-mutation trust boundary.
 """
 from __future__ import annotations
 
-import importlib.util
-from pathlib import Path
+import hashlib
 from typing import Any, Callable, Iterable
 
 from iterative_expansion import HelixFact
 from expansion_bridges import LEGAL_ENTITY_FACT_TYPE, ROOT_FACT_TYPE
+from parsers.edgar_ma_extractor import EdgarMAExtractor
 from providers.edgar_resolver import identity_key
-
-_PARSER_PATH = Path(__file__).resolve().parents[1] / "benchmark_m385_merger_coref.py"
-
-
-def _load_parser_module():
-    spec = importlib.util.spec_from_file_location("m385_parser", _PARSER_PATH)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
 
 
 def _default_fetch_filings(pivot: HelixFact) -> dict[str, Any] | None:
-    """
-    Live default: resolve the pivot's name to a CIK and fetch its 8-K M&A
-    filings from SEC EDGAR. Requires network access to sec.gov, which this
-    sandbox does not have -- verified offline against fixture data instead;
-    inject fetch_filings_fn with a fixture-backed function for testing, or
-    run this default somewhere with real network access before trusting it.
-    """
     from providers.edgar_resolver import fetch_8k_ma_filings, resolve_cik_by_name
 
     user_agent = "CorporationHelix research contact@example.com"
@@ -65,19 +45,6 @@ def _default_fetch_filings(pivot: HelixFact) -> dict[str, Any] | None:
 
 
 def other_party(event: dict[str, Any], pivot_name: str) -> str | None:
-    """
-    Given a COMPLETED merger/acquisition event and the pivot's own name,
-    return whichever side of the event is NOT the pivot -- the newly
-    discovered company. Returns None if neither side matches the pivot
-    (ambiguous; skipped rather than guessed) or if both sides do (a
-    self-referential/garbled extraction).
-
-    REGISTRANT_SELF_REFERENCE is a sentinel emitted by infer_events()'s
-    10-K-style declarative-acquisition pattern ("we acquired X"), where the
-    filing text never names the acquirer explicitly -- it's always the
-    filer itself. Always resolves to the pivot, the same way "the Company"
-    resolves for 8-K-style patterns.
-    """
     if event.get("subject") == "REGISTRANT_SELF_REFERENCE":
         return event.get("object")
     if event.get("object") == "REGISTRANT_SELF_REFERENCE":
@@ -97,14 +64,19 @@ def other_party(event: dict[str, Any], pivot_name: str) -> str | None:
     return None
 
 
+AuthorizePivotFn = Callable[[dict[str, Any], HelixFact, dict[str, Any]], bool]
+
+
 class EdgarMAExpansionProvider:
     """
-    HelixFact provider: for a COMPANY or LEGAL_ENTITY pivot, fetches its 8-K
-    Item 1.01/2.01 filings, parses them with the (entity-boundary-fixed)
-    M3.8.5 ensemble, and emits a LEGAL_ENTITY fact for every OTHER company
-    involved in a COMPLETED merger/acquisition event. Those facts are
-    pivot-eligible, so they re-enter run_expansion()'s frontier and get the
-    same treatment on the next iteration.
+    Emits evidence-backed M&A counterparty candidate facts.
+
+    Default candidates remain REVIEW/MEDIUM and non-pivotable. An explicit
+    authorize_pivot_fn can promote a specific event to ACCEPTED/HIGH when a
+    separate deterministic/adjudication policy has enough evidence.
+
+    This callback is intentionally separate from parsing so future policy can
+    evolve without contaminating extraction logic.
     """
 
     def __init__(
@@ -113,39 +85,19 @@ class EdgarMAExpansionProvider:
         fetch_filings_fn: Callable[[HelixFact], dict[str, Any] | None] | None = None,
         accepted_pivot_types: Iterable[str] = (ROOT_FACT_TYPE, LEGAL_ENTITY_FACT_TYPE),
         spacy_model: str = "en_core_web_sm",
+        allow_degraded_parser: bool = False,
+        authorize_pivot_fn: AuthorizePivotFn | None = None,
     ) -> None:
         self.fetch_filings_fn = fetch_filings_fn or _default_fetch_filings
         self.accepted_pivot_types = {str(t).strip().upper() for t in accepted_pivot_types}
-        self._parser = _load_parser_module()
-        # Match the actual validated benchmark ensemble exactly (see
-        # benchmark_m385_merger_coref.py main(): weights
-        # {"regex": 0.5, "spacy": 1.0, "legal_rules": 1.25}, threshold 1.5).
-        # An earlier version of this provider used only regex + legal_rules
-        # at threshold 1.0 -- which meant any org mentioned WITHOUT a nearby
-        # alias-defining parenthetical (e.g. a later mention in an exhibit
-        # index, after the entity's already been introduced) scored only
-        # 0.5 and was silently dropped, since legal_rules requires an alias
-        # pattern to vote at all. spaCy's NER is what the real ensemble
-        # relies on to catch exactly that case. Falls back to the 2-backend
-        # version only if spaCy/the model genuinely isn't available.
-        try:
-            self._backends = [
-                self._parser.RegexBackend(),
-                self._parser.SpacyBackend(spacy_model),
-                self._parser.LegalRulesBackend(),
-            ]
-            self._weights = {"regex": 0.5, "spacy": 1.0, "legal_rules": 1.25}
-            self._threshold = 1.5
-        except Exception:
-            self._backends = [self._parser.RegexBackend(), self._parser.LegalRulesBackend()]
-            self._weights = {"regex": 0.5, "legal_rules": 1.25}
-            self._threshold = 1.0
+        self.extractor = EdgarMAExtractor(
+            spacy_model=spacy_model,
+            allow_degraded=allow_degraded_parser,
+        )
+        self.authorize_pivot_fn = authorize_pivot_fn
 
-    def _parse_filing_section(self, text: str, item: str | None) -> tuple[dict, dict]:
-        outputs = {b.name: b.parse(text) for b in self._backends}
-        fused = self._parser.fuse(outputs, self._weights, self._threshold)
-        events = self._parser.infer_events(text, fused["aliases"], fused["orgs"], item)
-        return fused, self._parser.completed_only(events)
+    def _parse_filing_section(self, text: str, item: str | None) -> dict[str, Any]:
+        return self.extractor.parse_section(text, item)
 
     def __call__(self, pivot: HelixFact, iteration: int) -> Iterable[HelixFact]:
         if pivot.fact_type.strip().upper() not in self.accepted_pivot_types:
@@ -153,16 +105,17 @@ class EdgarMAExpansionProvider:
 
         data = self.fetch_filings_fn(pivot)
         if not data or not data.get("filings"):
-            # EDGAR has nothing for this pivot -- not an error. This is the
-            # exact "reviewed candidate, minimal/unknown data" state the
-            # GLEIF fallback provider is meant to pick up.
             return []
 
         seen: dict[str, HelixFact] = {}
         for filing in data["filings"]:
             for section in filing.get("sections", []):
-                _, completed_events = self._parse_filing_section(section["text"], section.get("item"))
-                for event in completed_events:
+                text = section["text"]
+                parsed = self._parse_filing_section(text, section.get("item"))
+                fused = parsed["fused"]
+                ensemble = parsed["ensemble"]
+
+                for event in parsed["completed_events"]:
                     name = other_party(event, pivot.value)
                     if not name:
                         continue
@@ -174,14 +127,53 @@ class EdgarMAExpansionProvider:
                         "type": "EDGAR_MA_EVENT",
                         "accession": filing.get("accession"),
                         "filing_date": filing.get("filing_date"),
+                        "form": filing.get("form"),
                         "item": section.get("item"),
+                        "primary_document": filing.get("primary_document"),
+                        "document_url": filing.get("document_url"),
                         "event_type": event.get("event_type"),
                         "status": event.get("status"),
+                        "subject": event.get("subject"),
+                        "object": event.get("object"),
                         "pivot_name": pivot.value,
+                        "extraction_rule": event.get("extraction_rule"),
+                        # Preserve the exact parser evidence fragment. Previously
+                        # this was thrown away even though infer_events created it.
+                        "source_text": event.get("evidence"),
+                        # Lets an analyst re-identify the exact input section even
+                        # when the live filing is later re-fetched/reformatted.
+                        "section_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+                        "parser_ensemble": ensemble,
+                        "parser_org_votes": fused.get("org_votes", {}),
+                        "parser_aliases": fused.get("aliases", {}),
                     }
+
+                    authorized = False
+                    if self.authorize_pivot_fn is not None:
+                        authorized = bool(self.authorize_pivot_fn(event, pivot, evidence_entry))
+
+                    if authorized:
+                        fact_status = "ACCEPTED"
+                        confidence = "HIGH"
+                        pivot_eligible = True
+                        trust_decision = "EXPLICIT_PIVOT_AUTHORIZATION"
+                    else:
+                        fact_status = "REVIEW"
+                        confidence = "MEDIUM"
+                        pivot_eligible = False
+                        trust_decision = "PARSER_CANDIDATE_REQUIRES_ADJUDICATION"
+
+                    evidence_entry["trust_decision"] = trust_decision
 
                     if key in seen:
                         seen[key].evidence.append(evidence_entry)
+                        # Never promote a candidate merely because it appeared
+                        # multiple times. Only explicit authorization may cross
+                        # the trust boundary.
+                        if authorized:
+                            seen[key].status = "ACCEPTED"
+                            seen[key].confidence = "HIGH"
+                            seen[key].pivot_eligible = True
                         continue
 
                     seen[key] = HelixFact(
@@ -189,13 +181,14 @@ class EdgarMAExpansionProvider:
                         value=name,
                         identifier=None,
                         source="EDGAR_MA",
-                        confidence="HIGH",
-                        status="ACCEPTED",
-                        pivot_eligible=True,
+                        confidence=confidence,
+                        status=fact_status,
+                        pivot_eligible=pivot_eligible,
                         evidence=[evidence_entry],
                         metadata={
                             "discovered_via": "EDGAR_MA_EXPANSION",
                             "discovered_from": pivot.value,
+                            "trust_boundary": trust_decision,
                         },
                     )
 
