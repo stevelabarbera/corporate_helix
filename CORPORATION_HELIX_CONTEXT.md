@@ -2881,475 +2881,333 @@ Current durable resume rule:
 > corroboration controls what becomes accepted graph state and what is allowed
 > to recurse.**
 
+---
 
-------------------------------------------------------------------------
+# 34. EDGAR M&A SATURATION / GENERALIZATION STUDY — ACTIVE
 
-# 34. SESSION UPDATE --- 2026-09-09
+## 34.1 Experimental question
 
-## 34.1 NTT stress test validated the architecture and exposed attribution noise
+Can Helix achieve extremely high M&A recall with minimal false positives by
+learning a practical, bounded vocabulary of public-company M&A disclosure?
 
-A second large benchmark was deliberately run against **NTT** rather than
-continuing to tune only against Sony.
+Measure whether the marginal number of **new disclosure primitives** and **new
+parser failure classes** trends toward zero as issuer diversity increases.
+Flattening is empirical evidence of a practical ceiling, not proof that no
+unseen disclosure form exists.
 
-Root resolution from the company string `NTT` succeeded without an operator
-supplied LEI:
+## 34.2 Frozen-baseline rule
 
-```text
-Root query        : NTT
-Root LEI          : 353800VHQU5VIXVUA841
-Root source       : M4.3D_ROOT_RESOLVER
-Root legal name   : ＮＴＴ株式会社
-```
+Before tuning, freeze current SEC retrieval, long-form locator, entity
+recognition/fusion, event grammar, trust/adjudication, and recursion behavior.
 
-The zero-knowledge iterative domain run remained structurally healthy:
+**A miss is data. Record and classify it before fixing anything.**
 
-```text
-Legal entities    : 130
-Domain facts      : 509
-Accepted domains  : 27
-Review domains    : 482
-Rejected domains  : 0
-Search errors     : 0
-Iterations run    : 3
-Converged         : True
-Stop reason       : NO_NEW_TRUSTED_PIVOTS
-```
+Do not add company-specific rules to make benchmark companies green. Later
+changes must address generalized failure classes and be followed by a rerun of
+the accumulated cohort.
 
-This was useful precisely because NTT is a less friendly benchmark than Sony:
-a large corporate family, repeated/shared branding, similarly named entities,
-shared corporate web properties, and many third-party pages mentioning exact
-legal names.
+## 34.3 Initial ordered 12-company probe
 
-The run exposed a precision problem in the `OFFICIAL_WEBSITE` path. An exact
-legal-name occurrence on a page, even when combined with a nearby generic legal
-or copyright marker, is not sufficient proof that the target legal entity
-operates the site. Third-party pages such as Wikipedia/business directories can
-contain the target legal name while also containing their own copyright/legal
-language.
-
-The important conclusion is not that iterative expansion failed. Root
-resolution, GLEIF expansion, search, REVIEW containment, convergence, and error
-handling all remained healthy. The weakness was localized to infrastructure
-attribution precision.
-
-Preserve this NTT run as **NTT Attribution Baseline #1**.
-
-## 34.2 Official-site precision work
-
-M4.3B official-site precision v2 introduced a distinction between:
+Preserve this order because first-discovery order is part of saturation
+measurement:
 
 ```text
-exact_legal_name_match
+ 1 Tenable Holdings, Inc.               software/security
+ 2 Lumen Technologies, Inc.             telecommunications
+ 3 The Walt Disney Company              media
+ 4 Caterpillar Inc.                     industrial
+ 5 American International Group, Inc.   insurance
+ 6 Trump Entertainment Resorts, Inc.    casino/hospitality
+ 7 Six Flags Entertainment Corporation  leisure/theme parks
+ 8 Service Corporation International    death care
+ 9 Intuitive Machines, Inc.             space
+10 Northrop Grumman Corporation          aerospace/defense
+11 The Kraft Heinz Company               food
+12 Tyson Foods, Inc.                     food
 ```
 
-and the stronger:
+Twelve is a probe, not a stopping rule. High novelty means expand. Apparent
+flattening means add deliberately diverse challenge issuers.
+
+## 34.4 Per-company scorecard
 
 ```text
-official_declaration_match
+CIK resolved?
+ -> correct filings retrieved?
+ -> relevant M&A text present?
+ -> locator captured passage?
+ -> entity recognized/fused?
+ -> event grammar recognized?
+ -> candidate emitted?
+ -> false positive / false negative outcome
 ```
 
-The v2 isolated verifier suite validated:
+Track both cumulative/marginal disclosure-primitive novelty and
+cumulative/marginal failure-class novelty. Labels must describe reusable
+mechanisms, never company-specific misses.
+
+## 34.5 Success architecture
+
+The goal is not complete semantic understanding of every sentence in a 10-K.
+The goal is an extremely high probability that a real M&A event survives the
+pipeline while weak candidates do not become graph truth:
 
 ```text
-PASS test_third_party_exact_name_is_not_official
-PASS test_registered_office_declaration_is_official
-PASS test_copyright_footer_declaration_is_official
-PASS test_legal_path_alone_is_not_enough
-PASS test_domain_discovery_does_not_promote_plain_exact_name
-PASS test_domain_discovery_promotes_qualified_declaration
-
-6 passed / 0 failed
+DISCOVERY (favor recall)
+        ↓
+candidate transaction
+        ↓
+ADJUDICATION (favor precision)
+        ↓
+trusted Helix fact
 ```
 
-However, the subsequent NTT run still produced 27 AUTO/HIGH domains. This
-showed that generic marker proximity is itself too permissive. A third-party
-page can mention the target entity and have its own legal/footer language near
-that mention.
+False negatives are especially costly for ASM because a missed acquired entity
+can represent an entire missed attack surface. Final production targets must be
+supported by baseline, remediation reruns, expanded saturation testing, and an
+unseen holdout rather than chosen from intuition.
 
-A v3 experiment tightened the concept further toward a legal name being
-syntactically bound to a self-identification declaration, e.g.:
+## 34.6 Relationship to M3.9
+
+Do not replace M3.9. M3.9 asks the broader source-yield question: what useful
+corporate/legal/transactional information is consistently available and where?
+This study asks whether the current EDGAR pipeline reliably retrieves and
+extracts the M&A subset across issuers and filing styles. Reuse existing M3.9
+artifacts where useful.
+
+---
+
+# 35. EDGAR M&A SESSION ROADMAP
+
+Use one completed milestone per working session. Every session ends with:
+milestone status, commit/checkpoint, tests, evidence/results, decisions, known
+failures, explicit next milestone, and its acceptance condition.
+
+## M&A-S0 — Freeze measurement infrastructure — CURRENT SESSION
+
+Install and validate the additive saturation-study scaffolding without changing
+production parser/provider/locator/trust behavior.
+
+Expected files:
 
 ```text
-Copyright 2026 TARGET LEGAL ENTITY
-This website is operated by TARGET LEGAL ENTITY
-TARGET LEGAL ENTITY registered office ...
+code/eval/run_ma_saturation.py
+data/eval_study/ma_saturation_pilot_v1.json
+data/eval_study/result_template.json
+tests/test_ma_saturation.py
+docs/MA_SATURATION_BASELINE.md
 ```
 
-rather than merely finding the target name and unrelated copyright/legal text
-on the same page.
-
-Do not continue turning the HTML verifier into the entire attribution engine.
-The NTT experiment led to the more important architecture decision below.
-
-## 34.3 Formal Helix / ASM architectural boundary
-
-The project now adopts this as a formal architectural rule:
-
-> **Helix may consume and reason over infrastructure telemetry at arbitrary
-> depth, but it does not duplicate the infrastructure collection capabilities
-> of an ASM platform. Limited collection is permitted only for zero-knowledge
-> bootstrap necessary to establish initial ASM seeds.**
-
-This separates **evidence acquisition** from **evidence interpretation**.
-
-Helix owns:
+Acceptance:
 
 ```text
-corporate identity
-corporate relationships / lineage / M&A context
-evidence normalization
-evidence correlation
-infrastructure attribution policy
-AUTO / REVIEW / REJECT decisions
-evidence-gap reporting
-advisory analyst reasoning
+git diff --check
+python3 -m pytest tests/test_ma_saturation.py
+python3 -m pytest tests/
+python3 code/eval/run_ma_saturation.py
 ```
 
-ASM/customer systems own infrastructure collection such as:
+The final command should initially show the declared companies as `MISSING`.
+That is expected. Commit before collecting/tuning baseline results.
+
+Suggested commit: `eval: add frozen M&A saturation study`
+
+## M&A-S1 — Frozen baseline acquisition
+
+Run the declared cohort against the frozen system. Gather raw filings, gold
+events, stage evidence, candidates, false positives, and false negatives.
+**Do not tune the parser.**
+
+Acceptance: every attempted company has a durable baseline record and every
+known gold event is assigned the deepest pipeline stage supported by evidence.
+
+## M&A-S2 — Primitive/failure classification + first curves
+
+Normalize observations into reusable disclosure primitives and failure classes.
+Produce ordered marginal/cumulative novelty results. No remediation yet.
+
+Acceptance: first primitive and failure accumulation curves exist and labels
+are generalized.
+
+## M&A-S3+ — Generalized remediation
+
+Fix failure **classes**, not benchmark companies. Prefer one generalized
+failure family per session. Add tests, run focused + maintained suite, rerun
+the accumulated benchmark, and record false-negative/false-positive effects.
+
+## M&A-S4 — Expanded saturation challenge
+
+Continue beyond 12 when the novelty curve requires it. Challenge any apparent
+plateau with deliberately diverse issuers.
+
+## M&A-S5 — Unseen holdout validation
+
+Freeze the remediated system and evaluate companies/events that played no role
+in parser development or primitive discovery. Do not tune on holdout.
+
+Report recall, precision/false positives, false-negative count/classes,
+confidence intervals where appropriate, and unsupported territory.
+
+## M&A-S6 — Production-readiness decision
+
+Document supported filing/event scope, measured recall/precision, known gaps,
+trust/adjudication behavior, and a go / limited-go / no-go decision.
+
+---
+
+# 36. START HERE NEXT SESSION — EDGAR M&A
+
+Read Sections **34–36** first.
+
+If M&A-S0 is green and committed, begin only:
+
+> **M&A-S1 — Frozen baseline acquisition**
+
+Rules:
 
 ```text
-subdomain enumeration
-IP discovery / scanning
-CIDR / ASN collection
-certificate / CT collection
-DNS collection
-HTTP fingerprinting
-port / service discovery
-screenshots / technologies
-other infrastructure telemetry
+do not tune parser rules
+do not add company-specific exceptions
+preserve raw filing/provenance evidence
+record deepest failing pipeline stage
+record false negatives explicitly
+record false positives explicitly
+preserve declared cohort order
 ```
 
-Helix should be capable of consuming all of that telemetry when supplied.
+M&A-S1 is measurement, not improvement. If M&A-S0 is not yet green/committed,
+finish M&A-S0 first and stop.
 
-The existence of an evidence interpreter in Helix does **not** imply that Helix
-must contain a collector for that evidence.
+---
 
-Examples:
+# 37. PARALLEL WORKSTREAM TRACKS AND DEPENDENCY RULES
+
+The project is long-lived, but individual working conversations should remain
+disposable. Durable project state belongs in this repository and in this
+canonical handoff file. A normal working session should complete one bounded
+milestone, then end with implementation, tests, commit/checkpoint, durable
+handoff, and an explicit next milestone.
+
+Use the following first-class workstream codes when planning milestones:
+
+| Code | Track | Purpose |
+|---|---|---|
+| **R** | Research / Validation | Experiments, source-yield measurement, saturation, holdout evaluation |
+| **C** | Corporate Intelligence | GLEIF, EDGAR, M&A, aliases, subsidiaries, corporate relationships |
+| **I** | Infrastructure Evidence | RDAP/WHOIS, ASN/IP, TLS, DNS, supplied ASM evidence normalization |
+| **A** | Attribution / Trust | AUTO/REVIEW/REJECT policy, corroboration, contradictions, confidence |
+| **O** | Operator / Product | `helix_company`, analyst/operator workflows, ASM handoff and review UX |
+| **F** | Foundation | Canonical models, provenance, identity/dedupe, regression infrastructure |
+
+Recommended milestone naming examples:
 
 ```text
-Helix understands ASN ownership evidence       YES
-Helix must enumerate ASN/CIDR space             NO
+R-MA-1    Frozen M&A baseline
+R-MA-2    Primitive/failure saturation
+R-MA-3    Expanded challenge cohort
+R-MA-4    Unseen holdout validation
 
-Helix understands certificate evidence          YES
-Helix must mine certificate transparency        NO
+C-EDGAR-1 Long-form retrieval
+C-GLEIF-1 Relationship expansion
+C-MA-1    Generalized M&A extraction
 
-Helix understands WHOIS/RDAP evidence           YES
-Lightweight RDAP during bootstrap               PERMITTED
-Full infrastructure enumeration                 NO
+I-RDAP-1  RDAP/WHOIS normalization polish
+I-ASN-1   ASN/IP evidence polish
+I-TLS-1   Certificate evidence polish
+I-ASM-1   Generic ASM evidence mapping
+
+A-DOM-1   Domain attribution policy
+A-INFRA-1 Cross-evidence corroboration
+A-CONF-1  Confidence/trust semantics
+
+O-CLI-1   helix_company operator workflow
+O-ASM-1   Customer ASM evidence ingestion
+
+F-ID-1    Identity/deduplication cleanup
+F-PROV-1  Provenance guarantees
+F-TEST-1  Regression infrastructure
 ```
 
-This prevents Corporation Helix from accidentally becoming another ASM scanner.
-
-## 34.4 Bootstrap exception
-
-Zero-knowledge operation still requires enough infrastructure discovery to
-bridge:
+Use these status flags in the roadmap/dashboard:
 
 ```text
-company
-  -> corporate graph
-  -> credible initial infrastructure seed(s)
-  -> ASM
+READY    may be worked now
+ACTIVE   currently being worked
+BLOCKED  depends on another milestone
+FROZEN   must not change because an active experiment is measuring it
 ```
 
-Therefore limited bootstrap discovery remains in scope. Search, lightweight
-RDAP/WHOIS checks, and official/legal/privacy-site verification may be used when
-necessary to establish initial seeds.
+## 37.1 Parallel-work rule
 
-Once ASM/customer telemetry is available, Helix should consume that evidence
-rather than recreate the downstream collection system.
+At most two implementation tracks should normally be active at once:
 
-## 34.5 Evidence efficacy waterfall
+> **One primary uncertain/research track + one bounded deterministic engineering track.**
 
-For a candidate domain, the current preferred evidence order is conceptually:
+Parallel work is safe when:
+
+1. the primary track is research/discovery-heavy;
+2. the second track is bounded and independently testable;
+3. the tracks do not alter each other's frozen assumptions;
+4. each track still uses session-sized milestones; and
+5. both tracks preserve the same canonical evidence/trust contracts.
+
+Hard boundary:
+
+> **Never have two tasks that silently mutate the same experimental surface.**
+
+For example, while an EDGAR M&A baseline is frozen, infrastructure-evidence
+polish may continue because it does not change EDGAR retrieval, extraction,
+entity-fusion, or acquisition grammar. Do not change those M&A behaviors while
+the baseline is being measured.
+
+## 37.2 Current track dashboard
 
 ```text
-1. RDAP / WHOIS
-2. IP / ASN / netblock ownership
-3. TLS certificate evidence
-4. HTTP legal / privacy / copyright / operator declarations
+R — RESEARCH / VALIDATION
+  R-MA-1   Frozen M&A baseline                 ACTIVE
+  R-MA-2   Primitive/failure saturation       BLOCKED: R-MA-1
+  R-MA-3   Expanded challenge cohort          BLOCKED: R-MA-2
+  R-MA-4   Unseen holdout                     BLOCKED
+
+C — CORPORATE INTELLIGENCE
+  C-EDGAR  M&A extraction behavior            FROZEN: R-MA-1
+  C-GLEIF  Structured relationships           READY
+
+I — INFRASTRUCTURE EVIDENCE
+  I-RDAP-1 RDAP/WHOIS polish                  READY
+  I-ASN-1  ASN/IP evidence polish             READY
+  I-TLS-1  Certificate evidence polish        READY
+  I-ASM-1  Generic ASM mapping                READY
+
+A — ATTRIBUTION / TRUST
+  A-DOM-1   Domain attribution policy         READY
+  A-INFRA-1 Evidence corroboration            READY
+
+O — OPERATOR / PRODUCT
+  O-CLI-1   helix_company workflow            READY
+
+F — FOUNDATION
+  F-ID-1    Identity enrichment/dedupe         READY*
 ```
 
-This is an **attribution-efficacy ordering**, not a requirement that Helix fetch
-all four itself.
+`READY*` means the work is not directly blocked, but it is a shared foundation
+change and dependencies must be checked before editing because it can affect
+multiple tracks.
 
-Interpretation examples:
+## 37.3 M&A session-to-track mapping
 
 ```text
-RDAP registrant exact corporate match      useful positive evidence
-RDAP redacted / privacy proxy / MarkMonitor inconclusive
-company-owned ASN/netblock                  useful corroboration
-AWS/Azure/Cloudflare/Akamai ASN             generally inconclusive for ownership
-certificate organization identity           useful evidence
-DV certificate                              little ownership evidence
-privacy controller / legal operator         useful evidence
-third-party page mentioning legal name      not ownership evidence
+M&A-S0  -> R-MA-1 setup: freeze measurement infrastructure
+M&A-S1  -> R-MA-1 execution: frozen baseline acquisition
+M&A-S2  -> R-MA-2: primitive/failure classification and first curves
+M&A-S3+ -> C-MA-1 remediation after the measured baseline is classified/unfrozen
+M&A-S4  -> R-MA-3: expanded saturation challenge
+M&A-S5  -> R-MA-4: unseen holdout validation
+M&A-S6  -> production-readiness decision across R/C/A/O scope
 ```
 
-Negative/conflicting evidence must remain distinct from missing evidence.
-
-## 34.6 M4.3E — Evidence Contract + Evidence Gaps
-
-M4.3E was started and its first independent layer is now implemented.
-
-New file:
-
-```text
-code/evidence_contract.py
-```
-
-New validation:
-
-```text
-tests/test_evidence_contract.py
-```
-
-Architecture note:
-
-```text
-M43E_EVIDENCE_CONTRACT.md
-```
-
-The new vendor-neutral contract introduces:
-
-```text
-InfrastructureObservation
-EvidenceCapability
-EvidenceAvailability
-EvidenceGap
-```
-
-Initial `EvidenceCapability` vocabulary:
-
-```text
-RDAP_WHOIS
-IP_ASN_OWNERSHIP
-TLS_CERTIFICATE
-DNS
-HTTP_LEGAL_PRIVACY
-CUSTOMER_ASSERTION
-```
-
-Availability states:
-
-```text
-PROVIDED
-MISSING
-INCONCLUSIVE
-CONTRADICTORY
-```
-
-This distinction is intentional:
-
-```text
-MISSING
-"We were not given this evidence."
-
-INCONCLUSIVE
-"We were given it, but it does not establish ownership."
-
-CONTRADICTORY
-"We were given evidence that conflicts with the proposed attribution."
-```
-
-`EvidenceGap` identifies evidence that would materially help resolve an
-unsettled attribution and provides an ordered request for the missing
-capability.
-
-Example conceptual output:
-
-```text
-Candidate: example.com
-Disposition: REVIEW
-
-RDAP/WHOIS       INCONCLUSIVE — privacy/redacted
-IP/ASN           MISSING
-TLS certificate  MISSING
-HTTP legal       MISSING
-
-Evidence gaps:
-  1. Provide IP + ASN/netblock ownership evidence.
-  2. Provide TLS certificate organization/SAN/history evidence.
-  3. Provide legal/privacy/operator evidence.
-```
-
-Contradictory evidence is deliberately **not** reported as merely missing; it
-must be handled by attribution policy.
-
-M4.3E independent validation completed successfully:
-
-```text
-PASS test_no_observations_requests_waterfall
-PASS test_provided_capability_is_not_gap
-PASS test_redacted_whois_is_inconclusive_gap
-PASS test_cloud_asn_can_be_inconclusive
-PASS test_contradiction_not_called_missing
-PASS test_vendor_neutral_mapping
-
-6 passed / 0 failed
-```
-
-## 34.7 Evidence requests are not truth
-
-Preserve this trust rule:
-
-> **An evidence request is not evidence. An LLM suggestion is not evidence.
-> Neither may become a recursive pivot.**
-
-Only observations that pass deterministic attribution policy may create trusted
-facts/pivots.
-
-This extends the existing project principle:
-
-```text
-discovered fact != accepted fact != expansion pivot
-```
-
-and:
-
-> **Helix recursively expands accepted knowledge, not guesses.**
-
-## 34.8 LLM analyst remains advisory
-
-The NTT zero-knowledge benchmark described above did **not** use the LLM
-analyst. It is therefore a clean deterministic baseline.
-
-The existing LLM analyst remains outside the trust boundary:
-
-```text
-Helix REVIEW / evidence gaps
-        ->
-LLM analyst
-        ->
-PROPOSE_ALIAS / PROPOSE_BRAND / PROPOSE_DOMAIN /
-PROPOSE_SEARCH / PROPOSE_ENTITY
-        ->
-pivot_eligible = False
-```
-
-The future high-value role for the LLM is to reason about unresolved evidence
-gaps and suggest what should be investigated next, not to convert a hypothesis
-into accepted attribution.
-
-Longer-term comparison:
-
-```text
-Baseline 1  deterministic zero knowledge
-Baseline 2  deterministic + supplied ASM evidence
-Baseline 3  deterministic + ASM evidence + advisory LLM analyst
-```
-
-The desired result is greater coverage/depth without increasing false AUTO
-attribution.
-
-## 34.9 NTT Attribution Benchmark #2 — future checkpoint
-
-Do not repeatedly tune against NTT immediately. Preserve today's run and return
-to it after the evidence-ingestion architecture is connected.
-
-Progressive benchmark:
-
-```text
-A  Helix zero-knowledge bootstrap only
-B  + supplied WHOIS/RDAP evidence
-C  + supplied IP/ASN ownership
-D  + supplied certificate evidence
-E  + supplied HTTP/legal/privacy evidence
-F  + advisory LLM analyst
-```
-
-Track at minimum:
-
-```text
-correct AUTO
-false AUTO
-REVIEW count
-REJECT count
-corporate/entity coverage
-evidence gaps resolved
-false recursive pivots
-```
-
-Sony remains a useful smaller positive-control benchmark. NTT is the larger
-stress/torture benchmark.
-
-## 34.10 Next implementation step
-
-M4.3E phase 1 is independently green.
-
-Next:
-
-```text
-supplied ASM/customer observations
-        ->
-InfrastructureObservation
-        ->
-bridge / normalize into DomainEvidence
-        ->
-existing M4.3B deterministic attribution policy
-        ->
-DomainCandidate
-        ->
-AUTO / REVIEW / REJECT
-        ->
-attach EvidenceGap[] to unresolved REVIEW candidates
-```
-
-Do this before adding new infrastructure collectors.
-
-After the generic bridge is stable, vendor-specific/customer-specific adapters
-can map their native schemas into the common observation contract without
-changing Helix attribution semantics.
-
-## 34.11 Revised near-term feature order
-
-```text
-1. M4.3E phase 2
-   InfrastructureObservation -> DomainEvidence bridge
-   EvidenceGap integration into REVIEW candidates
-
-2. Generic ASM/customer evidence ingestion adapter
-   Vendor-neutral first; vendor-specific adapters later
-
-3. Multi-evidence attribution policy hardening
-   Deterministic composition of supplied WHOIS/RDAP, ASN, cert,
-   legal/privacy and contradiction evidence
-
-4. Legal/privacy evidence extraction refinement
-   One evidence provider, not the whole attribution engine
-
-5. Corporate aliases / brands / historical identities
-
-6. M&A / corporate event / temporal intelligence
-
-7. LLM analyst over unresolved evidence gaps
-   Advisory only; never direct truth/pivot authority
-
-8. Model/provider abstraction and escalation (future M4.4)
-
-9. NTT Attribution Benchmark #2
-
-10. Production API / persistent customer workflow / review UX
-```
-
-## 34.12 End-of-day state
-
-The September 9 work should be considered productive architectural hardening,
-not a detour.
-
-Validated today:
-
-```text
-NTT root resolution / large-family expansion       healthy
-iterative convergence                              healthy
-search error handling                              healthy
-REVIEW containment                                 healthy
-official-site attribution precision                identified as weak boundary
-Helix-vs-ASM responsibility boundary               formalized
-M4.3E evidence contract                            IMPLEMENTED
-M4.3E evidence-gap model                           IMPLEMENTED
-M4.3E tests                                        6 / 6 PASS
-```
-
-The project should resume from **M4.3E phase 2**, not from additional scanner
-development or further NTT-specific tuning.
+Current rule at this checkpoint:
+
+> **R-MA remains the primary track. C-EDGAR/C-MA behavior is frozen while the
+> baseline is being measured. A bounded Infrastructure Evidence milestone may
+> run in parallel because it does not mutate the M&A experimental surface.**
