@@ -1,0 +1,19 @@
+{
+  "company_id": "tenable",
+  "company": "Tenable Holdings, Inc.",
+  "baseline_commit": "",
+  "run_timestamp": "",
+  "pipeline": {
+    "cik_resolved": null,
+    "filings_retrieved": null,
+    "relevant_text_present": null,
+    "locator_captured": null,
+    "entity_recognized": null,
+    "event_extracted": null,
+    "candidate_emitted": null
+  },
+  "gold_events": [],
+  "observed_primitives": [],
+  "failure_classes": [],
+  "notes": "Populate after frozen run. Labels must be generalizable, never company-specific."
+}

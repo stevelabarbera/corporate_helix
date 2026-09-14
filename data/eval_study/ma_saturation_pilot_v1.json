@@ -1,0 +1,87 @@
+{
+  "study_id": "M39_MA_SATURATION_PILOT_V1",
+  "purpose": "Frozen-baseline M&A extraction study: coverage plus marginal primitive/failure novelty.",
+  "baseline_rule": "No parser/provider/locator/trust/recursion tuning during baseline.",
+  "ordering_rule": "Preserve declared order.",
+  "companies": [
+    {
+      "order": 1,
+      "id": "tenable",
+      "company": "Tenable Holdings, Inc.",
+      "sector": "software/security"
+    },
+    {
+      "order": 2,
+      "id": "lumen",
+      "company": "Lumen Technologies, Inc.",
+      "sector": "telecommunications",
+      "aliases": [
+        "CenturyLink, Inc."
+      ]
+    },
+    {
+      "order": 3,
+      "id": "disney",
+      "company": "The Walt Disney Company",
+      "sector": "media"
+    },
+    {
+      "order": 4,
+      "id": "caterpillar",
+      "company": "Caterpillar Inc.",
+      "sector": "industrial"
+    },
+    {
+      "order": 5,
+      "id": "aig",
+      "company": "American International Group, Inc.",
+      "sector": "insurance",
+      "aliases": [
+        "AIG"
+      ]
+    },
+    {
+      "order": 6,
+      "id": "trump_entertainment",
+      "company": "Trump Entertainment Resorts, Inc.",
+      "sector": "casino/hospitality",
+      "cik": "0000943320"
+    },
+    {
+      "order": 7,
+      "id": "six_flags",
+      "company": "Six Flags Entertainment Corporation",
+      "sector": "leisure/theme parks"
+    },
+    {
+      "order": 8,
+      "id": "sci",
+      "company": "Service Corporation International",
+      "sector": "death care"
+    },
+    {
+      "order": 9,
+      "id": "intuitive_machines",
+      "company": "Intuitive Machines, Inc.",
+      "sector": "space"
+    },
+    {
+      "order": 10,
+      "id": "northrop_grumman",
+      "company": "Northrop Grumman Corporation",
+      "sector": "aerospace/defense"
+    },
+    {
+      "order": 11,
+      "id": "kraft_heinz",
+      "company": "The Kraft Heinz Company",
+      "sector": "food"
+    },
+    {
+      "order": 12,
+      "id": "tyson",
+      "company": "Tyson Foods, Inc.",
+      "sector": "food"
+    }
+  ]
+}
