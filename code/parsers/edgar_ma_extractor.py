@@ -26,7 +26,7 @@ def norm(s):
     return re.sub(r"\s+", " ", s).strip(" ,;")
 
 
-CORP = r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|Ltd\.?|Limited|PLC|plc|Company)"
+CORP = r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|L\.P\.|LP|Ltd\.?|Limited|PLC|plc|Company)"
 _WORD = r"(?:[A-Z][A-Za-z0-9&.'’-]*|[0-9][A-Za-z0-9&.'’-]*)"
 _CONNECTOR = r"(?:of|and|the|for)"
 ENT = re.compile(

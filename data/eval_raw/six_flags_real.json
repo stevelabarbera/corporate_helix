@@ -1,0 +1,19 @@
+{
+  "company": "Six Flags Entertainment Corporation",
+  "cik": "0000701374",
+  "note": "Only the Item 1.01 announcement 8-K is included here. The closing/completion language for this deal was found bundled into an Item 5.02 8-K (CIK 1999001, accession 0001193125-24-176370, filed 2024-07-08) rather than a standalone Item 2.01 filing -- that filing is deliberately excluded from this fixture because the live fetch_8k_ma_filings() item filter (1.01/2.01 only) would never retrieve it in real operation, and the eval harness must only contain text the live system could actually reach. See CONTEXT_EVENT_EXTRACTION_SIX_FLAGS.md for the full writeup.",
+  "filings": [
+    {
+      "accession": "0001193125-23-268712",
+      "filing_date": "2023-11-02",
+      "form": "8-K",
+      "items": "1.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "text": "Item 1.01 Entry into a Material Definitive Agreement.\n\nOn November 2, 2023, Six Flags Entertainment Corporation, a Delaware corporation (\u201cSix Flags\u201d), Cedar Fair, L.P., a Delaware limited partnership (\u201cCedar Fair\u201d), CopperSteel HoldCo, Inc., a Delaware corporation and subsidiary of Cedar Fair and Six Flags (\u201cHoldco\u201d), and CopperSteel Merger Sub, LLC, a Delaware limited liability company and wholly owned subsidiary of Holdco (\u201cCopper Merger Sub\u201d) entered into an Agreement and Plan of Merger (the \u201cMerger Agreement\u201d). Capitalized terms used herein but not otherwise defined have the meaning set forth in the Merger Agreement.\n\nThe Merger Agreement provides that, among other things, upon the terms and subject to the conditions set forth in the Merger Agreement, (i) Copper Merger Sub will merge with and into Cedar Fair (the \u201cCedar Fair First Merger\u201d), with Cedar Fair continuing as the surviving entity and a wholly owned Subsidiary of HoldCo (the \u201cCedar Fair Surviving Entity\u201d), (ii) Cedar Fair Surviving Entity will merge with and into HoldCo (the \u201cCedar Fair Second Merger\u201d, together with the Cedar Fair First Merger, the \u201cCedar Fair Mergers\u201d), with HoldCo continuing as the surviving corporation, and (iii) Six Flags will merge with and into HoldCo with HoldCo continuing as the surviving corporation, (the \u201cSix Flags Merger,\u201d together with the Cedar Fair Mergers, the \u201cMergers\u201d).\n\nFollowing the Closing Effective Time, the holders of Cedar Fair limited partnership interest units will own approximately 51.2% of the outstanding shares of HoldCo Common Stock and the holders of Six Flags common stock will own approximately 48.8% of the outstanding shares of HoldCo Common Stock.\n\nHoldCo Common Stock will be listed on NYSE (or other applicable exchange), under the ticker symbol \u201cFUN\u201d and with the name \u201cSix Flags Entertainment Corporation.\u201d The headquarters of the post-closing combined company will be located in Charlotte, North Carolina.\n\nThe parties anticipate the Mergers will be consummated in the first half 2024, subject to the conditions set forth in the Merger Agreement, including, without limitation, the receipt of the Six Flags Stockholder Approval and required regulatory approvals."
+        }
+      ]
+    }
+  ]
+}
