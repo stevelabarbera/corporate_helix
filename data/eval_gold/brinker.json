@@ -1,0 +1,16 @@
+{
+  "company": "Brinker International, Inc.",
+  "aliases_ok": ["Brinker"],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "A general web search for 'Chili's Brinker International mergers acquisitions history' returned Nation's Restaurant News and Hospitality Technology articles alongside several direct 10-Q footnote excerpts pulled from sec.gov by the search index. The events below are dated and scoped from NRN/Hospitality Technology only; no 8-K text was seen. The 10-Q footnote text (Note 2/Note 15 'CHILI'S RESTAURANT ACQUISITIONS') was visible in search snippets before this file was written, which is why blindness is PARTIAL, not full -- consistent with how the Disney and Six Flags gold files handle the same kind of incidental exposure.",
+  "gold_sources": [
+    "https://www.nrn.com/mergers-acquisitions/brinker-acquires-chili-s-franchisee-for-106-5m",
+    "https://www.nrn.com/casual-dining/brinker-completes-acquisition-of-116-chili-s",
+    "https://hospitalitytech.com/brinker-international-buys-116-franchised-chilis-restaurants"
+  ],
+  "note": "A structurally different company from everything tested so far: Brinker does small, RECURRING franchisee-restaurant buybacks (asset acquisitions of restaurant units, not whole-company mergers), not headline M&A. Most of these are disclosed only in 10-Q footnotes ('2. CHILI'S RESTAURANT ACQUISITIONS' / '15. FISCAL 2020 CHILI'S RESTAURANT ACQUISITION') with NO standalone 8-K at all (2021-2022's Mid-Atlantic/Great Lakes/Northwest Region acquisitions -- these also never name a counterparty organization, just 'previously franchised restaurants located in [region]', so they aren't included as gold events below even though they're real). Only two of Brinker's real acquisitions named an actual counterparty organization AND got a dedicated 8-K: Pepper Dining Holding Corp. (2015) and the ERJ Dining deal (2019). Scoped to those two only.",
+  "events": [
+    {"id": "brinker-1", "counterparty": "Pepper Dining Holding Corp.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2015-06-25", "notes": "103 franchised Chili's restaurants, $106.5M, funded via existing credit facility"},
+    {"id": "brinker-2", "counterparty": "ERJ Dining", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2019-09-05", "notes": "116 franchised Chili's restaurants from a 14-year franchisee, ~$96-99M"}
+  ]
+}
