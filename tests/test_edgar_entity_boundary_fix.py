@@ -202,6 +202,59 @@ def test_10k_pattern_does_not_fire_on_8k_style_text():
     print("PASS test_10k_pattern_does_not_fire_on_8k_style_text")
 
 
+def test_entity_regex_does_not_bleed_across_blank_line():
+    # Real bug found on real Ford 10-K text: an ALL-CAPS section header on
+    # its own line, followed by a blank line, followed by the actual
+    # sentence -- "ACQUISITIONS AND DIVESTITURES\nCompany Excluding Ford
+    # Credit\n\nElectriphi, Inc. (...)" -- was captured as ONE entity name
+    # spanning the whole header (via RegexBackend alone), because \s (used
+    # to join words within an entity name) treats a blank line identically
+    # to a single space. The fix requires two consecutive newlines (a real
+    # paragraph/section break) to stop the word-chain, while still
+    # allowing ordinary single-line wrapping within one sentence.
+    #
+    # Tested through the full fused EdgarMAExtractor pipeline, not a
+    # single backend in isolation: a residual single-backend artifact
+    # ("ACQUISITIONS AND DIVESTITURES Company", from "Company" itself
+    # being a valid suffix joined across the header's own internal single
+    # newline) never survives fusion -- spaCy's NER doesn't corroborate a
+    # section header as an ORG, so it falls below the vote threshold and
+    # is correctly dropped before reaching event inference. That's the
+    # behavior that actually matters in production.
+    text = (
+        "ACQUISITIONS AND DIVESTITURES\n"
+        "Company Excluding Ford Credit\n"
+        "\n"
+        "Electriphi, Inc. (\u201cElectriphi\u201d). On June 18, 2021, we acquired "
+        "Electriphi, a California-based provider of charging management and "
+        "fleet monitoring software for electric vehicles."
+    )
+    from parsers.edgar_ma_extractor import EdgarMAExtractor
+    ex = EdgarMAExtractor()
+    result = ex.parse_section(text, "10-K")
+    assert result["fused"]["orgs"] == ["Electriphi, Inc."], result["fused"]["orgs"]
+    self_ref = [
+        e for e in result["raw_events"]
+        if e["subject"] == "REGISTRANT_SELF_REFERENCE" and e["object"] == "Electriphi, Inc."
+    ]
+    assert self_ref and self_ref[0]["status"] == "COMPLETED", result["raw_events"]
+    print("PASS test_entity_regex_does_not_bleed_across_blank_line")
+
+
+def test_entity_regex_still_joins_across_a_single_line_wrap():
+    # The fix must not become so strict it breaks ordinary line-wrapped
+    # entity names (a single newline mid-sentence, not a paragraph break).
+    # norm() collapses all whitespace (including the newline) to a single
+    # space in the final output, same as it always has -- this test is
+    # about the JOIN still happening at all, not about preserving the
+    # literal newline.
+    text = "Six Flags Entertainment\nCorporation, a Delaware corporation, today announced results."
+    backend = m385.RegexBackend()
+    result = backend.parse(text)
+    assert "Six Flags Entertainment Corporation" in result["orgs"], result["orgs"]
+    print("PASS test_entity_regex_still_joins_across_a_single_line_wrap")
+
+
 if __name__ == "__main__":
     suite = [
         test_regex_backend_does_not_swallow_preceding_clause,
@@ -217,6 +270,8 @@ if __name__ == "__main__":
         test_10k_declarative_acquisition_pattern,
         test_10k_pattern_resolves_short_alias_form,
         test_10k_pattern_does_not_fire_on_8k_style_text,
+        test_entity_regex_does_not_bleed_across_blank_line,
+        test_entity_regex_still_joins_across_a_single_line_wrap,
     ]
     failed = 0
     for test in suite:

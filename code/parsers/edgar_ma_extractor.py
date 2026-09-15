@@ -29,8 +29,16 @@ def norm(s):
 CORP = r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|L\.P\.|LP|Ltd\.?|Limited|PLC|plc|Company)"
 _WORD = r"(?:[A-Z][A-Za-z0-9&.'’-]*|[0-9][A-Za-z0-9&.'’-]*)"
 _CONNECTOR = r"(?:of|and|the|for)"
+# A blank line is real document structure (a section-header/paragraph
+# break), not word-wrapping -- \s alone treats it identically to a single
+# space, which let an ALL-CAPS 10-K section header on its own line bleed
+# into the entity name of the very next sentence (confirmed on real Ford
+# 10-K text: "ACQUISITIONS AND DIVESTITURES\nCompany Excluding Ford
+# Credit\n\nElectriphi, Inc." was captured as one single entity name).
+# Single newlines (ordinary line wrapping within one sentence) still join.
+_JOIN = r"(?:[ \t-]+|\n(?!\s*\n))"
 ENT = re.compile(
-    r"\b(" + _WORD + r"(?:[\s-]+(?:" + _WORD + r"|" + _CONNECTOR + r")){0,7}"
+    r"\b(" + _WORD + r"(?:" + _JOIN + r"(?:" + _WORD + r"|" + _CONNECTOR + r")){0,7}"
     + r",?\s*" + CORP + r")(?![A-Za-z.])"
 )
 
@@ -45,7 +53,7 @@ ENT = re.compile(
 # otherwise also match "L.P." alone as a fake second entity).
 _LEGAL_FORM = r"(?:corporation|company|limited liability company|limited partnership)"
 ENT_LEGALFORM = re.compile(
-    r"\b(" + _WORD + r"(?:[\s-]+(?:" + _WORD + r"|" + _CONNECTOR + r")){0,7})"
+    r"\b(" + _WORD + r"(?:" + _JOIN + r"(?:" + _WORD + r"|" + _CONNECTOR + r")){0,7})"
     r",\s+an?\s+[A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+){0,2}\s+" + _LEGAL_FORM + r"\b"
 )
 _BARE_SUFFIX = re.compile(r"^" + CORP + r"$")
