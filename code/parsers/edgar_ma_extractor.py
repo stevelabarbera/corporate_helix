@@ -257,13 +257,38 @@ def infer_events(text, aliases, orgs, item):
 
     m = re.search(r"\bentered into an? Agreement and Plan of Merger\b", text, re.I)
     if m:
+        preamble = text[:m.start()]
+        # In a multi-party merger-of-equals preamble (e.g. "Six Flags, Cedar
+        # Fair, HoldCo, and Merger Sub entered into an Agreement and Plan of
+        # Merger"), the naive "last org before the match" heuristic below
+        # resolves to a transitory merger-vehicle shell (HoldCo/Merger Sub),
+        # not either real operating company -- and since neither shell is
+        # the pivot, other_party() then silently drops the event. Exclude
+        # entities introduced as "a subsidiary of X" (shells formed solely
+        # to effect the merger) so real_parties holds the actual companies,
+        # in order of first mention.
+        positions = sorted(
+            ((o, preamble.find(o)) for o in orgs if o in preamble),
+            key=lambda t: t[1],
+        )
+        real_parties = []
+        for i, (o, pos) in enumerate(positions):
+            end = positions[i + 1][1] if i + 1 < len(positions) else len(preamble)
+            context = preamble[pos + len(o):end]
+            if re.search(r"\bsubsidiary of\b", context, re.I):
+                continue
+            real_parties.append(o)
+
         acq = None
-        if "Company" in aliases and aliases["Company"] in text[:m.start()]:
+        if "Company" in aliases and aliases["Company"] in preamble:
             acq = aliases["Company"]
         if not acq:
-            prior = [o for o in orgs if o in text[:m.start()]]
-            if prior:
-                acq = prior[-1]
+            if real_parties:
+                acq = real_parties[0]
+            else:
+                prior = [o for o in orgs if o in preamble]
+                if prior:
+                    acq = prior[-1]
 
         after = text[m.end():m.end() + 1300]
         target = None
@@ -274,6 +299,14 @@ def infer_events(text, aliases, orgs, item):
             candidates = [o for o in orgs if o != acq and o in after]
             if candidates:
                 target = min(candidates, key=lambda o: after.find(o))
+        if not target:
+            # Merger-of-equals fallback: the target's full legal name often
+            # never reappears after the match (the filing switches to its
+            # short alias), but it was already named alongside the acquirer
+            # in the preamble.
+            remaining = [o for o in real_parties if o != acq]
+            if remaining:
+                target = remaining[0]
         if acq and target:
             add_event(
                 out, "AGREED_TO_ACQUIRE", acq, target, "COMPLETED",
@@ -314,7 +347,7 @@ def infer_events(text, aliases, orgs, item):
         ap = "|".join(sorted((re.escape(k) for k in alias_lc), key=len, reverse=True))
 
         pat = re.compile(
-            rf"\b({ap})\s+(?P<modal>will be\s+|was\s+)?merged with and into\s+({ap})\b",
+            rf"\b({ap})\s+(?P<modal>will(?:\s+be)?\s+|was\s+)?(?:merge|merged) with and into\s+({ap})\b",
             re.I,
         )
         for m in pat.finditer(text):

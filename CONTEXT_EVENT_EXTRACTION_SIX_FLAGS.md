@@ -13,8 +13,9 @@ Tesla, AIG, Netflix) earmarked for expanding the gold set — deliberately
 picked to run real functionality against a new company and surface whatever
 broke, rather than to add another clean win.
 
-It surfaced two real, distinct bugs on the first real filing tested, plus one
-documented (not fixed) architecture gap.
+It surfaced two real, distinct bugs on the first real filing tested (both
+fixed and verified this pass), plus one documented, deliberately-not-fixed
+gap in the 8-K item filter itself (finding 3).
 
 ## Environment note (not a code bug)
 
@@ -41,36 +42,51 @@ involved a limited partnership.
 Low-risk, single-line, confirmed against real filing text, full suite still
 213/213 after the change.
 
-## Bug 2 — FLAGGED, NOT FIXED: merger-of-equals phrasing isn't recognized
+## Bug 2 — FIXED: merger-of-equals phrasing wasn't recognized
 
-Even after fix #1, the real Item 1.01 announcement 8-K produces **zero**
-events. Two independent pattern misses compound here:
+Even after fix #1, the real Item 1.01 announcement 8-K produced **zero**
+events. Two independent pattern misses compounded:
 
-1. **`AGREED_TO_ACQUIRE` target resolution assumes a single acquirer +
+1. **`AGREED_TO_ACQUIRE` target resolution assumed a single acquirer +
    "with Target" naming the target's full legal name.** The Six Flags/Cedar
    Fair 8-K instead pre-lists all four parties (Six Flags, Cedar Fair,
    HoldCo, Merger Sub) *before* "entered into an Agreement and Plan of
-   Merger", then never says "with Target" at the top level — the first
-   "with" after the match falls inside a *nested* clause ("Copper Merger Sub
-   will merge with and into Cedar Fair..."), and `known_prefix()` requires
-   the captured text to *start with* a known org name, which it doesn't
-   here. The other fallback (scanning for any full canonical org name
-   appearing verbatim in the next 1300 chars) also fails, because the
-   surrounding text refers to parties by their short aliases ("Cedar Fair",
-   "HoldCo"), not their full registered names.
-2. **`MERGED_INTO`'s regex requires the literal word "merged"** (`(will be|
+   Merger", then never says "with Target" at the top level. Worse: the
+   naive "last org mentioned before the match" heuristic resolved `acq` to
+   `CopperSteel Merger Sub, LLC` — a transitory shell formed solely to
+   effect the merger — and since neither shell is ever the pivot company,
+   `other_party()` silently dropped the event regardless of what `target`
+   resolved to.
+   **Fix:** before the match, collect the real (non-shell) parties in
+   order of first mention, excluding any entity introduced as "a
+   subsidiary of X" in its own descriptor clause (careful to scope each
+   entity's context to only its own clause, not bleed into the next
+   entity's descriptor in the same run-on sentence). Use the first real
+   party as `acq`, and fall back to a second real party as `target` when
+   the post-match text never repeats the target's full legal name (which
+   it doesn't here — only the short alias "Cedar Fair" reappears).
+2. **`MERGED_INTO`'s regex required the literal word "merged"** (`(will be|
    was)? merged with and into`), but this forward-looking announcement text
    uses present-tense "will merge with and into" — a verb form the pattern
-   doesn't recognize at all, independent of bug #2's target-resolution
-   issue. Confirmed directly: the pattern plain doesn't match "Copper Merger
-   Sub will merge with and into Cedar Fair" as literal text.
+   didn't recognize at all. **Fix:** the regex now accepts `(?:merge|
+   merged)` with the same modal handling, so "will merge with and into" is
+   recognized as PROPOSED alongside the existing "was merged"/"will be
+   merged"/bare "merged" (COMPLETED) forms.
 
-**Net effect:** a real, currently-pending merger-of-equals announcement,
-correctly entity-extracted after fix #1, still produces no event at all.
-This is a distinct, deeper problem than the entity-suffix gap, and — like
-the Disney cross-backend voting mismatch already on record — deserves its
-own measured fix and decision record rather than a quick patch bundled in
-here.
+**Result, verified against the real Item 1.01 text:**
+```
+AGREED_TO_ACQUIRE  Six Flags Entertainment Corporation -> Cedar Fair, L.P.        COMPLETED
+MERGED_INTO        CopperSteel Merger Sub, LLC          -> Cedar Fair, L.P.        PROPOSED
+MERGED_INTO        Six Flags Entertainment Corporation  -> CopperSteel HoldCo, Inc. PROPOSED
+```
+The first line is a genuine recall hit against `six_flags-1`
+(AGREED_TO_ACQUIRE/COMPLETED). Full suite stayed 213/213 after both fixes.
+Six Flags moved from 0/2 to 1/2; aggregate across 4 companies moved from
+3/17 (17.6%) to 4/17 (23.5%, CI [0.10, 0.47]).
+
+`six_flags-2` (the closing/MERGED_INTO event) still shows NOT_DISCOVERED —
+correctly, since no closing-8-K text is in the fixture at all (see finding
+3 below), not because of a remaining pattern gap.
 
 ## Finding 3 — documented gap, no fix attempted: this deal's closing text isn't reachable at all
 
@@ -107,9 +123,9 @@ gap already on record gets addressed.
 
 ## Current aggregate (4 companies)
 
-3/17 (17.6%), 95% CI [0.06, 0.41] — consistent with before; Six Flags itself
-scored 0/2, for the fully root-caused reasons above (not "unexplained
-misses").
+4/17 (23.5%), 95% CI [0.10, 0.47] — up from 3/17 after bugs #1 and #2. Six
+Flags itself is 1/2; the remaining miss (the closing event) is root-caused
+to finding #3 below, not an unexplained gap.
 
 ## How to resume
 
@@ -119,15 +135,12 @@ cd code/eval && python3 run_coverage_eval.py --gold lumen.json disney.json tenab
 ```
 
 Next candidate work, in rough priority order:
-1. Fix the merger-of-equals `AGREED_TO_ACQUIRE`/`MERGED_INTO` gap (bug #2) —
-   real architecture question: do multi-party pre-listed-parties preambles
-   need a different resolution strategy than the "acquirer ... with target"
-   pattern, and should `MERGED_INTO` accept present-tense "will merge with
-   and into" as well as "will be merged"/"was merged"?
-2. Revisit the 8-K item filter (currently 1.01/2.01 only) in light of
+1. Revisit the 8-K item filter (currently 1.01/2.01 only) in light of
    finding #3 — at minimum, decide whether 5.02 needs scanning for merger-
    closing language the way 2.01 is scanned, or whether this is better
-   solved by the already-planned 8-K Item 5.01 expansion work.
-3. Everything already queued in `CONTEXT_EVENT_EXTRACTION.md`: 10-Q locator,
+   solved by the already-planned 8-K Item 5.01 expansion work. This is the
+   only thing standing between the current code and recalling
+   `six_flags-2`.
+2. Everything already queued in `CONTEXT_EVENT_EXTRACTION.md`: 10-Q locator,
    Disney's cross-backend voting fix, remaining untested companies
    (Chili's/Brinker, Paramount, Ford, Tesla, AIG, Netflix).
