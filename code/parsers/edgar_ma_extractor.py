@@ -61,6 +61,25 @@ def _entity_matches(text):
         yield ent, m.end()
 
 
+def _aliases_from_tail(text, end):
+    """
+    Given the position right after an entity mention, look for a trailing
+    parenthetical alias definition -- e.g. '..., a Delaware corporation
+    ("Six Flags")' -- and return the quoted short name(s) found inside it.
+    Shared by every backend so the alias-detection rule stays identical
+    across ENT-based matches, spaCy NER spans, and gazetteer hits alike.
+    """
+    tail = text[end:end + 260]
+    pm = re.match(
+        r"\s*(?:,\s*(?:a|an)\s+[^()]{0,150})?\s*\(([^)]{1,220})\)",
+        tail,
+        re.S,
+    )
+    if not pm:
+        return []
+    return re.findall(r'[“"]\s*(?:the\s+)?([^”"]+?)\s*[”"]', pm.group(1), re.I)
+
+
 class RegexBackend:
     name = "regex"
 
@@ -68,15 +87,8 @@ class RegexBackend:
         orgs, aliases = [], {}
         for ent, end in _entity_matches(text):
             orgs.append(ent)
-            tail = text[end:end + 260]
-            pm = re.match(
-                r"\s*(?:,\s*(?:a|an)\s+[^()]{0,150})?\s*\(([^)]{1,220})\)",
-                tail,
-                re.S,
-            )
-            if pm:
-                for a in re.findall(r'[“"]\s*(?:the\s+)?([^”"]+?)\s*[”"]', pm.group(1), re.I):
-                    aliases[norm(a)] = ent
+            for a in _aliases_from_tail(text, end):
+                aliases[norm(a)] = ent
         return {"orgs": sorted(set(orgs)), "aliases": aliases}
 
 
@@ -95,15 +107,8 @@ class SpacyBackend:
                 continue
             ent = norm(e.text)
             orgs.append(ent)
-            tail = text[e.end_char:e.end_char + 260]
-            pm = re.match(
-                r"\s*(?:,\s*(?:a|an)\s+[^()]{0,150})?\s*\(([^)]{1,220})\)",
-                tail,
-                re.S,
-            )
-            if pm:
-                for a in re.findall(r'[“"]\s*(?:the\s+)?([^”"]+?)\s*[”"]', pm.group(1), re.I):
-                    aliases[norm(a)] = ent
+            for a in _aliases_from_tail(text, e.end_char):
+                aliases[norm(a)] = ent
         return {"orgs": sorted(set(orgs)), "aliases": aliases}
 
 
@@ -113,20 +118,12 @@ class LegalRulesBackend:
     def parse(self, text):
         orgs, aliases = [], {}
         for ent, end in _entity_matches(text):
-            tail = text[end:end + 260]
-            pm = re.match(
-                r"\s*(?:,\s*(?:a|an)\s+[^()]{0,150})?\s*\(([^)]{1,220})\)",
-                tail,
-                re.S,
-            )
-            if not pm:
+            found = _aliases_from_tail(text, end)
+            if not found:
                 continue
-            got = False
-            for a in re.findall(r'[“"]\s*(?:the\s+)?([^”"]+?)\s*[”"]', pm.group(1), re.I):
+            for a in found:
                 aliases[norm(a)] = ent
-                got = True
-            if got:
-                orgs.append(ent)
+            orgs.append(ent)
         return {"orgs": sorted(set(orgs)), "aliases": aliases}
 
 
@@ -488,8 +485,20 @@ class EdgarMAExtractor:
 
     VALIDATED_WEIGHTS = {"regex": 0.5, "spacy": 1.0, "legal_rules": 1.25}
     VALIDATED_THRESHOLD = 1.5
+    # An exact match against a real GLEIF legal name is categorically
+    # stronger evidence than a suffix/pattern heuristic -- it's not
+    # similarity, it's identity against a canonical source. Weighted to
+    # meet the default threshold alone, the same way spacy+regex or
+    # spacy+legal_rules already can. NOT folded into VALIDATED_WEIGHTS /
+    # the default ensemble yet -- see gleif_gazetteer_backend.py's module
+    # docstring for what real-filing-text validation is still needed
+    # before that.
+    GAZETTEER_WEIGHT = 1.5
 
-    def __init__(self, spacy_model="en_core_web_sm", *, allow_degraded=False):
+    def __init__(
+        self, spacy_model="en_core_web_sm", *, allow_degraded=False,
+        gazetteer_db_path: str | None = None,
+    ):
         self.spacy_model = spacy_model
         self.allow_degraded = allow_degraded
         self.degraded_reason = None
@@ -515,6 +524,22 @@ class EdgarMAExtractor:
             self.threshold = 1.0
             self.mode = "EXPLICIT_DEGRADED_2_BACKEND"
             self.degraded_reason = f"{type(exc).__name__}: {exc}"
+
+        self.gazetteer_db_path = gazetteer_db_path
+        if gazetteer_db_path is not None:
+            # Import locally, not at module top: this keeps
+            # edgar_ma_extractor importable (and the validated 3-backend
+            # ensemble usable) even in an environment without
+            # pyahocorasick installed, as long as no caller asks for the
+            # gazetteer explicitly. An explicit request that then fails
+            # to load raises, per the same no-silent-degradation rule as
+            # spaCy above -- opting in and silently getting nothing back
+            # would be worse than not offering the option at all.
+            from parsers.gleif_gazetteer_backend import GazetteerBackend
+
+            self.backends.append(GazetteerBackend(gazetteer_db_path))
+            self.weights["gazetteer"] = self.GAZETTEER_WEIGHT
+            self.mode = f"{self.mode}+GAZETTEER"
 
     def parse_section(self, text: str, item: str | None) -> dict[str, Any]:
         outputs = {b.name: b.parse(text) for b in self.backends}
