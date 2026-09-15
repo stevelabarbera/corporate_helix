@@ -34,16 +34,41 @@ ENT = re.compile(
     + r",?\s*" + CORP + r")(?![A-Za-z.])"
 )
 
+# Some real registrant names carry no recognizable corporate suffix at all
+# (e.g. "Paramount Global" -- "Global" isn't a suffix). ENT alone can never
+# see these. But every such filing still states the entity's legal form
+# explicitly ("Paramount Global, a Delaware corporation"), so use that
+# as an independent signal. _BARE_SUFFIX filters out spurious matches
+# where the "entity" ENT_LEGALFORM captured is actually just the trailing
+# suffix of an ENT-matched name immediately before its own legal-form
+# clause (e.g. "Cedar Fair, L.P., a Delaware limited partnership" would
+# otherwise also match "L.P." alone as a fake second entity).
+_LEGAL_FORM = r"(?:corporation|company|limited liability company|limited partnership)"
+ENT_LEGALFORM = re.compile(
+    r"\b(" + _WORD + r"(?:[\s-]+(?:" + _WORD + r"|" + _CONNECTOR + r")){0,7})"
+    r",\s+an?\s+[A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+){0,2}\s+" + _LEGAL_FORM + r"\b"
+)
+_BARE_SUFFIX = re.compile(r"^" + CORP + r"$")
+
+
+def _entity_matches(text):
+    for m in ENT.finditer(text):
+        yield norm(m.group(1)), m.end()
+    for m in ENT_LEGALFORM.finditer(text):
+        ent = norm(m.group(1))
+        if _BARE_SUFFIX.match(ent):
+            continue
+        yield ent, m.end()
+
 
 class RegexBackend:
     name = "regex"
 
     def parse(self, text):
         orgs, aliases = [], {}
-        for m in ENT.finditer(text):
-            ent = norm(m.group(1))
+        for ent, end in _entity_matches(text):
             orgs.append(ent)
-            tail = text[m.end():m.end() + 260]
+            tail = text[end:end + 260]
             pm = re.match(
                 r"\s*(?:,\s*(?:a|an)\s+[^()]{0,150})?\s*\(([^)]{1,220})\)",
                 tail,
@@ -87,9 +112,8 @@ class LegalRulesBackend:
 
     def parse(self, text):
         orgs, aliases = [], {}
-        for m in ENT.finditer(text):
-            ent = norm(m.group(1))
-            tail = text[m.end():m.end() + 260]
+        for ent, end in _entity_matches(text):
+            tail = text[end:end + 260]
             pm = re.match(
                 r"\s*(?:,\s*(?:a|an)\s+[^()]{0,150})?\s*\(([^)]{1,220})\)",
                 tail,
@@ -251,11 +275,20 @@ def infer_events(text, aliases, orgs, item):
             "partial financing of the proposed acquisition", "term loan",
         )
     )
-    merger_exec = "entered into an agreement and plan of merger" in low[:2200]
+    merger_exec = re.search(
+        r"entered into an? (?:agreement and plan of merger|transaction agreement|"
+        r"business combination agreement|agreement and plan of reorganization)",
+        low[:2200],
+    )
     if item == "1.01" and financing and not merger_exec:
         return out
 
-    m = re.search(r"\bentered into an? Agreement and Plan of Merger\b", text, re.I)
+    m = re.search(
+        r"\bentered into an? (?:Agreement and Plan of Merger|Transaction Agreement|"
+        r"Business Combination Agreement|Agreement and Plan of Reorganization)\b",
+        text,
+        re.I,
+    )
     if m:
         preamble = text[:m.start()]
         # In a multi-party merger-of-equals preamble (e.g. "Six Flags, Cedar

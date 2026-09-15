@@ -1,0 +1,18 @@
+{
+  "company": "Paramount Global",
+  "aliases_ok": ["Paramount", "ViacomCBS", "Paramount Skydance Corporation", "Paramount Skydance"],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "A general web search for 'Paramount mergers acquisitions history Skydance Viacom CBS' returned Britannica Money encyclopedia entries alongside independent news sources (CBS News, Axios). Those encyclopedia entries are themselves independent secondary sources, not SEC filing text, but they clearly synthesize from filings/press coverage. No 8-K text was seen before this file was written; the events below are dated and scoped from Britannica, CBS News, and Axios only.",
+  "gold_sources": [
+    "https://www.britannica.com/money/Paramount-Global",
+    "https://www.britannica.com/money/Paramount-Skydance-Corporation",
+    "https://www.cbsnews.com/news/paramount-global-skydance-media-merger/",
+    "https://www.axios.com/2024/07/08/paramount-skydance-merger-deal"
+  ],
+  "note": "The most structurally complex real case tested so far -- more complex than Disney/21CF. A genuinely new transaction shape: (1) the 8-K uses the term 'Transaction Agreement', not 'Agreement and Plan of Merger', for the definitive agreement; (2) the registrant's own legal name, 'Paramount Global', carries no recognizable corporate suffix at all (no Inc./Corp./LLC/etc.) -- 'Global' isn't a suffix; (3) it's actually a two-step transaction (a Skydance investor group first acquires National Amusements, Inc., Paramount's controlling parent, then a separate merger combines Skydance and Paramount under a new holding company, 'New Paramount' -- later renamed Paramount Skydance Corporation). Scoped to the Skydance transaction only (announced 2024-07-07, closed 2025-08-07); Paramount/ViacomCBS's much longer corporate lineage (Gulf+Western's 1966 acquisition, Viacom/CBS's repeated 1999-2000 and 2019 mergers) is out of scope for a first pass, same as Six Flags' pre-2023 ownership history.",
+  "events": [
+    {"id": "paramount-1", "counterparty": "Skydance Media, LLC", "event_type": "AGREED_TO_ACQUIRE", "status": "COMPLETED", "approx_date": "2024-07-07", "notes": "Transaction Agreement signed; ~$8B all-stock deal value for the Skydance side, ~$28B pro forma valuation overall"},
+    {"id": "paramount-2", "counterparty": "Skydance Media, LLC", "event_type": "MERGED_INTO", "status": "COMPLETED", "approx_date": "2025-08-07", "notes": "Closing; combined entity renamed Paramount Skydance Corporation (PSKY), David Ellison as CEO"},
+    {"id": "paramount-3", "counterparty": "National Amusements, Inc.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2025-08-07", "notes": "First step of the two-step transaction: Skydance investor group (Ellison family, RedBird Capital) acquired NAI, Paramount's controlling parent, for $2.4B cash, ahead of/concurrent with the Paramount-Skydance merger itself"}
+  ]
+}
