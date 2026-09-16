@@ -14,6 +14,24 @@ The cohort order in `data/eval_study/ma_saturation_pilot_v1.json` is frozen beca
 
 Run `python3 code/eval/run_ma_saturation.py` or add `--json`.
 
+## M&A-S1 capture runner
+
+Capture one company's stage-by-stage baseline with:
+
+```bash
+python3 code/eval/run_ma_s1_baseline.py --company tenable
+```
+
+The runner writes `data/eval_study/ma_saturation_results/<company>.json`.
+It preserves raw 8-K/10-K filing text only in memory for measurement, then
+runs the frozen production locator and extractor against the selected
+sections. This makes a locator miss distinguishable from a retrieval miss
+without changing production retrieval, parsing, trust, or recursion behavior.
+
+Use `--stdout` to inspect JSON without writing a result. The default study
+window is 2015-01-01 through 2026-12-31; changing it creates a different
+measurement scope and must be recorded with the result.
+
 The first 12 companies are a probe, not a stopping rule. High novelty means expand. Apparent flattening means add diverse issuers specifically to challenge the plateau.
 
 ## Relationship to M3.9
