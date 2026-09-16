@@ -151,6 +151,48 @@ def test_closing_phrasing_original_patterns_still_work():
     print("PASS test_closing_phrasing_original_patterns_still_work")
 
 
+def test_acquired_pattern_resolves_short_aliases():
+    # Real bug found on real Tesla/SolarCity closing 8-K text: "Tesla
+    # completed its previously announced acquisition of SolarCity" -- both
+    # "Tesla" and "SolarCity" are SHORT ALIASES here, never appearing in
+    # their full suffixed forms anywhere in this text. known_prefix()
+    # alone (matching only literal org-list entries) can never resolve
+    # either side. Unlike the two cases above, neither "Tesla" nor
+    # "SolarCity" is itself a member of `orgs` -- only their full forms
+    # are, and only the aliases dict connects the two.
+    aliases = {"Tesla": "Tesla Motors, Inc.", "SolarCity": "SolarCity Corporation"}
+    orgs = ["Tesla Motors, Inc.", "SolarCity Corporation"]
+    text = (
+        "As described above, on the Closing Date, Tesla completed its "
+        "previously announced acquisition of SolarCity. As a result of "
+        "the Merger, SolarCity became a wholly owned subsidiary of Tesla."
+    )
+    events = m385.completed_only(m385.infer_events(text, aliases, orgs, "2.01"))
+    acquired = [e for e in events if e["event_type"] == "ACQUIRED"]
+    assert acquired, events
+    assert acquired[0]["subject"] == "Tesla Motors, Inc.", acquired
+    assert acquired[0]["object"] == "SolarCity Corporation", acquired
+    print("PASS test_acquired_pattern_resolves_short_aliases")
+
+
+def test_acquired_pattern_does_not_over_capture_leading_preamble():
+    # Regression guard for a real failure hit while building the fix
+    # above: an earlier attempt captured the acquirer via a generic
+    # character-class group immediately before "completed", which
+    # swallowed leading date/preamble text ("On November 1, 2017,
+    # CenturyLink, Inc." instead of just "CenturyLink, Inc.") because a
+    # non-greedy quantifier still lets the regex engine choose the
+    # earliest possible match start. The fix must resolve the acquirer by
+    # exact adjacency against known orgs/aliases, never a generic capture.
+    text = ("On November 1, 2017, CenturyLink, Inc. completed its previously-announced "
+            "acquisition (the \"Acquisition\") of Level 3 Communications, Inc.")
+    events = m385.completed_only(m385.infer_events(text, {}, ["CenturyLink, Inc.", "Level 3 Communications, Inc."], "2.01"))
+    acquired = [e for e in events if e["event_type"] == "ACQUIRED"]
+    assert acquired, events
+    assert acquired[0]["subject"] == "CenturyLink, Inc.", acquired
+    print("PASS test_acquired_pattern_does_not_over_capture_leading_preamble")
+
+
 def test_10k_declarative_acquisition_pattern():
     # Real text from Tenable's actual 10-K Business Combinations footnote.
     # Distinct document style from every 8-K pattern above: first-person
@@ -267,6 +309,8 @@ if __name__ == "__main__":
         test_closing_phrasing_previously_announced_parenthetical,
         test_closing_phrasing_previously_announced_no_hyphen,
         test_closing_phrasing_original_patterns_still_work,
+        test_acquired_pattern_resolves_short_aliases,
+        test_acquired_pattern_does_not_over_capture_leading_preamble,
         test_10k_declarative_acquisition_pattern,
         test_10k_pattern_resolves_short_alias_form,
         test_10k_pattern_does_not_fire_on_8k_style_text,

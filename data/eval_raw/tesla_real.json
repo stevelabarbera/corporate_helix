@@ -1,0 +1,35 @@
+{
+  "company": "Tesla, Inc.",
+  "cik": "0001318605",
+  "note": "Two real, separate 8-K accessions (both legitimately reachable via the live 1.01/2.01 item filter): the 2016-08-01 announcement and the 2016-11-21 closing. Included deliberately, unlike the Six Flags/Ford fixtures which excluded genuinely-unreachable text: this closing 8-K IS reachable, and its Item 2.01 text genuinely never restates 'Tesla Motors, Inc.'/'SolarCity Corporation' anywhere within itself or the earlier Item 1.01 section of the SAME accession -- only the short aliases 'Tesla'/'SolarCity', established once, months earlier, in the separate announcement accession. tesla-2 is therefore expected to show NOT_DISCOVERED against this fixture for a real, confirmed, documented reason (see CONTEXT_EVENT_EXTRACTION_TESLA.md) -- not because the text is missing from this fixture.",
+  "filings": [
+    {
+      "accession": "0001193125-16-665621",
+      "filing_date": "2016-08-01",
+      "form": "8-K",
+      "items": "1.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "text": "Item 1.01. Entry into a Material Definitive Agreement\n\nMerger Agreement\nOn July 31, 2016, Tesla Motors, Inc. (\u201cTesla\u201d), SolarCity Corporation (\u201cSolarCity\u201d) and D Subsidiary, Inc., a wholly owned subsidiary of Tesla (\u201cMerger Sub\u201d), entered into an Agreement and Plan of Merger (the \u201cMerger Agreement\u201d). The Merger Agreement provides for the merger of Merger Sub with and into SolarCity (the \u201cMerger\u201d), with SolarCity surviving the Merger as a wholly owned subsidiary of Tesla. Capitalized terms used in this Current Report on Form 8-K but not defined herein shall have the meanings ascribed to them in the Merger Agreement.\nThe Board of Directors of Tesla (the \u201cTesla Board\u201d), with Messrs. Elon Musk and Antonio Gracias recusing themselves, determined that the transactions contemplated by the Merger Agreement, including the Merger and the issuance of shares of Tesla common stock in connection with the Merger (the \u201cShare Issuance\u201d), are fair to, and in the best interests of, Tesla and its stockholders, approved the Merger Agreement and the transactions contemplated by the Merger Agreement, and recommended that the stockholders of Tesla approve the Merger and the Share Issuance.\nPursuant to the terms and subject to the conditions set forth in the Merger Agreement, at the effective time of the Merger (the \u201cEffective Time\u201d), each share of SolarCity common stock, par value $0.0001 per share (the \u201cSolarCity common stock\u201d) issued and outstanding immediately prior to the Effective Time (other than shares of SolarCity common stock owned by SolarCity as treasury stock or owned by Tesla or Merger Sub, which will be cancelled) will be converted into the right to receive 0.110 (the \u201cExchange Ratio\u201d) shares of Tesla common stock, par value $0.001 per share (the \u201cTesla common stock\u201d)."
+        }
+      ]
+    },
+    {
+      "accession": "0001193125-16-773705",
+      "filing_date": "2016-11-21",
+      "form": "8-K",
+      "items": "1.01,2.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "text": "Item 1.01. Entry into a Material Definitive Agreement.\n\nIn connection with the completion of the Merger, SolarCity entered into supplemental indentures (collectively, the Supplemental Indentures) with respect to each of its convertible senior notes. The Supplemental Indentures provide that, following the consummation of the Merger, the holders of SolarCity's convertible notes will have the right to convert each $1,000 of principal amount of their convertible notes into, in lieu of SolarCity Common Stock, the number of shares of Tesla Common Stock that a holder would have been entitled to receive upon consummation of the Merger."
+        },
+        {
+          "item": "2.01",
+          "text": "Item 2.01. Completion of Acquisition or Disposition of Assets.\n\nAs described above, on the Closing Date, Tesla completed its previously announced acquisition of SolarCity. As a result of the Merger, SolarCity became a wholly owned subsidiary of Tesla.\n\nUnder the terms of the Merger Agreement, at the effective time of the Merger, each share of SolarCity common stock issued and outstanding immediately prior to the Effective Time was converted into the right to receive 0.110 shares of Tesla common stock. Upon the closing of the Merger, the shares of SolarCity Common Stock, which previously traded under the ticker symbol SCTY on the NASDAQ Stock Market, have ceased trading on, and were delisted from, the NASDAQ."
+        }
+      ]
+    }
+  ]
+}

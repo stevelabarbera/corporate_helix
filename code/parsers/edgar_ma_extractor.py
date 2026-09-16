@@ -361,9 +361,29 @@ def infer_events(text, aliases, orgs, item):
     )
     if m:
         target = known_prefix(m.group(1), orgs)
+        if not target:
+            resolved = resolve(m.group(1), aliases)
+            if resolved in orgs:
+                target = resolved
+
         acq = None
         if "Company" in aliases and aliases["Company"] in text[:m.start()]:
             acq = aliases["Company"]
+        if not acq:
+            # Prefer whichever known org or alias sits IMMEDIATELY before
+            # "completed" (its actual grammatical subject) over the
+            # weaker "last org mentioned anywhere earlier in the text"
+            # fallback below -- this also resolves a short alias ("Tesla
+            # completed its...") correctly even when the full legal name
+            # was only ever stated in an earlier, separate part of the
+            # same filing (confirmed on real Tesla/SolarCity closing
+            # text). Exact-suffix adjacency check, not a character-class
+            # capture, so there's no risk of swallowing preceding text.
+            before = text[:m.start()].rstrip()
+            adjacent = [c for c in list(orgs) + list(aliases) if c and before.endswith(c)]
+            if adjacent:
+                best = max(adjacent, key=len)
+                acq = best if best in orgs else aliases.get(best)
         if not acq:
             prior = [o for o in orgs if o in text[:m.start()]]
             if prior:
