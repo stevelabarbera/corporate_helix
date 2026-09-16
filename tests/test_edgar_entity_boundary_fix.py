@@ -233,6 +233,72 @@ def test_agreed_to_acquire_skips_shell_named_first_in_with_clause():
     agreed = [e for e in events if e["event_type"] == "AGREED_TO_ACQUIRE"]
     assert agreed, events
     assert agreed[0]["object"] == "Validus Holdings, Ltd.", agreed
+
+
+def test_divested_business_pattern_did_not_exist_before_this_fix():
+    # DIVESTED_BUSINESS had NEVER been implemented anywhere in the
+    # extractor -- gold files for Lumen (3 events) and Disney (1 event)
+    # had referenced it since before this session, guaranteeing
+    # NOT_DISCOVERED regardless of parsing quality. Found while
+    # investigating a real AT&T divestiture. Validated here against real
+    # Disney text: "Disney and FCN agreed to sell FCN's interests in Fox
+    # Sports Net, LLC ('FSN') to Buyer ... (the 'FSN Sale')" / "the FSN
+    # Sale was completed". The real buyer named in the text, "Diamond
+    # Sports Group, LLC", is disclosed as "a wholly owned subsidiary of
+    # Sinclair Broadcast Group, Inc." -- the real counterparty that
+    # matters is the parent, matching this deal's actual gold record.
+    aliases = {
+        "Disney": "The Walt Disney Company",
+        "FCN": "Fox Cable Networks, LLC",
+        "Buyer": "Diamond Sports Group, LLC",
+        "Sinclair": "Sinclair Broadcast Group, Inc.",
+        "FSN": "Fox Sports Net, LLC",
+    }
+    orgs = [
+        "Diamond Sports Group, LLC",
+        "Fox Cable Networks, LLC",
+        "Fox Sports Net, LLC",
+        "Sinclair Broadcast Group, Inc.",
+        "The Walt Disney Company",
+    ]
+    text = (
+        'As previously announced, on May 3, 2019, The Walt Disney Company ("Disney"), '
+        'Fox Cable Networks, LLC ("FCN"), a Delaware limited liability company and a '
+        'wholly owned subsidiary of Disney, and Diamond Sports Group, LLC ("Buyer"), a '
+        'Delaware limited liability company and a wholly owned subsidiary of Sinclair '
+        'Broadcast Group, Inc. ("Sinclair"), entered into an Equity Purchase Agreement '
+        '(the "Purchase Agreement"). Pursuant to the Purchase Agreement, Disney and FCN '
+        "agreed to sell FCN's interests in Fox Sports Net, LLC (\"FSN\") to Buyer for a "
+        'purchase price equal to $9.6 billion in cash, subject to adjustments as set '
+        'forth in the Purchase Agreement (the "FSN Sale").\n\n'
+        'On August 23, 2019 (the "Closing Date"), upon the terms and conditions set '
+        'forth in the Purchase Agreement, the FSN Sale was completed.'
+    )
+    events = m385.completed_only(m385.infer_events(text, aliases, orgs, "2.01"))
+    divested = [e for e in events if e["event_type"] == "DIVESTED_BUSINESS"]
+    assert divested, events
+    assert divested[0]["subject"] == "The Walt Disney Company", divested
+    assert divested[0]["object"] == "Sinclair Broadcast Group, Inc.", divested
+    print("PASS test_divested_business_pattern_did_not_exist_before_this_fix")
+
+
+def test_divested_business_does_not_truncate_on_decimal_point():
+    # Real bug found building the pattern above: "$9.6 billion" has its
+    # own period, which an earlier, punctuation-bounded capture attempt
+    # misread as a sentence boundary, cutting the buyer's name off
+    # mid-window. The fix uses a fixed-length window instead -- this test
+    # guards specifically against that regression re-appearing.
+    aliases = {"Buyer": "Acme Sports Holdings, LLC"}
+    orgs = ["Acme Media Co.", "Acme Sports Holdings, LLC"]
+    text = (
+        "Acme Media Co. agreed to sell its interests in a subsidiary to Buyer "
+        "for a purchase price equal to $9.6 billion in cash (the \"Deal Sale\"). "
+        "The Deal Sale was completed on a later date."
+    )
+    events = m385.completed_only(m385.infer_events(text, aliases, orgs, "2.01"))
+    divested = [e for e in events if e["event_type"] == "DIVESTED_BUSINESS"]
+    assert divested, events
+    assert divested[0]["object"] == "Acme Sports Holdings, LLC", divested
     print("PASS test_agreed_to_acquire_skips_shell_named_first_in_with_clause")
 
 
@@ -356,6 +422,8 @@ if __name__ == "__main__":
         test_acquired_pattern_does_not_over_capture_leading_preamble,
         test_agreed_to_acquire_allows_definitive_modifier,
         test_agreed_to_acquire_skips_shell_named_first_in_with_clause,
+        test_divested_business_pattern_did_not_exist_before_this_fix,
+        test_divested_business_does_not_truncate_on_decimal_point,
         test_10k_declarative_acquisition_pattern,
         test_10k_pattern_resolves_short_alias_form,
         test_10k_pattern_does_not_fire_on_8k_style_text,

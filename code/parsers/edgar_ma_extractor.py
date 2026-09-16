@@ -173,6 +173,35 @@ def fuse(outputs, weights, threshold):
     return {"orgs": orgs, "aliases": aliases, "org_votes": dict(votes)}
 
 
+def _parent_of(org, text, orgs):
+    """
+    If `org`'s own descriptor clause in `text` discloses it as "a wholly
+    owned subsidiary of X" (or similar), return the parent X instead --
+    a divestiture's immediate contracting buyer is very often a
+    newly-formed subsidiary, and the counterparty that actually matters
+    for identity purposes is the named parent (e.g. real Disney/Sinclair
+    text names the buyer as "Diamond Sports Group, LLC ... a wholly owned
+    subsidiary of Sinclair Broadcast Group, Inc." -- the real
+    counterparty is Sinclair, not the shell). Falls back to `org` itself
+    if no such disclosure is found or the named parent isn't a known org.
+    """
+    pos = text.find(org)
+    if pos == -1:
+        return org
+    context = text[pos + len(org):pos + len(org) + 220]
+    sm = re.search(r"\bsubsidiary of\s+", context, re.I)
+    if not sm:
+        return org
+    # A fixed-length window past "subsidiary of", not a punctuation-
+    # bounded capture: a parent's own name can contain a comma before its
+    # suffix ("Sinclair Broadcast Group, Inc."), which a [^.,;()]-style
+    # capture would misread as a clause boundary and cut off before the
+    # suffix -- same bug class fixed for the AIG "Ltd." truncation.
+    window = context[sm.end():sm.end() + 100]
+    parent = known_prefix(window, orgs)
+    return parent if parent else org
+
+
 def _non_shell_orgs_in(span, orgs):
     """
     Real orgs mentioned in `span`, in order of first appearance, excluding
@@ -484,6 +513,66 @@ def infer_events(text, aliases, orgs, item):
             add_event(
                 out, "SUBSIDIARY_OF", s, o, status, frag,
                 extraction_rule="SUBSIDIARY_RELATION",
+            )
+
+    # DIVESTED_BUSINESS: a real, previously entirely-unimplemented event
+    # type. Gold files for Lumen (3 events) and Disney (1 event) have
+    # referenced it since before this session, but no pattern ever
+    # existed to produce it -- every DIVESTED_BUSINESS gold event was
+    # therefore guaranteed to score NOT_DISCOVERED regardless of parsing
+    # quality, a fact only discovered while investigating a real AT&T
+    # divestiture. Validated against real Disney text: "Disney and FCN
+    # agreed to sell FCN's interests in Fox Sports Net, LLC ('FSN') to
+    # Buyer ... (the 'FSN Sale')" / "the FSN Sale was completed".
+    dm = re.search(
+        r"\bagreed to sell\s+(?:[^.;]{0,100}?\binterests?\s+in\s+[^.;]{2,120}?\s+)?to\s+",
+        text,
+        re.I,
+    )
+    if dm:
+        seller = None
+        if "Company" in aliases and aliases["Company"] in text[:dm.start()]:
+            seller = aliases["Company"]
+        if not seller:
+            # orgs is alphabetically sorted, not in text order -- must
+            # sort by actual position to find who's named first.
+            prior = sorted(
+                (o for o in orgs if o in text[:dm.start()]),
+                key=lambda o: text.find(o),
+            )
+            if prior:
+                seller = prior[0]  # the registrant is conventionally named first
+
+        # A fixed-length window, not a punctuation-bounded capture: a
+        # decimal number immediately after the buyer's name ("$9.6
+        # billion") has its own period, which a [^.;]-style capture would
+        # misread as the end of the buyer's name -- same bug class as the
+        # AIG "Ltd." truncation fixed earlier. known_prefix()/resolve()
+        # don't need a clean boundary; they just need the name to appear
+        # somewhere within the window.
+        window = text[dm.end():dm.end() + 150]
+        buyer = known_prefix(window, orgs)
+        if not buyer:
+            short = re.match(r"[A-Z][A-Za-z0-9&.'\u2019-]*", window)
+            if short:
+                resolved = resolve(short.group(0), aliases)
+                if resolved in orgs:
+                    buyer = resolved
+        if buyer:
+            # A divestiture's immediate contracting buyer is very often a
+            # newly-formed subsidiary of the real acquiring company --
+            # prefer the disclosed parent, same as the real Sinclair case.
+            buyer = _parent_of(buyer, text, orgs)
+
+        if seller and buyer and seller != buyer:
+            status = (
+                "COMPLETED" if re.search(r"\bsale\s+was\s+completed\b", text, re.I)
+                else "PROPOSED"
+            )
+            add_event(
+                out, "DIVESTED_BUSINESS", seller, buyer, status,
+                text[max(0, dm.start() - 150):dm.end() + 150],
+                extraction_rule="ASSET_SALE_DIVESTITURE",
             )
 
     conv = re.search(
