@@ -1,0 +1,546 @@
+{
+  "company_id": "tenable",
+  "company": "Tenable Holdings, Inc.",
+  "baseline_commit": "b36c40b3b8fb1abfd05c242151a1abc1b0ab8735",
+  "run_timestamp": "2026-09-16T15:24:27.108119+00:00",
+  "scope": {
+    "start": "2015-01-01",
+    "end": "2026-12-31",
+    "forms": [
+      "10-K",
+      "10-K/A",
+      "8-K",
+      "8-K/A"
+    ]
+  },
+  "cik": "0001660280",
+  "pipeline": {
+    "cik_resolved": true,
+    "filings_retrieved": true,
+    "relevant_text_present": true,
+    "locator_captured": true,
+    "entity_recognized": true,
+    "event_extracted": true,
+    "candidate_emitted": true
+  },
+  "gold_events": [
+    {
+      "id": "tenable-1",
+      "counterparty": "Indegy Ltd.",
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2020-07",
+      "notes": "OT/industrial security, ~$78M per SecurityWeek",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": true,
+        "candidate_emitted": true
+      },
+      "deepest_stage": "CANDIDATE_EMITTED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0001660280-19-000038",
+          "0001660280-20-000012",
+          "0001660280-21-000027",
+          "0001660280-22-000035"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001660280-22-000035",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001660280-21-000027",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001660280-21-000027",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001660280-21-000027",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION"
+            ]
+          },
+          {
+            "accession": "0001660280-21-000027",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001660280-20-000012",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001660280-20-000012",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001660280-20-000012",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001660280-20-000012",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION"
+            ]
+          },
+          {
+            "accession": "0001660280-20-000012",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001660280-20-000012",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001660280-19-000038",
+            "form": "8-K",
+            "section": "1.01",
+            "locator_terms": []
+          }
+        ],
+        "entity_accessions": [
+          "0001660280-19-000038",
+          "0001660280-20-000012",
+          "0001660280-21-000027",
+          "0001660280-22-000035"
+        ],
+        "event_hits": [
+          {
+            "accession": "0001660280-22-000035",
+            "event_type": "ACQUIRED",
+            "status": "COMPLETED",
+            "extraction_rule": "REGISTRANT_DECLARATIVE_ACQUISITION",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": "Indegy Ltd."
+          },
+          {
+            "accession": "0001660280-21-000027",
+            "event_type": "ACQUIRED",
+            "status": "COMPLETED",
+            "extraction_rule": "REGISTRANT_DECLARATIVE_ACQUISITION",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": "Indegy Ltd."
+          },
+          {
+            "accession": "0001660280-21-000027",
+            "event_type": "ACQUIRED",
+            "status": "COMPLETED",
+            "extraction_rule": "REGISTRANT_DECLARATIVE_ACQUISITION",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": "Indegy Ltd."
+          },
+          {
+            "accession": "0001660280-21-000027",
+            "event_type": "ACQUIRED",
+            "status": "COMPLETED",
+            "extraction_rule": "REGISTRANT_DECLARATIVE_ACQUISITION",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": "Indegy Ltd."
+          },
+          {
+            "accession": "0001660280-20-000012",
+            "event_type": "ACQUIRED",
+            "status": "COMPLETED",
+            "extraction_rule": "REGISTRANT_DECLARATIVE_ACQUISITION",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": "Indegy Ltd."
+          },
+          {
+            "accession": "0001660280-20-000012",
+            "event_type": "ACQUIRED",
+            "status": "COMPLETED",
+            "extraction_rule": "REGISTRANT_DECLARATIVE_ACQUISITION",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": "Indegy Ltd."
+          },
+          {
+            "accession": "0001660280-20-000012",
+            "event_type": "ACQUIRED",
+            "status": "COMPLETED",
+            "extraction_rule": "REGISTRANT_DECLARATIVE_ACQUISITION",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": "Indegy Ltd."
+          },
+          {
+            "accession": "0001660280-20-000012",
+            "event_type": "ACQUIRED",
+            "status": "COMPLETED",
+            "extraction_rule": "REGISTRANT_DECLARATIVE_ACQUISITION",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": "Indegy Ltd."
+          }
+        ],
+        "candidate_names": [
+          "Indegy Ltd."
+        ]
+      }
+    },
+    {
+      "id": "tenable-2",
+      "counterparty": "Alsid SAS",
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2021-04",
+      "notes": "Active Directory security, ~$98M; found via user's manual 10-K review, not my initial research",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "LOCATOR_CAPTURED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0001660280-21-000016",
+          "0001660280-21-000027",
+          "0001660280-21-000050",
+          "0001660280-22-000035"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001660280-22-000035",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001660280-21-000027",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001660280-21-000027",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "PURCHASE_PRICE",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001660280-21-000016",
+            "form": "8-K",
+            "section": "1.01",
+            "locator_terms": []
+          }
+        ],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "tenable-3",
+      "counterparty": "Accurics, Inc.",
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2021-10-01",
+      "notes": "Cloud-native/IaC security, ~$160M; found via user's manual 10-K review, not my initial research",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "ENTITY_RECOGNIZED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0001660280-21-000150",
+          "0001660280-21-000156",
+          "0001660280-22-000035",
+          "0001660280-23-000032",
+          "0001660280-24-000033",
+          "0001660280-26-000005"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001660280-22-000035",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001660280-21-000150",
+            "form": "8-K",
+            "section": "1.01",
+            "locator_terms": []
+          }
+        ],
+        "entity_accessions": [
+          "0001660280-21-000150",
+          "0001660280-22-000035"
+        ],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "tenable-4",
+      "counterparty": "Cymptom Ltd.",
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2022-02",
+      "notes": "$23.0M",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": false,
+        "locator_captured": false,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "FILINGS_RETRIEVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "tenable-5",
+      "counterparty": "Bit Discovery, Inc.",
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2022-06",
+      "notes": "$44.5M announced/$43.8M final, external attack surface management -- confirmed to have NO standalone Item 1.01/2.01 8-K, only an earnings-8-K mention (see area notes)",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "ENTITY_RECOGNIZED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0001660280-25-000034"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001660280-25-000034",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          }
+        ],
+        "entity_accessions": [
+          "0001660280-25-000034"
+        ],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "tenable-6",
+      "counterparty": "Ermetic Ltd.",
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2023-10-02",
+      "notes": "$240-265M reported variably in press, 10-K says $243.8M total purchase price",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": true,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "EVENT_EXTRACTED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0001660280-23-000127",
+          "0001660280-23-000134",
+          "0001660280-24-000033",
+          "0001660280-25-000007",
+          "0001660280-25-000013",
+          "0001660280-25-000034"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001660280-25-000007",
+            "form": "8-K",
+            "section": "1.01",
+            "locator_terms": []
+          },
+          {
+            "accession": "0001660280-24-000033",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001660280-23-000134",
+            "form": "8-K",
+            "section": "2.01",
+            "locator_terms": []
+          },
+          {
+            "accession": "0001660280-23-000127",
+            "form": "8-K",
+            "section": "1.01",
+            "locator_terms": []
+          }
+        ],
+        "entity_accessions": [
+          "0001660280-23-000127",
+          "0001660280-23-000134",
+          "0001660280-24-000033",
+          "0001660280-25-000007",
+          "0001660280-25-000034",
+          "0001660280-26-000005"
+        ],
+        "event_hits": [
+          {
+            "accession": "0001660280-23-000134",
+            "event_type": "ACQUIRED",
+            "status": "COMPLETED",
+            "extraction_rule": "COMPLETED_ACQUISITION",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": null
+          }
+        ],
+        "candidate_names": []
+      }
+    }
+  ],
+  "unmatched_candidates": [
+    {
+      "name": "Vulcan Cyber Ltd.",
+      "status": "REVIEW",
+      "confidence": "MEDIUM",
+      "evidence_count": 2
+    }
+  ],
+  "retrieval": {
+    "filing_count": 81,
+    "errors": []
+  },
+  "observed_primitives": [
+    "EXTRACTION_RULE:COMPLETED_ACQUISITION",
+    "EXTRACTION_RULE:REGISTRANT_DECLARATIVE_ACQUISITION",
+    "FORM:10-K",
+    "FORM:8-K",
+    "LOCATOR_SIGNAL:ACQUIRE",
+    "LOCATOR_SIGNAL:ACQUISITION",
+    "LOCATOR_SIGNAL:BUSINESS_COMBINATION",
+    "LOCATOR_SIGNAL:PURCHASE_PRICE",
+    "LOCATOR_SIGNAL:SOLD",
+    "SECTION:1.01",
+    "SECTION:2.01",
+    "SECTION:LONGFORM_MA_CANDIDATE"
+  ],
+  "failure_classes": [
+    "CANDIDATE_EMISSION_MISS",
+    "DISCLOSURE_NOT_IN_RETRIEVED_CORPUS",
+    "ENTITY_RECOGNITION_MISS",
+    "EVENT_GRAMMAR_MISS"
+  ],
+  "notes": "Measurement-only M&A-S1 run; production resolver, locator, extractor, trust, and recursion behavior unchanged."
+}
