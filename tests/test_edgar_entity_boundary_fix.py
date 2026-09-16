@@ -193,6 +193,49 @@ def test_acquired_pattern_does_not_over_capture_leading_preamble():
     print("PASS test_acquired_pattern_does_not_over_capture_leading_preamble")
 
 
+def test_agreed_to_acquire_allows_definitive_modifier():
+    # Real bug found on real AIG/Validus text: "entered into A DEFINITIVE
+    # agreement and plan of merger" -- the trigger regex expected the
+    # agreement name immediately after "a[n]", with nothing in between.
+    aliases = {}
+    orgs = ["American International Group, Inc.", "Validus Holdings, Ltd.", "Venus Holdings Limited"]
+    text = (
+        'American International Group, Inc. ("AIG") entered into a definitive '
+        'agreement and plan of merger (the "Merger Agreement") with Venus Holdings '
+        'Limited, a wholly owned subsidiary of AIG ("Merger Sub") and Validus '
+        'Holdings, Ltd. ("Validus").'
+    )
+    events = m385.completed_only(m385.infer_events(text, aliases, orgs, "1.01"))
+    agreed = [e for e in events if e["event_type"] == "AGREED_TO_ACQUIRE"]
+    assert agreed, events
+    assert agreed[0]["subject"] == "American International Group, Inc.", agreed
+    print("PASS test_agreed_to_acquire_allows_definitive_modifier")
+
+
+def test_agreed_to_acquire_skips_shell_named_first_in_with_clause():
+    # Real bug found on the same AIG/Validus text: "with Venus Holdings
+    # Limited, a wholly owned subsidiary of AIG ('Merger Sub') and Validus
+    # Holdings, Ltd." -- the shell is named FIRST in the "with X and Y"
+    # list. A prefix-only match would grab the shell as target instead of
+    # the real company named second. This also exercises the truncation
+    # fix: "Validus Holdings, Ltd." ends in a period, which an earlier,
+    # narrower capture cut off before, so the org string never matched.
+    aliases = {}
+    orgs = ["American International Group, Inc.", "Validus Holdings, Ltd.", "Venus Holdings Limited"]
+    text = (
+        'American International Group, Inc. ("AIG") entered into a definitive '
+        'agreement and plan of merger (the "Merger Agreement") with Venus Holdings '
+        'Limited, a wholly owned subsidiary of AIG ("Merger Sub") and Validus '
+        'Holdings, Ltd. ("Validus"), pursuant to which Merger Sub will merge with '
+        'and into Validus.'
+    )
+    events = m385.completed_only(m385.infer_events(text, aliases, orgs, "1.01"))
+    agreed = [e for e in events if e["event_type"] == "AGREED_TO_ACQUIRE"]
+    assert agreed, events
+    assert agreed[0]["object"] == "Validus Holdings, Ltd.", agreed
+    print("PASS test_agreed_to_acquire_skips_shell_named_first_in_with_clause")
+
+
 def test_10k_declarative_acquisition_pattern():
     # Real text from Tenable's actual 10-K Business Combinations footnote.
     # Distinct document style from every 8-K pattern above: first-person
@@ -311,6 +354,8 @@ if __name__ == "__main__":
         test_closing_phrasing_original_patterns_still_work,
         test_acquired_pattern_resolves_short_aliases,
         test_acquired_pattern_does_not_over_capture_leading_preamble,
+        test_agreed_to_acquire_allows_definitive_modifier,
+        test_agreed_to_acquire_skips_shell_named_first_in_with_clause,
         test_10k_declarative_acquisition_pattern,
         test_10k_pattern_resolves_short_alias_form,
         test_10k_pattern_does_not_fire_on_8k_style_text,

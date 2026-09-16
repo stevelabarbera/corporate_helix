@@ -1,0 +1,19 @@
+{
+  "company": "American International Group, Inc.",
+  "cik": "0000005272",
+  "note": "Only the Item 1.01 announcement 8-K is included here. The closing confirmation was filed under Item 8.01 ('Other Events') -- a fourth real company (after Six Flags' Item 5.02, Brinker's Item 8.01, Ford's Item 7.01) hitting a variant of the item-filter gap already on record. Deliberately excluded since the live 1.01/2.01 item filter would never fetch it. Diagnostic-only test of that text (bypassing the filter) also found zero events even with entities resolving correctly -- 'issued a press release announcing the completion of its acquisition of all outstanding common shares of X' is yet another phrasing variant the ACQUIRED pattern doesn't recognize, not worth fixing in isolation for unreachable text. See CONTEXT_EVENT_EXTRACTION_AIG.md.",
+  "filings": [
+    {
+      "accession": "0001193125-18-015274",
+      "filing_date": "2018-01-22",
+      "form": "8-K",
+      "items": "1.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "text": "Item 1.01. Entry into a Material Definitive Agreement.\n\nOn January 21, 2018, American International Group, Inc. (\u201cAIG\u201d) entered into a definitive agreement and plan of merger (the \u201cMerger Agreement\u201d) with Venus Holdings Limited, a wholly owned subsidiary of AIG (\u201cMerger Sub\u201d) and Validus Holdings, Ltd. (\u201cValidus\u201d), pursuant to which, subject to the satisfaction or waiver of certain conditions set forth therein, Merger Sub will merge with and into Validus in accordance with the Bermuda Companies Act (the \u201cMerger\u201d), with Validus surviving the Merger as a wholly owned subsidiary of AIG (such entity, the \u201cSurviving Company\u201d).\n\nPursuant to the Merger Agreement, at the effective time of the Merger (the \u201cEffective Time\u201d), each issued and outstanding common share, par value $0.175 per share, of Validus, other than shares that are owned by AIG or any of its subsidiaries or that are subject to any Company Award (as defined in the Merger Agreement), will be converted into the right to receive $68.00 in cash (the \u201cMerger Consideration\u201d). Each issued and outstanding series A preferred share, par value $0.175 per share, of Validus, will remain issued and outstanding as a \u201cSeries A Preferred Share\u201d of the Surviving Company and each series B preferred share, par value $0.175 per share, of Validus, will remain issued and outstanding as a \u201cSeries B Preferred Share\u201d of the Surviving Company, in each case as described further in the Merger Agreement.\n\nEach of the boards of directors of AIG and Validus has approved the Merger Agreement and the Merger.\n\nThe Merger Agreement also provides certain termination rights for both AIG and Validus, and further provides that upon termination of the Merger Agreement, in certain circumstances, Validus will be required to pay AIG a termination fee of $162,000,000."
+        }
+      ]
+    }
+  ]
+}

@@ -173,6 +173,30 @@ def fuse(outputs, weights, threshold):
     return {"orgs": orgs, "aliases": aliases, "org_votes": dict(votes)}
 
 
+def _non_shell_orgs_in(span, orgs):
+    """
+    Real orgs mentioned in `span`, in order of first appearance, excluding
+    entities introduced as "a subsidiary of X" (transitory shells formed
+    solely to effect a merger -- a merger-sub or holdco named alongside
+    the real acquirer/target in the same sentence). Each org's own
+    "shell-ness" is checked only in the text between its own mention and
+    the next org's mention, so one shell's descriptor clause can't bleed
+    into flagging an unrelated, real org mentioned later in the same span.
+    """
+    positions = sorted(
+        ((o, span.find(o)) for o in orgs if o in span),
+        key=lambda t: t[1],
+    )
+    result = []
+    for i, (o, pos) in enumerate(positions):
+        end = positions[i + 1][1] if i + 1 < len(positions) else len(span)
+        context = span[pos + len(o):end]
+        if re.search(r"\bsubsidiary of\b", context, re.I):
+            continue
+        result.append(o)
+    return result
+
+
 def resolve(name, aliases):
     n = norm(name)
     if not n:
@@ -280,8 +304,14 @@ def infer_events(text, aliases, orgs, item):
             "partial financing of the proposed acquisition", "term loan",
         )
     )
+    # A definitive-agreement descriptor ("a definitive Agreement...", "a
+    # binding Transaction Agreement...") commonly sits between the article
+    # and the agreement name -- real AIG/Validus text uses "entered into a
+    # definitive agreement and plan of merger". Curated adjective list,
+    # not a generic wildcard, to avoid over-capturing unrelated text.
+    _AGMT_MODIFIER = r"(?:definitive|binding|new)\s+"
     merger_exec = re.search(
-        r"entered into an? (?:agreement and plan of merger|transaction agreement|"
+        r"entered into an? (?:" + _AGMT_MODIFIER + r")?(?:agreement and plan of merger|transaction agreement|"
         r"business combination agreement|agreement and plan of reorganization)",
         low[:2200],
     )
@@ -289,7 +319,7 @@ def infer_events(text, aliases, orgs, item):
         return out
 
     m = re.search(
-        r"\bentered into an? (?:Agreement and Plan of Merger|Transaction Agreement|"
+        r"\bentered into an? (?:" + _AGMT_MODIFIER + r")?(?:Agreement and Plan of Merger|Transaction Agreement|"
         r"Business Combination Agreement|Agreement and Plan of Reorganization)\b",
         text,
         re.I,
@@ -305,17 +335,7 @@ def infer_events(text, aliases, orgs, item):
         # entities introduced as "a subsidiary of X" (shells formed solely
         # to effect the merger) so real_parties holds the actual companies,
         # in order of first mention.
-        positions = sorted(
-            ((o, preamble.find(o)) for o in orgs if o in preamble),
-            key=lambda t: t[1],
-        )
-        real_parties = []
-        for i, (o, pos) in enumerate(positions):
-            end = positions[i + 1][1] if i + 1 < len(positions) else len(preamble)
-            context = preamble[pos + len(o):end]
-            if re.search(r"\bsubsidiary of\b", context, re.I):
-                continue
-            real_parties.append(o)
+        real_parties = _non_shell_orgs_in(preamble, orgs)
 
         acq = None
         if "Company" in aliases and aliases["Company"] in preamble:
@@ -330,9 +350,29 @@ def infer_events(text, aliases, orgs, item):
 
         after = text[m.end():m.end() + 1300]
         target = None
-        wm = re.search(r"\bwith\s+([^.;]{2,180})", after, re.I)
-        if wm:
-            target = known_prefix(wm.group(1), orgs)
+        wm_start = re.search(r"\bwith\s+", after, re.I)
+        if wm_start:
+            # Real AIG/Validus text: "entered into ... with Venus Holdings
+            # Limited, a wholly owned subsidiary of AIG ('Merger Sub') and
+            # Validus Holdings, Ltd. ('Validus')" -- the shell is named
+            # FIRST in the "with X and Y" list, so the same shell exclusion
+            # used for the preamble applies here too. Deliberately NOT
+            # truncating this span at the first '.'/';' the way the old
+            # known_prefix()-based capture did: a suffix like "Ltd." ends
+            # in a period itself, so that truncation could cut off before
+            # an org's own trailing period, making the literal org string
+            # never match as a substring at all. _non_shell_orgs_in scopes
+            # each org's own shell-check via the text between mentions, so
+            # it doesn't need a clean sentence-bounded string the way an
+            # exact-prefix match did.
+            span = after[wm_start.end():wm_start.end() + 300]
+            non_shell = [o for o in _non_shell_orgs_in(span, orgs) if o != acq]
+            if non_shell:
+                target = non_shell[0]
+            else:
+                wm = re.search(r"\bwith\s+([^.;]{2,180})", after, re.I)
+                if wm:
+                    target = known_prefix(wm.group(1), orgs)
         if not target:
             candidates = [o for o in orgs if o != acq and o in after]
             if candidates:
