@@ -16,6 +16,28 @@ def test_analyze_event_distinguishes_locator_from_entity_failure():
     assert event["deepest_stage"] == "RELEVANT_TEXT_PRESENT"
 
 
+def test_event_extraction_is_distinct_from_provider_pivot_linkage():
+    gold = {"id": "x-1", "counterparty": "Target, Inc."}
+    filing = {"accession": "a1", "raw_text": "Buyer acquired Target, Inc."}
+    section = {"item": "2.01", "text": filing["raw_text"]}
+    parsed = {
+        "fused": {"orgs": ["Target, Inc."]},
+        "completed_events": [{
+            "subject": "Historical Buyer, Inc.", "object": "Target, Inc.",
+            "event_type": "ACQUIRED", "status": "COMPLETED", "extraction_rule": "X",
+        }],
+    }
+    event = m.analyze_event(
+        gold, [filing],
+        [{"filing": filing, "section": section, "parsed": parsed, "pivot_name": "Current Buyer, Inc."}],
+        [],
+    )
+    assert event["stages"]["event_extracted"] is True
+    assert event["stages"]["candidate_emitted"] is False
+    assert event["deepest_stage"] == "EVENT_EXTRACTED"
+    assert event["evidence"]["event_hits"][0]["provider_other_party"] is None
+
+
 def test_run_baseline_emits_durable_stage_record(monkeypatch):
     raw = "Registrant Corp. completed its acquisition of Target, Inc."
     section = {"item": "2.01", "text": raw}

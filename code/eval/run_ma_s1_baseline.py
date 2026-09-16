@@ -156,13 +156,24 @@ def analyze_event(
         if any(same_company(org, names) for org in parsed["fused"].get("orgs", [])):
             entity_hits.append(row["filing"].get("accession"))
         for event in parsed.get("completed_events", []):
-            party = other_party(event, row["pivot_name"])
-            if same_company(party, names):
+            # Event extraction is deliberately measured before provider
+            # linkage.  Requiring other_party() here would collapse a pivot
+            # name/alias mismatch into EVENT_GRAMMAR_MISS even when the
+            # extractor produced a perfectly usable event involving the gold
+            # counterparty.  Candidate emission below remains the end-to-end
+            # provider/linkage measurement.
+            matched_roles = [
+                role for role in ("subject", "object")
+                if same_company(event.get(role), names)
+            ]
+            if matched_roles:
                 event_hits.append({
                     "accession": row["filing"].get("accession"),
                     "event_type": event.get("event_type"),
                     "status": event.get("status"),
                     "extraction_rule": event.get("extraction_rule"),
+                    "counterparty_roles": matched_roles,
+                    "provider_other_party": other_party(event, row["pivot_name"]),
                 })
     candidate_hits = [f for f in candidates if same_company(f.value, names)]
 
