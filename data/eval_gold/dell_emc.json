@@ -1,0 +1,16 @@
+{
+  "company": "EMC Corporation",
+  "aliases_ok": ["EMC", "Denali Holding Inc.", "Dell Technologies Inc.", "Dell Technologies"],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "A general web search for 'Dell EMC acquisition VMware tracking stock 2016 merger agreement' returned several real 8-K excerpts (a VMware 8-K quoting the merger agreement's own recitals, and a Dell Technologies 8-K's pro forma financial statement notes) alongside independent sources (SDxCentral, TechCrunch, Dell's own newsroom). The events below are dated/scoped from SDxCentral, TechCrunch, and Dell's newsroom only; EMC's own real Item 1.01 8-K text was fetched afterward, deliberately, for extraction testing -- not used to write this gold record.",
+  "gold_sources": [
+    "https://www.sdxcentral.com/news/they-really-did-it-dell-to-acquire-emc-for-67b/",
+    "https://techcrunch.com/2016/09/07/67-billion-dell-emc-deal-becomes-official-today/",
+    "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/2016/09/20160907-01.htm"
+  ],
+  "note": "User-suggested as 'the Synthetic Tracking Equity' use case. Genuinely novel structure: EMC shareholders received cash PLUS a newly-created tracking stock (Class V Common Stock, ticker DVMT) whose value is designed to track ~65% of EMC's existing ~81% economic interest in VMware, Inc. -- VMware itself remained a separate, independently publicly-traded company throughout, never merged or acquired. This pass found something more fundamental than the tracking-stock mechanism itself, though: EMC's OWN 8-K (filed by the target, not the acquirer) uses the exact same 'the Company entered into an Agreement...with Parent...Merger Sub will merge with and into the Company' grammar that every other tested company's OWN 8-K used when THEY were the acquirer -- producing a backwards acquisition direction purely from that heuristic, independent of the tracking-stock structure. See CONTEXT_EVENT_EXTRACTION_DELL_EMC.md. Scoped to the EMC/Dell/Denali merger only (announced 2015-10-12, closed 2016-09-07); the later, related $500M VMware stock buyback used to retire the DVMT tracking stock (Dec 2016 / 2018) is out of scope for this pass.",
+  "events": [
+    {"id": "dellemc-1", "counterparty": "Denali Holding Inc.", "event_type": "AGREED_TO_ACQUIRE", "status": "COMPLETED", "approx_date": "2015-10-12", "notes": "Agreement and Plan of Merger signed; ~$67B total value ($24.05/share cash + Class V tracking stock tied to EMC's VMware stake). This is scored from EMC's OWN perspective as the gold 'company' (EMC being ACQUIRED by Denali/Dell), not the other way around -- see note on the direction-correction bug this exposed."},
+    {"id": "dellemc-2", "counterparty": "Denali Holding Inc.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2016-09-07", "notes": "Closing; EMC became a wholly owned subsidiary of Denali Holding Inc. (renamed Dell Technologies Inc. at/around closing). Only a fragment of the real closing 8-K text was verified this pass (see att_real.json-style raw fixture note) -- expected NOT_DISCOVERED against that fragment alone since it doesn't itself define 'the Company' alias within the fragment's own text, not because of a code gap."}
+  ]
+}

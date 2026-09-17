@@ -299,6 +299,63 @@ def test_divested_business_does_not_truncate_on_decimal_point():
     divested = [e for e in events if e["event_type"] == "DIVESTED_BUSINESS"]
     assert divested, events
     assert divested[0]["object"] == "Acme Sports Holdings, LLC", divested
+
+
+def test_agreed_to_acquire_direction_corrected_by_subsidiary_of():
+    # Real bug found on real EMC Corporation 8-K text: EMC's OWN filing,
+    # about ITSELF being acquired by Denali Holding Inc. (later Dell
+    # Technologies), used the exact same "the Company entered into an
+    # Agreement...with Parent...Merger Sub will merge with and into the
+    # Company" grammar that every acquirer's own 8-K uses -- producing a
+    # backwards AGREED_TO_ACQUIRE(EMC -> Denali) from the "the Company =
+    # acquirer" heuristic, which is only true when the FILER is the
+    # acquirer. The SUBSIDIARY_OF signal from the same text ("with the
+    # Company continuing...as a wholly owned subsidiary of Parent")
+    # directly reveals the true direction and should correct it.
+    aliases = {"Company": "EMC Corporation", "Parent": "Denali Holding Inc.", "Merger Sub": "Universal Acquisition Co."}
+    orgs = ["EMC Corporation", "Denali Holding Inc.", "Dell Inc.", "Universal Acquisition Co."]
+    text = (
+        'EMC Corporation, a Massachusetts corporation (the "Company"), entered into an '
+        'Agreement and Plan of Merger (the "Merger Agreement") among the Company, Denali '
+        'Holding Inc., a Delaware corporation ("Parent"), Dell Inc., a Delaware corporation, '
+        'and Universal Acquisition Co., a Delaware corporation and direct wholly owned '
+        'subsidiary of Parent ("Merger Sub"), pursuant to which Merger Sub will merge with '
+        'and into the Company (the "Merger"), with the Company continuing as the surviving '
+        "corporation and a wholly owned subsidiary of Parent."
+    )
+    events = m385.infer_events(text, aliases, orgs, "1.01")
+    agreed = [e for e in events if e["event_type"] == "AGREED_TO_ACQUIRE"]
+    assert agreed, events
+    assert agreed[0]["subject"] == "Denali Holding Inc.", agreed
+    assert agreed[0]["object"] == "EMC Corporation", agreed
+    subsidiary = [e for e in events if e["event_type"] == "SUBSIDIARY_OF"]
+    assert subsidiary and subsidiary[0]["subject"] == "EMC Corporation", subsidiary
+
+
+def test_subsidiary_of_pattern_allows_the_before_first_alias():
+    # Real asymmetry bug: pat2 already allowed an optional "the " before
+    # the SECOND alias reference ("a wholly owned subsidiary of THE
+    # Sinclair...") but not the first ("with THE Company continuing..."),
+    # so the exact same construct on the other side never matched.
+    aliases = {"Company": "EMC Corporation", "Parent": "Denali Holding Inc."}
+    orgs = ["EMC Corporation", "Denali Holding Inc."]
+    text = "Merger Sub will merge with and into the Company, with the Company continuing as the surviving corporation and a wholly owned subsidiary of Parent."
+    events = m385.infer_events(text, aliases, orgs, "1.01")
+    subsidiary = [e for e in events if e["event_type"] == "SUBSIDIARY_OF"]
+    assert subsidiary, events
+    assert subsidiary[0]["subject"] == "EMC Corporation", subsidiary
+    assert subsidiary[0]["object"] == "Denali Holding Inc.", subsidiary
+
+
+def test_co_suffix_is_recognized():
+    # Real bug found on real Dell Technologies closing 8-K text:
+    # "Universal Acquisition Co" (no period, not "Company") was
+    # completely invisible to entity extraction -- "Co" bare wasn't in
+    # the corporate suffix list at all, same shape as the earlier L.P.
+    # suffix fix.
+    backend = m385.RegexBackend()
+    result = backend.parse("Universal Acquisition Co, a wholly owned subsidiary of the Company, was formed for this purpose.")
+    assert "Universal Acquisition Co" in result["orgs"], result["orgs"]
     print("PASS test_agreed_to_acquire_skips_shell_named_first_in_with_clause")
 
 
@@ -424,6 +481,9 @@ if __name__ == "__main__":
         test_agreed_to_acquire_skips_shell_named_first_in_with_clause,
         test_divested_business_pattern_did_not_exist_before_this_fix,
         test_divested_business_does_not_truncate_on_decimal_point,
+        test_agreed_to_acquire_direction_corrected_by_subsidiary_of,
+        test_subsidiary_of_pattern_allows_the_before_first_alias,
+        test_co_suffix_is_recognized,
         test_10k_declarative_acquisition_pattern,
         test_10k_pattern_resolves_short_alias_form,
         test_10k_pattern_does_not_fire_on_8k_style_text,

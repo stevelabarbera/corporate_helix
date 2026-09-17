@@ -26,7 +26,7 @@ def norm(s):
     return re.sub(r"\s+", " ", s).strip(" ,;")
 
 
-CORP = r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|L\.P\.|LP|Ltd\.?|Limited|PLC|plc|Company)"
+CORP = r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|L\.P\.|LP|Ltd\.?|Limited|PLC|plc|Company|Co\.?)"
 _WORD = r"(?:[A-Z][A-Za-z0-9&.'’-]*|[0-9][A-Za-z0-9&.'’-]*)"
 _CONNECTOR = r"(?:of|and|the|for)"
 # A blank line is real document structure (a section-header/paragraph
@@ -496,8 +496,8 @@ def infer_events(text, aliases, orgs, item):
             )
 
         pat2 = re.compile(
-            rf"\bwith\s+({ap})\s+(?:surviving|continuing)[^.;]{{0,220}}?"
-            rf"(?:as|becoming)\s+a\s+wholly[- ]owned subsidiary of\s+"
+            rf"\bwith\s+(?:the\s+)?({ap})\s+(?:surviving|continuing)[^.;]{{0,220}}?"
+            rf"wholly[- ]owned subsidiary of\s+"
             rf"((?:the\s+)?(?:{ap}))",
             re.I,
         )
@@ -613,6 +613,29 @@ def infer_events(text, aliases, orgs, item):
             out, "ACQUIRED", "REGISTRANT_SELF_REFERENCE", target, "COMPLETED", frag,
             extraction_rule="REGISTRANT_DECLARATIVE_ACQUISITION",
         )
+
+    # Direction correction: "the Company entered into an Agreement...with
+    # Parent...Merger Sub will merge with and into the Company" is
+    # IDENTICAL grammar whether the filer is the acquirer OR the target --
+    # real EMC Corporation 8-K text (EMC's own filing about being
+    # acquired by Denali Holding Inc./Dell) produced a backwards
+    # AGREED_TO_ACQUIRE(EMC -> Denali) using the same "the Company =
+    # acquirer" heuristic that correctly identifies the acquirer in every
+    # case where the filer IS the acquirer. The SUBSIDIARY_OF pattern
+    # (built independently, from "with the Company continuing...as a
+    # wholly owned subsidiary of Parent") gives a direct, textual signal
+    # of who actually acquired whom: if X becomes a subsidiary of Y, Y is
+    # the real acquirer. When that signal directly contradicts an
+    # AGREED_TO_ACQUIRE/ACQUIRED event's direction, swap it.
+    subsidiary_of_pairs = {
+        (e["subject"], e["object"])
+        for e in out
+        if e["event_type"] == "SUBSIDIARY_OF"
+    }
+    for e in out:
+        if e["event_type"] in ("AGREED_TO_ACQUIRE", "ACQUIRED"):
+            if (e["subject"], e["object"]) in subsidiary_of_pairs:
+                e["subject"], e["object"] = e["object"], e["subject"]
 
     return out
 

@@ -1,0 +1,31 @@
+{
+  "company": "EMC Corporation",
+  "cik": "0000790070",
+  "note": "The announcement (Item 1.01) is EMC's own complete, real 8-K text. The closing section is only a verified FRAGMENT of the real Dell Technologies closing 8-K (found via search, not the full document) -- it does not itself contain a defining sentence for 'the Company' alias (Dell Technologies Inc.), which the real, complete filing surely has elsewhere (e.g. the cover page or an earlier paragraph not captured in this fragment). Deliberately NOT fabricating that missing context. dellemc-2 is expected NOT_DISCOVERED against this fragment for that reason, not a code gap -- see CONTEXT_EVENT_EXTRACTION_DELL_EMC.md.",
+  "filings": [
+    {
+      "accession": "0001193125-15-342168",
+      "filing_date": "2015-10-13",
+      "form": "8-K",
+      "items": "1.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "text": "Item 1.01 Entry into a Material Definitive Agreement.\n\nMerger Agreement\n\nOn October 12, 2015, EMC Corporation, a Massachusetts corporation (the \u201cCompany\u201d), entered into an Agreement and Plan of Merger (the \u201cMerger Agreement\u201d) among the Company, Denali Holding Inc., a Delaware corporation (\u201cParent\u201d), Dell Inc., a Delaware corporation, and Universal Acquisition Co., a Delaware corporation and direct wholly owned subsidiary of Parent (\u201cMerger Sub\u201d), pursuant to which, among other things and subject to the conditions set forth therein, Merger Sub will merge with and into the Company (the \u201cMerger\u201d), with the Company continuing as the surviving corporation and a wholly owned subsidiary of Parent.\n\nSubject to the terms and conditions of the Merger Agreement, at the effective time of the Merger (the \u201cEffective Time\u201d), each share of Company common stock, par value $0.01 per share (\u201cCompany Common Stock\u201d), issued and outstanding immediately prior to the Effective Time (other than shares owned by Parent, Merger Sub, the Company or any of its wholly-owned subsidiaries, and other than shares with respect to which appraisal rights may be properly exercised and not withdrawn) will be cancelled and converted into the right to receive (i) $24.05 in cash, without interest (the \u201cCash Consideration\u201d), and (ii) a number of shares of validly issued, fully paid and non-assessable shares of common stock of Parent designated as Class V Common Stock, par value $0.01 per share (the \u201cClass V Common Stock\u201d), equal to the quotient obtained by dividing (A) 222,966,450 by (B) the aggregate number of shares of Company Common Stock issued and outstanding immediately prior to the Effective Time, plus cash in lieu of any fractional shares (together with the Cash Consideration, the \u201cMerger Consideration\u201d). The aggregate number of shares of Class V Common Stock issued as Merger Consideration in the transaction is intended to represent 65% of the Company's economic interest in the approximately 81% of the outstanding shares of VMware, Inc. (\u201cVMware\u201d) currently owned by the Company, reflecting approximately 53% of the total economic interest in the outstanding shares of VMware."
+        }
+      ]
+    },
+    {
+      "accession": "0001193125-16-706567",
+      "filing_date": "2016-09-07",
+      "form": "8-K",
+      "items": "2.01",
+      "sections": [
+        {
+          "item": "2.01",
+          "text": "On September 7, 2016, Universal Acquisition Co, a wholly owned subsidiary of the Company (\u201cMerger Sub\u201d), merged with and into EMC (the \u201cmerger\u201d), with EMC surviving as a wholly owned subsidiary of the Company."
+        }
+      ]
+    }
+  ]
+}
