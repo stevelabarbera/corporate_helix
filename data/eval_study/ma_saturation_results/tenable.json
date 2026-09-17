@@ -1,8 +1,8 @@
 {
   "company_id": "tenable",
   "company": "Tenable Holdings, Inc.",
-  "baseline_commit": "b36c40b3b8fb1abfd05c242151a1abc1b0ab8735",
-  "run_timestamp": "2026-09-16T15:24:27.108119+00:00",
+  "baseline_commit": "93576467a6b4a10fe702acfbd0f9bb6e04767c84",
+  "run_timestamp": "2026-09-17T10:04:36.473280+00:00",
   "scope": {
     "start": "2015-01-01",
     "end": "2026-12-31",
