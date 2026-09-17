@@ -11,7 +11,7 @@
   "events": [
     {"id": "lumen-1", "counterparty": "Level 3 Communications, Inc.", "event_type": "AGREED_TO_ACQUIRE", "status": "COMPLETED", "approx_date": "2016-10", "notes": "Announced Oct/Nov 2016, closed Nov 1, 2017"},
     {"id": "lumen-2", "counterparty": "Level 3 Communications, Inc.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2017-11", "notes": "Closing of the above agreement"},
-    {"id": "lumen-3", "counterparty": "Brightspeed / Connect Holding II LLC (Apollo Global Management affiliate)", "event_type": "DIVESTED_BUSINESS", "status": "COMPLETED", "approx_date": "2022", "notes": "ILEC assets in 20 states, announced Aug 2021"},
+    {"id": "lumen-3", "counterparty": "Brightspeed / Connect Holding II LLC (Apollo Global Management affiliate)", "aliases": ["Brightspeed", "Connect Holding II LLC", "Apollo Global Management"], "event_type": "DIVESTED_BUSINESS", "status": "COMPLETED", "approx_date": "2022", "notes": "ILEC assets in 20 states, announced Aug 2021; aliases enumerate the legal/brand names already encoded in the descriptive counterparty label so stage measurement does not search that label as one literal entity name"},
     {"id": "lumen-4", "counterparty": "Stonepeak Infrastructure Partners", "event_type": "DIVESTED_BUSINESS", "status": "COMPLETED", "approx_date": "2022", "notes": "Latin America business, ~$2.7B"},
     {"id": "lumen-5", "counterparty": "Colt Technology Services", "event_type": "DIVESTED_BUSINESS", "status": "COMPLETED", "approx_date": "2023", "notes": "EMEA business"}
   ]

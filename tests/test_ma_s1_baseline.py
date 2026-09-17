@@ -17,7 +17,10 @@ def test_analyze_event_distinguishes_locator_from_entity_failure():
 
 
 def test_event_extraction_is_distinct_from_provider_pivot_linkage():
-    gold = {"id": "x-1", "counterparty": "Target, Inc."}
+    gold = {
+        "id": "x-1", "counterparty": "Target, Inc.",
+        "event_type": "ACQUIRED", "status": "COMPLETED",
+    }
     filing = {"accession": "a1", "raw_text": "Buyer acquired Target, Inc."}
     section = {"item": "2.01", "text": filing["raw_text"]}
     parsed = {
@@ -36,6 +39,30 @@ def test_event_extraction_is_distinct_from_provider_pivot_linkage():
     assert event["stages"]["candidate_emitted"] is False
     assert event["deepest_stage"] == "EVENT_EXTRACTED"
     assert event["evidence"]["event_hits"][0]["provider_other_party"] is None
+
+
+def test_event_extraction_requires_gold_event_type():
+    gold = {
+        "id": "x-1", "counterparty": "Target, Inc.",
+        "event_type": "AGREED_TO_ACQUIRE", "status": "COMPLETED",
+    }
+    filing = {"accession": "a1", "raw_text": "Buyer acquired Target, Inc."}
+    section = {"item": "2.01", "text": filing["raw_text"]}
+    parsed = {
+        "fused": {"orgs": ["Target, Inc."]},
+        "completed_events": [{
+            "subject": "Buyer, Inc.", "object": "Target, Inc.",
+            "event_type": "ACQUIRED", "status": "COMPLETED", "extraction_rule": "X",
+        }],
+    }
+    event = m.analyze_event(
+        gold, [filing],
+        [{"filing": filing, "section": section, "parsed": parsed, "pivot_name": "Buyer, Inc."}],
+        [],
+    )
+    assert event["stages"]["entity_recognized"] is True
+    assert event["stages"]["event_extracted"] is False
+    assert event["deepest_stage"] == "ENTITY_RECOGNIZED"
 
 
 def test_run_baseline_emits_durable_stage_record(monkeypatch):

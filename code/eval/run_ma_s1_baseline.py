@@ -79,6 +79,21 @@ def same_company(candidate: str | None, names: Iterable[str]) -> bool:
     return bool(key) and any(key == identity_key(name) for name in names)
 
 
+def event_matches_gold(event: dict[str, Any], gold: dict[str, Any], names: Iterable[str]) -> bool:
+    """Match the independently declared event, not merely its counterparty."""
+    if not any(same_company(event.get(role), names) for role in ("subject", "object")):
+        return False
+    expected_type = str(gold.get("event_type") or "").strip().upper()
+    expected_status = str(gold.get("status") or "").strip().upper()
+    actual_type = str(event.get("event_type") or "").strip().upper()
+    actual_status = str(event.get("status") or "").strip().upper()
+    if expected_type and actual_type != expected_type:
+        return False
+    if expected_status and actual_status != expected_status:
+        return False
+    return True
+
+
 def collect_audit_filings(
     cik: str,
     user_agent: str,
@@ -166,7 +181,7 @@ def analyze_event(
                 role for role in ("subject", "object")
                 if same_company(event.get(role), names)
             ]
-            if matched_roles:
+            if matched_roles and event_matches_gold(event, gold, names):
                 event_hits.append({
                     "accession": row["filing"].get("accession"),
                     "event_type": event.get("event_type"),
