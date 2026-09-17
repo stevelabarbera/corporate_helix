@@ -129,3 +129,17 @@ def test_collect_audit_filings_retains_raw_text_when_locator_misses():
     assert cik == "0000000001" and not errors
     assert filings[0]["raw_text"] == "No transaction language here."
     assert filings[0]["sections"] == []
+
+
+def test_unresolved_cik_marks_each_gold_event_honestly(monkeypatch):
+    monkeypatch.setattr(m, "git_head", lambda: "abc123")
+    result = m.run_baseline(
+        {"id": "issuer", "company": "Issuer With Name History"},
+        {"events": [{"id": "issuer-1", "counterparty": "Target, Inc."}]},
+        user_agent="test test@example.com", start="2020-01-01", end="2026-12-31",
+        resolve_fn=lambda name, ua: None,
+    )
+    assert result["pipeline"]["cik_resolved"] is False
+    assert result["failure_classes"] == ["CIK_RESOLUTION_MISS"]
+    assert result["gold_events"][0]["deepest_stage"] == "CIK_UNRESOLVED"
+    assert all(v is None for v in result["gold_events"][0]["stages"].values())

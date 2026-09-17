@@ -274,11 +274,26 @@ def run_baseline(
 ) -> dict[str, Any]:
     cik = spec.get("cik") or resolve_fn(spec["company"], user_agent)
     if not cik:
+        unresolved_events = []
+        for event in gold.get("events", []):
+            unresolved_events.append({
+                **event,
+                "stages": {stage: None for stage in STAGES[1:]},
+                "deepest_stage": "CIK_UNRESOLVED",
+                "evidence": {
+                    "raw_text_accessions": [],
+                    "selected_section_hits": [],
+                    "entity_accessions": [],
+                    "event_hits": [],
+                    "candidate_names": [],
+                },
+            })
         return {
             "company_id": spec["id"], "company": spec["company"],
             "baseline_commit": git_head(), "run_timestamp": datetime.now(timezone.utc).isoformat(),
             "pipeline": {stage: (False if stage == "cik_resolved" else None) for stage in STAGES},
-            "gold_events": gold.get("events", []), "observed_primitives": [],
+            "gold_events": unresolved_events, "unmatched_candidates": [],
+            "retrieval": {"filing_count": 0, "errors": []}, "observed_primitives": [],
             "failure_classes": ["CIK_RESOLUTION_MISS"], "notes": "CIK resolution failed; no SEC requests made.",
         }
 
