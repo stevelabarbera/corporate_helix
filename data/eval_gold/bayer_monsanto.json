@@ -1,0 +1,16 @@
+{
+  "company": "Monsanto Company",
+  "aliases_ok": ["Monsanto", "Bayer Aktiengesellschaft", "Bayer AG"],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "A general web search for 'Bayer Monsanto merger agreement BASF divestiture regulatory approval 2016 2018' returned a real, verbatim excerpt of Monsanto's own 10-Q text (via a search-engine-rendered SEC filing page) alongside independent news sources (Nasdaq, Pharmaceutical Technology, Irish Times, Chemistry World). That 10-Q excerpt is what was used to build and validate the extraction fix in this pass (see CONTEXT_EVENT_EXTRACTION_BAYER_MONSANTO.md) -- deliberately NOT used to write the gold events below, which are dated/scoped from the independent news sources only.",
+  "gold_sources": [
+    "https://www.nasdaq.com/articles/quick-overview-bayer-monsanto-merger-after-doj-approval-2018-05-30",
+    "https://www.irishtimes.com/business/health-pharma/bayer-is-cleared-by-doj-for-66bn-monsanto-takeover-1.3513010",
+    "https://www.chemistryworld.com/news/bayer-monsanto-merger-momentum/3009088.article"
+  ],
+  "note": "User-suggested as 'the Global Regulatory Divestiture' use case. Genuinely distinctive: DOJ required Bayer to divest ~$9B of assets (cotton/canola/soybean/vegetable seed businesses, the Liberty herbicide business, and Bayer's digital-agriculture business) to BASF -- described by DOJ as 'the largest merger divestiture ever required by the United States' -- as a condition of approval, alongside similar EU Commission-mandated divestitures. This pass found something more foundational than the divestiture mechanism itself, though: Monsanto's own 10-Q describes itself being acquired using bare first-person 'we' with no named self-reference alias anywhere in the passage ('we entered into an agreement and plan of merger...with Bayer Aktiengesellschaft'), a different and harder variant of the direction-ambiguity problem found in the Dell/EMC pass, where at least a named 'the Company' alias existed. Scoped to the Bayer/Monsanto merger itself only (announced 2016-09-14, closed 2018-06-07); the BASF divestiture (a real, separate DIVESTED_BUSINESS-shaped event, from Bayer's side) is out of scope for this pass, and worth a dedicated look given the Reverse-Morris-Trust-style complexity already flagged for AT&T's own DIVESTED_BUSINESS gap.",
+  "events": [
+    {"id": "baymon-1", "counterparty": "Bayer Aktiengesellschaft", "event_type": "AGREED_TO_ACQUIRE", "status": "COMPLETED", "approx_date": "2016-09-14", "notes": "Agreement and Plan of Merger signed; $128.00/share all-cash, ~$66B total value. Scored from Monsanto's own perspective (Monsanto being ACQUIRED by Bayer) -- see note on the self-reference direction bug this exposed."},
+    {"id": "baymon-2", "counterparty": "Bayer Aktiengesellschaft", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2018-06-07", "notes": "Closing, after ~30 regulatory approvals worldwide including the DOJ's BASF-divestiture-conditioned approval; Monsanto Company delisted, folded into Bayer's Crop Science division"}
+  ]
+}

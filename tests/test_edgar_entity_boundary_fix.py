@@ -356,6 +356,47 @@ def test_co_suffix_is_recognized():
     backend = m385.RegexBackend()
     result = backend.parse("Universal Acquisition Co, a wholly owned subsidiary of the Company, was formed for this purpose.")
     assert "Universal Acquisition Co" in result["orgs"], result["orgs"]
+
+
+def test_aktiengesellschaft_suffix_is_recognized():
+    # Real bug found on real Monsanto 10-Q text: "Bayer
+    # Aktiengesellschaft" (German for "stock corporation", abbreviated
+    # "AG") was completely invisible to entity extraction -- foreign
+    # corporate-form suffixes are a real, previously unaddressed
+    # category. Only the specific one verified this pass was added,
+    # not speculative others (GmbH, S.A., N.V., etc.).
+    backend = m385.RegexBackend()
+    result = backend.parse("Bayer Aktiengesellschaft, a German stock corporation, announced results today.")
+    assert "Bayer Aktiengesellschaft" in result["orgs"], result["orgs"]
+
+
+def test_first_person_self_reference_direction_corrected():
+    # Real bug found on real Monsanto 10-Q text: "we entered into an
+    # agreement and plan of merger...with Bayer Aktiengesellschaft" --
+    # Monsanto never names itself anywhere in the passage at all (only
+    # bare "we"), a harder variant of the EMC/Denali direction bug: there
+    # not even a "the Company" alias exists to hang the correction on.
+    # Fixed by (1) recognizing "we entered into..." as
+    # REGISTRANT_SELF_REFERENCE (mirroring the existing "we acquired X"
+    # 10-K convention), and (2) letting MERGED_INTO/SUBSIDIARY_OF resolve
+    # a generic, undefined "(the) company" self-reference the same way,
+    # so the direction-correction pass (built for EMC) has a signal to
+    # work with here too.
+    aliases = {"Bayer": "Bayer Aktiengesellschaft", "Merger Sub": "KWA Investment Co."}
+    orgs = ["Bayer Aktiengesellschaft", "KWA Investment Co."]
+    text = (
+        'we entered into an agreement and plan of merger (the "Merger Agreement") with '
+        'Bayer Aktiengesellschaft, a German stock corporation ("Bayer"), and KWA Investment '
+        'Co., a Delaware corporation and an indirect wholly owned subsidiary of Bayer '
+        '("Merger Sub"). The Merger Agreement provides that Merger Sub will be merged with '
+        'and into the company (the "Merger"), with the company continuing as the surviving '
+        "corporation and as a wholly owned subsidiary of Bayer."
+    )
+    events = m385.infer_events(text, aliases, orgs, "10-Q")
+    agreed = [e for e in events if e["event_type"] == "AGREED_TO_ACQUIRE"]
+    assert agreed, events
+    assert agreed[0]["subject"] == "Bayer Aktiengesellschaft", agreed
+    assert agreed[0]["object"] == "REGISTRANT_SELF_REFERENCE", agreed
     print("PASS test_agreed_to_acquire_skips_shell_named_first_in_with_clause")
 
 
@@ -484,6 +525,8 @@ if __name__ == "__main__":
         test_agreed_to_acquire_direction_corrected_by_subsidiary_of,
         test_subsidiary_of_pattern_allows_the_before_first_alias,
         test_co_suffix_is_recognized,
+        test_aktiengesellschaft_suffix_is_recognized,
+        test_first_person_self_reference_direction_corrected,
         test_10k_declarative_acquisition_pattern,
         test_10k_pattern_resolves_short_alias_form,
         test_10k_pattern_does_not_fire_on_8k_style_text,

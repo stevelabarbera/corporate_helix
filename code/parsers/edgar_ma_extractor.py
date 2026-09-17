@@ -26,7 +26,7 @@ def norm(s):
     return re.sub(r"\s+", " ", s).strip(" ,;")
 
 
-CORP = r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|L\.P\.|LP|Ltd\.?|Limited|PLC|plc|Company|Co\.?)"
+CORP = r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|L\.P\.|LP|Ltd\.?|Limited|PLC|plc|Company|Co\.?|Aktiengesellschaft|AG)"
 _WORD = r"(?:[A-Z][A-Za-z0-9&.'’-]*|[0-9][A-Za-z0-9&.'’-]*)"
 _CONNECTOR = r"(?:of|and|the|for)"
 # A blank line is real document structure (a section-header/paragraph
@@ -376,6 +376,18 @@ def infer_events(text, aliases, orgs, item):
                 prior = [o for o in orgs if o in preamble]
                 if prior:
                     acq = prior[-1]
+        if not acq:
+            # First-person self-reference ("we entered into...") is
+            # common in 10-Q/10-K MD&A prose -- the registrant refers to
+            # itself as "we" without ever naming itself in this specific
+            # passage at all (real Monsanto 10-Q text: "we entered into
+            # an agreement and plan of merger...with Bayer
+            # Aktiengesellschaft..."). Mirrors the existing
+            # REGISTRANT_SELF_REFERENCE convention already used for the
+            # "we acquired X" 10-K pattern below.
+            lead = text[max(0, m.start() - 10):m.start()]
+            if re.search(r"\bwe\s+$", lead, re.I):
+                acq = "REGISTRANT_SELF_REFERENCE"
 
         after = text[m.end():m.end() + 1300]
         target = None
@@ -470,6 +482,18 @@ def infer_events(text, aliases, orgs, item):
             )
 
     alias_lc = {k.casefold(): v for k, v in aliases.items()}
+    if "company" not in alias_lc:
+        # Real Monsanto 10-Q text refers to itself only as "we"/"the
+        # company", generically, with no explicit "(the 'Company')"
+        # definition anywhere in the passage -- unlike every case where
+        # this alias IS explicitly defined. Without this fallback,
+        # MERGED_INTO/SUBSIDIARY_OF can never resolve a self-reference
+        # that was never named, and the direction-correction pass below
+        # (built for EMC, where a defined "the Company" alias made the
+        # correction possible) has nothing to work with here. Only added
+        # when "company" isn't already a real, explicitly-defined alias,
+        # so this never overrides an actual named entity.
+        alias_lc["company"] = "REGISTRANT_SELF_REFERENCE"
     if alias_lc:
         ap = "|".join(sorted((re.escape(k) for k in alias_lc), key=len, reverse=True))
 
@@ -502,8 +526,10 @@ def infer_events(text, aliases, orgs, item):
             re.I,
         )
         for m in pat2.finditer(text):
-            s = resolve(m.group(1), aliases)
-            o = resolve(m.group(2), aliases)
+            s_key = re.sub(r"^the\s+", "", norm(m.group(1)), flags=re.I).casefold()
+            o_key = re.sub(r"^the\s+", "", norm(m.group(2)), flags=re.I).casefold()
+            s = alias_lc.get(s_key) or resolve(m.group(1), aliases)
+            o = alias_lc.get(o_key) or resolve(m.group(2), aliases)
             if not s or not o:
                 continue
             frag = text[max(0, m.start() - 180):m.end() + 180]
