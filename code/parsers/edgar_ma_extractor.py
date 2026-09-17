@@ -607,18 +607,45 @@ def infer_events(text, aliases, orgs, item):
         text,
         re.I,
     )
-    if conv and "VMware" in aliases:
-        frag = text[max(0, conv.start() - 180):conv.end() + 160]
-        lead = (conv.group("lead") or "").casefold()
-        status = (
-            "PROPOSED" if "will" in lead
-            else ("COMPLETED" if "was" in lead or item == "2.01" else temporal_status(frag))
+    if conv:
+        # The entity being converted is very often referred to only by a
+        # dynamically-defined alias from earlier in the same sentence
+        # sequence ("VMware continuing as the surviving corporation...
+        # (the 'Surviving Company')"), not restated by name right here --
+        # real Broadcom/VMware text. This pattern used to be hardcoded to
+        # fire only when "VMware" was already a known alias, which
+        # happened to work on this new deal purely because VMware is
+        # again the entity involved -- coincidence, not generalization.
+        # It would silently miss any other company's real corporate
+        # conversion. Resolve the actual subject from context instead,
+        # keeping the VMware-specific check only as a fallback so
+        # existing behavior is preserved if this broader match fails.
+        survivor = re.search(
+            r"\b([A-Z][\w.,'\u2019&-]{1,80}?)\s+continuing as the surviving corporation"
+            r"[^.;]{0,120}?\(the\s*[\u201c\"]([^\u201d\"]+)[\u201d\"]\)",
+            text,
+            re.I,
         )
-        add_event(
-            out, "CONVERTED_TO", aliases["VMware"],
-            "Delaware limited liability company", status, frag,
-            extraction_rule="CORPORATE_CONVERSION",
-        )
+        subject = None
+        if survivor:
+            raw_name, alias_name = survivor.group(1), survivor.group(2)
+            candidate = known_prefix(raw_name, orgs) or resolve(raw_name, aliases)
+            if candidate in orgs:
+                subject = candidate
+        if not subject and "VMware" in aliases:
+            subject = aliases["VMware"]
+        if subject:
+            frag = text[max(0, conv.start() - 180):conv.end() + 160]
+            lead = (conv.group("lead") or "").casefold()
+            status = (
+                "PROPOSED" if "will" in lead
+                else ("COMPLETED" if "was" in lead or item == "2.01" else temporal_status(frag))
+            )
+            add_event(
+                out, "CONVERTED_TO", subject,
+                "Delaware limited liability company", status, frag,
+                extraction_rule="CORPORATE_CONVERSION",
+            )
 
     # 10-K / long-form filer-declarative pattern.
     for m in re.finditer(

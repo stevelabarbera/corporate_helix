@@ -1,0 +1,14 @@
+{
+  "company": "Broadcom Inc.",
+  "aliases_ok": ["Broadcom"],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "A general web search for 'Broadcom VMware acquisition merger agreement 2022 2023 structure' returned several real, verbatim 8-K/10-Q/10-K excerpts (Broadcom's own 'Pending Acquisition of VMware' footnotes, and the real closing 8-K text) alongside Broadcom's own investor-relations press release. The event below is dated/scoped from Broadcom's press release only; the real 8-K/10-Q excerpts were used afterward, deliberately, to build and validate the extraction fix in this pass -- not to write this gold record.",
+  "gold_sources": [
+    "https://investors.broadcom.com/news-releases/news-release-details/broadcom-acquire-vmware-approximately-61-billion-cash-and-stock"
+  ],
+  "note": "User-suggested as 'the Multi-Tranche Platform Integration' use case, and it delivered exactly that: the real closing 8-K describes a FOUR-STEP sequence (First Merger, a mid-sequence Delaware corp-to-LLC Conversion, Second Merger, Third Merger) across SIX named entities (Broadcom, VMware, Verona Holdco Inc., Verona Merger Sub Inc., Barcelona Merger Sub 2 Inc., Barcelona Merger Sub 3 LLC) -- the most structurally complex real closing text tested this session. This pass found that the existing CONVERTED_TO pattern (built for an earlier, unrelated VMware corporate-conversion case) was hardcoded to fire only when 'VMware' was literally a known alias -- it happened to still work on this new deal purely because VMware is again the entity involved, not because the pattern was ever actually general. Confirmed and fixed -- see CONTEXT_EVENT_EXTRACTION_BROADCOM_VMWARE.md. Scoped to the Broadcom/VMware merger only (announced 2022-05-26, closed 2023-11-22).",
+  "events": [
+    {"id": "avgovmw-1", "counterparty": "VMware, Inc.", "event_type": "AGREED_TO_ACQUIRE", "status": "COMPLETED", "approx_date": "2022-05-26", "notes": "Agreement and Plan of Merger signed; ~$61B cash-and-stock deal, $142.50/share cash or 0.2520 Broadcom shares per VMware share, plus assumption of ~$8B VMware debt"},
+    {"id": "avgovmw-2", "counterparty": "VMware, Inc.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2023-11-22", "notes": "Closing, via the four-step First Merger/Conversion/Second Merger/Third Merger sequence; VMware delisted, folded into Broadcom Software"}
+  ]
+}

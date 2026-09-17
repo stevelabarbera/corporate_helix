@@ -397,6 +397,44 @@ def test_first_person_self_reference_direction_corrected():
     assert agreed, events
     assert agreed[0]["subject"] == "Bayer Aktiengesellschaft", agreed
     assert agreed[0]["object"] == "REGISTRANT_SELF_REFERENCE", agreed
+
+
+def test_converted_to_generalizes_beyond_vmware():
+    # Real bug found on real Broadcom/VMware closing 8-K text: CONVERTED_TO
+    # was hardcoded to fire ONLY when "VMware" was literally a known
+    # alias -- it happened to still work on Broadcom's real 2023 closing
+    # text purely because VMware is again the entity involved in this
+    # completely different deal, not because the pattern was ever
+    # actually general. Proven here with an entirely synthetic company
+    # name (no VMware anywhere) to rule out the old coincidental path.
+    aliases = {"Acme": "Acme Holdings Inc.", "Zephyr": "Zephyr Corp.", "Merger Sub": "Falcon Merger Sub, Inc."}
+    orgs = ["Acme Holdings Inc.", "Zephyr Corp.", "Falcon Merger Sub, Inc."]
+    text = (
+        'On June 1, 2024, Acme Holdings Inc. ("Acme") completed its acquisition of Zephyr '
+        'Corp. ("Zephyr") pursuant to the Agreement and Plan of Merger, by and among Acme, '
+        'Zephyr, and Falcon Merger Sub, Inc., a direct wholly owned subsidiary of Acme '
+        '("Merger Sub"). Pursuant to the Merger Agreement, (i) Merger Sub merged with and '
+        'into Zephyr, with Zephyr continuing as the surviving corporation (the "Surviving '
+        'Company") and becoming a wholly owned subsidiary of Acme; and (ii) following the '
+        'merger, the Surviving Company was converted from a Delaware corporation into a '
+        'Delaware limited liability company (the "Conversion").'
+    )
+    events = m385.completed_only(m385.infer_events(text, aliases, orgs, "2.01"))
+    converted = [e for e in events if e["event_type"] == "CONVERTED_TO"]
+    assert converted, events
+    assert converted[0]["subject"] == "Zephyr Corp.", converted
+
+
+def test_converted_to_still_works_for_the_original_vmware_case():
+    # Regression guard: the fallback path for the original use case this
+    # pattern was built for must still work after generalizing it.
+    aliases = {"VMware": "VMware, Inc."}
+    orgs = ["VMware, Inc."]
+    text = "The Surviving Company was converted from a Delaware corporation into a Delaware limited liability company."
+    events = m385.completed_only(m385.infer_events(text, aliases, orgs, "2.01"))
+    converted = [e for e in events if e["event_type"] == "CONVERTED_TO"]
+    assert converted, events
+    assert converted[0]["subject"] == "VMware, Inc.", converted
     print("PASS test_agreed_to_acquire_skips_shell_named_first_in_with_clause")
 
 
@@ -527,6 +565,8 @@ if __name__ == "__main__":
         test_co_suffix_is_recognized,
         test_aktiengesellschaft_suffix_is_recognized,
         test_first_person_self_reference_direction_corrected,
+        test_converted_to_generalizes_beyond_vmware,
+        test_converted_to_still_works_for_the_original_vmware_case,
         test_10k_declarative_acquisition_pattern,
         test_10k_pattern_resolves_short_alias_form,
         test_10k_pattern_does_not_fire_on_8k_style_text,
