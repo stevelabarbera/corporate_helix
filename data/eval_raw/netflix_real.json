@@ -1,0 +1,19 @@
+{
+  "company": "Netflix, Inc.",
+  "cik": "0001065280",
+  "note": "Only the Item 1.01 announcement 8-K is included. No closing 8-K exists for this fixture, and none ever will: this merger agreement was later terminated (see gold file's note) when Netflix declined to match Paramount Skydance's superior competing offer for WBD in Feb 2026. This is a different situation from every other 'closing not fetched' fixture in this project -- there is no closing to fetch.",
+  "filings": [
+    {
+      "accession": "0001193125-25-308654",
+      "filing_date": "2025-12-05",
+      "form": "8-K",
+      "items": "1.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "text": "Item 1.01 Entry into a Material Definitive Agreement.\n\nAgreement and Plan of Merger\n\nOn December 4, 2025, Netflix, Inc., a Delaware corporation (\u201cNetflix\u201d), Nightingale Sub, Inc., a Delaware corporation and wholly owned subsidiary of Netflix (\u201cMerger Sub\u201d), Warner Bros. Discovery, Inc., a Delaware corporation (\u201cWBD\u201d), and New Topco 25, Inc., a newly formed Delaware corporation and wholly owned subsidiary of WBD (\u201cNewco\u201d), entered into an Agreement and Plan of Merger (the \u201cMerger Agreement\u201d), pursuant to which, subject to the terms of the Merger Agreement, among other things, (i) a newly formed Delaware corporation and wholly owned subsidiary of Newco will merge with and into WBD (the \u201cHoldco Merger\u201d) in accordance with Section 251(g) of the General Corporation Law of the State of Delaware, with WBD surviving as a wholly owned subsidiary of Newco and with the stockholders of WBD immediately prior to the effective time of the Holdco Merger becoming the stockholders of Newco at and immediately following the effective time of the Holdco Merger, and (ii) following an internal reorganization and the separation and distribution of WBD's Global Linear Networks business and certain other assets as further described below, as a result of which WBD will hold the Streaming & Studios businesses of WBD (the \u201cRetained Business\u201d), Merger Sub will merge with and into WBD, with WBD surviving as a wholly owned subsidiary of Netflix (the \u201cMerger\u201d). The Boards of Directors of Netflix and WBD have unanimously approved the Merger Agreement, including the Merger and the other transactions contemplated thereby. For the avoidance of doubt, all references to WBD with respect to a matter occurring after the completion of the Holdco Merger will be deemed to be references to Newco."
+        }
+      ]
+    }
+  ]
+}

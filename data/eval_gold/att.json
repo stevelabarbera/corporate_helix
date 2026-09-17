@@ -1,0 +1,14 @@
+{
+  "company": "AT&T Inc.",
+  "aliases_ok": ["AT&T"],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "A general web search for 'AT&T mergers acquisitions divestitures history WarnerMedia DirecTV' returned an AT&T 10-K excerpt and press-release-quoting aggregator pages alongside independent sources (The Deal, Wikipedia, Variety, Qz). The event below is dated/scoped from Wikipedia and Variety only; the real 8-K text was fetched afterward, during diagnostic testing of the extraction patterns, not used to write this gold record.",
+  "gold_sources": [
+    "https://en.wikipedia.org/wiki/Merger_of_Discovery,_Inc._and_WarnerMedia",
+    "https://variety.com/2022/digital/news/att-warnermedia-debt-donald-trump-discovery-john-stankey-jason-kilar-merger-1235226663/"
+  ],
+  "note": "Eighth company, picked deliberately (at the user's suggestion) as another structurally complex real deal, and specifically as a chance to investigate the DIVESTED_BUSINESS event type -- which, this pass discovered, had NEVER been implemented in the extractor code at all (see CONTEXT_EVENT_EXTRACTION_ATT.md). AT&T's WarnerMedia separation is a Reverse Morris Trust transaction: a tax-structured spin-off (AT&T transfers WarnerMedia to a new subsidiary, 'Spinco'/Magallanes, Inc., then distributes Spinco's shares to AT&T stockholders) immediately followed by a merger of that spun-off entity into Discovery -- a fundamentally different mechanism from a direct asset sale (Disney/Sinclair's 'agreed to sell X's interests in Y to Buyer' shape, which the newly-built DIVESTED_BUSINESS pattern was validated against and correctly recalls). AT&T's Reverse-Morris-Trust phrasing does NOT match that pattern and is not expected to -- confirmed directly, not assumed. Scoped to the WarnerMedia/Discovery transaction only (announced 2021-05-17, closed 2022-04-08); AT&T's other real divestitures (DirecTV to TPG, 2021 and again fully in 2024-2025) and acquisitions (DirecTV 2015, Time Warner 2018, US Cellular spectrum 2024) are out of scope for this pass.",
+  "events": [
+    {"id": "att-1", "counterparty": "Discovery, Inc.", "event_type": "DIVESTED_BUSINESS", "status": "COMPLETED", "approx_date": "2021-05-17", "notes": "Reverse Morris Trust: WarnerMedia separated into Spinco (Magallanes, Inc.), then merged into Discovery to form Warner Bros. Discovery. Definitive agreements signed 2021-05-17; closed 2022-04-08. Expected NOT_DISCOVERED against the current DIVESTED_BUSINESS pattern, which was built and validated against a direct-asset-sale shape, not a spin-off-and-merge structure -- see note and CONTEXT_EVENT_EXTRACTION_ATT.md."}
+  ]
+}

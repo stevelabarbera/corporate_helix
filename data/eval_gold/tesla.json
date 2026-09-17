@@ -1,0 +1,15 @@
+{
+  "company": "Tesla, Inc.",
+  "aliases_ok": ["Tesla", "Tesla Motors, Inc."],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "A general web search for 'Tesla mergers acquisitions history SolarCity Twitter' returned an M&A-aggregator page (VectorShift) that explicitly quotes 10-K and 8-K exhibit text, alongside independent sources (Utility Dive, Fast Company, Harvard Business School case study). The events below are dated/scoped from Utility Dive and Fast Company only; the real 8-K Item 1.01/2.01 text was fetched afterward, during diagnostic testing of the extraction patterns, not used to write this gold record.",
+  "gold_sources": [
+    "https://www.utilitydive.com/news/tesla-agrees-to-26b-price-tag-for-solarcity-merger/423616/",
+    "https://www.fastcompany.com/40422076/the-real-story-behind-elon-musks-2-6-billion-acquisition-of-solarcity-and-what-it-means-for-teslas-future-not-to-mention-the-planets"
+  ],
+  "note": "Scoped to the 2016 SolarCity merger only (announced 2016-08-01, closed 2016-11-21) -- Tesla's other real acquisitions (Maxwell Technologies 2019, Grohmann Engineering 2017) are documented but not included in this first pass. Picked deliberately as a large, well-documented deal using the same 'entered into an Agreement and Plan of Merger' phrasing and multi-party-with-shell (Tesla, SolarCity, D Subsidiary Inc.) structure already fixed for Six Flags -- a generalization check as much as a fresh test.",
+  "events": [
+    {"id": "tesla-1", "counterparty": "SolarCity Corporation", "event_type": "AGREED_TO_ACQUIRE", "status": "COMPLETED", "approx_date": "2016-07-31", "notes": "Merger Agreement signed; all-stock deal, 0.110 Tesla shares per SolarCity share, ~$2.6B announced value"},
+    {"id": "tesla-2", "counterparty": "SolarCity Corporation", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2016-11-21", "notes": "Closing; SolarCity became a wholly owned subsidiary of Tesla, delisted from NASDAQ (ticker SCTY)"}
+  ]
+}

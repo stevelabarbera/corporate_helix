@@ -195,17 +195,78 @@ problem like alias resolution.
   confirmed stale, still low-risk since nothing imports it. Never got
   around to deleting it.
 
+## Session summary: twelve-company gamut (Sept 2026)
+
+Ran real functionality against all seven originally-untested companies
+(Six Flags, Chili's/Brinker, Paramount, Ford, Tesla, AIG, Netflix) plus
+three user-suggested "beautiful use case" companies (Dell/EMC/VMware,
+Bayer/Monsanto, Broadcom/VMware) — twelve companies total. Found and
+fixed 15 real bugs, discovered that `DIVESTED_BUSINESS` had never been
+implemented at all (built it), built a new GLEIF gazetteer entity-
+detection backend (opt-in, not yet validated against the real index),
+and confirmed the item-filter gap on four separate real companies via
+four different item codes. Full writeup, company by company, in:
+
+`CONTEXT_EVENT_EXTRACTION_SIX_FLAGS.md`, `_PARAMOUNT.md`, `_BRINKER.md`,
+`_FORD.md`, `_TESLA.md`, `_AIG.md`, `_NETFLIX.md`, `_ATT.md`,
+`_DELL_EMC.md`, `_BAYER_MONSANTO.md`, `_BROADCOM_VMWARE.md`, and
+`_GAZETTEER.md`.
+
+All 236 tests pass; coverage across the 12 companies with real raw
+fixtures is 10/32 (31.25%, CI [0.18, 0.49]) — Brinker and Ford are
+excluded from that count entirely (no raw fixture, by design) since
+their real disclosures are 10-Q/10-K-only and unreachable by the current
+8-K-only fetcher.
+
+**Prioritized next steps, in order:**
+
+1. **The 10-K/10-Q fetcher.** Was already the top item before this
+   session; everything found since reinforces it. Ford's and Brinker's
+   entire misses trace back to this alone, and Bayer/Monsanto's real
+   disclosure (the one that drove the registrant-self-reference fix)
+   was in a 10-Q too. Single highest-leverage gap left — unlocks a whole
+   category of real disclosures the pipeline currently can't see at all,
+   not just two companies.
+2. **The item-filter revisit.** Four real companies now (Six Flags' Item
+   5.02, Brinker's 8.01, Ford's 7.01, AIG's 8.01) hit the same wall from
+   different angles. Worth a deliberate decision: widen the filter to
+   scan more item codes, or build a smarter "does this filing mention a
+   merger" pre-check independent of item code.
+3. **Run the GLEIF gazetteer against the real index.** Built and tested
+   against synthetic data only — a "run it and see" task now, not more
+   design work. See `CONTEXT_EVENT_EXTRACTION_GAZETTEER.md`'s validation
+   checklist.
+4. **The AT&T/Bayer Reverse Morris Trust `DIVESTED_BUSINESS` shape.** Two
+   real, unresolved examples of the same harder divestiture mechanism
+   (spin-off + merge) now exist — worth a dedicated pattern now that the
+   shape is understood from two real companies instead of one guess.
+5. **The scorer's greedy-matching fix** (`coverage_harness.py`,
+   `score_company()`). Small and self-contained: it processes gold
+   events in file order and greedily claims the first counterparty-
+   matching system event even on a type mismatch, which can misattribute
+   a perfectly correct result (Broadcom's honest-but-confusing 0/2 is
+   live proof — its system output was fully correct). Needs type-aware
+   bipartite matching instead.
+6. **A deliberate audit of untouched patterns.** The Broadcom pass found
+   `CONVERTED_TO` secretly hardcoded to fire only for one specific
+   company name (it happened to still work because the new deal also
+   involved that company) — a pattern that looked correct and even
+   passed its own test while quietly not generalizing at all. Worth a
+   quick pass over the patterns nobody stress-tested this session
+   (`SUBSIDIARY_OF`'s other branches, the 10-K declarative pattern,
+   anything with a bare literal-string check like the one that tripped
+   up `CONVERTED_TO`) asking specifically "does this generalize," not
+   just "does this work."
+
 ## How to resume
 
 ```bash
-python3 -m pytest tests/                          # confirm nothing broke
-cd code/eval && python3 run_coverage_eval.py --gold lumen.json disney.json tenable.json
+python3 -m pytest tests/                          # confirm 236/236
+cd code/eval && python3 run_coverage_eval.py --gold lumen.json disney.json tenable.json six_flags.json paramount.json brinker.json ford.json tesla.json aig.json netflix.json att.json dell_emc.json bayer_monsanto.json broadcom_vmware.json
 ```
-If both pass/run cleanly, you're safely picked back up. Then pick a
-target: the 10-Q locator (highest value), the Disney voting-fusion fix,
-or expanding the gold set to more of the original ten companies (Six
-Flags, Chili's/Brinker, Paramount, Ford, Tesla, AIG, Netflix still
-untested).
+If both pass/run cleanly, you're safely picked back up. Then pick from
+the prioritized list above — the 10-K/10-Q fetcher is the natural first
+choice.
 
 ## EDGAR M&A trust-boundary hardening
 

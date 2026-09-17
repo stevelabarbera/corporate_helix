@@ -1,0 +1,16 @@
+{
+  "company": "Ford Motor Company",
+  "aliases_ok": ["Ford", "Ford Motor Co."],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "A general web search for 'Ford Motor Company mergers acquisitions history recent' returned an M&A summary aggregator (Mergr) and a 10-K XBRL fact table (Financial_Report.xlsx) alongside independent sources (TechCrunch, electrek, Ford press releases). The events below are dated/scoped from TechCrunch, electrek, and Ford's own press release only; no 8-K or 10-K prose was seen before this file was written, though a 10-K sentence for Electriphi ('...On June 18, 2021, we acquired Electriphi...') was seen afterward, during diagnostic testing of the extraction pattern -- not used to write this gold record.",
+  "gold_sources": [
+    "https://techcrunch.com/2021/06/17/ford-acquires-electriphi-as-it-prepares-to-woo-ev-fleet-customers/amp/",
+    "https://electrek.co/2023/11/02/ford-buys-amp-to-improve-ev-charging-battery-management/",
+    "https://electrive.com/2023/11/02/ford-acquires-bms-specialist-amp"
+  ],
+  "note": "Third company in a row (after Brinker) picked deliberately as a low-M&A-frequency company, to test the true-negative/structural-coverage-gap case rather than another headline merger. Ford's recent real acquisitions (Electriphi 2021, AMP/Auto Motive Power 2023) are both small, non-material, terms-undisclosed acqui-hires of private startups -- neither got a substantive standalone 8-K. Electriphi IS disclosed in real, clean, parseable prose, but only in the 10-K's 'Acquisitions and Divestitures' footnote ('On June 18, 2021, we acquired Electriphi...'), which needs the still-nonexistent 10-K fetcher to ever reach. AMP has no equivalent structured disclosure found at all (deal too recent/small relative to Ford's size; the closest-dated 8-K uses Item 7.01 Regulation FD Disclosure pointing generically at a news-release exhibit with no entity-naming text in the item body itself). Scoped to these two only; Ford's much larger historical acquisitions (Volvo Car 1999, Land Rover 2000) predate practical full-text EDGAR body coverage, same rationale as every other gold file's pre-2015-ish cutoff.",
+  "events": [
+    {"id": "ford-1", "counterparty": "Electriphi, Inc.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2021-06-18", "notes": "EV charging/fleet management software startup; terms not disclosed; folded into Ford Pro"},
+    {"id": "ford-2", "counterparty": "Auto Motive Power", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2023-11-01", "notes": "Battery/power management and charging solutions startup (also known as AMP); terms not disclosed; folded into Ford Model e"}
+  ]
+}

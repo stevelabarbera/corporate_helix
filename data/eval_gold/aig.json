@@ -1,0 +1,15 @@
+{
+  "company": "American International Group, Inc.",
+  "aliases_ok": ["AIG"],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "A general web search for 'AIG American International Group mergers acquisitions divestitures recent history' returned an M&A-aggregator page (Mergr) and a real 8-K exhibit press release (2010 IPO-history background) alongside independent sources (Insurance Business magazine, AIG's own investor-relations press release page, Umbrex). The events below are dated/scoped from the AIG investor-relations press release and Insurance Business magazine only; the real Item 1.01 8-K text was fetched afterward, during diagnostic testing of the extraction patterns, not used to write this gold record.",
+  "gold_sources": [
+    "https://aig.gcs-web.com/news-releases/news-release-details/aig-sell-validus-re-renaissancere",
+    "https://www.insurancebusinessmag.com/us/news/mergers-acquisitions/aig-seals-35-stake-in-convex-and-9-9-stake-in-onex-564646.aspx"
+  ],
+  "note": "Picked deliberately as an insurance-industry company (different sector from everything tested so far) with both a large full acquisition (Validus Holdings, 2018) and a real divestiture (Validus Re to RenaissanceRe, 2023) -- every DIVESTED_BUSINESS gold event tested so far (Lumen, Disney) has come back NOT_DISCOVERED, so this was also a chance to look at why. Scoped to the Validus Holdings acquisition only for this pass (announced 2018-01-22, closed 2018-07-18); the 2023 Validus Re divestiture to RenaissanceRe was researched but not included as a gold event this pass -- its 8-K text was not fetched, so including it without verification would risk an unfounded gold record.",
+  "events": [
+    {"id": "aig-1", "counterparty": "Validus Holdings, Ltd.", "event_type": "AGREED_TO_ACQUIRE", "status": "COMPLETED", "approx_date": "2018-01-21", "notes": "Definitive agreement and plan of merger signed; all-cash deal, $68.00/share, ~$5.6B total"},
+    {"id": "aig-2", "counterparty": "Validus Holdings, Ltd.", "event_type": "ACQUIRED", "status": "COMPLETED", "approx_date": "2018-07-18", "notes": "Closing; Validus (including Validus Re, AlphaCat, Talbot, Western World, Crop Risk Services) became part of AIG"}
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "company": "AT&T Inc.",
+  "cik": "0000732717",
+  "note": "Only the Item 1.01 announcement 8-K is included. Included deliberately even though the DIVESTED_BUSINESS pattern is not expected to recognize this Reverse Morris Trust phrasing -- unlike other fixtures in this project where text was excluded because it was unreachable, this text IS reachable (real Item 1.01) and the expected non-recall is a genuine, confirmed pattern-coverage gap, not a fetchability issue. Also confirmed: the AGREED_TO_ACQUIRE trigger doesn't fire either -- the agreement name appears as item (1) in a list ('entered into certain definitive agreements ... including (1) an Agreement and Plan of Merger') rather than immediately after 'entered into a[n]', a different and larger structural gap than AIG's single-adjective-insertion case. See CONTEXT_EVENT_EXTRACTION_ATT.md.",
+  "filings": [
+    {
+      "accession": "0001193125-21-162721",
+      "filing_date": "2021-05-18",
+      "form": "8-K",
+      "items": "1.01",
+      "sections": [
+        {
+          "item": "1.01",
+          "text": "Item 1.01 Entry into a Material Definitive Agreement.\n\nOn May 17, 2021, AT&T Inc., a Delaware corporation (\u201cCompany\u201d), and Magallanes, Inc., a Delaware corporation and wholly owned subsidiary of the Company (\u201cSpinco\u201d), entered into certain definitive agreements with Discovery, Inc., a Delaware corporation (\u201cDiscovery\u201d), and Drake Subsidiary, Inc., a Delaware corporation and wholly owned subsidiary of Discovery (\u201cMerger Sub\u201d), including (1) an Agreement and Plan of Merger (the \u201cMerger Agreement\u201d), by and among the Company, Spinco, Discovery and Merger Sub, and (2) a Separation and Distribution Agreement (the \u201cSeparation Agreement\u201d), by and among the Company, Spinco and Discovery.\n\nThe definitive agreements provide for a transaction pursuant to which, subject to the terms and conditions of the agreements, the Company will transfer the business, operations and activities that constitute the WarnerMedia segment of the Company, subject to certain exceptions (as set forth in the Separation Agreement), to Spinco (the \u201cSeparation\u201d). In connection with the Separation, Spinco will remain obligated for certain debt of the existing WarnerMedia business, make a cash payment to the Company, and in certain circumstances issue certain debt securities to the Company. After the Separation, the Company will distribute to its stockholders the shares of common stock, par value $0.01 per share, of Spinco (the \u201cSpinco Common Stock\u201d) held by the Company by way of either a pro rata dividend or an exchange offer (the \u201cDistribution\u201d). After the Distribution, Merger Sub will be merged with and into Spinco, with Spinco as the surviving entity and a wholly owned subsidiary of Discovery (the \u201cMerger\u201d)."
+        }
+      ]
+    }
+  ]
+}

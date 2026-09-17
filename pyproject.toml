@@ -7,5 +7,12 @@ dependencies = [
     "tldextract",
 ]
 
+[project.optional-dependencies]
+# Only needed if EdgarMAExtractor(gazetteer_db_path=...) is used -- the
+# base validated 3-backend ensemble doesn't require it. See
+# code/parsers/gleif_gazetteer_backend.py and
+# CONTEXT_EVENT_EXTRACTION_GAZETTEER.md.
+gazetteer = ["pyahocorasick"]
+
 [tool.pytest.ini_options]
 pythonpath = ["."]

@@ -1,0 +1,17 @@
+{
+  "company": "Six Flags Entertainment Corporation",
+  "aliases_ok": ["Six Flags", "Former Six Flags Entertainment Corporation"],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "A general web search for 'Six Flags mergers acquisitions history' returned several results whose search snippets were pulled from Six Flags/Cedar Fair 10-K and 10-Q text (not 8-K text) alongside independent sources. The events below were selected/dated from the independent, non-SEC sources (Nasdaq press release, Patch, Bocconi M&A Circle, pestel-analysis.com) and no event/status value was taken from the 10-K/10-Q snippets, but full blindness from all SEC filing text cannot be claimed the way it could for the original Lumen gold file. No 8-K text was seen before this file was written.",
+  "gold_sources": [
+    "https://www.nasdaq.com/press-release/cedar-fair-and-six-flags-merger-equals-successfully-completed-creating-leading",
+    "https://patch.com/new-jersey/brick/six-flags-dorney-park-merger-finishes-great-adventure-marks-50th",
+    "https://bsmac.org/2024/04/17/roller-coaster-revolution-cedar-fair-acquires-six-flags-in-4-3-billion-merger/",
+    "https://pestel-analysis.com/blogs/brief-history/sixflags"
+  ],
+  "note": "First LP-structured counterparty tested (Cedar Fair, L.P.) and first true merger-of-equals (as opposed to a clear bidder/target deal like Lumen or Disney). A genuinely new wrinkle not present in the Lumen/Disney/Tenable gold files: the pre-merger entity ('Six Flags Entertainment Corporation', CIK 701374) and the post-merger combined entity ('Six Flags Entertainment Corporation', CIK 1999001, EDGAR-labeled 'Six Flags Entertainment Corporation/NEW') share the IDENTICAL legal name, not just similar names -- unlike Lumen/CenturyLink or Disney's holdco swap, alias-based name-history matching can't distinguish them by string alone. Scoped to the 2023-2024 merger only, not Six Flags' full multi-decade ownership history (Bally 1982, Wesray 1987, Premier Parks 1998 rename) -- those predate SEC EDGAR's practical full-text coverage window and were out of scope for a first pass.",
+  "events": [
+    {"id": "six_flags-1", "counterparty": "Cedar Fair, L.P.", "event_type": "AGREED_TO_ACQUIRE", "status": "COMPLETED", "approx_date": "2023-11", "notes": "Merger of equals agreement announced Nov 2, 2023; pro forma enterprise value ~$8B. Scored against AGREED_TO_ACQUIRE/MERGED_INTO since this is a merger of equals, not a clean bidder/target deal -- see note."},
+    {"id": "six_flags-2", "counterparty": "Cedar Fair, L.P.", "event_type": "MERGED_INTO", "status": "COMPLETED", "approx_date": "2024-07-01", "notes": "Closing of the merger of equals; combined company took the Six Flags Entertainment Corporation name and FUN ticker; Cedar Fair designated the accounting acquirer despite the merger-of-equals structure"}
+  ]
+}

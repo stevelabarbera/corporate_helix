@@ -1,0 +1,19 @@
+{
+  "company": "Monsanto Company",
+  "cik": "0001110783",
+  "note": "Real 10-Q text (Monsanto's own 'Pending Merger with Bayer' footnote), not an 8-K -- this project's fetcher currently only pulls 8-K Item 1.01/2.01 text, so this specific real disclosure is not reachable by the live pipeline as it stands today (same class of gap as Brinker's/Ford's 10-Q-only disclosures). Included anyway because it's what actually validated the REGISTRANT_SELF_REFERENCE direction-correction fix in this pass -- see CONTEXT_EVENT_EXTRACTION_BAYER_MONSANTO.md. No closing text fetched this pass.",
+  "filings": [
+    {
+      "accession": "0001110783-18-000050",
+      "filing_date": "2018-04-05",
+      "form": "10-Q",
+      "items": "10-Q",
+      "sections": [
+        {
+          "item": "10-Q",
+          "text": "Pending Merger with Bayer\n\nOn Sept. 14, 2016, we entered into an agreement and plan of merger (the \u201cMerger Agreement\u201d) with Bayer Aktiengesellschaft, a German stock corporation (\u201cBayer\u201d), and KWA Investment Co., a Delaware corporation and an indirect wholly owned subsidiary of Bayer (\u201cMerger Sub\u201d). The Merger Agreement provides, among other things and subject to the terms and conditions set forth therein, that Merger Sub will be merged with and into the company (the \u201cMerger\u201d), with the company continuing as the surviving corporation and as a wholly owned subsidiary of Bayer. The Merger Agreement provides that each share of common stock of the company, par value $0.01 per share (other than certain shares specified in the Merger Agreement), outstanding immediately prior to the effective time of the Merger will be automatically converted into the right to receive $128.00 in cash, without interest."
+        }
+      ]
+    }
+  ]
+}
