@@ -1,0 +1,123 @@
+{
+  "company_id": "disney",
+  "company": "The Walt Disney Company",
+  "baseline_commit": "c9bd0ca1d18711a96be7e7792347e2f6495767fe",
+  "run_timestamp": "2026-09-17T13:45:34.436388+00:00",
+  "pipeline": {
+    "cik_resolved": false,
+    "filings_retrieved": null,
+    "relevant_text_present": null,
+    "locator_captured": null,
+    "entity_recognized": null,
+    "event_extracted": null,
+    "candidate_emitted": null
+  },
+  "gold_events": [
+    {
+      "id": "disney-1",
+      "counterparty": "Twenty-First Century Fox, Inc.",
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2017-12",
+      "notes": "Original Merger Agreement, filed under old Disney CIK 1001039",
+      "stages": {
+        "filings_retrieved": null,
+        "relevant_text_present": null,
+        "locator_captured": null,
+        "entity_recognized": null,
+        "event_extracted": null,
+        "candidate_emitted": null
+      },
+      "deepest_stage": "CIK_UNRESOLVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "disney-2",
+      "counterparty": "Twenty-First Century Fox, Inc.",
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2018-06",
+      "notes": "Amended and Restated Agreement and Plan of Merger, raised offer to $71.3B; supersedes disney-1",
+      "stages": {
+        "filings_retrieved": null,
+        "relevant_text_present": null,
+        "locator_captured": null,
+        "entity_recognized": null,
+        "event_extracted": null,
+        "candidate_emitted": null
+      },
+      "deepest_stage": "CIK_UNRESOLVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "disney-3",
+      "counterparty": "Twenty-First Century Fox, Inc.",
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2019-03-20",
+      "notes": "Closing, filed under new CIK 1744489",
+      "stages": {
+        "filings_retrieved": null,
+        "relevant_text_present": null,
+        "locator_captured": null,
+        "entity_recognized": null,
+        "event_extracted": null,
+        "candidate_emitted": null
+      },
+      "deepest_stage": "CIK_UNRESOLVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "disney-4",
+      "counterparty": "Sinclair Broadcast Group, Inc.",
+      "event_type": "DIVESTED_BUSINESS",
+      "status": "COMPLETED",
+      "approx_date": "2019-08-23",
+      "notes": "DOJ-mandated divestiture of Fox Sports Net (RSNs), required as a condition of the 21CF acquisition",
+      "stages": {
+        "filings_retrieved": null,
+        "relevant_text_present": null,
+        "locator_captured": null,
+        "entity_recognized": null,
+        "event_extracted": null,
+        "candidate_emitted": null
+      },
+      "deepest_stage": "CIK_UNRESOLVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    }
+  ],
+  "unmatched_candidates": [],
+  "retrieval": {
+    "filing_count": 0,
+    "errors": []
+  },
+  "observed_primitives": [],
+  "failure_classes": [
+    "CIK_RESOLUTION_MISS"
+  ],
+  "notes": "CIK resolution failed; no SEC requests made."
+}
