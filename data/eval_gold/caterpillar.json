@@ -1,0 +1,91 @@
+{
+  "company": "Caterpillar Inc.",
+  "aliases_ok": ["Caterpillar", "CAT"],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "This record was created from public company announcements and independent press coverage before any Caterpillar SEC filing corpus or Helix Caterpillar output was fetched or inspected. Search-result snippets were visible during research, but no SEC filing text was used. The list is a deliberately scoped recent-transaction set rather than a claim of exhaustive Caterpillar corporate history.",
+  "gold_sources": [
+    "https://techcrunch.com/2017/05/05/caterpillar-yard-club-acquisition/",
+    "https://www.cat.com/en_US/news/machine-press-releases/caterpillar-announces-acquisition-of-robotic-expertise.html",
+    "https://www.caterpillar.com/en/news/corporate-press-releases/h/caterpillar-weir-oil-gas.html",
+    "https://www.caterpillar.com/en/news/corporate-press-releases/h/caterpillar-acquires-carbonpoint-solutions.html",
+    "https://investors.caterpillar.com/news/news-details/2022/Caterpillar-Acquires-Tangent-Energy-Solutions/default.aspx",
+    "https://www.reuters.com/business/caterpillars-russian-assets-transferred-firm-owned-by-armenian-fund-2024-06-17/",
+    "https://www.caterpillar.com/en/news/corporate-press-releases/h/rpm-global-acquisition.html",
+    "https://www.caterpillar.com/en/news/corporate-press-releases/h/072026-mining-technology-expansion.html"
+  ],
+  "note": "Scoped to selected publicly documented transactions from 2017 through the study date (2026-09-18). This set intentionally includes several distinct mechanisms: a small private-company acquisition, selected-asset/team acquisition, acquisition of a seller's operating division, technology-company acquisitions, and a divestiture of foreign subsidiaries. Yard Club and Marble Robot were relatively small and may not have produced standalone 8-K disclosure. Weir Oil & Gas was announced in 2020 and later operated as SPM Oil & Gas. The Russian-asset transfer was reported from Russian company filings and may not use conventional voluntary divestiture language. RPMGlobal and Skycatch occurred in 2026 and are inside the runner's declared end date but after Caterpillar's latest annual filing available at the study date.",
+  "events": [
+    {
+      "id": "caterpillar-1",
+      "counterparty": "Yard Club, Inc.",
+      "aliases": ["Yard Club"],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2017-05",
+      "notes": "Construction-equipment rental and fleet-management marketplace; closing confirmed by Yard Club's CEO; terms undisclosed"
+    },
+    {
+      "id": "caterpillar-2",
+      "counterparty": "Marble Robot, Inc.",
+      "aliases": ["Marble Robot"],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2020-06",
+      "notes": "Caterpillar acquired selected assets and hired employees from the autonomy and robotics company; asset/team transaction rather than a clearly documented purchase of every share"
+    },
+    {
+      "id": "caterpillar-3",
+      "counterparty": "Weir Group PLC Oil & Gas Division",
+      "aliases": ["Weir Oil & Gas", "Weir Group's Oil & Gas Division", "SPM Oil & Gas"],
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2020-10",
+      "notes": "$405 million agreement to acquire Weir Group's oil-and-gas division; subsequently branded SPM Oil & Gas"
+    },
+    {
+      "id": "caterpillar-4",
+      "counterparty": "Enhanced Energy Group, Inc.",
+      "aliases": ["CarbonPoint Solutions"],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2021-09-10",
+      "notes": "Enhanced Energy Group operated as CarbonPoint Solutions; carbon-capture technology acquisition"
+    },
+    {
+      "id": "caterpillar-5",
+      "counterparty": "Tangent Energy Solutions, Inc.",
+      "aliases": ["Tangent Energy Solutions"],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2022-05-05",
+      "notes": "Energy-as-a-service company acquired into Caterpillar's Electric Power Division"
+    },
+    {
+      "id": "caterpillar-6",
+      "counterparty": "PSK-New Solutions",
+      "aliases": ["PSK-New Solutions LLC"],
+      "event_type": "DIVESTED_BUSINESS",
+      "status": "COMPLETED",
+      "approx_date": "2024-06-14",
+      "notes": "Transfer of Caterpillar's Russian manufacturing and finance subsidiaries to a Balchug Capital-owned buyer; terms undisclosed"
+    },
+    {
+      "id": "caterpillar-7",
+      "counterparty": "RPMGlobal Holdings Limited",
+      "aliases": ["RPMGlobal", "RPM Global"],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2026-02-17",
+      "notes": "Australian mining-software company; Caterpillar announced completion in February 2026"
+    },
+    {
+      "id": "caterpillar-8",
+      "counterparty": "Skycatch, Inc.",
+      "aliases": ["Skycatch"],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2026-07-07",
+      "notes": "Spatial-data capture, processing and analytics provider for mining; announced as acquired by Caterpillar in 2026"
+    }
+  ]
+}
