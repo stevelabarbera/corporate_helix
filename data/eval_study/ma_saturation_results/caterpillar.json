@@ -1,0 +1,344 @@
+{
+  "company_id": "caterpillar",
+  "company": "Caterpillar Inc.",
+  "baseline_commit": "bada00055e41efb069d78bd03ea5555b5aec83b0",
+  "run_timestamp": "2026-09-18T12:15:53.541290+00:00",
+  "scope": {
+    "start": "2015-01-01",
+    "end": "2026-12-31",
+    "forms": [
+      "10-K",
+      "10-K/A",
+      "8-K",
+      "8-K/A"
+    ]
+  },
+  "cik": "0000018230",
+  "pipeline": {
+    "cik_resolved": true,
+    "filings_retrieved": true,
+    "relevant_text_present": true,
+    "locator_captured": true,
+    "entity_recognized": true,
+    "event_extracted": false,
+    "candidate_emitted": false
+  },
+  "gold_events": [
+    {
+      "id": "caterpillar-1",
+      "counterparty": "Yard Club, Inc.",
+      "aliases": [
+        "Yard Club"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2017-05",
+      "notes": "Construction-equipment rental and fleet-management marketplace; closing confirmed by Yard Club's CEO; terms undisclosed",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": false,
+        "locator_captured": false,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "FILINGS_RETRIEVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "caterpillar-2",
+      "counterparty": "Marble Robot, Inc.",
+      "aliases": [
+        "Marble Robot"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2020-06",
+      "notes": "Caterpillar acquired selected assets and hired employees from the autonomy and robotics company; asset/team transaction rather than a clearly documented purchase of every share",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": false,
+        "locator_captured": false,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "FILINGS_RETRIEVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "caterpillar-3",
+      "counterparty": "Weir Group PLC Oil & Gas Division",
+      "aliases": [
+        "Weir Oil & Gas",
+        "Weir Group's Oil & Gas Division",
+        "SPM Oil & Gas"
+      ],
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2020-10",
+      "notes": "$405 million agreement to acquire Weir Group's oil-and-gas division; subsequently branded SPM Oil & Gas",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "LOCATOR_CAPTURED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0000018230-21-000063",
+          "0000018230-22-000050",
+          "0000018230-23-000011",
+          "0000018230-24-000009"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0000018230-24-000009",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE",
+              "PURCHASE_PRICE",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0000018230-23-000011",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE",
+              "PURCHASE_PRICE",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0000018230-22-000050",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "PURCHASE_PRICE",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0000018230-21-000063",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "SOLD"
+            ]
+          }
+        ],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "caterpillar-4",
+      "counterparty": "Enhanced Energy Group, Inc.",
+      "aliases": [
+        "CarbonPoint Solutions"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2021-09-10",
+      "notes": "Enhanced Energy Group operated as CarbonPoint Solutions; carbon-capture technology acquisition",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": false,
+        "locator_captured": false,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "FILINGS_RETRIEVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "caterpillar-5",
+      "counterparty": "Tangent Energy Solutions, Inc.",
+      "aliases": [
+        "Tangent Energy Solutions"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2022-05-05",
+      "notes": "Energy-as-a-service company acquired into Caterpillar's Electric Power Division",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": false,
+        "locator_captured": false,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "FILINGS_RETRIEVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "caterpillar-6",
+      "counterparty": "PSK-New Solutions",
+      "aliases": [
+        "PSK-New Solutions LLC"
+      ],
+      "event_type": "DIVESTED_BUSINESS",
+      "status": "COMPLETED",
+      "approx_date": "2024-06-14",
+      "notes": "Transfer of Caterpillar's Russian manufacturing and finance subsidiaries to a Balchug Capital-owned buyer; terms undisclosed",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": false,
+        "locator_captured": false,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "FILINGS_RETRIEVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "caterpillar-7",
+      "counterparty": "RPMGlobal Holdings Limited",
+      "aliases": [
+        "RPMGlobal",
+        "RPM Global"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2026-02-17",
+      "notes": "Australian mining-software company; Caterpillar announced completion in February 2026",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "ENTITY_RECOGNIZED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0000018230-26-000008"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0000018230-26-000008",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0000018230-26-000008",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE",
+              "PURCHASE_PRICE",
+              "SOLD"
+            ]
+          }
+        ],
+        "entity_accessions": [
+          "0000018230-26-000008"
+        ],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "caterpillar-8",
+      "counterparty": "Skycatch, Inc.",
+      "aliases": [
+        "Skycatch"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2026-07-07",
+      "notes": "Spatial-data capture, processing and analytics provider for mining; announced as acquired by Caterpillar in 2026",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": false,
+        "locator_captured": false,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "FILINGS_RETRIEVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    }
+  ],
+  "unmatched_candidates": [],
+  "retrieval": {
+    "filing_count": 109,
+    "errors": []
+  },
+  "observed_primitives": [
+    "FORM:10-K",
+    "LOCATOR_SIGNAL:ACQUIRE",
+    "LOCATOR_SIGNAL:ACQUISITION",
+    "LOCATOR_SIGNAL:DIVESTITURE",
+    "LOCATOR_SIGNAL:PURCHASE_PRICE",
+    "LOCATOR_SIGNAL:SOLD",
+    "SECTION:LONGFORM_MA_CANDIDATE"
+  ],
+  "failure_classes": [
+    "DISCLOSURE_NOT_IN_RETRIEVED_CORPUS",
+    "ENTITY_RECOGNITION_MISS",
+    "EVENT_GRAMMAR_MISS"
+  ],
+  "notes": "Measurement-only M&A-S1 run; production resolver, locator, extractor, trust, and recursion behavior unchanged."
+}
