@@ -1,0 +1,176 @@
+{
+  "company_id": "aig",
+  "company": "American International Group, Inc.",
+  "baseline_commit": "e2f735c8e3bbbf3c26d9240325e54d734a7c5e7e",
+  "run_timestamp": "2026-09-18T12:26:10.917666+00:00",
+  "scope": {
+    "start": "2015-01-01",
+    "end": "2026-12-31",
+    "forms": [
+      "10-K",
+      "10-K/A",
+      "8-K",
+      "8-K/A"
+    ]
+  },
+  "cik": "0000005272",
+  "pipeline": {
+    "cik_resolved": true,
+    "filings_retrieved": true,
+    "relevant_text_present": true,
+    "locator_captured": true,
+    "entity_recognized": true,
+    "event_extracted": false,
+    "candidate_emitted": false
+  },
+  "gold_events": [
+    {
+      "id": "aig-1",
+      "counterparty": "Validus Holdings, Ltd.",
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2018-01-21",
+      "notes": "Definitive agreement and plan of merger signed; all-cash deal, $68.00/share, ~$5.6B total",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "ENTITY_RECOGNIZED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0000005272-23-000036",
+          "0000005272-24-000023",
+          "0001104659-21-025742",
+          "0001104659-21-135732",
+          "0001104659-22-040611",
+          "0001104659-23-063215"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0000005272-24-000023",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "PURCHASE_PRICE",
+              "SALE",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001104659-21-025742",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "PURCHASE_PRICE",
+              "SALE",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001104659-21-025742",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "MERGER"
+            ]
+          }
+        ],
+        "entity_accessions": [
+          "0000005272-24-000023",
+          "0001104659-21-025742"
+        ],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "aig-2",
+      "counterparty": "Validus Holdings, Ltd.",
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2018-07-18",
+      "notes": "Closing; Validus (including Validus Re, AlphaCat, Talbot, Western World, Crop Risk Services) became part of AIG",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "ENTITY_RECOGNIZED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0000005272-23-000036",
+          "0000005272-24-000023",
+          "0001104659-21-025742",
+          "0001104659-21-135732",
+          "0001104659-22-040611",
+          "0001104659-23-063215"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0000005272-24-000023",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "PURCHASE_PRICE",
+              "SALE",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001104659-21-025742",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "PURCHASE_PRICE",
+              "SALE",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001104659-21-025742",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "MERGER"
+            ]
+          }
+        ],
+        "entity_accessions": [
+          "0000005272-24-000023",
+          "0001104659-21-025742"
+        ],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    }
+  ],
+  "unmatched_candidates": [],
+  "retrieval": {
+    "filing_count": 120,
+    "errors": []
+  },
+  "observed_primitives": [
+    "FORM:10-K",
+    "LOCATOR_SIGNAL:ACQUISITION",
+    "LOCATOR_SIGNAL:MERGER",
+    "LOCATOR_SIGNAL:PURCHASE_PRICE",
+    "LOCATOR_SIGNAL:SALE",
+    "LOCATOR_SIGNAL:SOLD",
+    "SECTION:LONGFORM_MA_CANDIDATE"
+  ],
+  "failure_classes": [
+    "EVENT_GRAMMAR_MISS"
+  ],
+  "notes": "Measurement-only M&A-S1 run; production resolver, locator, extractor, trust, and recursion behavior unchanged."
+}
