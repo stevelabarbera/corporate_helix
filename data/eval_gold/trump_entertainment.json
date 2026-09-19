@@ -1,0 +1,57 @@
+{
+  "company": "Trump Entertainment Resorts, Inc.",
+  "aliases_ok": [
+    "Trump Entertainment Resorts",
+    "Trump Hotels & Casino Resorts, Inc.",
+    "Trump Hotels & Casino Resorts"
+  ],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "This record was created from independent press coverage and public company announcements before any Trump Entertainment Resorts SEC filing corpus or Helix output was fetched or inspected for this study. No SEC filing text was used. The list is deliberately scoped to three completed control or asset-transfer events with identifiable counterparties rather than treating every bankruptcy reorganization, casino closure, licensing change, or attempted sale as an M&A event.",
+  "gold_sources": [
+    "https://en.wikipedia.org/wiki/Trump_Entertainment_Resorts",
+    "https://en.wikipedia.org/wiki/Golden_Nugget_Atlantic_City",
+    "https://www.spokesman.com/stories/2016/feb/26/trumps-bankrupt-taj-mahal-casino-now-owned-by-carl/",
+    "https://www.ielp.com/news-releases/news-release-details/icahn-enterprises-lp-announces-definitive-agreement-sell-trump"
+  ],
+  "note": "Scoped to three completed transactions from 2005 through Trump Entertainment Resorts becoming a wholly owned Icahn Enterprises subsidiary in 2016. This is intentionally a bankruptcy-heavy stress case. It includes two operating-asset divestitures and one debt-for-equity change of control. The 2009-2010 Avenue Capital-led reorganization is excluded because the available independent sources describe a creditor-sponsored reorganization rather than a clean acquisition event with a single unambiguous counterparty. The proposed 2008 Coastal Development sale of Trump Marina and proposed 2013 Meruelo Group sale of Trump Plaza are excluded because neither completed. The later Hard Rock purchase of the former Trump Taj Mahal is excluded because Icahn Enterprises announced that disposition after it had already acquired Trump Entertainment Resorts.",
+  "events": [
+    {
+      "id": "trump-entertainment-1",
+      "counterparty": "The Majestic Star Casino, LLC",
+      "aliases": [
+        "Majestic Star",
+        "Majestic Star Casino",
+        "Majestic Star Holdings"
+      ],
+      "event_type": "DIVESTED_BUSINESS",
+      "status": "COMPLETED",
+      "approx_date": "2005-12-21",
+      "notes": "Trump Entertainment Resorts completed the approximately $253 million sale of its Gary, Indiana riverboat casino and hotel to Majestic Star; the property was subsequently operated as Majestic Star II"
+    },
+    {
+      "id": "trump-entertainment-2",
+      "counterparty": "Landry's, Inc.",
+      "aliases": [
+        "Landry's Restaurants, Inc.",
+        "Landry's",
+        "Golden Nugget Atlantic City"
+      ],
+      "event_type": "DIVESTED_BUSINESS",
+      "status": "COMPLETED",
+      "approx_date": "2011-05-23",
+      "notes": "Completed sale of Trump Marina to Landry's for approximately $38 million; Landry's took control and renamed the property Golden Nugget Atlantic City"
+    },
+    {
+      "id": "trump-entertainment-3",
+      "counterparty": "Icahn Enterprises L.P.",
+      "aliases": [
+        "Icahn Enterprises",
+        "IEP"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2016-02-26",
+      "notes": "Trump Entertainment Resorts emerged from Chapter 11 and became a wholly owned subsidiary of Icahn Enterprises through a debt-for-equity reorganization"
+    }
+  ]
+}
