@@ -1,0 +1,85 @@
+{
+  "company_id": "sci",
+  "company": "Service Corporation International",
+  "baseline_commit": "88786ad8ea5bedf66bb6608bb956d5b60018c081",
+  "run_timestamp": "2026-09-20T13:46:16.960441+00:00",
+  "pipeline": {
+    "cik_resolved": false,
+    "filings_retrieved": null,
+    "relevant_text_present": null,
+    "locator_captured": null,
+    "entity_recognized": null,
+    "event_extracted": null,
+    "candidate_emitted": null
+  },
+  "gold_events": [
+    {
+      "id": "sci-1",
+      "counterparty": "Schoedinger Funeral & Cremation Service",
+      "aliases": [
+        "Schoedinger Funeral and Cremation Service",
+        "Schoedinger Funeral Services",
+        "Schoedinger"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2021-12-10",
+      "notes": "Acquisition of the Columbus-area family funeral business and its 12 funeral homes; existing name and workforce were reported as continuing",
+      "stages": {
+        "filings_retrieved": null,
+        "relevant_text_present": null,
+        "locator_captured": null,
+        "entity_recognized": null,
+        "event_extracted": null,
+        "candidate_emitted": null
+      },
+      "deepest_stage": "CIK_UNRESOLVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "sci-2",
+      "counterparty": "Porter Loring, Inc.",
+      "aliases": [
+        "Porter Loring Mortuaries",
+        "Porter Loring Mortuary",
+        "Porter Loring"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2024-09-25",
+      "notes": "Acquisition from the Loring family of the San Antonio funeral business and its three locations; locations continued under the Porter Loring name",
+      "stages": {
+        "filings_retrieved": null,
+        "relevant_text_present": null,
+        "locator_captured": null,
+        "entity_recognized": null,
+        "event_extracted": null,
+        "candidate_emitted": null
+      },
+      "deepest_stage": "CIK_UNRESOLVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    }
+  ],
+  "unmatched_candidates": [],
+  "retrieval": {
+    "filing_count": 0,
+    "errors": []
+  },
+  "observed_primitives": [],
+  "failure_classes": [
+    "CIK_RESOLUTION_MISS"
+  ],
+  "notes": "CIK resolution failed; no SEC requests made."
+}
