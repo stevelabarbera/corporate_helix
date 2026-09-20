@@ -1,0 +1,43 @@
+{
+  "company": "Service Corporation International",
+  "aliases_ok": [
+    "Service Corp. International",
+    "SCI",
+    "Dignity Memorial"
+  ],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "This record was created from independent transaction reporting before any Service Corporation International SEC filing corpus or Helix output was fetched or inspected for this study. No SEC filing text was used. SCI completes many small funeral-home and cemetery purchases without broadly accessible named-counterparty announcements, so this is a deliberately scoped set of two independently verifiable, named acquisitions inside the frozen 2015-2026 audit window rather than an exhaustive acquisition history.",
+  "gold_sources": [
+    "https://www.marketscreener.com/quote/stock/SERVICE-CORPORATION-INTER-14476/news/Service-Corporation-International-acquired-Schoedinger-Funeral-Cremation-Service-37292589/",
+    "https://www.marketscreener.com/quote/stock/SERVICE-CORPORATION-INTER-14476/news/Service-Corporation-International-acquired-Porter-Loring-Inc-from-Loring-Family-47945881/"
+  ],
+  "note": "Scoped to two completed, named acquisitions within the frozen audit window. SCI's transformative Alderwoods Group, Keystone North America, and Stewart Enterprises transactions predate 2015 and are excluded. Gibraltar Remembrance Services was researched as a possible 2018 transaction but excluded because the accessible independent evidence did not establish a sufficiently precise completion date and transaction identity for this gold record.",
+  "events": [
+    {
+      "id": "sci-1",
+      "counterparty": "Schoedinger Funeral & Cremation Service",
+      "aliases": [
+        "Schoedinger Funeral and Cremation Service",
+        "Schoedinger Funeral Services",
+        "Schoedinger"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2021-12-10",
+      "notes": "Acquisition of the Columbus-area family funeral business and its 12 funeral homes; existing name and workforce were reported as continuing"
+    },
+    {
+      "id": "sci-2",
+      "counterparty": "Porter Loring, Inc.",
+      "aliases": [
+        "Porter Loring Mortuaries",
+        "Porter Loring Mortuary",
+        "Porter Loring"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2024-09-25",
+      "notes": "Acquisition from the Loring family of the San Antonio funeral business and its three locations; locations continued under the Porter Loring name"
+    }
+  ]
+}
