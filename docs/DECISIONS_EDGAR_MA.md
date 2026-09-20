@@ -180,6 +180,50 @@ Algorithm substitution can no longer happen invisibly.
 
 ---
 
+## ADR-EDGAR-005 — `identity_key` strips a leading "The" article
+
+**Date:** 2026-09-19
+**Status:** Accepted
+
+### Previous behavior
+
+`identity_key()` in `code/providers/edgar_resolver.py` stripped a trailing
+corporate suffix (`corp`, `inc`, `co`, `llc`, `ltd`, `plc`, ...) but never a
+leading article. `resolve_cik_by_name()` matches a study/gold company label
+against SEC's live `company_tickers.json` by exact `identity_key` equality.
+
+### Why this changed
+
+The M&A-S1 saturation baseline run against Disney (`ma_saturation_pilot_v1.json`,
+company id `disney`) produced a total `CIK_RESOLUTION_MISS` — all 4 gold
+events unresolved — even though Disney's current CIK (1744489) is a live,
+correctly-covered entity. Root cause: EDGAR's own registrant name for CIK
+1744489 is **"Walt Disney Co"** (no "The", "Co" not "Company"), while the
+study's company label is **"The Walt Disney Company"**. Before this fix:
+
+```
+identity_key("The Walt Disney Company") -> "the walt disney"
+identity_key("Walt Disney Co")          -> "walt disney"
+```
+
+These never match, so the resolver returns `None` for an entity that is
+otherwise trivially resolvable.
+
+### Decision
+
+`identity_key()` now also strips a leading `"the "` article (anchored to the
+start of the string only, so a mid-name "the" — e.g. "Bank of the West" — is
+left untouched). See `tests/test_edgar_resolver_identity_key.py`.
+
+### Consequence
+
+Any company whose gold/study label uses "The X Company" but whose current
+EDGAR registrant name drops the article (a common EDGAR normalization) now
+resolves correctly. For Disney specifically, this is only a partial fix —
+see the CIK-successor follow-up below, which this ADR does **not** address.
+
+---
+
 ## Known follow-up decisions not included in this patch
 
 These were deliberately kept separate to avoid mixing too many architectural
@@ -197,3 +241,41 @@ changes in one checkpoint:
    only; acquisition evidence in exhibits remains a retrieval gap.
 5. **Disney entity-boundary fusion:** regex/spaCy overlapping organization
    spans still split votes and need a principled canonicalization/fusion fix.
+6. **Point-in-time CIK resolution for corporate successions** (deferred after
+   ADR-EDGAR-005). `resolve_cik_by_name()` only queries SEC's *current*
+   `company_tickers.json` snapshot — a live name-to-CIK map with no sense of
+   time. That is structurally insufficient for a holdco flip / successor
+   issuer, where the *same trade name* is worn by a *different CIK* at
+   different points in time.
+
+   Disney's saturation-baseline case (`data/eval_gold/disney.json`) is the
+   concrete example and can be used as the test fixture when this is
+   picked up — no need to re-derive it:
+
+   | Gold event | Date | Filed under CIK | That CIK's name *at filing time* | That CIK's name *today* |
+   |---|---|---|---|---|
+   | disney-1 (original Merger Agreement) | 2017-12 | 1001039 | "The Walt Disney Company" | "TWDC Enterprises 18 Corp." |
+   | disney-2 (Amended & Restated Merger Agreement) | 2018-06 | 1001039 | "The Walt Disney Company" | "TWDC Enterprises 18 Corp." |
+   | disney-3 (Closing) | 2019-03-20 | 1744489 | "TWDC Holdco 613 Corp." | "The Walt Disney Company" |
+   | disney-4 (Fox Sports Net divestiture) | 2019-08-23 | 1744489 | (renamed, post-close) | "The Walt Disney Company" |
+
+   (Counterparty Twenty-First Century Fox, Inc. is CIK 1308161 and is not
+   part of this problem — it resolves normally.)
+
+   After ADR-EDGAR-005's leading-article fix, expect disney-3/disney-4 to
+   resolve (CIK 1744489 is correctly named "The Walt Disney Company" *today*)
+   but disney-1/disney-2 to keep failing `CIK_RESOLUTION_MISS` — CIK 1001039
+   is no longer named "The Walt Disney Company" in any current-snapshot
+   lookup, even though it legitimately was when those filings were made.
+
+   **Fix requires a historical name index, not a live one** — e.g. pulling
+   each CIK's `formerNames` array (with date ranges) from its own
+   `submissions/CIK##########.json`, not just the live ticker file, and
+   resolving by (name, as-of-date) rather than (name) alone.
+
+   `code/resolution/resolver.py` (the GLEIF-side identity graph, not the
+   EDGAR event-extraction path) already has a former-name-alias merge
+   pattern (`_former_name_match`, `alias_type == "former_name"`) that is a
+   reasonable design reference to port over rather than building from
+   scratch — but it is a different subsystem and is not currently wired
+   into `code/providers/edgar_resolver.py` at all.
