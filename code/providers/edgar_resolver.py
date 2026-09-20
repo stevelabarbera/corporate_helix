@@ -10,10 +10,12 @@ SEC_ARCHIVE = "https://www.sec.gov/Archives/edgar/data"
 SEC_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
 
 _SUFFIX_RE = re.compile(r"\b(corp(oration)?|inc(orporated)?|company|co|llc|l\.l\.c\.|ltd|limited|plc)\.?\s*$", re.I)
+_LEADING_ARTICLE_RE = re.compile(r"^the\s+", re.I)
 
 def identity_key(name: str) -> str:
     n = re.sub(r"[^a-z0-9 ]+", " ", (name or "").casefold())
     n = _SUFFIX_RE.sub("", n)
+    n = _LEADING_ARTICLE_RE.sub("", n)
     return " ".join(n.split())
 
 def _get_json(url: str, user_agent: str) -> Any:
