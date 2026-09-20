@@ -19,8 +19,7 @@
       "id": "kraft_heinz-1",
       "counterparty": "Kraft Foods Group, Inc.",
       "aliases": [
-        "Kraft Foods Group",
-        "Kraft"
+        "Kraft Foods Group"
       ],
       "event_type": "AGREED_TO_ACQUIRE",
       "status": "COMPLETED",
@@ -31,8 +30,7 @@
       "id": "kraft_heinz-2",
       "counterparty": "Kraft Foods Group, Inc.",
       "aliases": [
-        "Kraft Foods Group",
-        "Kraft"
+        "Kraft Foods Group"
       ],
       "event_type": "MERGED_INTO",
       "status": "COMPLETED",
