@@ -1,0 +1,54 @@
+{
+  "company": "Tyson Foods, Inc.",
+  "aliases_ok": [
+    "Tyson Foods",
+    "Tyson"
+  ],
+  "gold_established_blind": "YES",
+  "blindness_caveat": "This record was created from independent company announcements and transaction reporting before any Tyson Foods SEC filing corpus or Helix output was fetched or inspected for this study. No SEC filing text was used to select, type, or date these events.",
+  "gold_sources": [
+    "https://www.tysonfoods.com/news/news-releases/2017/6/acquisition-advancepierre-completes-successfully",
+    "https://www.feedstuffs.com/business-markets/tyson-successfully-completes-keystone-foods-acquisition",
+    "https://www.meatpoultry.com/articles/28502-tyson-finalizes-acquisition-of-williams-sausage"
+  ],
+  "note": "Scoped to three completed, named acquisitions inside the frozen 2015-2026 audit window: AdvancePierre Foods, Keystone Foods, and Williams Sausage. Tyson's transformative Hillshire Brands acquisition closed in 2014 and is excluded by the study window. Smaller asset purchases, acquisitions of regional business operations, investments, and divestitures are outside this deliberately bounded company-acquisition set.",
+  "events": [
+    {
+      "id": "tyson-1",
+      "counterparty": "AdvancePierre Foods Holdings, Inc.",
+      "aliases": [
+        "AdvancePierre Foods",
+        "AdvancePierre"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2017-06-07",
+      "notes": "Completed acquisition of the prepared-foods company for approximately $4.2 billion after assuming its debt"
+    },
+    {
+      "id": "tyson-2",
+      "counterparty": "Keystone Foods LLC",
+      "aliases": [
+        "Keystone Foods",
+        "Keystone"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2018-11-30",
+      "notes": "Completed $2.16 billion acquisition of Keystone Foods from Marfrig Global Foods"
+    },
+    {
+      "id": "tyson-3",
+      "counterparty": "Williams Sausage Company, Inc.",
+      "aliases": [
+        "Williams Sausage Co.",
+        "Williams Sausage Company",
+        "Williams Sausage"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2023-05-22",
+      "notes": "Completed acquisition of the Tennessee prepared-foods company and its sausage, bacon, sandwich, and direct-store-delivery operations"
+    }
+  ]
+}
