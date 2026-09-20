@@ -1,0 +1,75 @@
+{
+  "company_id": "six_flags",
+  "company": "Six Flags Entertainment Corporation",
+  "baseline_commit": "4bc8dba4c0ca7c3c526b1768d9cd11ef81d24360",
+  "run_timestamp": "2026-09-20T10:34:50.799016+00:00",
+  "pipeline": {
+    "cik_resolved": false,
+    "filings_retrieved": null,
+    "relevant_text_present": null,
+    "locator_captured": null,
+    "entity_recognized": null,
+    "event_extracted": null,
+    "candidate_emitted": null
+  },
+  "gold_events": [
+    {
+      "id": "six_flags-1",
+      "counterparty": "Cedar Fair, L.P.",
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2023-11",
+      "notes": "Merger of equals agreement announced Nov 2, 2023; pro forma enterprise value ~$8B. Scored against AGREED_TO_ACQUIRE/MERGED_INTO since this is a merger of equals, not a clean bidder/target deal -- see note.",
+      "stages": {
+        "filings_retrieved": null,
+        "relevant_text_present": null,
+        "locator_captured": null,
+        "entity_recognized": null,
+        "event_extracted": null,
+        "candidate_emitted": null
+      },
+      "deepest_stage": "CIK_UNRESOLVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "six_flags-2",
+      "counterparty": "Cedar Fair, L.P.",
+      "event_type": "MERGED_INTO",
+      "status": "COMPLETED",
+      "approx_date": "2024-07-01",
+      "notes": "Closing of the merger of equals; combined company took the Six Flags Entertainment Corporation name and FUN ticker; Cedar Fair designated the accounting acquirer despite the merger-of-equals structure",
+      "stages": {
+        "filings_retrieved": null,
+        "relevant_text_present": null,
+        "locator_captured": null,
+        "entity_recognized": null,
+        "event_extracted": null,
+        "candidate_emitted": null
+      },
+      "deepest_stage": "CIK_UNRESOLVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    }
+  ],
+  "unmatched_candidates": [],
+  "retrieval": {
+    "filing_count": 0,
+    "errors": []
+  },
+  "observed_primitives": [],
+  "failure_classes": [
+    "CIK_RESOLUTION_MISS"
+  ],
+  "notes": "CIK resolution failed; no SEC requests made."
+}
