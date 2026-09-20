@@ -1,0 +1,43 @@
+{
+  "company": "The Kraft Heinz Company",
+  "aliases_ok": [
+    "Kraft Heinz",
+    "Kraft Heinz Company",
+    "H.J. Heinz Holding Corporation",
+    "H.J. Heinz Company"
+  ],
+  "gold_established_blind": "YES",
+  "blindness_caveat": "This record was created from independent Kraft Heinz transaction announcements and reporting before any Kraft Heinz SEC filing corpus or Helix output was fetched or inspected for this study. No SEC filing text was used to select, type, or date these events.",
+  "gold_sources": [
+    "https://news.kraftheinzcompany.com/press-releases-details/2015/HJ-Heinz-Company-and-Kraft-Foods-Group-Sign-Definitive-Merger-Agreement-to-Form-The-Kraft-Heinz-Company/default.aspx",
+    "https://news.kraftheinzcompany.com/press-releases-details/2015/The-Kraft-Heinz-Company-Announces-Successful-Completion-of-the-Merger-between-Kraft-Foods-Group-and-HJ-Heinz-Holding-Corporation/default.aspx",
+    "https://time.com/3757678/kraft-heinz-merger/"
+  ],
+  "note": "Scoped to the 2015 Kraft-Heinz combination that created the current public company. The agreement and closing are represented separately to measure both lifecycle stages. The transaction is treated as a merger rather than a simple purchase: existing Heinz shareholders held 51% of the combined company, Kraft shareholders held 49%, Kraft shareholders received a special cash dividend, and the combined entity adopted The Kraft Heinz Company name. Later brand and business divestitures and the announced 2026 separation are outside this acquisition-focused gold set.",
+  "events": [
+    {
+      "id": "kraft_heinz-1",
+      "counterparty": "Kraft Foods Group, Inc.",
+      "aliases": [
+        "Kraft Foods Group",
+        "Kraft"
+      ],
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2015-03-25",
+      "notes": "Definitive merger agreement announced by H.J. Heinz Company and Kraft Foods Group; Heinz shareholders were to own 51% and Kraft shareholders 49% of the combined Kraft Heinz Company"
+    },
+    {
+      "id": "kraft_heinz-2",
+      "counterparty": "Kraft Foods Group, Inc.",
+      "aliases": [
+        "Kraft Foods Group",
+        "Kraft"
+      ],
+      "event_type": "MERGED_INTO",
+      "status": "COMPLETED",
+      "approx_date": "2015-07-02",
+      "notes": "Closing of the Kraft-Heinz combination; Kraft Foods Group shares ceased trading and the combined company began trading as KHC"
+    }
+  ]
+}
