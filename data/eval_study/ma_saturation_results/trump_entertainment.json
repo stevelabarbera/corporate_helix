@@ -1,0 +1,66 @@
+{
+  "company_id": "trump_entertainment",
+  "company": "Trump Entertainment Resorts, Inc.",
+  "baseline_commit": "533772f0e8d339a1736347bb64843d54cae6e9fa",
+  "run_timestamp": "2026-09-20T10:31:47.444879+00:00",
+  "scope": {
+    "start": "2015-01-01",
+    "end": "2026-12-31",
+    "forms": [
+      "10-K",
+      "10-K/A",
+      "8-K",
+      "8-K/A"
+    ]
+  },
+  "cik": "0000943320",
+  "pipeline": {
+    "cik_resolved": true,
+    "filings_retrieved": false,
+    "relevant_text_present": false,
+    "locator_captured": false,
+    "entity_recognized": false,
+    "event_extracted": false,
+    "candidate_emitted": false
+  },
+  "gold_events": [
+    {
+      "id": "trump-entertainment-1",
+      "counterparty": "Icahn Enterprises L.P.",
+      "aliases": [
+        "Icahn Enterprises",
+        "IEP"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2016-02-26",
+      "notes": "Trump Entertainment Resorts emerged from Chapter 11 and became a wholly owned subsidiary of Icahn Enterprises through a debt-for-equity reorganization",
+      "stages": {
+        "filings_retrieved": false,
+        "relevant_text_present": false,
+        "locator_captured": false,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "CIK_RESOLVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    }
+  ],
+  "unmatched_candidates": [],
+  "retrieval": {
+    "filing_count": 0,
+    "errors": []
+  },
+  "observed_primitives": [],
+  "failure_classes": [
+    "DISCLOSURE_NOT_IN_RETRIEVED_CORPUS"
+  ],
+  "notes": "Measurement-only M&A-S1 run; production resolver, locator, extractor, trust, and recursion behavior unchanged."
+}
