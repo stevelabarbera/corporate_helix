@@ -1,0 +1,40 @@
+{
+  "company": "Northrop Grumman Corporation",
+  "aliases_ok": [
+    "Northrop Grumman",
+    "Northrop Grumman Corp."
+  ],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "The Orbital ATK agreement and closing were independently established from transaction reporting before any Northrop Grumman parser output was run or inspected. During date and source validation, a web search result exposed Northrop Grumman SEC filing text describing the already-identified closing, so complete blindness from filing text cannot be claimed. The event identities, dates, lifecycle stages, and transaction scope were not derived from Helix output.",
+  "gold_sources": [
+    "https://www.flightglobal.com/fixed-wing/2018/06/northrop-grumman-completes-acquisition-of-orbital-atk-for-9-2-billion/",
+    "https://www.ftc.gov/news-events/news/press-releases/2018/06/ftc-imposes-conditions-northrop-grummans-acquisition-solid-rocket-motor-supplier-orbital-atk-inc"
+  ],
+  "note": "Scoped to Northrop Grumman's transformative Orbital ATK acquisition inside the frozen 2015-2026 audit window. The 2017 agreement and 2018 closing are represented separately so the frozen system is measured against both transaction lifecycle stages. Older transformative acquisitions such as Litton Industries, Newport News Shipbuilding, and TRW predate the audit window. Northrop Grumman's 2021 sale of its federal IT and mission-support business was researched but excluded so this record remains focused on the independently selected acquisition rather than mixing an asset/business divestiture into the company-acquisition gold set.",
+  "events": [
+    {
+      "id": "northrop_grumman-1",
+      "counterparty": "Orbital ATK, Inc.",
+      "aliases": [
+        "Orbital ATK",
+        "Northrop Grumman Innovation Systems, Inc."
+      ],
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2017-09-17",
+      "notes": "Agreement and Plan of Merger signed; Northrop Grumman agreed to acquire Orbital ATK for $134.50 per share in cash, approximately $7.8 billion of equity value plus assumption of debt"
+    },
+    {
+      "id": "northrop_grumman-2",
+      "counterparty": "Orbital ATK, Inc.",
+      "aliases": [
+        "Orbital ATK",
+        "Northrop Grumman Innovation Systems, Inc."
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2018-06-06",
+      "notes": "Closing after FTC approval; Orbital ATK became a wholly owned subsidiary and was renamed Northrop Grumman Innovation Systems, Inc."
+    }
+  ]
+}
