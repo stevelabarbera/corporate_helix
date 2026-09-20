@@ -294,6 +294,95 @@ models aren't installable by plain package name from PyPI).
 
 ---
 
+## ADR-EDGAR-007 — Foreign-entity legal-form clause: "X, a [form] ... under the laws of [country]"
+
+**Date:** 2026-09-20
+**Status:** Accepted
+
+### Correction to ADR-EDGAR-006's speculation
+
+ADR-EDGAR-006 guessed that Alsid SAS (Tenable, `LOCATOR_CAPTURED`) was
+"a strong candidate for the same root cause" as Colt — an identity-matching
+problem, not a real NER miss. That guess was wrong, and the real cause is
+worth documenting precisely because it's a different, more general problem.
+Real Tenable 8-K text was fetched live (accession 0001660280-21-000016,
+Item 1.01, 2021-02-10, `data/raw/edgar_tenable_events.json`) and run
+through the actual extraction ensemble to check.
+
+### Previous behavior
+
+The `CORP` suffix list (`Inc`, `LLC`, `Ltd`, `PLC`, `Company`, `AG`, ...)
+only covers a handful of US/UK/German corporate forms. `ENT_LEGALFORM`
+exists as a fallback for entities with no recognizable suffix at all (e.g.
+"Paramount Global"), but it only matched clauses in the order
+**"a [jurisdiction] [legal form]"** — e.g. "a Delaware corporation".
+
+### Why this changed
+
+Tenable's real Alsid acquisition 8-K introduces the counterparty as:
+
+> "...Alsid SAS, a company organized under the laws of France..."
+
+This is the **reversed** clause order: the legal-form word ("company")
+comes first, the jurisdiction ("France") comes last, introduced by
+"organized/incorporated/formed/existing under the laws of". Neither `ENT`
+(no suffix match — "SAS" isn't in `CORP`) nor `ENT_LEGALFORM` (wrong clause
+order) matched. Only spaCy's NER found "Alsid SAS" (vote weight 1.0);
+neither `RegexBackend` nor `LegalRulesBackend` did (both are built on the
+same `_entity_matches()` helper), so the fused score (1.0) fell below the
+1.5 acceptance threshold and the org was silently dropped — with nothing
+in the study output distinguishing "genuinely unrecognizable" from
+"foreign-entity phrasing gap."
+
+This is a general problem, not an Alsid-specific one: EDGAR filings
+introduce **any** foreign counterparty this way almost universally,
+regardless of which country's corporate form is involved (SAS, GmbH, B.V.,
+S.p.A., K.K., ...). Enumerating every foreign suffix into `CORP` would be
+an endless, incomplete whack-a-mole; matching the *clause shape* instead
+generalizes to all of them at once.
+
+### Decision
+
+Added `ENT_LEGALFORM_UNDER_LAWS_OF`, a second fallback pattern matching
+"X, a [legal form] organized/incorporated/formed/existing under the laws
+of [Country]" — the reversed clause order — alongside the existing
+`ENT_LEGALFORM` (which still handles "a Delaware corporation" order and is
+unchanged). Verified:
+
+- Fixes the real Alsid case end-to-end: `EdgarMAExtractor` now returns
+  `"Alsid SAS"` in `orgs` with combined vote 1.75 (clears both the
+  validated 1.5 threshold and, independently, the degraded-mode 1.0
+  threshold using only regex+legal_rules — confirming the fix holds even
+  without spaCy).
+- Zero false positives when the new pattern is run against every cached
+  real filing text in the repo (`data/raw/*.json`, `data/eval_raw/*.json`)
+  — it matches exactly the one intended Alsid clause and nothing else.
+- Domestic "a Delaware corporation" phrasing (the original `ENT_LEGALFORM`
+  path) still works unchanged.
+
+See `tests/test_edgar_foreign_entity_legal_form.py`.
+
+### Consequence
+
+`tenable-2` (Alsid) should now reach `ENTITY_RECOGNIZED` on a re-run of the
+S1 baseline. This is a genuinely different fix from ADR-EDGAR-006's — one
+is an identity-matching normalization gap after correct extraction, this
+one is a real extraction-ensemble gap for foreign entities. Both had been
+lumped into the study's single `ENTITY_RECOGNITION_MISS` label; worth
+treating that failure class as at least two sub-classes going forward
+(genuine NER miss vs. downstream identity-match miss) when reading
+saturation-study frequency counts.
+
+### Known limitation not covered here
+
+`_LEGAL_FORM` itself is still a short, English-only list (`corporation`,
+`company`, `limited liability company`, `limited partnership`). A foreign
+entity introduced with a legal-form word outside that list, or in
+non-English phrasing, would still be missed. This ADR fixes the *clause
+order* gap, not every possible phrasing gap.
+
+---
+
 ## Known follow-up decisions not included in this patch
 
 These were deliberately kept separate to avoid mixing too many architectural
@@ -349,15 +438,13 @@ changes in one checkpoint:
    reasonable design reference to port over rather than building from
    scratch — but it is a different subsystem and is not currently wired
    into `code/providers/edgar_resolver.py` at all.
-7. **Alsid SAS (Tenable, `LOCATOR_CAPTURED`) not independently confirmed
-   as the same identity-matching bug fixed in ADR-EDGAR-006.** Stage
-   pattern matches Colt exactly, but no cached raw 8-K text for Alsid
-   exists in this repo, so the extractor was never actually run against
-   real Alsid filing text to confirm the org was found correctly and it's
-   purely a naming-suffix mismatch (vs. a genuine NER miss). Fetch the
-   real Alsid acquisition 8-K/10-K text and re-run
-   `EdgarMAExtractor.parse_section()` on it directly before assuming this
-   one is closed by ADR-EDGAR-006 too.
+7. ~~Alsid SAS (Tenable, `LOCATOR_CAPTURED`) not independently confirmed
+   as the same identity-matching bug fixed in ADR-EDGAR-006.~~ **Resolved
+   by ADR-EDGAR-007** — fetched the real 8-K text and confirmed it was
+   actually a *different* bug (a foreign-entity legal-form clause-order
+   gap in extraction, not an identity-matching gap after correct
+   extraction). Left here so the "guessed same cause, turned out
+   different" history isn't lost.
 8. **spaCy is a hard requirement of the validated extraction ensemble
    (ADR-EDGAR-004) but is not declared anywhere in `pyproject.toml`.**
    A fresh `pip install -e .` leaves `EdgarMAExtractor()` raising

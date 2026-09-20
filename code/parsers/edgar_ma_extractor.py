@@ -56,6 +56,27 @@ ENT_LEGALFORM = re.compile(
     r"\b(" + _WORD + r"(?:" + _JOIN + r"(?:" + _WORD + r"|" + _CONNECTOR + r")){0,7})"
     r",\s+an?\s+[A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+){0,2}\s+" + _LEGAL_FORM + r"\b"
 )
+
+# Foreign entities are essentially never introduced with a suffix in CORP
+# (French SAS, German GmbH, Dutch B.V., Japanese K.K., ... are an open-ended
+# list not worth enumerating one country at a time). But EDGAR filings
+# almost always still state the entity's legal form in a fixed clause shape
+# -- just with the jurisdiction AFTER the legal-form word instead of before
+# it, e.g. "Alsid SAS, a company organized under the laws of France" rather
+# than "..., a Delaware corporation". ENT_LEGALFORM only covers the latter
+# order and misses every real foreign-counterparty case tested so far
+# (confirmed against Tenable's real Alsid SAS 8-K, where this was the only
+# reason the org fell below the fusion threshold -- spaCy alone found it at
+# weight 1.0, but neither regex-based backend did, so 1.0 < 1.5 threshold).
+# This pattern covers the reversed order instead of enumerating suffixes,
+# so it generalizes to any jurisdiction's phrasing rather than requiring a
+# new suffix token every time a new country's corporate form shows up.
+ENT_LEGALFORM_UNDER_LAWS_OF = re.compile(
+    r"\b(" + _WORD + r"(?:" + _JOIN + r"(?:" + _WORD + r"|" + _CONNECTOR + r")){0,7})"
+    r",\s+an?\s+(?:[a-z]+\s+){0,3}" + _LEGAL_FORM
+    + r"\s+(?:organized|incorporated|formed|existing)\s+under\s+the\s+laws\s+of\s+"
+    r"[A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+){0,2}\b"
+)
 _BARE_SUFFIX = re.compile(r"^" + CORP + r"$")
 
 
@@ -63,6 +84,11 @@ def _entity_matches(text):
     for m in ENT.finditer(text):
         yield norm(m.group(1)), m.end()
     for m in ENT_LEGALFORM.finditer(text):
+        ent = norm(m.group(1))
+        if _BARE_SUFFIX.match(ent):
+            continue
+        yield ent, m.end()
+    for m in ENT_LEGALFORM_UNDER_LAWS_OF.finditer(text):
         ent = norm(m.group(1))
         if _BARE_SUFFIX.match(ent):
             continue
