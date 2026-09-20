@@ -1,0 +1,83 @@
+{
+  "company_id": "northrop_grumman",
+  "company": "Northrop Grumman Corporation",
+  "baseline_commit": "b8273df44f499ba5c20ae4236fbd3d036c7551f3",
+  "run_timestamp": "2026-09-20T14:21:11.867449+00:00",
+  "pipeline": {
+    "cik_resolved": false,
+    "filings_retrieved": null,
+    "relevant_text_present": null,
+    "locator_captured": null,
+    "entity_recognized": null,
+    "event_extracted": null,
+    "candidate_emitted": null
+  },
+  "gold_events": [
+    {
+      "id": "northrop_grumman-1",
+      "counterparty": "Orbital ATK, Inc.",
+      "aliases": [
+        "Orbital ATK",
+        "Northrop Grumman Innovation Systems, Inc."
+      ],
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2017-09-17",
+      "notes": "Agreement and Plan of Merger signed; Northrop Grumman agreed to acquire Orbital ATK for $134.50 per share in cash, approximately $7.8 billion of equity value plus assumption of debt",
+      "stages": {
+        "filings_retrieved": null,
+        "relevant_text_present": null,
+        "locator_captured": null,
+        "entity_recognized": null,
+        "event_extracted": null,
+        "candidate_emitted": null
+      },
+      "deepest_stage": "CIK_UNRESOLVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "northrop_grumman-2",
+      "counterparty": "Orbital ATK, Inc.",
+      "aliases": [
+        "Orbital ATK",
+        "Northrop Grumman Innovation Systems, Inc."
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2018-06-06",
+      "notes": "Closing after FTC approval; Orbital ATK became a wholly owned subsidiary and was renamed Northrop Grumman Innovation Systems, Inc.",
+      "stages": {
+        "filings_retrieved": null,
+        "relevant_text_present": null,
+        "locator_captured": null,
+        "entity_recognized": null,
+        "event_extracted": null,
+        "candidate_emitted": null
+      },
+      "deepest_stage": "CIK_UNRESOLVED",
+      "evidence": {
+        "raw_text_accessions": [],
+        "selected_section_hits": [],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    }
+  ],
+  "unmatched_candidates": [],
+  "retrieval": {
+    "filing_count": 0,
+    "errors": []
+  },
+  "observed_primitives": [],
+  "failure_classes": [
+    "CIK_RESOLUTION_MISS"
+  ],
+  "notes": "CIK resolution failed; no SEC requests made."
+}
