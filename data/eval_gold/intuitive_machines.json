@@ -1,0 +1,54 @@
+{
+  "company": "Intuitive Machines, Inc.",
+  "aliases_ok": [
+    "Intuitive Machines",
+    "Intuitive Machines, LLC"
+  ],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "This record was created from independent company and transaction reporting before any Intuitive Machines SEC filing corpus or Helix output was fetched or inspected for this study. No SEC filing text was used. The set covers the independently verifiable corporate-combination and named acquisitions inside the frozen 2015-2026 audit window; it is not claimed to include asset purchases or immaterial transactions that were not publicly named.",
+  "gold_sources": [
+    "https://www.businesswire.com/news/home/20230213005466/en/Inflection-Point-Acquisition-Corp.-and-Intuitive-Machines-LLC-Announce-Closing-of-Business-Combination-Intuitive-Machines-Inc.-to-Trade-on-Nasdaq-Under-Ticker-Symbols-LUNR-and-LUNRW",
+    "https://www.houstonchronicle.com/news/houston-texas/space/article/intuitive-machines-lanteris-kinetx-21142658.php",
+    "https://www.reuters.com/business/aerospace-defense/intuitive-machines-broaden-space-business-with-800-million-deal-lanteris-2025-11-04/",
+    "https://www.intuitivemachines.com/post/intuitive-machines-completes-acquisition-of-lanteris-space-systems"
+  ],
+  "note": "The first event is the 2023 de-SPAC combination that made Intuitive Machines public. KinetX and Lanteris are completed, named acquisitions during 2025-2026. Lanteris was announced in November 2025 and completed in January 2026, so both agreement and closing disclosures may exist; this gold record scores the completed acquisition rather than adding a second lifecycle event without a separately frozen agreement-stage target.",
+  "events": [
+    {
+      "id": "intuitive_machines-1",
+      "counterparty": "Inflection Point Acquisition Corp.",
+      "aliases": [
+        "Inflection Point Acquisition Corp",
+        "IPAX"
+      ],
+      "event_type": "MERGED_INTO",
+      "status": "COMPLETED",
+      "approx_date": "2023-02-13",
+      "notes": "Closing of the business combination between Intuitive Machines, LLC and the Inflection Point Acquisition Corp. SPAC; the combined company became Intuitive Machines, Inc. and began trading under LUNR/LUNRW"
+    },
+    {
+      "id": "intuitive_machines-2",
+      "counterparty": "KinetX, Inc.",
+      "aliases": [
+        "KinetX Aerospace",
+        "KinetX"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2025-10",
+      "notes": "Completed acquisition of the deep-space navigation company for approximately $30 million before closing adjustments"
+    },
+    {
+      "id": "intuitive_machines-3",
+      "counterparty": "Lanteris Space Systems",
+      "aliases": [
+        "Lanteris",
+        "Maxar Space Systems"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2026-01-13",
+      "notes": "Completed approximately $800 million acquisition of the spacecraft manufacturer formerly known as Maxar Space Systems from Advent International"
+    }
+  ]
+}
