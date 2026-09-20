@@ -224,6 +224,76 @@ see the CIK-successor follow-up below, which this ADR does **not** address.
 
 ---
 
+## ADR-EDGAR-006 — `identity_key` strips stacked corporate-form suffixes, and a mislabeled failure class
+
+**Date:** 2026-09-20
+**Status:** Accepted
+
+### Previous behavior
+
+`_SUFFIX_RE` stripped exactly one trailing corporate-form word (`corp`,
+`inc`, `co`, `llc`, `ltd`, `limited`, `plc`, `company`) and stopped.
+
+### Why this changed
+
+The M&A-S1 saturation baseline recorded `ENTITY_RECOGNITION_MISS` for
+Lumen's Colt Technology Services divestiture (`lumen-5`, deepest stage
+`LOCATOR_CAPTURED`). Running the actual validated 3-backend extraction
+ensemble (`EdgarMAExtractor`, regex + spaCy + legal_rules) directly against
+the cached 8-K Item 2.01 text showed this was **not a real NER failure**:
+
+```
+orgs: ["Colt Technology Services Group Limited", "Lumen Technologies, Inc."]
+org_votes: {"Colt Technology Services Group Limited": 2.75, ...}
+```
+
+2.75 is well above the 1.5 acceptance threshold — the org was correctly
+found and scored. The actual failure was one step later, in the evaluator's
+`same_company()` / `identity_key()` exact-match check:
+
+```
+identity_key("Colt Technology Services Group Limited") -> "colt technology services group"
+identity_key("Colt Technology Services")                -> "colt technology services"
+```
+
+A single suffix strip removed only the trailing "Limited" and left "group"
+dangling, so an otherwise-correct extraction never matched the gold label.
+
+**This means the M&A-S1 study's `ENTITY_RECOGNITION_MISS` failure class, as
+currently measured, conflates two different problems**: cases where the NER
+ensemble genuinely never found the org, and cases (like this one) where it
+found the org correctly but the identity-matching step used to *score* the
+study rejected a valid match. Anyone reviewing saturation-study frequency
+counts for this failure class should keep that distinction in mind —
+Alsid SAS (Tenable, `LOCATOR_CAPTURED`) shows the identical stage pattern
+and is a strong candidate for the same root cause, though this was not
+independently confirmed against real filing text (no cached raw 8-K text
+for Alsid exists in this repo — see follow-up item 7 below).
+
+### Decision
+
+Suffix stripping in `identity_key()` is now applied iteratively (loop until
+no more trailing corporate-form word matches, instead of stripping once),
+and `group`/`holding(s)` were added to the stripped-suffix vocabulary.
+Verified against real company names (Alphabet Inc., Fox Corporation,
+Northrop Grumman Corporation, Kraft Heinz Company, Blackstone Group Inc.,
+Apollo Global Management, Inc.) to confirm no over-stripping of load-bearing
+name words. See `tests/test_edgar_resolver_identity_key.py`.
+
+### Consequence
+
+`lumen-5` (Colt) now correctly reaches `ENTITY_RECOGNIZED`. Full test suite
+re-run clean at 248/248 after also installing this repo's own declared
+dependencies (`tldextract` — already in `pyproject.toml`, just not
+installed in this environment; `pyahocorasick` — the optional `gazetteer`
+extra) plus `spacy`+`en_core_web_sm`, which the validated ensemble requires
+per ADR-EDGAR-004 but which is **not currently declared anywhere in
+`pyproject.toml`** — worth adding as a base dependency (with a note that the
+model itself needs a separate `spacy download` / wheel install, since spaCy
+models aren't installable by plain package name from PyPI).
+
+---
+
 ## Known follow-up decisions not included in this patch
 
 These were deliberately kept separate to avoid mixing too many architectural
@@ -279,3 +349,20 @@ changes in one checkpoint:
    reasonable design reference to port over rather than building from
    scratch — but it is a different subsystem and is not currently wired
    into `code/providers/edgar_resolver.py` at all.
+7. **Alsid SAS (Tenable, `LOCATOR_CAPTURED`) not independently confirmed
+   as the same identity-matching bug fixed in ADR-EDGAR-006.** Stage
+   pattern matches Colt exactly, but no cached raw 8-K text for Alsid
+   exists in this repo, so the extractor was never actually run against
+   real Alsid filing text to confirm the org was found correctly and it's
+   purely a naming-suffix mismatch (vs. a genuine NER miss). Fetch the
+   real Alsid acquisition 8-K/10-K text and re-run
+   `EdgarMAExtractor.parse_section()` on it directly before assuming this
+   one is closed by ADR-EDGAR-006 too.
+8. **spaCy is a hard requirement of the validated extraction ensemble
+   (ADR-EDGAR-004) but is not declared anywhere in `pyproject.toml`.**
+   A fresh `pip install -e .` leaves `EdgarMAExtractor()` raising
+   "Validated EDGAR M&A ensemble unavailable" with no hint from the
+   dependency manifest about what's missing. Add `spacy` as a base
+   dependency, plus a README/install note that the `en_core_web_sm` model
+   itself needs a separate download step (spaCy models aren't installable
+   by plain package name from PyPI).

@@ -9,12 +9,23 @@ SEC_DATA = "https://data.sec.gov"
 SEC_ARCHIVE = "https://www.sec.gov/Archives/edgar/data"
 SEC_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
 
-_SUFFIX_RE = re.compile(r"\b(corp(oration)?|inc(orporated)?|company|co|llc|l\.l\.c\.|ltd|limited|plc)\.?\s*$", re.I)
+_SUFFIX_RE = re.compile(r"\b(corp(oration)?|inc(orporated)?|company|co|llc|l\.l\.c\.|ltd|limited|plc|group|holdings?)\.?\s*$", re.I)
 _LEADING_ARTICLE_RE = re.compile(r"^the\s+", re.I)
 
 def identity_key(name: str) -> str:
     n = re.sub(r"[^a-z0-9 ]+", " ", (name or "").casefold())
-    n = _SUFFIX_RE.sub("", n)
+    n = " ".join(n.split())
+    # Real EDGAR registrant names often stack more than one corporate-form
+    # word at the end (e.g. "Colt Technology Services Group Limited" has
+    # both "Group" and "Limited"). A single strip only removes the last
+    # token and leaves "group" dangling, which then fails to match a
+    # shorter gold/press-sourced label like "Colt Technology Services".
+    # Strip repeatedly until no more trailing suffix words match.
+    while True:
+        stripped = _SUFFIX_RE.sub("", n).rstrip()
+        if stripped == n:
+            break
+        n = stripped
     n = _LEADING_ARTICLE_RE.sub("", n)
     return " ".join(n.split())
 

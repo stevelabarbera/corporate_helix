@@ -36,3 +36,29 @@ def test_suffix_and_article_combine():
 
 def test_no_leading_article_unaffected():
     assert identity_key("Twenty-First Century Fox, Inc.") == "twenty first century fox"
+
+
+def test_stacked_corporate_suffixes_stripped_iteratively():
+    """Regression for the M&A-S1 saturation baseline ENTITY_RECOGNITION_MISS
+    on Lumen's Colt Technology Services divestiture.
+
+    The extraction ensemble correctly found and scored "Colt Technology
+    Services Group Limited" as an org (org_votes 2.75, well above the 1.5
+    acceptance threshold) -- this was never a real NER failure. The gold
+    label is the shorter "Colt Technology Services". A single suffix strip
+    only removed "Limited" and left "group" dangling, so the two keys never
+    matched. Suffix stripping must repeat until no more trailing
+    corporate-form words match.
+    """
+    assert identity_key("Colt Technology Services Group Limited") == \
+        identity_key("Colt Technology Services")
+    assert identity_key("Colt Technology Services Group Limited") == \
+        "colt technology services"
+
+
+def test_stacked_suffix_does_not_over_strip_real_names():
+    # "Group"/"Holdings" stripping should not eat load-bearing words that
+    # happen to precede a genuine corporate-form suffix.
+    assert identity_key("Apollo Global Management, Inc.") == "apollo global management"
+    assert identity_key("Kraft Heinz Company") == "kraft heinz"
+    assert identity_key("Northrop Grumman Corporation") == "northrop grumman"
