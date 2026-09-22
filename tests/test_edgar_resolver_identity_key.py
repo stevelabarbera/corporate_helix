@@ -62,3 +62,40 @@ def test_stacked_suffix_does_not_over_strip_real_names():
     assert identity_key("Apollo Global Management, Inc.") == "apollo global management"
     assert identity_key("Kraft Heinz Company") == "kraft heinz"
     assert identity_key("Northrop Grumman Corporation") == "northrop grumman"
+
+
+def test_edgar_disambiguation_tag_stripped():
+    """Regression for two real M&A-S1 saturation baseline CIK_RESOLUTION_MISS
+    cases: Six Flags and (hypothesized, pending direct confirmation)
+    Northrop Grumman.
+
+    EDGAR appends a short bookkeeping tag to a registrant's own name when
+    the plain name is ambiguous or has been reused across a corporate
+    succession. Confirmed directly against the real company_tickers.json
+    entry for CIK 1999001: "Six Flags Entertainment Corporation/NEW" --
+    created at the 2024-07-01 Cedar Fair merger close, exactly matching
+    the study's six_flags-2 gold event date. Before this fix, the trailing
+    "/NEW" survived normalization and produced
+    "six flags entertainment corporation new", which never matched the
+    study's plain label "Six Flags Entertainment Corporation".
+    """
+    assert identity_key("Six Flags Entertainment Corporation/NEW") == \
+        identity_key("Six Flags Entertainment Corporation")
+    assert identity_key("Six Flags Entertainment Corporation/NEW") == \
+        "six flags entertainment"
+
+    # State-of-incorporation tag, as seen on Northrop Grumman's old-style
+    # SGML filing headers ("NORTHROP GRUMMAN CORP /DE/"). Whether this is
+    # actually what identity_key was being asked to match against for the
+    # real CIK_RESOLUTION_MISS is still pending direct confirmation
+    # against company_tickers.json (see docs/DECISIONS_EDGAR_MA.md
+    # ADR-EDGAR-008) -- this test documents the intended behavior either
+    # way, since the tag format itself is a known, general EDGAR pattern.
+    assert identity_key("NORTHROP GRUMMAN CORP /DE/") == \
+        identity_key("Northrop Grumman Corporation")
+
+
+def test_edgar_disambiguation_tag_does_not_over_strip():
+    # Don't eat a legitimate trailing short word that isn't a "/TAG".
+    assert identity_key("Paramount Global") == "paramount global"
+    assert identity_key("AT&T Inc.") == "at t"

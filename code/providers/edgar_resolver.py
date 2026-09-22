@@ -11,9 +11,20 @@ SEC_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
 
 _SUFFIX_RE = re.compile(r"\b(corp(oration)?|inc(orporated)?|company|co|llc|l\.l\.c\.|ltd|limited|plc|group|holdings?)\.?\s*$", re.I)
 _LEADING_ARTICLE_RE = re.compile(r"^the\s+", re.I)
+# EDGAR appends a short disambiguation tag to a registrant's own name when
+# the plain name alone is ambiguous or has been reused across a corporate
+# succession -- state of incorporation ("Northrop Grumman Corp /DE/") or a
+# successor/predecessor marker after a merger creates a new CIK carrying
+# the same trade name ("Six Flags Entertainment Corporation/NEW", confirmed
+# directly against the real company_tickers.json entry for CIK 1999001,
+# created at the Cedar Fair merger close on 2024-07-01). This tag is
+# EDGAR's own bookkeeping, never part of the legal name a gold/study label
+# would use, so strip it before any other normalization.
+_EDGAR_DISAMBIGUATION_TAG_RE = re.compile(r"\s*/[A-Za-z]{1,6}\.?/?\s*$")
 
 def identity_key(name: str) -> str:
-    n = re.sub(r"[^a-z0-9 ]+", " ", (name or "").casefold())
+    n = _EDGAR_DISAMBIGUATION_TAG_RE.sub("", name or "")
+    n = re.sub(r"[^a-z0-9 ]+", " ", n.casefold())
     n = " ".join(n.split())
     # Real EDGAR registrant names often stack more than one corporate-form
     # word at the end (e.g. "Colt Technology Services Group Limited" has

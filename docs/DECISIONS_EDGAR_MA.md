@@ -383,6 +383,80 @@ order* gap, not every possible phrasing gap.
 
 ---
 
+## ADR-EDGAR-008 — `identity_key` strips EDGAR's own disambiguation tags (`/DE/`, `/NEW`, ...); Six Flags confirmed as a second corporate-succession case
+
+**Date:** 2026-09-20 (post cohort completion)
+**Status:** Accepted (Six Flags fix); partially open (Northrop Grumman, SCI — see below)
+
+### Why this changed
+
+With the full 12-company M&A-S1 cohort captured, three companies showed
+`CIK_RESOLUTION_MISS` as their *only* failure class: Disney (already
+covered by ADR-EDGAR-005/006 — that result predates the merge, stale, not
+re-run), Six Flags, and Northrop Grumman. Northrop Grumman's baseline was
+confirmed to have run **after** ADR-EDGAR-005 was merged and still failed
+— a genuinely new bug, not a stale result.
+
+Fetched the real `company_tickers.json` entries directly to check rather
+than guessing from old-style SGML filing headers (a different, not
+necessarily identical, name source):
+
+```
+1999001 'Six Flags Entertainment Corporation/NEW'
+```
+
+**Confirmed, and more than a naming quirk**: CIK 1999001 was created at
+the 2024-07-01 Cedar Fair merger close — exactly matching the study's own
+`six_flags-2` gold event date (`MERGED_INTO`, 2024-07-01). The trailing
+`/NEW` is EDGAR's own bookkeeping tag marking this CIK as the *new*
+registrant now carrying a name that a *different*, older CIK (Six Flags
+Entertainment Corp, CIK 701374, pre-merger) used to carry. **This is a
+second real instance of the Disney corporate-succession problem
+(ADR-EDGAR-005/follow-up item 6), not a coincidence.**
+
+Old-style SGML filing headers (fetched via web search, not
+`company_tickers.json` directly) show Northrop Grumman's registrant name
+as `NORTHROP GRUMMAN CORP /DE/` — a state-of-incorporation tag rather than
+a succession tag. **This has not yet been confirmed against the actual
+`company_tickers.json` title** (a case-sensitive search for "Northrop
+Grumman" against that file came back empty, most likely because the real
+title is stored in a different case — EDGAR's ticker file is
+inconsistently cased across entries — not because the entity is missing).
+Re-confirm with a case-insensitive search before treating this as closed.
+Service Corporation International (`sci`, also `CIK_RESOLUTION_MISS`,
+baseline stale/pre-fix) has not been checked at all yet.
+
+### Decision
+
+`identity_key()` now strips a trailing EDGAR disambiguation tag —
+`/[A-Za-z]{1,6}\.?/?` at the end of the raw name, e.g. `/DE/`, `/NEW`,
+`/OLD`, `/MD` — before any other normalization. This is a general EDGAR
+convention (state-of-incorporation or succession disambiguation), not
+specific to either company, so the fix should generalize beyond just
+these two. Verified against every company name in the repo's gold/study
+files with no false-positive stripping (`Paramount Global`, `AT&T Inc.`,
+`Service Corporation International`, etc. all unaffected). See
+`tests/test_edgar_resolver_identity_key.py`.
+
+### Consequence
+
+Six Flags' *current* CIK (1999001) now resolves correctly by name. But —
+same caveat as Disney — **this only fixes `six_flags-2` (the 2024-07-01
+closing)**. `six_flags-1` (the Nov 2023 acquisition announcement) predates
+the merger and was almost certainly filed under a different CIK entirely
+(old Six Flags, 701374, or Cedar Fair's own pre-merger CIK) that does not
+carry the name "Six Flags Entertainment Corporation" today. Expect
+`six_flags-1` to keep failing `CIK_RESOLUTION_MISS` on a re-run, for
+exactly the reason documented in ADR-EDGAR-005's follow-up item 6 — this
+needs the same point-in-time historical-name resolution, not another
+quick identity_key patch. Six Flags should be added as a second concrete
+test fixture for that follow-up work, alongside Disney.
+
+Northrop Grumman and SCI need the case-insensitive `company_tickers.json`
+check (see follow-up item 9) before either can be marked closed.
+
+---
+
 ## Known follow-up decisions not included in this patch
 
 These were deliberately kept separate to avoid mixing too many architectural
@@ -453,3 +527,24 @@ changes in one checkpoint:
    dependency, plus a README/install note that the `en_core_web_sm` model
    itself needs a separate download step (spaCy models aren't installable
    by plain package name from PyPI).
+9. **Northrop Grumman and SCI `CIK_RESOLUTION_MISS` not yet confirmed
+   against real `company_tickers.json` titles** (ADR-EDGAR-008). A
+   case-sensitive search for "Northrop Grumman" against the live ticker
+   file came back empty — likely a casing mismatch in the search itself
+   (EDGAR's ticker file is inconsistently cased across entries), not
+   evidence the entity is absent. Re-run case-insensitively for both
+   "northrop grumman" and "service corporation" before assuming the
+   ADR-EDGAR-008 tag-strip fix actually resolves either one. If Northrop
+   Grumman's real title turns out to carry a `/DE/` (or similar) tag as
+   old-style SGML headers suggest, ADR-EDGAR-008 should already cover it
+   — but this needs the direct confirmation, not an inference from a
+   different EDGAR name source. SCI hasn't been checked at all.
+10. **Six Flags needs a second historical-CIK test fixture alongside
+    Disney** (ADR-EDGAR-005 follow-up item 6, ADR-EDGAR-008). `six_flags-1`
+    (Nov 2023 announcement, pre-merger) is expected to keep failing
+    `CIK_RESOLUTION_MISS` even after the ADR-EDGAR-008 tag-strip fix,
+    since it was filed under a different CIK than the current
+    "Six Flags Entertainment Corporation/NEW" (1999001) — same shape as
+    Disney's disney-1/disney-2. Whoever picks up the point-in-time
+    historical-name-index work should use both companies as fixtures, not
+    just Disney.
