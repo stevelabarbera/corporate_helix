@@ -457,6 +457,73 @@ check (see follow-up item 9) before either can be marked closed.
 
 ---
 
+## ADR-EDGAR-009 — `identity_key` strips corporate-form words wherever they occur, not only at the end; closes follow-up item 9
+
+**Date:** 2026-09-23
+**Status:** Accepted
+
+### Why this changed
+
+Follow-up item 9 asked for a case-insensitive `company_tickers.json` check
+on Northrop Grumman and SCI. Ran it directly:
+
+```
+1133421 'NORTHROP GRUMMAN CORP /DE/'
+89089   'SERVICE CORP INTERNATIONAL'
+```
+
+**Northrop Grumman**: confirmed exactly as hypothesized in ADR-EDGAR-008 —
+the `/DE/` tag-strip fix already handles this correctly. No further
+change needed; follow-up item 9 is closed for this half.
+
+**SCI**: a genuinely new, third bug. EDGAR's real registrant name is
+`"SERVICE CORP INTERNATIONAL"` — note "Corp" sits in the *middle* of the
+name, with "International" after it, not at the end. The study label
+spells it out in full: `"Service Corporation International"`. Every prior
+`identity_key` fix (ADR-EDGAR-005/006/008) only ever stripped from the
+*end* of the string, however many times it iterated — that assumption
+held for every case seen so far (Disney's leading article, Colt's stacked
+trailing suffixes, Six Flags/Northrop Grumman's trailing tags), but
+structurally cannot reach a corporate-form word that isn't at the tail.
+
+### Decision
+
+Corporate-form words (`corp`, `inc`, `company`, `co`, `llc`, `ltd`,
+`limited`, `plc`, `group`, `holding(s)`) are now removed wherever they
+occur as whole-word tokens in the name, not only when anchored to the
+end. Verified:
+
+- Fixes SCI: `identity_key("SERVICE CORP INTERNATIONAL")` now equals
+  `identity_key("Service Corporation International")` (`"service
+  international"`).
+- All four previously-confirmed cases (Disney, Colt, Six Flags, Northrop
+  Grumman) still hold unchanged.
+- Re-scanned every company name across the repo's gold/study files (21
+  companies) for new collisions from the broader match — none found.
+
+See `tests/test_edgar_resolver_identity_key.py`
+(`test_midstring_corporate_form_word_stripped`).
+
+### Consequence
+
+Follow-up item 9 is now fully closed — both halves confirmed and fixed.
+SCI's `CIK_RESOLUTION_MISS` should clear on a re-run of its S1 baseline
+(no reason to expect a Disney/Six-Flags-style historical-succession
+complication here — SCI hasn't undergone a name-carrying-CIK change, this
+was purely a naming-abbreviation gap).
+
+This closes out **five** `CIK_RESOLUTION_MISS` root causes found across
+the completed 12-company cohort: leading article (Disney), stacked
+trailing suffixes (Colt — technically an `ENTITY_RECOGNITION_MISS` case,
+not `CIK_RESOLUTION_MISS`, but the same underlying mechanism), EDGAR
+disambiguation tags (Six Flags, Northrop Grumman), and now mid-string
+corporate-form abbreviation (SCI). Worth treating `identity_key` as
+reasonably well battle-tested at this point, having now been checked
+against real EDGAR text for every company in the frozen cohort rather
+than assumed correct.
+
+---
+
 ## Known follow-up decisions not included in this patch
 
 These were deliberately kept separate to avoid mixing too many architectural
@@ -527,18 +594,12 @@ changes in one checkpoint:
    dependency, plus a README/install note that the `en_core_web_sm` model
    itself needs a separate download step (spaCy models aren't installable
    by plain package name from PyPI).
-9. **Northrop Grumman and SCI `CIK_RESOLUTION_MISS` not yet confirmed
-   against real `company_tickers.json` titles** (ADR-EDGAR-008). A
-   case-sensitive search for "Northrop Grumman" against the live ticker
-   file came back empty — likely a casing mismatch in the search itself
-   (EDGAR's ticker file is inconsistently cased across entries), not
-   evidence the entity is absent. Re-run case-insensitively for both
-   "northrop grumman" and "service corporation" before assuming the
-   ADR-EDGAR-008 tag-strip fix actually resolves either one. If Northrop
-   Grumman's real title turns out to carry a `/DE/` (or similar) tag as
-   old-style SGML headers suggest, ADR-EDGAR-008 should already cover it
-   — but this needs the direct confirmation, not an inference from a
-   different EDGAR name source. SCI hasn't been checked at all.
+9. ~~Northrop Grumman and SCI `CIK_RESOLUTION_MISS` not yet confirmed
+   against real `company_tickers.json` titles.~~ **Resolved by
+   ADR-EDGAR-009** — both confirmed directly: Northrop Grumman
+   (`NORTHROP GRUMMAN CORP /DE/`) was already covered by ADR-EDGAR-008's
+   tag strip; SCI (`SERVICE CORP INTERNATIONAL`) needed a new fix
+   (mid-string corporate-form word removal), now shipped.
 10. **Six Flags needs a second historical-CIK test fixture alongside
     Disney** (ADR-EDGAR-005 follow-up item 6, ADR-EDGAR-008). `six_flags-1`
     (Nov 2023 announcement, pre-merger) is expected to keep failing

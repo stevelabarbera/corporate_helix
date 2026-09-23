@@ -99,3 +99,20 @@ def test_edgar_disambiguation_tag_does_not_over_strip():
     # Don't eat a legitimate trailing short word that isn't a "/TAG".
     assert identity_key("Paramount Global") == "paramount global"
     assert identity_key("AT&T Inc.") == "at t"
+
+
+def test_midstring_corporate_form_word_stripped():
+    """Regression for the M&A-S1 saturation baseline CIK_RESOLUTION_MISS on
+    Service Corporation International (SCI), confirmed directly against
+    the real company_tickers.json entry for CIK 89089.
+
+    EDGAR's real registrant name is "SERVICE CORP INTERNATIONAL" --
+    "Corp" sits in the MIDDLE of the name, with "International" after it.
+    End-anchored suffix stripping (however many times it iterates) can
+    never reach a suffix word that isn't at the tail of the string, so
+    this needed removing corporate-form words wherever they occur, not
+    just at the end.
+    """
+    assert identity_key("SERVICE CORP INTERNATIONAL") == \
+        identity_key("Service Corporation International")
+    assert identity_key("SERVICE CORP INTERNATIONAL") == "service international"

@@ -9,7 +9,7 @@ SEC_DATA = "https://data.sec.gov"
 SEC_ARCHIVE = "https://www.sec.gov/Archives/edgar/data"
 SEC_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
 
-_SUFFIX_RE = re.compile(r"\b(corp(oration)?|inc(orporated)?|company|co|llc|l\.l\.c\.|ltd|limited|plc|group|holdings?)\.?\s*$", re.I)
+_SUFFIX_WORDS_RE = re.compile(r"\b(corp(oration)?|inc(orporated)?|company|co|llc|l\.l\.c\.|ltd|limited|plc|group|holdings?)\.?\b", re.I)
 _LEADING_ARTICLE_RE = re.compile(r"^the\s+", re.I)
 # EDGAR appends a short disambiguation tag to a registrant's own name when
 # the plain name alone is ambiguous or has been reused across a corporate
@@ -26,18 +26,17 @@ def identity_key(name: str) -> str:
     n = _EDGAR_DISAMBIGUATION_TAG_RE.sub("", name or "")
     n = re.sub(r"[^a-z0-9 ]+", " ", n.casefold())
     n = " ".join(n.split())
-    # Real EDGAR registrant names often stack more than one corporate-form
-    # word at the end (e.g. "Colt Technology Services Group Limited" has
-    # both "Group" and "Limited"). A single strip only removes the last
-    # token and leaves "group" dangling, which then fails to match a
-    # shorter gold/press-sourced label like "Colt Technology Services".
-    # Strip repeatedly until no more trailing suffix words match.
-    while True:
-        stripped = _SUFFIX_RE.sub("", n).rstrip()
-        if stripped == n:
-            break
-        n = stripped
     n = _LEADING_ARTICLE_RE.sub("", n)
+    # Corporate-form words get removed wherever they occur, not just at the
+    # end. EDGAR's real registrant name for Service Corporation
+    # International (CIK 89089) is "SERVICE CORP INTERNATIONAL" -- "Corp"
+    # sits in the MIDDLE of the name, with "International" after it, so no
+    # amount of end-anchored stripping can ever reach it. A trailing-only
+    # strip was fine while every real case only ever stacked suffix words
+    # at the tail (Colt's "Group Limited"), but that assumption doesn't
+    # hold in general -- EDGAR abbreviates corporate-form words in place
+    # wherever they fall in the name, not only at the end.
+    n = _SUFFIX_WORDS_RE.sub("", n)
     return " ".join(n.split())
 
 def _get_json(url: str, user_agent: str) -> Any:
