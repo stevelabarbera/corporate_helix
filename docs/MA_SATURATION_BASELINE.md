@@ -32,6 +32,39 @@ Use `--stdout` to inspect JSON without writing a result. The default study
 window is 2015-01-01 through 2026-12-31; changing it creates a different
 measurement scope and must be recorded with the result.
 
+## Post-fix comparison runs
+
+The immutable M&A-S1 control is the completed 12-company result tree at Git
+commit `6211068`. Some working-tree files in `ma_saturation_results/` were
+subsequently refreshed while verifying the identity fixes, so comparison tools
+read the control directly from that Git snapshot rather than assuming the
+current directory still contains only original results.
+
+Capture an affected company against the current code with:
+
+```bash
+python3 code/eval/run_ma_s2_comparison.py --company tenable
+```
+
+Post-fix results are written to `data/eval_study/ma_saturation_results_s2/`.
+The command immediately reports each gold event as `ADVANCED`, `UNCHANGED`, or
+`REGRESSED` relative to S1, and refuses to replace an existing S2 company
+result unless `--overwrite` is supplied deliberately.
+
+After capturing one or more affected companies, summarize all available
+comparisons with:
+
+```bash
+python3 code/eval/compare_ma_saturation_runs.py
+```
+
+By default both commands compare against `6211068`; `--baseline-ref` can select
+a different explicit snapshot. S2 is a measurement checkpoint, not a new
+frozen study cohort: it uses the
+same company order, gold events, filing window, and stage definitions as S1.
+Any intentional scope or gold-set change must be recorded separately rather
+than presented as parser improvement.
+
 The first 12 companies are a probe, not a stopping rule. High novelty means expand. Apparent flattening means add diverse issuers specifically to challenge the plateau.
 
 ## Relationship to M3.9
