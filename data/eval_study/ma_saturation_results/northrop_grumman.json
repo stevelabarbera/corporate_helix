@@ -1,16 +1,27 @@
 {
   "company_id": "northrop_grumman",
   "company": "Northrop Grumman Corporation",
-  "baseline_commit": "b8273df44f499ba5c20ae4236fbd3d036c7551f3",
-  "run_timestamp": "2026-09-20T14:21:11.867449+00:00",
+  "baseline_commit": "e24a7b480054b4c0ec58d3d1273862a2ef8fc4e7",
+  "run_timestamp": "2026-09-24T14:24:04.282892+00:00",
+  "scope": {
+    "start": "2015-01-01",
+    "end": "2026-12-31",
+    "forms": [
+      "10-K",
+      "10-K/A",
+      "8-K",
+      "8-K/A"
+    ]
+  },
+  "cik": "0001133421",
   "pipeline": {
-    "cik_resolved": false,
-    "filings_retrieved": null,
-    "relevant_text_present": null,
-    "locator_captured": null,
-    "entity_recognized": null,
-    "event_extracted": null,
-    "candidate_emitted": null
+    "cik_resolved": true,
+    "filings_retrieved": true,
+    "relevant_text_present": true,
+    "locator_captured": true,
+    "entity_recognized": true,
+    "event_extracted": true,
+    "candidate_emitted": true
   },
   "gold_events": [
     {
@@ -25,20 +36,618 @@
       "approx_date": "2017-09-17",
       "notes": "Agreement and Plan of Merger signed; Northrop Grumman agreed to acquire Orbital ATK for $134.50 per share in cash, approximately $7.8 billion of equity value plus assumption of debt",
       "stages": {
-        "filings_retrieved": null,
-        "relevant_text_present": null,
-        "locator_captured": null,
-        "entity_recognized": null,
-        "event_extracted": null,
-        "candidate_emitted": null
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": false,
+        "candidate_emitted": true
       },
-      "deepest_stage": "CIK_UNRESOLVED",
+      "deepest_stage": "ENTITY_RECOGNIZED",
       "evidence": {
-        "raw_text_accessions": [],
-        "selected_section_hits": [],
-        "entity_accessions": [],
+        "raw_text_accessions": [
+          "0000950157-17-001299",
+          "0001133421-18-000005",
+          "0001133421-18-000022",
+          "0001133421-18-000024",
+          "0001133421-18-000036",
+          "0001133421-19-000007",
+          "0001133421-20-000006",
+          "0001133421-21-000006",
+          "0001133421-21-000062",
+          "0001133421-22-000004",
+          "0001133421-23-000006",
+          "0001133421-24-000006",
+          "0001133421-25-000006",
+          "0001133421-26-000003",
+          "0001193125-17-309965"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001133421-26-000003",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE",
+              "SALE"
+            ]
+          },
+          {
+            "accession": "0001133421-26-000003",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-25-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE",
+              "SALE"
+            ]
+          },
+          {
+            "accession": "0001133421-25-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-24-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE",
+              "SALE"
+            ]
+          },
+          {
+            "accession": "0001133421-24-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-23-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE",
+              "SALE"
+            ]
+          },
+          {
+            "accession": "0001133421-23-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-22-000004",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE",
+              "SALE"
+            ]
+          },
+          {
+            "accession": "0001133421-22-000004",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-22-000004",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-22-000004",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000024",
+            "form": "8-K",
+            "section": "2.01",
+            "locator_terms": []
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "MERGER",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001193125-17-309965",
+            "form": "8-K",
+            "section": "1.01",
+            "locator_terms": []
+          },
+          {
+            "accession": "0000950157-17-001299",
+            "form": "8-K",
+            "section": "1.01",
+            "locator_terms": []
+          }
+        ],
+        "entity_accessions": [
+          "0000950157-17-001299",
+          "0001133421-18-000005",
+          "0001133421-18-000024",
+          "0001133421-19-000007",
+          "0001133421-20-000006",
+          "0001133421-21-000006",
+          "0001193125-17-309965"
+        ],
         "event_hits": [],
-        "candidate_names": []
+        "candidate_names": [
+          "Orbital ATK, Inc."
+        ]
       }
     },
     {
@@ -53,31 +662,730 @@
       "approx_date": "2018-06-06",
       "notes": "Closing after FTC approval; Orbital ATK became a wholly owned subsidiary and was renamed Northrop Grumman Innovation Systems, Inc.",
       "stages": {
-        "filings_retrieved": null,
-        "relevant_text_present": null,
-        "locator_captured": null,
-        "entity_recognized": null,
-        "event_extracted": null,
-        "candidate_emitted": null
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": true,
+        "candidate_emitted": true
       },
-      "deepest_stage": "CIK_UNRESOLVED",
+      "deepest_stage": "CANDIDATE_EMITTED",
       "evidence": {
-        "raw_text_accessions": [],
-        "selected_section_hits": [],
-        "entity_accessions": [],
-        "event_hits": [],
-        "candidate_names": []
+        "raw_text_accessions": [
+          "0000950157-17-001299",
+          "0001133421-18-000005",
+          "0001133421-18-000022",
+          "0001133421-18-000024",
+          "0001133421-18-000036",
+          "0001133421-19-000007",
+          "0001133421-20-000006",
+          "0001133421-21-000006",
+          "0001133421-21-000062",
+          "0001133421-22-000004",
+          "0001133421-23-000006",
+          "0001133421-24-000006",
+          "0001133421-25-000006",
+          "0001133421-26-000003",
+          "0001193125-17-309965"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001133421-26-000003",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE",
+              "SALE"
+            ]
+          },
+          {
+            "accession": "0001133421-26-000003",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-25-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE",
+              "SALE"
+            ]
+          },
+          {
+            "accession": "0001133421-25-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-24-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE",
+              "SALE"
+            ]
+          },
+          {
+            "accession": "0001133421-24-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-23-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE",
+              "SALE"
+            ]
+          },
+          {
+            "accession": "0001133421-23-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-22-000004",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE",
+              "SALE"
+            ]
+          },
+          {
+            "accession": "0001133421-22-000004",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-22-000004",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-22-000004",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001133421-21-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000024",
+            "form": "8-K",
+            "section": "2.01",
+            "locator_terms": []
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "MERGER",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001133421-18-000005",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001193125-17-309965",
+            "form": "8-K",
+            "section": "1.01",
+            "locator_terms": []
+          },
+          {
+            "accession": "0000950157-17-001299",
+            "form": "8-K",
+            "section": "1.01",
+            "locator_terms": []
+          }
+        ],
+        "entity_accessions": [
+          "0000950157-17-001299",
+          "0001133421-18-000005",
+          "0001133421-18-000024",
+          "0001133421-19-000007",
+          "0001133421-20-000006",
+          "0001133421-21-000006",
+          "0001193125-17-309965"
+        ],
+        "event_hits": [
+          {
+            "accession": "0001133421-21-000006",
+            "event_type": "ACQUIRED",
+            "status": "COMPLETED",
+            "extraction_rule": "COMPLETED_ACQUISITION",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": "Orbital ATK, Inc."
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "event_type": "ACQUIRED",
+            "status": "COMPLETED",
+            "extraction_rule": "COMPLETED_ACQUISITION",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": "Orbital ATK, Inc."
+          },
+          {
+            "accession": "0001133421-20-000006",
+            "event_type": "ACQUIRED",
+            "status": "COMPLETED",
+            "extraction_rule": "COMPLETED_ACQUISITION",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": "Orbital ATK, Inc."
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "event_type": "ACQUIRED",
+            "status": "COMPLETED",
+            "extraction_rule": "COMPLETED_ACQUISITION",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": "Orbital ATK, Inc."
+          },
+          {
+            "accession": "0001133421-19-000007",
+            "event_type": "ACQUIRED",
+            "status": "COMPLETED",
+            "extraction_rule": "COMPLETED_ACQUISITION",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": "Orbital ATK, Inc."
+          },
+          {
+            "accession": "0001133421-18-000024",
+            "event_type": "ACQUIRED",
+            "status": "COMPLETED",
+            "extraction_rule": "COMPLETED_ACQUISITION",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": "Orbital ATK, Inc."
+          }
+        ],
+        "candidate_names": [
+          "Orbital ATK, Inc."
+        ]
       }
     }
   ],
-  "unmatched_candidates": [],
+  "unmatched_candidates": [
+    {
+      "name": "Grumman Corporation",
+      "status": "REVIEW",
+      "confidence": "MEDIUM",
+      "evidence_count": 4
+    },
+    {
+      "name": "Newport News Shipbuilding Inc.",
+      "status": "REVIEW",
+      "confidence": "MEDIUM",
+      "evidence_count": 3
+    },
+    {
+      "name": "TRW Inc.",
+      "status": "REVIEW",
+      "confidence": "MEDIUM",
+      "evidence_count": 4
+    },
+    {
+      "name": "Neptune Merger, Inc.",
+      "status": "REVIEW",
+      "confidence": "MEDIUM",
+      "evidence_count": 1
+    }
+  ],
   "retrieval": {
-    "filing_count": 0,
+    "filing_count": 117,
     "errors": []
   },
-  "observed_primitives": [],
-  "failure_classes": [
-    "CIK_RESOLUTION_MISS"
+  "observed_primitives": [
+    "EXTRACTION_RULE:COMPLETED_ACQUISITION",
+    "FORM:10-K",
+    "FORM:8-K",
+    "LOCATOR_SIGNAL:ACQUIRE",
+    "LOCATOR_SIGNAL:ACQUISITION",
+    "LOCATOR_SIGNAL:BUSINESS_COMBINATION",
+    "LOCATOR_SIGNAL:DIVESTITURE",
+    "LOCATOR_SIGNAL:MERGER",
+    "LOCATOR_SIGNAL:PURCHASE_PRICE",
+    "LOCATOR_SIGNAL:SALE",
+    "LOCATOR_SIGNAL:SOLD",
+    "SECTION:1.01",
+    "SECTION:2.01",
+    "SECTION:LONGFORM_MA_CANDIDATE"
   ],
-  "notes": "CIK resolution failed; no SEC requests made."
+  "failure_classes": [
+    "EVENT_GRAMMAR_MISS"
+  ],
+  "notes": "Measurement-only M&A-S1 run; production resolver, locator, extractor, trust, and recursion behavior unchanged."
 }

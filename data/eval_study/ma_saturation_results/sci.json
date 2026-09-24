@@ -1,16 +1,27 @@
 {
   "company_id": "sci",
   "company": "Service Corporation International",
-  "baseline_commit": "88786ad8ea5bedf66bb6608bb956d5b60018c081",
-  "run_timestamp": "2026-09-20T13:46:16.960441+00:00",
+  "baseline_commit": "e24a7b480054b4c0ec58d3d1273862a2ef8fc4e7",
+  "run_timestamp": "2026-09-24T14:07:54.914299+00:00",
+  "scope": {
+    "start": "2015-01-01",
+    "end": "2026-12-31",
+    "forms": [
+      "10-K",
+      "10-K/A",
+      "8-K",
+      "8-K/A"
+    ]
+  },
+  "cik": "0000089089",
   "pipeline": {
-    "cik_resolved": false,
-    "filings_retrieved": null,
-    "relevant_text_present": null,
-    "locator_captured": null,
-    "entity_recognized": null,
-    "event_extracted": null,
-    "candidate_emitted": null
+    "cik_resolved": true,
+    "filings_retrieved": true,
+    "relevant_text_present": false,
+    "locator_captured": false,
+    "entity_recognized": false,
+    "event_extracted": false,
+    "candidate_emitted": false
   },
   "gold_events": [
     {
@@ -26,14 +37,14 @@
       "approx_date": "2021-12-10",
       "notes": "Acquisition of the Columbus-area family funeral business and its 12 funeral homes; existing name and workforce were reported as continuing",
       "stages": {
-        "filings_retrieved": null,
-        "relevant_text_present": null,
-        "locator_captured": null,
-        "entity_recognized": null,
-        "event_extracted": null,
-        "candidate_emitted": null
+        "filings_retrieved": true,
+        "relevant_text_present": false,
+        "locator_captured": false,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
       },
-      "deepest_stage": "CIK_UNRESOLVED",
+      "deepest_stage": "FILINGS_RETRIEVED",
       "evidence": {
         "raw_text_accessions": [],
         "selected_section_hits": [],
@@ -55,14 +66,14 @@
       "approx_date": "2024-09-25",
       "notes": "Acquisition from the Loring family of the San Antonio funeral business and its three locations; locations continued under the Porter Loring name",
       "stages": {
-        "filings_retrieved": null,
-        "relevant_text_present": null,
-        "locator_captured": null,
-        "entity_recognized": null,
-        "event_extracted": null,
-        "candidate_emitted": null
+        "filings_retrieved": true,
+        "relevant_text_present": false,
+        "locator_captured": false,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
       },
-      "deepest_stage": "CIK_UNRESOLVED",
+      "deepest_stage": "FILINGS_RETRIEVED",
       "evidence": {
         "raw_text_accessions": [],
         "selected_section_hits": [],
@@ -74,12 +85,12 @@
   ],
   "unmatched_candidates": [],
   "retrieval": {
-    "filing_count": 0,
+    "filing_count": 158,
     "errors": []
   },
   "observed_primitives": [],
   "failure_classes": [
-    "CIK_RESOLUTION_MISS"
+    "DISCLOSURE_NOT_IN_RETRIEVED_CORPUS"
   ],
-  "notes": "CIK resolution failed; no SEC requests made."
+  "notes": "Measurement-only M&A-S1 run; production resolver, locator, extractor, trust, and recursion behavior unchanged."
 }

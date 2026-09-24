@@ -1,16 +1,27 @@
 {
   "company_id": "six_flags",
   "company": "Six Flags Entertainment Corporation",
-  "baseline_commit": "4bc8dba4c0ca7c3c526b1768d9cd11ef81d24360",
-  "run_timestamp": "2026-09-20T10:34:50.799016+00:00",
+  "baseline_commit": "e24a7b480054b4c0ec58d3d1273862a2ef8fc4e7",
+  "run_timestamp": "2026-09-24T14:04:55.689624+00:00",
+  "scope": {
+    "start": "2015-01-01",
+    "end": "2026-12-31",
+    "forms": [
+      "10-K",
+      "10-K/A",
+      "8-K",
+      "8-K/A"
+    ]
+  },
+  "cik": "0001999001",
   "pipeline": {
-    "cik_resolved": false,
-    "filings_retrieved": null,
-    "relevant_text_present": null,
-    "locator_captured": null,
-    "entity_recognized": null,
-    "event_extracted": null,
-    "candidate_emitted": null
+    "cik_resolved": true,
+    "filings_retrieved": true,
+    "relevant_text_present": true,
+    "locator_captured": true,
+    "entity_recognized": true,
+    "event_extracted": true,
+    "candidate_emitted": false
   },
   "gold_events": [
     {
@@ -21,18 +32,133 @@
       "approx_date": "2023-11",
       "notes": "Merger of equals agreement announced Nov 2, 2023; pro forma enterprise value ~$8B. Scored against AGREED_TO_ACQUIRE/MERGED_INTO since this is a merger of equals, not a clean bidder/target deal -- see note.",
       "stages": {
-        "filings_retrieved": null,
-        "relevant_text_present": null,
-        "locator_captured": null,
-        "entity_recognized": null,
-        "event_extracted": null,
-        "candidate_emitted": null
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": false,
+        "candidate_emitted": false
       },
-      "deepest_stage": "CIK_UNRESOLVED",
+      "deepest_stage": "ENTITY_RECOGNIZED",
       "evidence": {
-        "raw_text_accessions": [],
-        "selected_section_hits": [],
-        "entity_accessions": [],
+        "raw_text_accessions": [
+          "0001193125-24-176370",
+          "0001193125-24-237673",
+          "0001193125-25-103991",
+          "0001193125-25-293793",
+          "0001193125-26-003472",
+          "0001999001-24-000014",
+          "0001999001-24-000016",
+          "0001999001-25-000052",
+          "0001999001-26-000048"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001999001-26-000048",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001999001-26-000048",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "MERGER",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001999001-26-000048",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001999001-26-000048",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001999001-26-000048",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "MERGER",
+              "PURCHASE_PRICE",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001999001-26-000048",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001193125-25-103991",
+            "form": "10-K/A",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "BUSINESS_COMBINATION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001193125-25-103991",
+            "form": "10-K/A",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001999001-25-000052",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001999001-25-000052",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001999001-25-000052",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          }
+        ],
+        "entity_accessions": [
+          "0001999001-25-000052",
+          "0001999001-26-000048"
+        ],
         "event_hits": [],
         "candidate_names": []
       }
@@ -45,31 +171,179 @@
       "approx_date": "2024-07-01",
       "notes": "Closing of the merger of equals; combined company took the Six Flags Entertainment Corporation name and FUN ticker; Cedar Fair designated the accounting acquirer despite the merger-of-equals structure",
       "stages": {
-        "filings_retrieved": null,
-        "relevant_text_present": null,
-        "locator_captured": null,
-        "entity_recognized": null,
-        "event_extracted": null,
-        "candidate_emitted": null
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": true,
+        "candidate_emitted": false
       },
-      "deepest_stage": "CIK_UNRESOLVED",
+      "deepest_stage": "EVENT_EXTRACTED",
       "evidence": {
-        "raw_text_accessions": [],
-        "selected_section_hits": [],
-        "entity_accessions": [],
-        "event_hits": [],
+        "raw_text_accessions": [
+          "0001193125-24-176370",
+          "0001193125-24-237673",
+          "0001193125-25-103991",
+          "0001193125-25-293793",
+          "0001193125-26-003472",
+          "0001999001-24-000014",
+          "0001999001-24-000016",
+          "0001999001-25-000052",
+          "0001999001-26-000048"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001999001-26-000048",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001999001-26-000048",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "MERGER",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001999001-26-000048",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001999001-26-000048",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001999001-26-000048",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "MERGER",
+              "PURCHASE_PRICE",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001999001-26-000048",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001193125-25-103991",
+            "form": "10-K/A",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "BUSINESS_COMBINATION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001193125-25-103991",
+            "form": "10-K/A",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001999001-25-000052",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001999001-25-000052",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001999001-25-000052",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          }
+        ],
+        "entity_accessions": [
+          "0001999001-25-000052",
+          "0001999001-26-000048"
+        ],
+        "event_hits": [
+          {
+            "accession": "0001999001-26-000048",
+            "event_type": "MERGED_INTO",
+            "status": "COMPLETED",
+            "extraction_rule": "MERGED_WITH_INTO",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": null
+          },
+          {
+            "accession": "0001999001-25-000052",
+            "event_type": "MERGED_INTO",
+            "status": "COMPLETED",
+            "extraction_rule": "MERGED_WITH_INTO",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": null
+          }
+        ],
         "candidate_names": []
       }
     }
   ],
   "unmatched_candidates": [],
   "retrieval": {
-    "filing_count": 0,
+    "filing_count": 46,
     "errors": []
   },
-  "observed_primitives": [],
-  "failure_classes": [
-    "CIK_RESOLUTION_MISS"
+  "observed_primitives": [
+    "EXTRACTION_RULE:MERGED_WITH_INTO",
+    "FORM:10-K",
+    "FORM:10-K/A",
+    "LOCATOR_SIGNAL:ACQUIRE",
+    "LOCATOR_SIGNAL:ACQUISITION",
+    "LOCATOR_SIGNAL:BUSINESS_COMBINATION",
+    "LOCATOR_SIGNAL:MERGER",
+    "LOCATOR_SIGNAL:PURCHASE_PRICE",
+    "LOCATOR_SIGNAL:SOLD",
+    "SECTION:LONGFORM_MA_CANDIDATE"
   ],
-  "notes": "CIK resolution failed; no SEC requests made."
+  "failure_classes": [
+    "CANDIDATE_EMISSION_MISS",
+    "EVENT_GRAMMAR_MISS"
+  ],
+  "notes": "Measurement-only M&A-S1 run; production resolver, locator, extractor, trust, and recursion behavior unchanged."
 }

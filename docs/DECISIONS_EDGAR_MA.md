@@ -609,3 +609,112 @@ changes in one checkpoint:
     Disney's disney-1/disney-2. Whoever picks up the point-in-time
     historical-name-index work should use both companies as fixtures, not
     just Disney.
+
+    **Update (2026-09-24, see ADR-EDGAR-010): this prediction was wrong.**
+    `six_flags-1` actually reached `ENTITY_RECOGNIZED` on re-run, not
+    `CIK_RESOLUTION_MISS`. Point-in-time historical-CIK resolution is
+    still a real architectural gap in principle, but it turned out not to
+    be the blocker here in practice. Left uncorrected above (rather than
+    rewritten) so the reasoning that led to a wrong prediction is still
+    visible — see ADR-EDGAR-010 for why.
+
+---
+
+## ADR-EDGAR-010 — Verification: re-ran all five identity-fix cases against live EDGAR; corrects two wrong predictions
+
+**Date:** 2026-09-24
+**Status:** Verified
+
+### What this is
+
+ADR-EDGAR-005 through 009 fixed `identity_key` five times using cached
+text, hypothesized real titles, or a single directly-fetched title, and
+made predictions about what would happen on a real re-run. All five
+companies (Disney, Six Flags, SCI, Northrop Grumman) were then actually
+re-run against live EDGAR. This records what really happened, including
+two places the earlier reasoning was wrong.
+
+### Confirmed: `CIK_RESOLUTION_MISS` is now fully eliminated across the cohort
+
+All 12 companies re-checked. Zero remaining `CIK_RESOLUTION_MISS`
+anywhere. Remaining failure classes across the whole cohort are down to
+exactly four: `DISCLOSURE_NOT_IN_RETRIEVED_CORPUS`,
+`ENTITY_RECOGNITION_MISS`, `EVENT_GRAMMAR_MISS`, `CANDIDATE_EMISSION_MISS`.
+
+### Correction 1 — Disney did much better than ADR-EDGAR-005 predicted
+
+Predicted: only disney-3/disney-4 (the post-merger CIK's own events) would
+resolve; disney-1/disney-2 (pre-merger, filed under old CIK 1001039)
+would stay stuck at `CIK_RESOLUTION_MISS`.
+
+Actual: **3 of 4** events (disney-1, disney-2, disney-3) reached
+`ENTITY_RECOGNIZED`. Only disney-4 (the Sinclair Broadcast Group RSN
+divestiture) failed, and it failed at `FILINGS_RETRIEVED` — a corpus gap,
+unrelated to identity. Mechanism: all three entity hits trace to a single
+filing, a 2023 10-K/A (`0001193125-23-014219`) filed under the *current*
+CIK, which retrospectively recaps the entire Fox acquisition history —
+the 2017 announcement, the 2018 amendment, and the 2019 closing — in one
+disclosure. **A company's own later, normal-course 10-Ks tend to
+re-surface historical M&A language even when the original filing was
+under a different CIK.** This doesn't make the point-in-time
+historical-CIK problem (follow-up item 6) fictional — a company that stops
+recapping old deals in later 10-Ks, or whose gold event only exists in the
+*original* filing, would still hit the wall — but it means the practical
+blast radius is smaller than assumed. Remaining failure for disney-1/2/3:
+`EVENT_GRAMMAR_MISS` (entity found, `event_hits: []` — the extractor
+never turned "Fox" + "acquisition" language into a structured event).
+
+### Correction 2 — Six Flags also did better than ADR-EDGAR-008 predicted
+
+Predicted (see follow-up item 10): `six_flags-1` (Nov 2023, pre-merger)
+would stay stuck at `CIK_RESOLUTION_MISS`, needing the same historical-CIK
+work as Disney.
+
+Actual: **both** `six_flags-1` and `six_flags-2` reached
+`ENTITY_RECOGNIZED`. Same mechanism as Disney — the current CIK's own
+2025/2026 10-Ks recap the merger-of-equals history. `six_flags-2` (the
+actual 2024-07-01 closing) went further still, reaching `EVENT_EXTRACTED`
+— correctly typed `MERGED_INTO`/`COMPLETED` via extraction rule
+`MERGED_WITH_INTO` — and stalled one step short at `CANDIDATE_EMISSION_MISS`.
+`six_flags-1` stalled at `EVENT_GRAMMAR_MISS` — same "agreement language
+not extracted" shape as Disney's disney-1/disney-2, see below.
+
+### Confirmed as predicted — SCI, Northrop Grumman
+
+- **SCI**: CIK resolves cleanly (89089). Both gold events (Schoedinger,
+  Porter Loring) stall at `FILINGS_RETRIEVED` — a pure corpus/retrieval
+  gap, consistent with these being small regional funeral-home
+  acquisitions unlikely to have generated standalone 8-Ks. No identity
+  problem left here at all.
+- **Northrop Grumman**: CIK resolves cleanly (1133421), confirming the
+  `/DE/` tag hypothesis exactly. northrop_grumman-2 (the 2018 closing)
+  reached `CANDIDATE_EMITTED` — a full clean success, six independent
+  `event_hits` all correctly typed `ACQUIRED`/`COMPLETED`.
+  northrop_grumman-1 (the 2017 agreement) stalled at `ENTITY_RECOGNIZED`
+  — `EVENT_GRAMMAR_MISS`, same pattern again.
+
+### New pattern worth prioritizing: "agreement" language extracts far worse than "completed" language
+
+Across four independent companies now — AIG/Validus (original report),
+Disney/Fox (disney-1, disney-2), Six Flags/Cedar Fair (six_flags-1), and
+Northrop Grumman/Orbital ATK (northrop_grumman-1) — the same shape
+recurs: the counterparty is correctly recognized, but an
+`AGREED_TO_ACQUIRE`-type event never gets extracted, while `ACQUIRED`/
+`MERGED_INTO`-type (completed/closing) language extracts cleanly in the
+same companies (Six Flags' six_flags-2, Northrop Grumman's
+northrop_grumman-2, and others earlier in the cohort). This is no longer
+an anecdote — it's the single most consistently reproduced gap in the
+whole study. Worth treating as the top candidate for the next event-
+grammar repair pass, ahead of anything else in that category.
+
+### Bonus: two more real gold-set omissions found
+
+Northrop Grumman's `unmatched_candidates` include `Newport News
+Shipbuilding Inc.` and `TRW Inc.` — both genuine historical Northrop
+Grumman acquisitions (2001 and 2002 respectively) absent from the gold
+set, same shape as the original report's Vulcan Cyber/Embarq finding. The
+other two unmatched candidates (`Grumman Corporation`, a pre-1994-merger
+legacy name; `Neptune Merger, Inc.`, a merger-shell entity from the same
+Orbital ATK deal already in gold) look like noise, not new events. Worth
+folding the two real ones into the gold set before any future accuracy
+comparison against this cohort.

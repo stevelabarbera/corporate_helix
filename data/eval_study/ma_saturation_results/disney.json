@@ -1,16 +1,27 @@
 {
   "company_id": "disney",
   "company": "The Walt Disney Company",
-  "baseline_commit": "c9bd0ca1d18711a96be7e7792347e2f6495767fe",
-  "run_timestamp": "2026-09-17T13:45:34.436388+00:00",
+  "baseline_commit": "e24a7b480054b4c0ec58d3d1273862a2ef8fc4e7",
+  "run_timestamp": "2026-09-24T14:03:44.393867+00:00",
+  "scope": {
+    "start": "2015-01-01",
+    "end": "2026-12-31",
+    "forms": [
+      "10-K",
+      "10-K/A",
+      "8-K",
+      "8-K/A"
+    ]
+  },
+  "cik": "0001744489",
   "pipeline": {
-    "cik_resolved": false,
-    "filings_retrieved": null,
-    "relevant_text_present": null,
-    "locator_captured": null,
-    "entity_recognized": null,
-    "event_extracted": null,
-    "candidate_emitted": null
+    "cik_resolved": true,
+    "filings_retrieved": true,
+    "relevant_text_present": true,
+    "locator_captured": true,
+    "entity_recognized": true,
+    "event_extracted": false,
+    "candidate_emitted": false
   },
   "gold_events": [
     {
@@ -21,18 +32,77 @@
       "approx_date": "2017-12",
       "notes": "Original Merger Agreement, filed under old Disney CIK 1001039",
       "stages": {
-        "filings_retrieved": null,
-        "relevant_text_present": null,
-        "locator_captured": null,
-        "entity_recognized": null,
-        "event_extracted": null,
-        "candidate_emitted": null
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": false,
+        "candidate_emitted": false
       },
-      "deepest_stage": "CIK_UNRESOLVED",
+      "deepest_stage": "ENTITY_RECOGNIZED",
       "evidence": {
-        "raw_text_accessions": [],
-        "selected_section_hits": [],
-        "entity_accessions": [],
+        "raw_text_accessions": [
+          "0001193125-23-014219",
+          "0001744489-20-000066",
+          "0001744489-20-000197",
+          "0001744489-21-000220",
+          "0001744489-22-000213",
+          "0001744489-23-000216",
+          "0001744489-24-000276"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001193125-23-014219",
+            "form": "10-K/A",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE"
+            ]
+          },
+          {
+            "accession": "0001744489-21-000220",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001744489-20-000197",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001744489-20-000197",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001744489-20-000197",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE",
+              "SOLD"
+            ]
+          }
+        ],
+        "entity_accessions": [
+          "0001193125-23-014219"
+        ],
         "event_hits": [],
         "candidate_names": []
       }
@@ -45,18 +115,77 @@
       "approx_date": "2018-06",
       "notes": "Amended and Restated Agreement and Plan of Merger, raised offer to $71.3B; supersedes disney-1",
       "stages": {
-        "filings_retrieved": null,
-        "relevant_text_present": null,
-        "locator_captured": null,
-        "entity_recognized": null,
-        "event_extracted": null,
-        "candidate_emitted": null
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": false,
+        "candidate_emitted": false
       },
-      "deepest_stage": "CIK_UNRESOLVED",
+      "deepest_stage": "ENTITY_RECOGNIZED",
       "evidence": {
-        "raw_text_accessions": [],
-        "selected_section_hits": [],
-        "entity_accessions": [],
+        "raw_text_accessions": [
+          "0001193125-23-014219",
+          "0001744489-20-000066",
+          "0001744489-20-000197",
+          "0001744489-21-000220",
+          "0001744489-22-000213",
+          "0001744489-23-000216",
+          "0001744489-24-000276"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001193125-23-014219",
+            "form": "10-K/A",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE"
+            ]
+          },
+          {
+            "accession": "0001744489-21-000220",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001744489-20-000197",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001744489-20-000197",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001744489-20-000197",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE",
+              "SOLD"
+            ]
+          }
+        ],
+        "entity_accessions": [
+          "0001193125-23-014219"
+        ],
         "event_hits": [],
         "candidate_names": []
       }
@@ -69,18 +198,77 @@
       "approx_date": "2019-03-20",
       "notes": "Closing, filed under new CIK 1744489",
       "stages": {
-        "filings_retrieved": null,
-        "relevant_text_present": null,
-        "locator_captured": null,
-        "entity_recognized": null,
-        "event_extracted": null,
-        "candidate_emitted": null
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": false,
+        "candidate_emitted": false
       },
-      "deepest_stage": "CIK_UNRESOLVED",
+      "deepest_stage": "ENTITY_RECOGNIZED",
       "evidence": {
-        "raw_text_accessions": [],
-        "selected_section_hits": [],
-        "entity_accessions": [],
+        "raw_text_accessions": [
+          "0001193125-23-014219",
+          "0001744489-20-000066",
+          "0001744489-20-000197",
+          "0001744489-21-000220",
+          "0001744489-22-000213",
+          "0001744489-23-000216",
+          "0001744489-24-000276"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001193125-23-014219",
+            "form": "10-K/A",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "DIVESTITURE"
+            ]
+          },
+          {
+            "accession": "0001744489-21-000220",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001744489-20-000197",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001744489-20-000197",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "MERGER"
+            ]
+          },
+          {
+            "accession": "0001744489-20-000197",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "DIVESTITURE",
+              "SOLD"
+            ]
+          }
+        ],
+        "entity_accessions": [
+          "0001193125-23-014219"
+        ],
         "event_hits": [],
         "candidate_names": []
       }
@@ -93,14 +281,14 @@
       "approx_date": "2019-08-23",
       "notes": "DOJ-mandated divestiture of Fox Sports Net (RSNs), required as a condition of the 21CF acquisition",
       "stages": {
-        "filings_retrieved": null,
-        "relevant_text_present": null,
-        "locator_captured": null,
-        "entity_recognized": null,
-        "event_extracted": null,
-        "candidate_emitted": null
+        "filings_retrieved": true,
+        "relevant_text_present": false,
+        "locator_captured": false,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
       },
-      "deepest_stage": "CIK_UNRESOLVED",
+      "deepest_stage": "FILINGS_RETRIEVED",
       "evidence": {
         "raw_text_accessions": [],
         "selected_section_hits": [],
@@ -112,12 +300,22 @@
   ],
   "unmatched_candidates": [],
   "retrieval": {
-    "filing_count": 0,
+    "filing_count": 98,
     "errors": []
   },
-  "observed_primitives": [],
-  "failure_classes": [
-    "CIK_RESOLUTION_MISS"
+  "observed_primitives": [
+    "FORM:10-K",
+    "FORM:10-K/A",
+    "LOCATOR_SIGNAL:ACQUIRE",
+    "LOCATOR_SIGNAL:ACQUISITION",
+    "LOCATOR_SIGNAL:DIVESTITURE",
+    "LOCATOR_SIGNAL:MERGER",
+    "LOCATOR_SIGNAL:SOLD",
+    "SECTION:LONGFORM_MA_CANDIDATE"
   ],
-  "notes": "CIK resolution failed; no SEC requests made."
+  "failure_classes": [
+    "DISCLOSURE_NOT_IN_RETRIEVED_CORPUS",
+    "EVENT_GRAMMAR_MISS"
+  ],
+  "notes": "Measurement-only M&A-S1 run; production resolver, locator, extractor, trust, and recursion behavior unchanged."
 }
