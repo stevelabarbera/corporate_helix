@@ -1,6 +1,6 @@
 # Corporation Helix --- Project Context & Handoff
 
-**Last updated:** 2026-08-28\
+**Last updated:** 2026-09-24\
 **Current milestone:** M4.2 --- GLEIF Level 2 → Level 1 identity
 enrichment\
 **Immediate benchmark:** real GLEIF RR relationship → local LEI index →
@@ -209,6 +209,78 @@ Potential examples:
 -   D&B;
 -   Bureau van Dijk / Orbis;
 -   customer-supplied corporate datasets.
+
+### Known coverage gap: private-to-private M&A (worked example, 2026-09-24)
+
+Neither EDGAR nor GLEIF reliably covers M&A where no party is an SEC
+reporting company. This is not a rare edge case --- private-to-private
+and private-acquires-private-with-a-public-parent deals substantially
+outnumber SEC-disclosed M&A by raw volume. Worked example, chosen
+because it turned out to be a clean test of both data sources at once:
+
+**Dokobit UAB (Lithuania) acquired by Signicat AS (Norway), 2021-08-30.**
+Both companies are privately held; neither has ever had SEC disclosure
+obligations, and neither will unless one eventually IPOs.
+
+-   **EDGAR**: structurally blind, with certainty. No filer exists on
+    either side, so no filing exists, so there is nothing to extract.
+    This is true regardless of how good entity recognition or event
+    grammar ever gets --- it is a data-source-existence problem, not an
+    extraction-quality problem.
+-   **GLEIF Level 1 (entity existence)**: both companies are present and
+    `ACTIVE` --- Dokobit as `Dokobit, UAB` (LEI `8945002COKCH510PDI59`,
+    jurisdiction `LT`), Signicat as six separate country-level LEIs
+    (Norway, Germany, Spain, Sweden, Iceland, Netherlands), reflecting
+    that Signicat operates as one legal entity per country it has grown
+    or acquired into.
+-   **GLEIF Level 2 (relationships)**: checked directly against the
+    local RR index (`data/processed/gleif_rr.sqlite`) --- **zero
+    relationship records for Dokobit's LEI in either direction** (not a
+    child of anything, not a parent of anything). Both entities existing
+    in Level 1 did not help; the acquisition itself was simply never
+    recorded in the relationship layer.
+
+**Why Level 2 misses this, and why it is not a fluke of this one case**:
+LEI *issuance* is required for various financial/securities activities,
+which drives broad Level 1 adoption even among small private companies.
+LEI *relationship reporting*, by contrast, has only been meaningfully
+enforced for entities caught up in specific regimes (EMIR/CFTC
+derivatives-counterparty reporting, and similar). A small private SaaS
+company with no derivatives exposure has no regulatory reason to ever
+update its relationship record post-acquisition, and its LOU (the
+registrar that issued the LEI) has no particular obligation to chase it
+down either. Expect this pattern to recur for any small-to-mid,
+non-financial, privately held acquisition target --- which describes a
+large fraction of real-world M&A.
+
+**Compensating controls, given this is not fixable at the corporate-data
+layer alone**:
+
+-   [[corporation-helix]]'s own existing non-negotiable rule already
+    limits the damage: a corporate-identity edge never by itself
+    authorizes ASM infrastructure scope, so a blind spot here does not
+    silently produce a false attribution --- it produces `REVIEW`/
+    `UNKNOWN`, which is the intended conservative failure mode.
+-   Infrastructure-level ASM signals (certificate-transparency
+    reissuance, DNS/MX changes, ASN transfers) can reveal an ownership
+    change even when *no* corporate data source ever will. This is
+    arguably the most robust compensating signal specifically because it
+    does not depend on any company disclosing anything --- but it lives
+    in ASM-tool territory, not in Helix, per the "Helix does not fetch
+    evidence itself" principle.
+-   National company registries outside the US sometimes require
+    beneficial-ownership disclosure that the US does not (e.g. Lithuania's
+    Center of Registers, cited directly in coverage of the Dokobit deal).
+    A registry-ingestion adapter per jurisdiction could close part of
+    this gap, at the cost of one adapter per country.
+-   Trade press / deal-announcement text is real signal even with no
+    legal disclosure obligation --- private companies often want the PR.
+    Noisy and unstructured, and would need to be handed to Helix as
+    ingested evidence (per the ingest-only principle) rather than fetched
+    by Helix itself.
+-   LEI *relationship* reporting adoption should be treated as a slowly
+    improving trend, not a fixed ceiling --- worth periodically
+    re-checking rather than assuming this gap is permanent.
 
 ------------------------------------------------------------------------
 
