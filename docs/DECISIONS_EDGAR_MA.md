@@ -718,3 +718,59 @@ legacy name; `Neptune Merger, Inc.`, a merger-shell entity from the same
 Orbital ATK deal already in gold) look like noise, not new events. Worth
 folding the two real ones into the gold set before any future accuracy
 comparison against this cohort.
+
+---
+
+## ADR-EDGAR-011 — Agreement misses split into grammar and corpus sub-classes
+
+**Date:** 2026-09-26
+**Status:** Accepted
+
+### Why this changed
+
+ADR-EDGAR-010 grouped AIG/Validus, Disney/Fox, Six Flags/Cedar Fair, and
+Northrop Grumman/Orbital ATK into one repeated agreement-language grammar
+gap because each gold event stopped at `ENTITY_RECOGNIZED`. Direct review of
+the actual text that caused each stage showed that conclusion was too broad.
+
+- Northrop is a confirmed grammar miss. Its original 2017 Item 1.01 says it
+  "entered into an Agreement and Plan of Merger ... **among**" Northrop,
+  Neptune Merger, and Orbital ATK. The extractor only searched for a target
+  after `with`, and its generic fallback selected the merger subsidiary.
+- AIG's retrieved audit hits are later 10-K completion recaps or exhibit-index
+  references, not the operative 2018 announcement prose.
+- Disney's only entity hit for the agreement events is an incidental TFCF
+  acquisition reference in a 2023 10-K/A compensation filing; it does not
+  restate either agreement event.
+- Six Flags' current-CIK 10-K is a closing recap. It names and dates the
+  agreement but describes the completed merger, while the original agreement
+  announcement belonged to the predecessor filing history.
+
+Therefore `ENTITY_RECOGNIZED` alone does not prove that event grammar had the
+operative event sentence available. The audit stage means the gold entity was
+recognized somewhere in selected text, which can be an incidental mention.
+
+### Decision
+
+The confirmed general grammar gap is fixed narrowly:
+
+1. Formal agreement party lists may begin with either `with` or `among`.
+2. Merger subsidiaries in either list are excluded before choosing the real
+   counterparty.
+3. `Amended and Restated Agreement and Plan of Merger` is accepted as an
+   agreement name, not only the unmodified title.
+
+No rule synthesizes an agreement event merely because a later filing mentions
+an acquisition or a completed transaction. Those cases remain retrieval/corpus
+work; inventing the missing lifecycle event would inflate recall without
+textual support.
+
+### Consequence
+
+Northrop's agreement event should advance on the next live comparison run.
+The earlier four-company label is superseded: agreement misses must first be
+split into `OPERATIVE_AGREEMENT_TEXT_AVAILABLE` and
+`INCIDENTAL_ENTITY_MENTION_ONLY` before deciding whether grammar or retrieval
+owns the repair. This is also a measurement-runner follow-up: evidence quality
+needs to be represented more precisely than the current boolean
+`entity_recognized` stage.

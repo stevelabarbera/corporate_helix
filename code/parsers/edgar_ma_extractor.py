@@ -365,17 +365,20 @@ def infer_events(text, aliases, orgs, item):
     # definitive agreement and plan of merger". Curated adjective list,
     # not a generic wildcard, to avoid over-capturing unrelated text.
     _AGMT_MODIFIER = r"(?:definitive|binding|new)\s+"
+    _AGMT_NAME = (
+        r"(?:(?:amended and restated|original)\s+)?(?:agreement and plan of merger|"
+        r"transaction agreement|business combination agreement|"
+        r"agreement and plan of reorganization)"
+    )
     merger_exec = re.search(
-        r"entered into an? (?:" + _AGMT_MODIFIER + r")?(?:agreement and plan of merger|transaction agreement|"
-        r"business combination agreement|agreement and plan of reorganization)",
+        r"entered into an? (?:" + _AGMT_MODIFIER + r")?" + _AGMT_NAME,
         low[:2200],
     )
     if item == "1.01" and financing and not merger_exec:
         return out
 
     m = re.search(
-        r"\bentered into an? (?:" + _AGMT_MODIFIER + r")?(?:Agreement and Plan of Merger|Transaction Agreement|"
-        r"Business Combination Agreement|Agreement and Plan of Reorganization)\b",
+        r"\bentered into an? (?:" + _AGMT_MODIFIER + r")?" + _AGMT_NAME + r"\b",
         text,
         re.I,
     )
@@ -417,8 +420,8 @@ def infer_events(text, aliases, orgs, item):
 
         after = text[m.end():m.end() + 1300]
         target = None
-        wm_start = re.search(r"\bwith\s+", after, re.I)
-        if wm_start:
+        party_list_start = re.search(r"\b(?:with|among)\s+", after, re.I)
+        if party_list_start:
             # Real AIG/Validus text: "entered into ... with Venus Holdings
             # Limited, a wholly owned subsidiary of AIG ('Merger Sub') and
             # Validus Holdings, Ltd. ('Validus')" -- the shell is named
@@ -432,16 +435,22 @@ def infer_events(text, aliases, orgs, item):
             # each org's own shell-check via the text between mentions, so
             # it doesn't need a clean sentence-bounded string the way an
             # exact-prefix match did.
-            span = after[wm_start.end():wm_start.end() + 300]
+            # "among" is just as common as "with" when the agreement
+            # names acquirer, merger subsidiary, and target as formal
+            # parties. Real Northrop/Orbital ATK text uses this form. The
+            # merger subsidiary appears first, so retain the same shell
+            # exclusion used for the AIG "with Merger Sub and Target"
+            # form rather than selecting the first named organization.
+            span = after[party_list_start.end():party_list_start.end() + 400]
             non_shell = [o for o in _non_shell_orgs_in(span, orgs) if o != acq]
             if non_shell:
                 target = non_shell[0]
-            else:
+            elif party_list_start.group(0).strip().casefold() == "with":
                 wm = re.search(r"\bwith\s+([^.;]{2,180})", after, re.I)
                 if wm:
                     target = known_prefix(wm.group(1), orgs)
         if not target:
-            candidates = [o for o in orgs if o != acq and o in after]
+            candidates = [o for o in _non_shell_orgs_in(after, orgs) if o != acq]
             if candidates:
                 target = min(candidates, key=lambda o: after.find(o))
         if not target:

@@ -235,6 +235,49 @@ def test_agreed_to_acquire_skips_shell_named_first_in_with_clause():
     assert agreed[0]["object"] == "Validus Holdings, Ltd.", agreed
 
 
+def test_agreed_to_acquire_supports_among_party_list():
+    # Real Northrop Grumman / Orbital ATK agreement filing. Unlike the
+    # AIG form above, the formal parties follow "among", not "with". The
+    # first non-registrant party is a wholly-owned merger subsidiary and
+    # must not be mistaken for the acquisition target.
+    aliases = {
+        "Company": "Northrop Grumman Corporation",
+        "Merger Sub": "Neptune Merger, Inc.",
+        "Orbital ATK": "Orbital ATK, Inc.",
+    }
+    orgs = [
+        "Northrop Grumman Corporation",
+        "Neptune Merger, Inc.",
+        "Orbital ATK, Inc.",
+    ]
+    text = (
+        'On September 17, 2017, Northrop Grumman Corporation (the "Company") '
+        'entered into an Agreement and Plan of Merger (the "Merger Agreement") '
+        'among the Company, Neptune Merger, Inc., a Delaware corporation and '
+        'wholly owned subsidiary of the Company ("Merger Sub"), and Orbital '
+        'ATK, Inc., a Delaware corporation ("Orbital ATK"). Pursuant to the '
+        'Merger Agreement, Merger Sub will be merged with and into Orbital ATK.'
+    )
+    events = m385.completed_only(m385.infer_events(text, aliases, orgs, "1.01"))
+    agreed = [e for e in events if e["event_type"] == "AGREED_TO_ACQUIRE"]
+    assert agreed, events
+    assert agreed[0]["subject"] == "Northrop Grumman Corporation", agreed
+    assert agreed[0]["object"] == "Orbital ATK, Inc.", agreed
+
+
+def test_agreed_to_acquire_supports_amended_and_restated_name():
+    aliases = {"Company": "Acme Corporation", "Target": "Target, Inc."}
+    orgs = ["Acme Corporation", "Target, Inc."]
+    text = (
+        'Acme Corporation (the "Company") entered into an Amended and Restated '
+        'Agreement and Plan of Merger (the "Merger Agreement") with Target, Inc. '
+        '("Target").'
+    )
+    events = m385.completed_only(m385.infer_events(text, aliases, orgs, "1.01"))
+    agreed = [e for e in events if e["event_type"] == "AGREED_TO_ACQUIRE"]
+    assert agreed and agreed[0]["object"] == "Target, Inc.", events
+
+
 def test_divested_business_pattern_did_not_exist_before_this_fix():
     # DIVESTED_BUSINESS had NEVER been implemented anywhere in the
     # extractor -- gold files for Lumen (3 events) and Disney (1 event)
@@ -558,6 +601,8 @@ if __name__ == "__main__":
         test_acquired_pattern_does_not_over_capture_leading_preamble,
         test_agreed_to_acquire_allows_definitive_modifier,
         test_agreed_to_acquire_skips_shell_named_first_in_with_clause,
+        test_agreed_to_acquire_supports_among_party_list,
+        test_agreed_to_acquire_supports_amended_and_restated_name,
         test_divested_business_pattern_did_not_exist_before_this_fix,
         test_divested_business_does_not_truncate_on_decimal_point,
         test_agreed_to_acquire_direction_corrected_by_subsidiary_of,
