@@ -246,6 +246,15 @@ def _non_shell_orgs_in(span, orgs):
     for i, (o, pos) in enumerate(positions):
         end = positions[i + 1][1] if i + 1 < len(positions) else len(span)
         context = span[pos + len(o):end]
+        # Shell-ness belongs to the entity's immediate descriptor, not to
+        # later transaction-result prose. Real Northrop/Orbital text names
+        # Orbital last in the formal party list, ends that sentence, and
+        # later says Orbital will become a wholly owned subsidiary. Without
+        # this sentence boundary, the last party inherits the later phrase
+        # and is incorrectly discarded as if it were the merger shell.
+        sentence_end = re.search(r"\.\s+(?=[A-Z])", context)
+        if sentence_end:
+            context = context[:sentence_end.start()]
         if re.search(r"\bsubsidiary of\b", context, re.I):
             continue
         result.append(o)

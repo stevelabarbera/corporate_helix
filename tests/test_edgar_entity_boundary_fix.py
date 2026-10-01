@@ -256,7 +256,9 @@ def test_agreed_to_acquire_supports_among_party_list():
         'among the Company, Neptune Merger, Inc., a Delaware corporation and '
         'wholly owned subsidiary of the Company ("Merger Sub"), and Orbital '
         'ATK, Inc., a Delaware corporation ("Orbital ATK"). Pursuant to the '
-        'Merger Agreement, Merger Sub will be merged with and into Orbital ATK.'
+        'Merger Agreement, Merger Sub will be merged with and into Orbital ATK '
+        '(the "Merger"), with Orbital ATK continuing as the surviving '
+        'corporation in the Merger as a wholly owned subsidiary of the Company.'
     )
     events = m385.completed_only(m385.infer_events(text, aliases, orgs, "1.01"))
     agreed = [e for e in events if e["event_type"] == "AGREED_TO_ACQUIRE"]

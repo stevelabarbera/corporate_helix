@@ -759,6 +759,9 @@ The confirmed general grammar gap is fixed narrowly:
    counterparty.
 3. `Amended and Restated Agreement and Plan of Merger` is accepted as an
    agreement name, not only the unmodified title.
+4. Shell classification stops at the entity's immediate descriptor sentence;
+   a later statement that the real target will become a subsidiary must not
+   cause the target itself to be discarded as a merger shell.
 
 No rule synthesizes an agreement event merely because a later filing mentions
 an acquisition or a completed transaction. Those cases remain retrieval/corpus
