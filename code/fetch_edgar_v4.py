@@ -115,6 +115,19 @@ def extract_exhibit_21_rows(html):
         rows.append([name, jurisdiction])
     return rows if len(rows)>1 else []
 
+def is_exhibit_21_filename(name):
+    """Recognize common SEC filename spellings for Exhibit 21/21.1.
+
+    Filers are not consistent: examples include ``ex-21.htm``,
+    ``exhibit21.1.htm`` and an inline-decimal form such as
+    ``tgt-20250201xexhibit211.htm``.
+    """
+    return bool(re.search(
+        r"(?:ex(?:hibit)?[-_]?21(?:[-_.]?1)?)(?=\.[^.]+$)",
+        name,
+        re.I,
+    ))
+
 def compact_cells(row):
     return [c.strip() for c in row if c and c.strip()]
 
@@ -256,7 +269,7 @@ def discover(cik,ua,maxn):
             ex=None
             for item in d.get("directory",{}).get("item",[]):
                 n=item.get("name","")
-                if re.search(r"ex-?21",n,re.I):ex=n;break
+                if is_exhibit_21_filename(n):ex=n;break
             if ex:out.append((form,acc,date,DOC_URL.format(cik=ci,acc=an,name=ex),"exhibit_21"))
         else:
             if primary:out.append((form,acc,date,DOC_URL.format(cik=ci,acc=an,name=primary),"20f_ownership_table"))

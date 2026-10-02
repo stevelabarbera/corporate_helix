@@ -5,7 +5,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "code"))
 
-from fetch_edgar_v4 import extract_exhibit_21_rows
+from fetch_edgar_v4 import extract_exhibit_21_rows, is_exhibit_21_filename
 from providers.edgar_adapter import EdgarJsonAdapter
 
 
@@ -75,3 +75,11 @@ def test_table_exhibit_21_behavior_is_preserved():
         ["Subsidiary", "Jurisdiction"],
         ["Shipt, Inc.", "Delaware"],
     ]
+
+
+def test_exhibit_21_filename_variants_are_recognized():
+    assert is_exhibit_21_filename("ex-21.htm")
+    assert is_exhibit_21_filename("exhibit21.1.html")
+    assert is_exhibit_21_filename("tgt-20250201xexhibit211.htm")
+    assert not is_exhibit_21_filename("exhibit10.htm")
+    assert not is_exhibit_21_filename("annual-report.htm")
