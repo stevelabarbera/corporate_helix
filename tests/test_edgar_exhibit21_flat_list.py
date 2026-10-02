@@ -5,7 +5,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "code"))
 
-from fetch_edgar_v4 import extract_exhibit_21_rows, is_exhibit_21_filename
+import fetch_edgar_v4
+from fetch_edgar_v4 import annual_filings, extract_exhibit_21_rows, is_exhibit_21_filename
 from providers.edgar_adapter import EdgarJsonAdapter
 
 
@@ -83,3 +84,70 @@ def test_exhibit_21_filename_variants_are_recognized():
     assert is_exhibit_21_filename("tgt-20250201xexhibit211.htm")
     assert not is_exhibit_21_filename("exhibit10.htm")
     assert not is_exhibit_21_filename("annual-report.htm")
+
+
+def test_historical_filing_year_reads_matching_sec_archive(monkeypatch):
+    current = {
+        "filings": {
+            "recent": {
+                "form": ["10-K"],
+                "accessionNumber": ["current-accession"],
+                "filingDate": ["2026-03-11"],
+                "primaryDocument": ["current.htm"],
+            },
+            "files": [{
+                "name": "CIK0000027419-submissions-001.json",
+                "filingFrom": "1994-01-01",
+                "filingTo": "2015-12-31",
+            }],
+        }
+    }
+    archived = {
+        "form": ["10-Q", "10-K", "10-K"],
+        "accessionNumber": ["quarterly", "target-2011", "target-2010"],
+        "filingDate": ["2011-11-01", "2011-03-11", "2010-03-12"],
+        "primaryDocument": ["q.htm", "annual-2011.htm", "annual-2010.htm"],
+    }
+
+    def fake_get_json(url, _user_agent):
+        if url.endswith("CIK0000027419.json"):
+            return current
+        if url.endswith("CIK0000027419-submissions-001.json"):
+            return archived
+        raise AssertionError(url)
+
+    monkeypatch.setattr(fetch_edgar_v4, "get_json", fake_get_json)
+
+    assert annual_filings("27419", "test-agent", filing_year=2011) == [
+        ("10-K", "target-2011", "2011-03-11", "annual-2011.htm")
+    ]
+
+
+def test_latest_filing_path_does_not_fetch_archives(monkeypatch):
+    calls = []
+    current = {
+        "filings": {
+            "recent": {
+                "form": ["10-K"],
+                "accessionNumber": ["current-accession"],
+                "filingDate": ["2026-03-11"],
+                "primaryDocument": ["current.htm"],
+            },
+            "files": [{
+                "name": "CIK0000027419-submissions-001.json",
+                "filingFrom": "1994-01-01",
+                "filingTo": "2015-12-31",
+            }],
+        }
+    }
+
+    def fake_get_json(url, _user_agent):
+        calls.append(url)
+        return current
+
+    monkeypatch.setattr(fetch_edgar_v4, "get_json", fake_get_json)
+
+    assert annual_filings("27419", "test-agent") == [
+        ("10-K", "current-accession", "2026-03-11", "current.htm")
+    ]
+    assert len(calls) == 1

@@ -3,6 +3,7 @@ from html.parser import HTMLParser
 
 TICKERS_URL="https://www.sec.gov/files/company_tickers.json"
 SUBMISSIONS_URL="https://data.sec.gov/submissions/CIK{cik}.json"
+SUBMISSIONS_ARCHIVE_URL="https://data.sec.gov/submissions/{name}"
 INDEX_URL="https://www.sec.gov/Archives/edgar/data/{cik}/{acc}/index.json"
 DOC_URL="https://www.sec.gov/Archives/edgar/data/{cik}/{acc}/{name}"
 SUFFIXES={"corp","corporation","inc","incorporated","company","co","limited","ltd","plc"}
@@ -249,18 +250,53 @@ def select_20f_ownership_table(html):
         "duplicate_tables":dupes,
     }, candidates, diagnostics
 
-def annual_filings(cik,ua):
-    sub=get_json(SUBMISSIONS_URL.format(cik=cik.zfill(10)),ua)
-    r=sub["filings"]["recent"]; out=[]
-    prim=r.get("primaryDocument",[""]*len(r["form"]))
-    for i,f in enumerate(r["form"]):
-        if f in ("10-K","10-K/A","20-F","20-F/A"):
-            out.append((f,r["accessionNumber"][i],r["filingDate"][i],prim[i]))
+def _annual_filings_from_arrays(records, filing_year=None):
+    out=[]
+    forms=records.get("form",[])
+    accessions=records.get("accessionNumber",[])
+    dates=records.get("filingDate",[])
+    primaries=records.get("primaryDocument",[""]*len(forms))
+    for i,form in enumerate(forms):
+        if form not in ("10-K","10-K/A","20-F","20-F/A"):
+            continue
+        date=dates[i]
+        if filing_year is not None and not str(date).startswith(f"{filing_year:04d}-"):
+            continue
+        out.append((form,accessions[i],date,primaries[i] if i < len(primaries) else ""))
     return out
 
-def discover(cik,ua,maxn):
+def _archive_overlaps_year(metadata, filing_year):
+    if filing_year is None:
+        return False
+    start=str(metadata.get("filingFrom") or "")[:4]
+    end=str(metadata.get("filingTo") or "")[:4]
+    if not (start.isdigit() and end.isdigit()):
+        return True
+    return int(start) <= filing_year <= int(end)
+
+def annual_filings(cik,ua,filing_year=None):
+    sub=get_json(SUBMISSIONS_URL.format(cik=cik.zfill(10)),ua)
+    filings=sub.get("filings",{})
+    out=_annual_filings_from_arrays(filings.get("recent",{}),filing_year)
+
+    # SEC moves older submissions into named archive JSON files.  Avoid the
+    # extra requests for the normal latest-filing path; consult only archive
+    # chunks whose advertised date range can contain the requested year.
+    if filing_year is not None:
+        for metadata in filings.get("files",[]):
+            name=metadata.get("name")
+            if not name or not _archive_overlaps_year(metadata,filing_year):
+                continue
+            archived=get_json(SUBMISSIONS_ARCHIVE_URL.format(name=name),ua)
+            out.extend(_annual_filings_from_arrays(archived,filing_year))
+
+    # Amendment and duplicate records can repeat the same accession.
+    deduped={row[1]:row for row in out}
+    return sorted(deduped.values(),key=lambda row:(row[2],row[1]),reverse=True)
+
+def discover(cik,ua,maxn,filing_year=None):
     ci=str(int(cik)); out=[]
-    for form,acc,date,primary in annual_filings(cik,ua):
+    for form,acc,date,primary in annual_filings(cik,ua,filing_year=filing_year):
         an=acc.replace("-","")
         if form.startswith("10-K"):
             try:d=get_json(INDEX_URL.format(cik=ci,acc=an),ua)
@@ -279,6 +315,7 @@ def discover(cik,ua,maxn):
 def main():
     ap=argparse.ArgumentParser();ap.add_argument("--company",required=True);ap.add_argument("--out",required=True)
     ap.add_argument("--user-agent",default=os.environ.get("SEC_USER_AGENT"));ap.add_argument("--max-filings",type=int,default=1)
+    ap.add_argument("--filing-year",type=int,help="Fetch annual corporate-structure filings submitted in this year, including SEC archive indexes")
     a=ap.parse_args()
     if not a.user_agent:sys.exit("Set SEC_USER_AGENT or pass --user-agent")
     m=find_cik(a.company,a.user_agent)
@@ -286,8 +323,9 @@ def main():
     if len(m)>1:
         print(f"Multiple matches for '{a.company}', using first:",file=sys.stderr)
         for x in m:print(" -",x["title"],"CIK",x["cik_str"],x.get("tickers",[]),file=sys.stderr)
-    cik=str(m[0]["cik_str"]); docs=discover(cik,a.user_agent,a.max_filings)
-    if not docs:sys.exit(f"No supported corporate-structure documents found in recent 10-K/20-F filings for CIK {cik}")
+    cik=str(m[0]["cik_str"]); docs=discover(cik,a.user_agent,a.max_filings,filing_year=a.filing_year)
+    scope=f"filed in {a.filing_year}" if a.filing_year is not None else "in recent filings"
+    if not docs:sys.exit(f"No supported corporate-structure documents found {scope} for CIK {cik}")
 
     out={"company":m[0]["title"],"cik":cik,"filings":[]}
     for form,acc,date,url,method in docs:
