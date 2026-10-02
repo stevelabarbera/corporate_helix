@@ -1,4 +1,4 @@
-import argparse, json, os, re, sys, urllib.request, urllib.error
+import argparse, html as html_lib, json, os, re, sys, urllib.request, urllib.error
 from html.parser import HTMLParser
 
 TICKERS_URL="https://www.sec.gov/files/company_tickers.json"
@@ -69,6 +69,51 @@ class Tables(HTMLParser):
 
 def tables(html):
     p=Tables(); p.feed(html); return p.tables
+
+def _flat_exhibit_21_lines(html):
+    """Return meaningful text blocks from a non-tabular Exhibit 21.
+
+    Exhibit 21 has no required table shape.  Some issuers publish a heading,
+    followed by one paragraph/div per subsidiary.  Keep this fallback tightly
+    scoped to the text after a subsidiary-list heading so filing boilerplate
+    cannot become an entity candidate.
+    """
+    text=re.sub(r"(?i)<br\s*/?>", "\n", html)
+    text=re.sub(r"(?i)</(?:p|div|li|tr|h[1-6])\s*>", "\n", text)
+    text=re.sub(r"<[^>]+>", " ", text)
+    text=html_lib.unescape(text).replace("\xa0", " ")
+    return [" ".join(line.split()) for line in text.splitlines() if line.strip()]
+
+def extract_exhibit_21_rows(html):
+    """Extract an Exhibit 21 table or a conservative flat subsidiary list."""
+    parsed_tables=tables(html)
+    if parsed_tables:
+        return parsed_tables[0]
+
+    lines=_flat_exhibit_21_lines(html)
+    heading_index=None
+    for i,line in enumerate(lines):
+        if re.search(r"\blist of (?:significant )?subsidiaries\b", line, re.I):
+            heading_index=i
+            break
+    if heading_index is None:
+        return []
+
+    rows=[["Subsidiary", "State/Country of Organization"]]
+    for line in lines[heading_index+1:]:
+        if re.match(r"(?i)^pursuant to\b", line):
+            break
+        if re.match(r"(?i)^\(as of\b", line):
+            continue
+        match=re.fullmatch(r"(.+?)\s*\(([^()]+)\)", line)
+        if not match:
+            continue
+        name=" ".join(match.group(1).split())
+        jurisdiction=" ".join(match.group(2).split())
+        if not name or re.search(r"(?i)\bcorporation$", jurisdiction):
+            continue
+        rows.append([name, jurisdiction])
+    return rows if len(rows)>1 else []
 
 def compact_cells(row):
     return [c.strip() for c in row if c and c.strip()]
@@ -237,7 +282,7 @@ def main():
         f={"accession":acc,"filing_date":date,"form_type":form,"document_url":url,"extraction_method":method}
         ts=tables(h)
         if method=="exhibit_21":
-            f["extracted_rows"]=ts[0] if ts else []
+            f["extracted_rows"]=extract_exhibit_21_rows(h)
         else:
             selected, candidates, diagnostics = select_20f_ownership_table(h)
             f["candidate_table_diagnostics"]=diagnostics
