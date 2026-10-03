@@ -87,10 +87,6 @@ def _flat_exhibit_21_lines(html):
 
 def extract_exhibit_21_rows(html):
     """Extract an Exhibit 21 table or a conservative flat subsidiary list."""
-    parsed_tables=tables(html)
-    if parsed_tables:
-        return parsed_tables[0]
-
     lines=_flat_exhibit_21_lines(html)
     heading_index=None
     for i,line in enumerate(lines):
@@ -98,7 +94,8 @@ def extract_exhibit_21_rows(html):
             heading_index=i
             break
     if heading_index is None:
-        return []
+        parsed_tables=tables(html)
+        return parsed_tables[0] if parsed_tables else []
 
     rows=[["Subsidiary", "State/Country of Organization"]]
     for line in lines[heading_index+1:]:
@@ -106,7 +103,13 @@ def extract_exhibit_21_rows(html):
             break
         if re.match(r"(?i)^\(as of\b", line):
             continue
-        match=re.fullmatch(r"(.+?)\s*\(([^()]+)\)", line)
+        # Some filings append a rendered footnote marker after the closing
+        # jurisdiction parenthesis (for example ``Target Capital ... (MN) a``).
+        match=re.fullmatch(
+            r"(.+?)\s*\(([^()]+)\)\s*(?:[a-z]|\(\d+\)|\d+)?",
+            line,
+            re.I,
+        )
         if not match:
             continue
         name=" ".join(match.group(1).split())
@@ -119,7 +122,15 @@ def extract_exhibit_21_rows(html):
         if not name:
             continue
         rows.append([name, jurisdiction])
-    return rows if len(rows)>1 else []
+    if len(rows)>1:
+        return rows
+
+    # A real data table remains the fallback for filings whose subsidiaries
+    # are split into separate name/jurisdiction cells.  Flat-list extraction
+    # runs first because many older SEC exhibits use tables only for visual
+    # layout; interpreting those layout cells as records truncates names.
+    parsed_tables=tables(html)
+    return parsed_tables[0] if parsed_tables else []
 
 def is_exhibit_21_filename(name):
     """Recognize common SEC filename spellings for Exhibit 21/21.1.

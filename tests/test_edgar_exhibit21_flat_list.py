@@ -83,6 +83,37 @@ def test_table_exhibit_21_behavior_is_preserved():
     ]
 
 
+def test_parenthetical_list_wins_over_visual_layout_table():
+    html = """
+    <table><tr><td>
+      <p>Target Corporation</p>
+      <p>(A Minnesota Corporation)</p>
+      <p>List of Subsidiaries</p>
+      <p>(As of January 31, 2009)</p>
+      <p>AMC (S) Pte. Ltd. (Singapore)</p>
+      <p>Target Bank (UT banking corporation)</p>
+      <p>Walsh Bros. (AZ)</p>
+    </td></tr></table>
+    """
+    assert extract_exhibit_21_rows(html) == [
+        ["Subsidiary", "State/Country of Organization"],
+        ["AMC (S) Pte. Ltd.", "Singapore"],
+        ["Target Bank", "UT banking corporation"],
+        ["Walsh Bros.", "AZ"],
+    ]
+
+
+def test_flat_list_accepts_trailing_footnote_marker():
+    html = """
+    <p>List of Significant Subsidiaries</p>
+    <p>Target Capital Corporation (MN) a</p>
+    """
+    assert extract_exhibit_21_rows(html) == [
+        ["Subsidiary", "State/Country of Organization"],
+        ["Target Capital Corporation", "MN"],
+    ]
+
+
 def test_exhibit_21_filename_variants_are_recognized():
     assert is_exhibit_21_filename("ex-21.htm")
     assert is_exhibit_21_filename("exhibit21.1.html")
