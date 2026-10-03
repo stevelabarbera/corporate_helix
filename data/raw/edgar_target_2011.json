@@ -1,0 +1,251 @@
+{
+  "company": "TARGET CORP",
+  "cik": "27419",
+  "filings": [
+    {
+      "accession": "0001047469-11-002032",
+      "filing_date": "2011-03-11",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000104746911002032/a2201861zex-21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "AMC (S) Pte. Ltd.",
+          "Singapore"
+        ],
+        [
+          "AMC Dominican Republic, S.A.",
+          "Dominican Republic"
+        ],
+        [
+          "AMC Honduras, S.A.",
+          "Honduras"
+        ],
+        [
+          "AMC Nicaragua, S.A.",
+          "Nicaragua"
+        ],
+        [
+          "Amcrest Corporation",
+          "NY"
+        ],
+        [
+          "Amcrest France Sarl",
+          "France"
+        ],
+        [
+          "Associated Merchandising Corporation Pensionsverwaltung GmBH",
+          "Germany"
+        ],
+        [
+          "Associated Merchandising Korea Corporation",
+          "Korea"
+        ],
+        [
+          "Dayton Credit Company",
+          "MN"
+        ],
+        [
+          "Glendale West, LLC",
+          "CA"
+        ],
+        [
+          "Lafayette Nominee Owner, LLC",
+          "DE"
+        ],
+        [
+          "PP&E, LLC",
+          "TX"
+        ],
+        [
+          "Red Tail LLC",
+          "DE"
+        ],
+        [
+          "STL of Nebraska, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Massachusetts, Inc.",
+          "MA"
+        ],
+        [
+          "SuperTarget Liquor of Missouri, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Texas, Inc.",
+          "TX"
+        ],
+        [
+          "Target Bank",
+          "UT banking corporation"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Bridges, Inc.",
+          "DE"
+        ],
+        [
+          "Target Canada Co.",
+          "Nova Scotia"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Clinic Medical Associates Florida, LLC",
+          "MN"
+        ],
+        [
+          "Target Clinic Medical Associates Maryland, LLC",
+          "MD"
+        ],
+        [
+          "Target Commercial Interiors, Inc.",
+          "MN"
+        ],
+        [
+          "Target Connect, Inc.",
+          "MN"
+        ],
+        [
+          "Target Corporate Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Corporation India Private Limited",
+          "India"
+        ],
+        [
+          "Target Customs Brokers, Inc.",
+          "MN"
+        ],
+        [
+          "Target Enterprise, Inc.",
+          "MN"
+        ],
+        [
+          "Target Food, Inc.",
+          "MN"
+        ],
+        [
+          "Target General Merchandise, Inc.",
+          "MN"
+        ],
+        [
+          "Target Global Trade, Inc.",
+          "MN"
+        ],
+        [
+          "Target Jefferson Boulevard, LLC",
+          "CA"
+        ],
+        [
+          "Target Medford Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target Millville Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target National Bank",
+          "a national banking association"
+        ],
+        [
+          "Target Receivables Corporation",
+          "MN"
+        ],
+        [
+          "Target Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Sourcing Services Asia Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services Co., Ltd.",
+          "Shanghai"
+        ],
+        [
+          "Target Sourcing Services Guatemala Sociedad Anonima",
+          "Guatemala"
+        ],
+        [
+          "Target Sourcing Services Hong Kong Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services India Private Limited",
+          "India"
+        ],
+        [
+          "Target Sourcing Services Italy S.r.l.",
+          "Italy"
+        ],
+        [
+          "Target Sourcing Services Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services Pacific Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Stafford Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target Stores, Inc.",
+          "MN"
+        ],
+        [
+          "Target Wilson Yard QALICB, LLC",
+          "DE"
+        ],
+        [
+          "TCC Corporation S.a.r.l.",
+          "Luxembourg"
+        ],
+        [
+          "TCDC, Inc.",
+          "MN"
+        ],
+        [
+          "TG Holdings",
+          "Bermuda"
+        ],
+        [
+          "The Associated Merchandising Corporation",
+          "NY"
+        ],
+        [
+          "TSS One Limited",
+          "Hong Kong"
+        ],
+        [
+          "TSS Two Limited",
+          "Hong Kong"
+        ],
+        [
+          "Walsh Bros.",
+          "AZ"
+        ],
+        [
+          "Westbury Holding Company",
+          "MN"
+        ]
+      ]
+    }
+  ]
+}
