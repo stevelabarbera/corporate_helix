@@ -559,6 +559,43 @@ def write_json(path: Path, candidates: list[DomainCandidate]) -> None:
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
+def load_candidates(path: Path) -> list[DomainCandidate]:
+    """Reverse of write_json/to_dict -- reload already-evaluated candidates.
+
+    This is the M4.3C bridge's read side: run_iterative_company.py's
+    --domain-candidates flag needs real DomainCandidate objects (with
+    .disposition, .infrastructure_attribution_confidence, etc. as actual
+    enum attributes, not dict keys) to hand to
+    expansion_bridges.domain_candidate_to_fact(). No loader existed for
+    this round-trip before -- write_json() had no counterpart -- which is
+    why the CLI wiring that depended on it was easy to lose silently in a
+    later refactor without any test catching it.
+    """
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    rows = payload.get("candidates", []) if isinstance(payload, dict) else payload
+    out = []
+    for row in rows:
+        evidence = [DomainEvidence.from_mapping(e) for e in row.get("evidence", [])]
+        out.append(
+            DomainCandidate(
+                entity_name=row["entity_name"],
+                entity_lei=_none_or_str(row.get("entity_lei")),
+                relationships=list(row.get("relationships") or []),
+                candidate_domain=row["candidate_domain"],
+                registrable_domain=row["registrable_domain"],
+                corporate_confidence=row["corporate_confidence"],
+                infrastructure_attribution_confidence=InfrastructureConfidence(
+                    str(row["infrastructure_attribution_confidence"]).upper()
+                ),
+                evidence=evidence,
+                disposition=Disposition(str(row["disposition"]).upper()),
+                review_reason=_none_or_str(row.get("review_reason")),
+                jurisdiction=_none_or_str(row.get("jurisdiction")),
+            )
+        )
+    return out
+
+
 def print_summary(candidates: list[DomainCandidate]) -> None:
     counts = {d: 0 for d in Disposition}
     for c in candidates:

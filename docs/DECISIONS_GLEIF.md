@@ -122,3 +122,103 @@ with no changes to the fix itself. Two other remote branches
 (`demo-readiness-root-resolution`, `fix/merge-arbitration-psl-domain-repo-hygiene`)
 were checked during this investigation and found to already be fully
 merged into `main` — stale leftover refs, not hidden unmerged work.
+
+---
+
+## ADR-GLEIF-002 — M4.3C's domain-bridge CLI wiring was dropped as collateral damage from an unrelated patch; restored with a real loader this time
+
+**Date:** 2026-09-29
+**Status:** Accepted
+
+### Context
+
+After fixing ADR-GLEIF-001, re-validated the rest of the GLEIF milestone
+chain in `CORPORATION_HELIX_CONTEXT.md`'s "UPDATED MILESTONE SNAPSHOT"
+rather than trusting the `COMPLETE` labels at face value — the same
+discipline that caught M4.2. M4.2B and M4.3B both held up exactly as
+documented (M4.2B's temporal period-parsing matched real Desjardins data
+exactly; M4.3B's domain-candidate output was byte-for-byte identical to
+the committed Sony result on a fresh regeneration). M4.3C did not.
+
+### What was actually found
+
+The documented "Live Sony recursive-expansion checkpoint"
+(`python3 code/run_iterative_company.py --company "Sony" --lei
+529900R5WX9N2OI2N910 --domain-candidates
+data/processed/sony_official_site_candidates.json`, expected: 3
+iterations, 15 entities → 2 domains → 0, `Converged: True`) could not be
+reproduced. The current script's `--help` has no `--domain-candidates`
+flag at all, and `main()` only ever constructs a
+`GleifCompanyExpansionProvider` — never a `DomainCandidateExpansionProvider`,
+even though that class exists and is correctly implemented in
+`expansion_bridges.py`.
+
+Traced via `git log -p -- code/run_iterative_company.py`: the flag and
+its wiring existed, and were removed in commit `f9dcd9a` ("Ran through
+NTT as our new data identified a few bugs and new features"). That
+commit was applied via `git apply` from a patch file
+(`README_M43D_INTEGRATION.txt` describes it) whose own stated purpose was
+wiring `root_entity_resolver` into `helix_company.py` — a different
+feature, addressing the Sony/NTT name-resolution gap from an earlier
+section. The same commit also substantially rewrote `expansion_bridges.py`
+(+304 lines) in the same pass, and the domain-bridge CLI wiring was
+silently dropped as a side effect. No test existed to catch this — the
+`COMPLETE / LIVE VALIDATED` status was a one-time manual run, documented
+as prose in the context doc, with nothing to re-run automatically when
+later commits touched the same files.
+
+A second, smaller gap surfaced while restoring this: the original wiring
+called `DomainCandidateExpansionProvider.from_json(args.domain_candidates)`,
+but that classmethod does not exist on the *current*
+`DomainCandidateExpansionProvider` — its constructor now takes a
+`candidate_fn(pivot, iteration)` callable, not a file path. A straight
+revert of the old diff would have failed on a different error, not
+actually fixed anything. `domain_candidates.py`'s `write_json()` had no
+reverse (`load_candidates()`) at all — the round-trip simply never
+existed.
+
+### Decision
+
+- Restored `--domain-candidates` and the import of
+  `DomainCandidateExpansionProvider` in `code/run_iterative_company.py`,
+  rewritten to match the current constructor signature: load all
+  candidates once via the new `load_candidates()`, group by
+  `entity_lei`, and hand `run_expansion` a closure that returns the
+  candidates matching whichever pivot it's currently expanding.
+- Added `domain_candidates.load_candidates()` — the missing reverse of
+  `write_json()` — reconstructing real `DomainCandidate` objects
+  (enums included) from the JSON it writes.
+- Restored the domain summary print lines (`Domains`, `Accepted domains`,
+  `Review domains`, `Rejected domains`) that were removed in the same
+  commit.
+- Verified against the real saved Sony data
+  (`data/processed/sony_official_site_candidates.json`): round-trips
+  correctly through `load_candidates()`, and a reconstructed
+  `DomainCandidateExpansionProvider` fed a fake pivot matching Sony
+  Interactive Entertainment Europe's real LEI produces exactly the
+  documented mapping — `DOMAIN / www.playstation.com / ACCEPTED / HIGH /
+  pivot_eligible=True`, matching section 29.2's stated rule (`M4.3B AUTO
+  + HIGH -> DOMAIN / ACCEPTED / HIGH / pivot eligible`) exactly.
+- Added `tests/test_run_iterative_company_domain_bridge.py` (4 tests),
+  including a subprocess-level `--help` check that asserts the flag
+  itself is present — specifically so this exact "flag silently
+  disappears during an unrelated refactor" failure mode can't happen a
+  third time without a test catching it immediately.
+
+### Consequence
+
+The full documented 3-iteration Sony convergence result
+(`--domain-candidates` end-to-end) still needs to be re-run against the
+real local GLEIF Level 1/Level 2 indexes to fully close this out — this
+session confirmed the *mechanism* is correct with real data, but the
+sandbox used for this fix doesn't have the multi-GB real indexes
+available to run the complete `run_iterative_company.py` invocation
+end-to-end. That full re-run is the natural next step.
+
+The broader lesson, now demonstrated twice in one evening (M4.2, M4.3C):
+a `COMPLETE` label earned by one successful manual run, with no
+accompanying automated test, is not durable against later unrelated
+changes to shared files. Worth treating any future large patch-apply
+(the `README_M43D_INTEGRATION.txt`-style workflow) as a trigger to
+re-run every documented "known-good command" that touches the same
+files, not just the one the patch was explicitly about.
