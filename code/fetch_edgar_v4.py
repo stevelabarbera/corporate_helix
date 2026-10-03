@@ -111,7 +111,12 @@ def extract_exhibit_21_rows(html):
             continue
         name=" ".join(match.group(1).split())
         jurisdiction=" ".join(match.group(2).split())
-        if not name or re.search(r"(?i)\bcorporation$", jurisdiction):
+        # The list heading already bounds extraction after the registrant's
+        # own descriptor (for example, "A Minnesota Corporation").  Do not
+        # reject subsidiary rows merely because their jurisdiction text ends
+        # in "corporation"; bank charters legitimately use descriptions such
+        # as "UT banking corporation".
+        if not name:
             continue
         rows.append([name, jurisdiction])
     return rows if len(rows)>1 else []

@@ -20,6 +20,7 @@ TARGET_FLAT_EXHIBIT = """
   <p>Target Brands, Inc. (MN)</p>
   <p>Target Enterprise, Inc. (MN)</p>
   <p>Target General Merchandise, Inc. (MN)</p>
+  <p>Target Bank (UT banking corporation)</p>
   <p>Pursuant to Item 601(b)(21)(ii), names of other subsidiaries are omitted.</p>
 </body></html>
 """
@@ -31,6 +32,7 @@ def test_flat_exhibit_21_extracts_only_list_entities():
         ["Target Brands, Inc.", "MN"],
         ["Target Enterprise, Inc.", "MN"],
         ["Target General Merchandise, Inc.", "MN"],
+        ["Target Bank", "UT banking corporation"],
     ]
 
 
@@ -56,9 +58,12 @@ def test_flat_exhibit_21_flows_through_edgar_adapter():
         "Target Brands, Inc.",
         "Target Enterprise, Inc.",
         "Target General Merchandise, Inc.",
+        "Target Bank",
     ]
     assert {r.predicate for r in result.relationships} == {"HAS_SUBSIDIARY"}
-    assert {r.jurisdiction for r in result.relationships} == {"MN"}
+    assert {r.jurisdiction for r in result.relationships} == {
+        "MN", "UT banking corporation"
+    }
     assert all(
         r.evidence[0].coverage == "exhibit_21_disclosed_entities"
         for r in result.relationships
