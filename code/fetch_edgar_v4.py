@@ -279,7 +279,7 @@ def _archive_overlaps_year(metadata, filing_year):
         return True
     return int(start) <= filing_year <= int(end)
 
-def annual_filings(cik,ua,filing_year=None):
+def annual_filings(cik,ua,filing_year=None,include_archives=False):
     sub=get_json(SUBMISSIONS_URL.format(cik=cik.zfill(10)),ua)
     filings=sub.get("filings",{})
     out=_annual_filings_from_arrays(filings.get("recent",{}),filing_year)
@@ -287,10 +287,12 @@ def annual_filings(cik,ua,filing_year=None):
     # SEC moves older submissions into named archive JSON files.  Avoid the
     # extra requests for the normal latest-filing path; consult only archive
     # chunks whose advertised date range can contain the requested year.
-    if filing_year is not None:
+    if filing_year is not None or include_archives:
         for metadata in filings.get("files",[]):
             name=metadata.get("name")
-            if not name or not _archive_overlaps_year(metadata,filing_year):
+            if not name:
+                continue
+            if filing_year is not None and not _archive_overlaps_year(metadata,filing_year):
                 continue
             archived=get_json(SUBMISSIONS_ARCHIVE_URL.format(name=name),ua)
             out.extend(_annual_filings_from_arrays(archived,filing_year))
@@ -299,9 +301,11 @@ def annual_filings(cik,ua,filing_year=None):
     deduped={row[1]:row for row in out}
     return sorted(deduped.values(),key=lambda row:(row[2],row[1]),reverse=True)
 
-def discover(cik,ua,maxn,filing_year=None):
+def discover(cik,ua,maxn,filing_year=None,include_archives=False):
     ci=str(int(cik)); out=[]
-    for form,acc,date,primary in annual_filings(cik,ua,filing_year=filing_year):
+    for form,acc,date,primary in annual_filings(
+        cik,ua,filing_year=filing_year,include_archives=include_archives
+    ):
         an=acc.replace("-","")
         if form.startswith("10-K"):
             try:d=get_json(INDEX_URL.format(cik=ci,acc=an),ua)
@@ -314,13 +318,15 @@ def discover(cik,ua,maxn,filing_year=None):
             if ex:out.append((form,acc,date,DOC_URL.format(cik=ci,acc=an,name=ex),"exhibit_21"))
         else:
             if primary:out.append((form,acc,date,DOC_URL.format(cik=ci,acc=an,name=primary),"20f_ownership_table"))
-        if len(out)>=maxn:break
+        if maxn and len(out)>=maxn:break
     return out
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument("--company",required=True);ap.add_argument("--out",required=True)
-    ap.add_argument("--user-agent",default=os.environ.get("SEC_USER_AGENT"));ap.add_argument("--max-filings",type=int,default=1)
-    ap.add_argument("--filing-year",type=int,help="Fetch annual corporate-structure filings submitted in this year, including SEC archive indexes")
+    ap.add_argument("--user-agent",default=os.environ.get("SEC_USER_AGENT"));ap.add_argument("--max-filings",type=int,default=None,help="Maximum supported filings to fetch (default: 1, or unlimited with --all-history)")
+    history=ap.add_mutually_exclusive_group()
+    history.add_argument("--filing-year",type=int,help="Fetch annual corporate-structure filings submitted in this year, including SEC archive indexes")
+    history.add_argument("--all-history",action="store_true",help="Fetch every supported annual corporate-structure filing in SEC recent and archive indexes")
     a=ap.parse_args()
     if not a.user_agent:sys.exit("Set SEC_USER_AGENT or pass --user-agent")
     m=find_cik(a.company,a.user_agent)
@@ -328,8 +334,17 @@ def main():
     if len(m)>1:
         print(f"Multiple matches for '{a.company}', using first:",file=sys.stderr)
         for x in m:print(" -",x["title"],"CIK",x["cik_str"],x.get("tickers",[]),file=sys.stderr)
-    cik=str(m[0]["cik_str"]); docs=discover(cik,a.user_agent,a.max_filings,filing_year=a.filing_year)
-    scope=f"filed in {a.filing_year}" if a.filing_year is not None else "in recent filings"
+    max_filings=a.max_filings if a.max_filings is not None else (0 if a.all_history else 1)
+    cik=str(m[0]["cik_str"]); docs=discover(
+        cik,a.user_agent,max_filings,filing_year=a.filing_year,
+        include_archives=a.all_history,
+    )
+    if a.all_history:
+        scope="in SEC recent and historical filings"
+    elif a.filing_year is not None:
+        scope=f"filed in {a.filing_year}"
+    else:
+        scope="in recent filings"
     if not docs:sys.exit(f"No supported corporate-structure documents found {scope} for CIK {cik}")
 
     out={"company":m[0]["title"],"cik":cik,"filings":[]}

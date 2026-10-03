@@ -156,3 +156,43 @@ def test_latest_filing_path_does_not_fetch_archives(monkeypatch):
         ("10-K", "current-accession", "2026-03-11", "current.htm")
     ]
     assert len(calls) == 1
+
+
+def test_all_history_combines_recent_and_archived_annual_filings(monkeypatch):
+    current = {
+        "filings": {
+            "recent": {
+                "form": ["10-K"],
+                "accessionNumber": ["target-2026"],
+                "filingDate": ["2026-03-11"],
+                "primaryDocument": ["annual-2026.htm"],
+            },
+            "files": [{
+                "name": "CIK0000027419-submissions-001.json",
+                "filingFrom": "1994-01-01",
+                "filingTo": "2015-12-31",
+            }],
+        }
+    }
+    archived = {
+        "form": ["10-K", "10-Q"],
+        "accessionNumber": ["target-2011", "quarterly"],
+        "filingDate": ["2011-03-11", "2011-11-01"],
+        "primaryDocument": ["annual-2011.htm", "q.htm"],
+    }
+
+    def fake_get_json(url, _user_agent):
+        if url.endswith("CIK0000027419.json"):
+            return current
+        if url.endswith("CIK0000027419-submissions-001.json"):
+            return archived
+        raise AssertionError(url)
+
+    monkeypatch.setattr(fetch_edgar_v4, "get_json", fake_get_json)
+
+    assert annual_filings(
+        "27419", "test-agent", include_archives=True
+    ) == [
+        ("10-K", "target-2026", "2026-03-11", "annual-2026.htm"),
+        ("10-K", "target-2011", "2011-03-11", "annual-2011.htm"),
+    ]
