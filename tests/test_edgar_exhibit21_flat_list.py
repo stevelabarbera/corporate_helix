@@ -114,6 +114,33 @@ def test_flat_list_accepts_trailing_footnote_marker():
     ]
 
 
+def test_source_line_wraps_do_not_split_heading_or_entity_name():
+    html = """
+    <p>List of
+    Subsidiaries</p>
+    <p>AMC Guatemala Sociedad
+    Anonima (Guatemala)</p>
+    """
+    assert extract_exhibit_21_rows(html) == [
+        ["Subsidiary", "State/Country of Organization"],
+        ["AMC Guatemala Sociedad Anonima", "Guatemala"],
+    ]
+
+
+def test_parenthesized_footnote_and_toc_link_are_handled():
+    html = """
+    <p>List of Significant Subsidiaries</p>
+    <div>Target Capital Corporation (MN)<sup>(a)</sup></div>
+    <div>(a) This entity was merged into another subsidiary.</div>
+    <a href="#toc123">Target Corporation (A Minnesota Corporation)
+      List of Subsidiaries (As of April 1, 2001)</a>
+    """
+    assert extract_exhibit_21_rows(html) == [
+        ["Subsidiary", "State/Country of Organization"],
+        ["Target Capital Corporation", "MN"],
+    ]
+
+
 def test_exhibit_21_filename_variants_are_recognized():
     assert is_exhibit_21_filename("ex-21.htm")
     assert is_exhibit_21_filename("exhibit21.1.html")

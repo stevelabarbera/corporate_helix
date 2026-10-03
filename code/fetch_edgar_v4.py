@@ -1,4 +1,4 @@
-import argparse, html as html_lib, json, os, re, sys, urllib.request, urllib.error
+import argparse, json, os, re, sys, urllib.request, urllib.error
 from html.parser import HTMLParser
 
 TICKERS_URL="https://www.sec.gov/files/company_tickers.json"
@@ -71,6 +71,37 @@ class Tables(HTMLParser):
 def tables(html):
     p=Tables(); p.feed(html); return p.tables
 
+class Exhibit21TextBlocks(HTMLParser):
+    """Recover rendered text records without treating source wraps as rows."""
+    BLOCK_TAGS={"p", "div", "li", "tr", "h1", "h2", "h3", "h4", "h5", "h6"}
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.blocks=[]; self.parts=[]; self.ignored_depth=0
+    def flush(self):
+        text=" ".join("".join(self.parts).replace("\xa0", " ").split())
+        if text:self.blocks.append(text)
+        self.parts=[]
+    def handle_starttag(self,tag,attrs):
+        tag=tag.lower()
+        attrs=dict(attrs)
+        if tag in ("script", "style"):
+            self.ignored_depth+=1
+        elif tag=="a" and str(attrs.get("href", "")).casefold().startswith("#toc"):
+            self.ignored_depth+=1
+        elif tag=="br" and not self.ignored_depth:
+            self.flush()
+    def handle_data(self,data):
+        if not self.ignored_depth:self.parts.append(data)
+    def handle_endtag(self,tag):
+        tag=tag.lower()
+        if self.ignored_depth:
+            if tag in ("script", "style", "a"):
+                self.ignored_depth-=1
+            return
+        if tag in self.BLOCK_TAGS:self.flush()
+    def close(self):
+        super().close(); self.flush()
+
 def _flat_exhibit_21_lines(html):
     """Return meaningful text blocks from a non-tabular Exhibit 21.
 
@@ -79,11 +110,8 @@ def _flat_exhibit_21_lines(html):
     scoped to the text after a subsidiary-list heading so filing boilerplate
     cannot become an entity candidate.
     """
-    text=re.sub(r"(?i)<br\s*/?>", "\n", html)
-    text=re.sub(r"(?i)</(?:p|div|li|tr|h[1-6])\s*>", "\n", text)
-    text=re.sub(r"<[^>]+>", " ", text)
-    text=html_lib.unescape(text).replace("\xa0", " ")
-    return [" ".join(line.split()) for line in text.splitlines() if line.strip()]
+    parser=Exhibit21TextBlocks(); parser.feed(html); parser.close()
+    return parser.blocks
 
 def extract_exhibit_21_rows(html):
     """Extract an Exhibit 21 table or a conservative flat subsidiary list."""
@@ -106,7 +134,7 @@ def extract_exhibit_21_rows(html):
         # Some filings append a rendered footnote marker after the closing
         # jurisdiction parenthesis (for example ``Target Capital ... (MN) a``).
         match=re.fullmatch(
-            r"(.+?)\s*\(([^()]+)\)\s*(?:[a-z]|\(\d+\)|\d+)?",
+            r"(.+?)\s*\(([^()]+)\)\s*(?:[a-z]|\([a-z0-9]+\)|\d+)?",
             line,
             re.I,
         )
