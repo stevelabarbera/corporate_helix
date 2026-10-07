@@ -1,0 +1,2786 @@
+{
+  "company": "TARGET CORP",
+  "cik": "27419",
+  "filings": [
+    {
+      "accession": "0000027419-26-000016",
+      "filing_date": "2026-03-11",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741926000016/tgt-20260131xexhibit211.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Enterprise, Inc.",
+          "MN"
+        ],
+        [
+          "Target General Merchandise, Inc.",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0000027419-25-000018",
+      "filing_date": "2025-03-12",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741925000018/tgt-20250201xexhibit211.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Enterprise, Inc.",
+          "MN"
+        ],
+        [
+          "Target General Merchandise, Inc.",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0000027419-24-000032",
+      "filing_date": "2024-03-13",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741924000032/tgt-20240203xexhibit211.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Enterprise, Inc.",
+          "MN"
+        ],
+        [
+          "Target General Merchandise, Inc.",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0000027419-23-000015",
+      "filing_date": "2023-03-08",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741923000015/tgt-20230128xexhibit211.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Enterprise, Inc.",
+          "MN"
+        ],
+        [
+          "Target General Merchandise, Inc.",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0000027419-22-000007",
+      "filing_date": "2022-03-09",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741922000007/tgt-20220129xexhibit21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Enterprise, Inc.",
+          "MN"
+        ],
+        [
+          "Target General Merchandise, Inc.",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0000027419-21-000010",
+      "filing_date": "2021-03-10",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741921000010/tgt-20210130xexhibit21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Enterprise, Inc.",
+          "MN"
+        ],
+        [
+          "Target General Merchandise, Inc.",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0000027419-20-000008",
+      "filing_date": "2020-03-11",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741920000008/tgt-20200201xexhibit21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Enterprise, Inc.",
+          "MN"
+        ],
+        [
+          "Target General Merchandise, Inc.",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0000027419-19-000006",
+      "filing_date": "2019-03-13",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741919000006/tgt-20190202xexhibit21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Enterprise, Inc.",
+          "MN"
+        ],
+        [
+          "Target General Merchandise, Inc.",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0000027419-18-000010",
+      "filing_date": "2018-03-14",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741918000010/tgt-20180203xexhibit21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Enterprise, Inc.",
+          "MN"
+        ],
+        [
+          "Target General Merchandise, Inc.",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0000027419-14-000014",
+      "filing_date": "2014-03-14",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741914000014/tgt-20140201xexhibit_21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "Target Bank",
+          "UT banking corporation"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Canada Co.",
+          "Nova Scotia"
+        ],
+        [
+          "Target Canada Property LP",
+          "Ontario"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Corporate Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Enterprise, Inc.",
+          "MN"
+        ],
+        [
+          "Target General Merchandise, Inc.",
+          "MN"
+        ],
+        [
+          "Target Receivables LLC",
+          "MN"
+        ],
+        [
+          "Target Sourcing Services Asia Limited",
+          "Hong Kong"
+        ]
+      ]
+    },
+    {
+      "accession": "0001047469-13-003100",
+      "filing_date": "2013-03-20",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000104746913003100/a2213506zex-21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "Target Bank",
+          "UT banking corporation"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Canada Co.",
+          "Nova Scotia"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Corporate Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Enterprise, Inc.",
+          "MN"
+        ],
+        [
+          "Target General Merchandise, Inc.",
+          "MN"
+        ],
+        [
+          "Target National Bank",
+          "a national banking association"
+        ],
+        [
+          "Target Receivables LLC",
+          "MN"
+        ],
+        [
+          "TG Holdings Canada LP",
+          "Ontario"
+        ]
+      ]
+    },
+    {
+      "accession": "0001047469-12-002714",
+      "filing_date": "2012-03-15",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000104746912002714/a2207838zex-21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "Target Bank",
+          "UT banking corporation"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Commercial Interiors, Inc.",
+          "MN"
+        ],
+        [
+          "Target Corporate Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Enterprise, Inc.",
+          "MN"
+        ],
+        [
+          "Target General Merchandise, Inc.",
+          "MN"
+        ],
+        [
+          "Target National Bank",
+          "a national banking association"
+        ],
+        [
+          "Target Receivables LLC",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0001047469-11-002032",
+      "filing_date": "2011-03-11",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000104746911002032/a2201861zex-21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "AMC (S) Pte. Ltd.",
+          "Singapore"
+        ],
+        [
+          "AMC Dominican Republic, S.A.",
+          "Dominican Republic"
+        ],
+        [
+          "AMC Honduras, S.A.",
+          "Honduras"
+        ],
+        [
+          "AMC Nicaragua, S.A.",
+          "Nicaragua"
+        ],
+        [
+          "Amcrest Corporation",
+          "NY"
+        ],
+        [
+          "Amcrest France Sarl",
+          "France"
+        ],
+        [
+          "Associated Merchandising Corporation Pensionsverwaltung GmBH",
+          "Germany"
+        ],
+        [
+          "Associated Merchandising Korea Corporation",
+          "Korea"
+        ],
+        [
+          "Dayton Credit Company",
+          "MN"
+        ],
+        [
+          "Glendale West, LLC",
+          "CA"
+        ],
+        [
+          "Lafayette Nominee Owner, LLC",
+          "DE"
+        ],
+        [
+          "PP&E, LLC",
+          "TX"
+        ],
+        [
+          "Red Tail LLC",
+          "DE"
+        ],
+        [
+          "STL of Nebraska, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Massachusetts, Inc.",
+          "MA"
+        ],
+        [
+          "SuperTarget Liquor of Missouri, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Texas, Inc.",
+          "TX"
+        ],
+        [
+          "Target Bank",
+          "UT banking corporation"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Bridges, Inc.",
+          "DE"
+        ],
+        [
+          "Target Canada Co.",
+          "Nova Scotia"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Clinic Medical Associates Florida, LLC",
+          "MN"
+        ],
+        [
+          "Target Clinic Medical Associates Maryland, LLC",
+          "MD"
+        ],
+        [
+          "Target Commercial Interiors, Inc.",
+          "MN"
+        ],
+        [
+          "Target Connect, Inc.",
+          "MN"
+        ],
+        [
+          "Target Corporate Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Corporation India Private Limited",
+          "India"
+        ],
+        [
+          "Target Customs Brokers, Inc.",
+          "MN"
+        ],
+        [
+          "Target Enterprise, Inc.",
+          "MN"
+        ],
+        [
+          "Target Food, Inc.",
+          "MN"
+        ],
+        [
+          "Target General Merchandise, Inc.",
+          "MN"
+        ],
+        [
+          "Target Global Trade, Inc.",
+          "MN"
+        ],
+        [
+          "Target Jefferson Boulevard, LLC",
+          "CA"
+        ],
+        [
+          "Target Medford Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target Millville Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target National Bank",
+          "a national banking association"
+        ],
+        [
+          "Target Receivables Corporation",
+          "MN"
+        ],
+        [
+          "Target Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Sourcing Services Asia Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services Co., Ltd.",
+          "Shanghai"
+        ],
+        [
+          "Target Sourcing Services Guatemala Sociedad Anonima",
+          "Guatemala"
+        ],
+        [
+          "Target Sourcing Services Hong Kong Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services India Private Limited",
+          "India"
+        ],
+        [
+          "Target Sourcing Services Italy S.r.l.",
+          "Italy"
+        ],
+        [
+          "Target Sourcing Services Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services Pacific Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Stafford Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target Stores, Inc.",
+          "MN"
+        ],
+        [
+          "Target Wilson Yard QALICB, LLC",
+          "DE"
+        ],
+        [
+          "TCC Corporation S.a.r.l.",
+          "Luxembourg"
+        ],
+        [
+          "TCDC, Inc.",
+          "MN"
+        ],
+        [
+          "TG Holdings",
+          "Bermuda"
+        ],
+        [
+          "The Associated Merchandising Corporation",
+          "NY"
+        ],
+        [
+          "TSS One Limited",
+          "Hong Kong"
+        ],
+        [
+          "TSS Two Limited",
+          "Hong Kong"
+        ],
+        [
+          "Walsh Bros.",
+          "AZ"
+        ],
+        [
+          "Westbury Holding Company",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0001047469-10-002408",
+      "filing_date": "2010-03-18",
+      "form_type": "10-K/A",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000104746910002408/a2196751zex-21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "AMC (S) Pte. Ltd.",
+          "Singapore"
+        ],
+        [
+          "AMC Dominican Republic, S.A.",
+          "Dominican Republic"
+        ],
+        [
+          "AMC Honduras, S.A.",
+          "Honduras"
+        ],
+        [
+          "AMC Nicaragua, S.A.",
+          "Nicaragua"
+        ],
+        [
+          "Amcrest Corporation",
+          "NY"
+        ],
+        [
+          "Amcrest France Sarl",
+          "France"
+        ],
+        [
+          "Associated Merchandising Corporation Pensionsverwaltung GmBH",
+          "Germany"
+        ],
+        [
+          "Associated Merchandising Korea Corporation",
+          "Korea"
+        ],
+        [
+          "Dayton Credit Company",
+          "MN"
+        ],
+        [
+          "Glendale West, LLC",
+          "CA"
+        ],
+        [
+          "ITC Sales and Procurement, LLC",
+          "MN"
+        ],
+        [
+          "PP&E, LLC",
+          "TX"
+        ],
+        [
+          "Red Tail LLC",
+          "DE"
+        ],
+        [
+          "STL of Nebraska, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Massachusetts, Inc.",
+          "MA"
+        ],
+        [
+          "SuperTarget Liquor of Missouri, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Texas, Inc.",
+          "TX"
+        ],
+        [
+          "Target Bank",
+          "UT banking corporation"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Bridges, Inc.",
+          "DE"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Clinic Medical Associates Maryland, LLC",
+          "MD"
+        ],
+        [
+          "Target Commercial Interiors, Inc.",
+          "MN"
+        ],
+        [
+          "Target Connect, Inc.",
+          "MN"
+        ],
+        [
+          "Target Corporation India Private Limited",
+          "India"
+        ],
+        [
+          "Target Customs Brokers, Inc.",
+          "MN"
+        ],
+        [
+          "Target Global Trade, Inc.",
+          "MN"
+        ],
+        [
+          "Target Jefferson Boulevard, LLC",
+          "CA"
+        ],
+        [
+          "Target Medford Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target Millville Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target National Bank",
+          "a national banking association"
+        ],
+        [
+          "Target Receivables Corporation",
+          "MN"
+        ],
+        [
+          "Target Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Sourcing Services Asia Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services Guatemala Sociedad Anonima",
+          "Guatemala"
+        ],
+        [
+          "Target Sourcing Services Hong Kong Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services India Private Limited",
+          "India"
+        ],
+        [
+          "Target Sourcing Services Italy S.r.l.",
+          "Italy"
+        ],
+        [
+          "Target Sourcing Services Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services Pacific Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Stafford Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target Stores, Inc.",
+          "MN"
+        ],
+        [
+          "Target Wilson Yard QALICB, LLC",
+          "DE"
+        ],
+        [
+          "TCDC, Inc.",
+          "MN"
+        ],
+        [
+          "TG Holdings",
+          "Bermuda"
+        ],
+        [
+          "The Associated Merchandising Corporation",
+          "NY"
+        ],
+        [
+          "TSS One Limited",
+          "Hong Kong"
+        ],
+        [
+          "TSS Two Limited",
+          "Hong Kong"
+        ],
+        [
+          "Walsh Bros.",
+          "AZ"
+        ],
+        [
+          "Westbury Holding Company",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0001047469-10-002121",
+      "filing_date": "2010-03-12",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000104746910002121/a2196751zex-21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "AMC (S) Pte. Ltd.",
+          "Singapore"
+        ],
+        [
+          "AMC Dominican Republic, S.A.",
+          "Dominican Republic"
+        ],
+        [
+          "AMC Honduras, S.A.",
+          "Honduras"
+        ],
+        [
+          "AMC Nicaragua, S.A.",
+          "Nicaragua"
+        ],
+        [
+          "Amcrest Corporation",
+          "NY"
+        ],
+        [
+          "Amcrest France Sarl",
+          "France"
+        ],
+        [
+          "Associated Merchandising Corporation Pensionsverwaltung GmBH",
+          "Germany"
+        ],
+        [
+          "Associated Merchandising Korea Corporation",
+          "Korea"
+        ],
+        [
+          "Dayton Credit Company",
+          "MN"
+        ],
+        [
+          "Glendale West, LLC",
+          "CA"
+        ],
+        [
+          "ITC Sales and Procurement, LLC",
+          "MN"
+        ],
+        [
+          "PP&E, LLC",
+          "TX"
+        ],
+        [
+          "Red Tail LLC",
+          "DE"
+        ],
+        [
+          "STL of Nebraska, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Massachusetts, Inc.",
+          "MA"
+        ],
+        [
+          "SuperTarget Liquor of Missouri, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Texas, Inc.",
+          "TX"
+        ],
+        [
+          "Target Bank",
+          "UT banking corporation"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Bridges, Inc.",
+          "DE"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Clinic Medical Associates Maryland, LLC",
+          "MD"
+        ],
+        [
+          "Target Commercial Interiors, Inc.",
+          "MN"
+        ],
+        [
+          "Target Connect, Inc.",
+          "MN"
+        ],
+        [
+          "Target Corporation India Private Limited",
+          "India"
+        ],
+        [
+          "Target Customs Brokers, Inc.",
+          "MN"
+        ],
+        [
+          "Target Global Trade, Inc.",
+          "MN"
+        ],
+        [
+          "Target Jefferson Boulevard, LLC",
+          "CA"
+        ],
+        [
+          "Target Medford Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target Millville Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target National Bank",
+          "a national banking association"
+        ],
+        [
+          "Target Receivables Corporation",
+          "MN"
+        ],
+        [
+          "Target Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Sourcing Services Asia Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services Guatemala Sociedad Anonima",
+          "Guatemala"
+        ],
+        [
+          "Target Sourcing Services Hong Kong Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services India Private Limited",
+          "India"
+        ],
+        [
+          "Target Sourcing Services Italy S.r.l.",
+          "Italy"
+        ],
+        [
+          "Target Sourcing Services Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services Pacific Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Stafford Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target Stores, Inc.",
+          "MN"
+        ],
+        [
+          "Target Wilson Yard QALICB, LLC",
+          "DE"
+        ],
+        [
+          "TCDC, Inc.",
+          "MN"
+        ],
+        [
+          "TG Holdings",
+          "Bermuda"
+        ],
+        [
+          "The Associated Merchandising Corporation",
+          "NY"
+        ],
+        [
+          "TSS One Limited",
+          "Hong Kong"
+        ],
+        [
+          "TSS Two Limited",
+          "Hong Kong"
+        ],
+        [
+          "Walsh Bros.",
+          "AZ"
+        ],
+        [
+          "Westbury Holding Company",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0001047469-09-002623",
+      "filing_date": "2009-03-13",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000104746909002623/a2190597zex-21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "AMC Dominican Republic, S.A.",
+          "Dominican Republic"
+        ],
+        [
+          "AMC El Salvador, S.A.",
+          "El Salvador"
+        ],
+        [
+          "AMC Honduras, S.A.",
+          "Honduras"
+        ],
+        [
+          "AMC Nicaragua, S.A.",
+          "Nicaragua"
+        ],
+        [
+          "AMC (S) Pte. Ltd.",
+          "Singapore"
+        ],
+        [
+          "Amcrest Corporation",
+          "NY"
+        ],
+        [
+          "Amcrest France Sarl",
+          "France"
+        ],
+        [
+          "Associated Merchandising Corporation Pensionsverwaltung GmBH",
+          "Germany"
+        ],
+        [
+          "Associated Merchandising Korea Corporation",
+          "Korea"
+        ],
+        [
+          "Dayton Credit Company",
+          "MN"
+        ],
+        [
+          "Glendale West, LLC",
+          "CA"
+        ],
+        [
+          "ITC Sales and Procurement, LLC",
+          "MN"
+        ],
+        [
+          "Red Tail LLC",
+          "DE"
+        ],
+        [
+          "STL of Nebraska, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Missouri, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Texas, Inc.",
+          "TX"
+        ],
+        [
+          "Target Bank",
+          "UT banking corporation"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Bridges, Inc.",
+          "DE"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Clinic Medical Associates Maryland, LLC",
+          "MD"
+        ],
+        [
+          "Target Commercial Interiors, Inc.",
+          "MN"
+        ],
+        [
+          "Target Connect, Inc.",
+          "MN"
+        ],
+        [
+          "Target Corporation India Private Limited",
+          "India"
+        ],
+        [
+          "Target Customs Brokers, Inc.",
+          "MN"
+        ],
+        [
+          "Target Global Trade, Inc.",
+          "MN"
+        ],
+        [
+          "Target Jefferson Boulevard, LLC",
+          "CA"
+        ],
+        [
+          "Target Medford Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target Millville Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target National Bank",
+          "a national banking association"
+        ],
+        [
+          "Target Receivables Corporation",
+          "MN"
+        ],
+        [
+          "Target Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Sourcing Services Asia Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services Guatemala Sociedad Anonima",
+          "Guatemala"
+        ],
+        [
+          "Target Sourcing Services India Private Limited",
+          "India"
+        ],
+        [
+          "Target Sourcing Services Italy S.r.l.",
+          "Italy"
+        ],
+        [
+          "Target Sourcing Services Hong Kong Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services Pacific Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Stafford Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target Stores, Inc.",
+          "MN"
+        ],
+        [
+          "Target Wilson Yard QALICB, LLC",
+          "DE"
+        ],
+        [
+          "TCDC, Inc.",
+          "MN"
+        ],
+        [
+          "TG Holdings",
+          "Bermuda"
+        ],
+        [
+          "TGT Energy LLC",
+          "TX"
+        ],
+        [
+          "The Associated Merchandising Corporation",
+          "NY"
+        ],
+        [
+          "TSS One Limited",
+          "Hong Kong"
+        ],
+        [
+          "TSS Two Limited",
+          "Hong Kong"
+        ],
+        [
+          "Walsh Bros.",
+          "AZ"
+        ],
+        [
+          "Westbury Holding Company",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0001047469-08-002681",
+      "filing_date": "2008-03-13",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000104746908002681/a2183529zex-21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "AMC Dominican Republic, S.A.",
+          "Dominican Republic"
+        ],
+        [
+          "AMC El Salvador, S.A.",
+          "El Salvador"
+        ],
+        [
+          "AMC Honduras, S.A.",
+          "Honduras"
+        ],
+        [
+          "AMC Nicaragua, S.A.",
+          "Nicaragua"
+        ],
+        [
+          "AMC (S) Pte. Ltd.",
+          "Singapore"
+        ],
+        [
+          "Amcrest Corporation",
+          "NY"
+        ],
+        [
+          "Amcrest France Sarl",
+          "France"
+        ],
+        [
+          "Associated Merchandising Corporation Pensionsverwaltung GmBH",
+          "Germany"
+        ],
+        [
+          "Associated Merchandising Korea Corporation",
+          "Korea"
+        ],
+        [
+          "DBC, LLC",
+          "AK"
+        ],
+        [
+          "Dayton Credit Company",
+          "MN"
+        ],
+        [
+          "Dayton Development Company",
+          "MN"
+        ],
+        [
+          "Eighth Street Development Company",
+          "MN"
+        ],
+        [
+          "Glendale West, LLC",
+          "CA"
+        ],
+        [
+          "ITC Sales and Procurement, LLC",
+          "MN"
+        ],
+        [
+          "Red Tail LLC",
+          "DE"
+        ],
+        [
+          "STL of Nebraska, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Missouri, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Texas, Inc.",
+          "TX"
+        ],
+        [
+          "Target Bank",
+          "UT banking corporation"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Bridges, Inc.",
+          "DE"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Commercial Interiors, Inc.",
+          "MN"
+        ],
+        [
+          "Target Connect, Inc.",
+          "MN"
+        ],
+        [
+          "Target Corporation India Private Limited",
+          "India"
+        ],
+        [
+          "Target Customs Brokers, Inc.",
+          "MN"
+        ],
+        [
+          "Target Foundation",
+          "a MN not-for-profit organization"
+        ],
+        [
+          "Target Global Trade, Inc.",
+          "MN"
+        ],
+        [
+          "Target Jefferson Boulevard, LLC",
+          "CA"
+        ],
+        [
+          "Target Medford Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target Millville Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target National Bank",
+          "a national banking association"
+        ],
+        [
+          "Target Receivables Corporation",
+          "MN"
+        ],
+        [
+          "Target Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Sourcing Services Asia Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services Guatemala Sociedad Anonima",
+          "Guatemala"
+        ],
+        [
+          "Target Sourcing Services India Private Limited",
+          "India"
+        ],
+        [
+          "Target Sourcing Services Italy S.r.l.",
+          "Italy"
+        ],
+        [
+          "Target Sourcing Services Hong Kong Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Sourcing Services Pacific Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Stafford Urban Renewal, LLC",
+          "NJ"
+        ],
+        [
+          "Target Stores, Inc.",
+          "MN"
+        ],
+        [
+          "TCDC, Inc.",
+          "MN"
+        ],
+        [
+          "TG Holdings",
+          "Bermuda"
+        ],
+        [
+          "TGT Energy LLC",
+          "TX"
+        ],
+        [
+          "The Associated Merchandising Corporation",
+          "NY"
+        ],
+        [
+          "TSS One Limited",
+          "Hong Kong"
+        ],
+        [
+          "TSS Two Limited",
+          "Hong Kong"
+        ],
+        [
+          "Westbury Holding Company",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0001047469-07-001800",
+      "filing_date": "2007-03-15",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000104746907001800/a2176656zex-21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "AMC Dominican Republic, S.A.",
+          "Dominican Republic"
+        ],
+        [
+          "AMC El Salvador, S.A.",
+          "El Salvador"
+        ],
+        [
+          "AMC Guatemala Sociedad Anonima",
+          "Guatemala"
+        ],
+        [
+          "AMC Honduras, S.A.",
+          "Honduras"
+        ],
+        [
+          "AMC Nicaragua, S.A.",
+          "Nicaragua"
+        ],
+        [
+          "AMC(S) Pte., Ltd.",
+          "Singapore"
+        ],
+        [
+          "Amcrest Corporation",
+          "NY"
+        ],
+        [
+          "Amcrest France Sarl",
+          "France"
+        ],
+        [
+          "Associated Merchandising Corporation",
+          "NY"
+        ],
+        [
+          "Associated Merchandising Corporation GmBH",
+          "Germany"
+        ],
+        [
+          "Associated Merchandising Korea Corporation",
+          "Korea"
+        ],
+        [
+          "DBC, LLC",
+          "AK"
+        ],
+        [
+          "Dayton Credit Company",
+          "MN"
+        ],
+        [
+          "Dayton Development Company",
+          "MN"
+        ],
+        [
+          "Eighth Street Development Company",
+          "MN"
+        ],
+        [
+          "Glendale West, LLC",
+          "CA"
+        ],
+        [
+          "ITC Sales and Procurement, LLC",
+          "MN"
+        ],
+        [
+          "Red Tail LLC",
+          "DE"
+        ],
+        [
+          "STL of Nebraska, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Missouri, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Texas, Inc.",
+          "TX"
+        ],
+        [
+          "Target Bank",
+          "UT banking corporation"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Bridges, Inc.",
+          "DE"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target China Holdings Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Commercial Interiors, Inc.",
+          "MN"
+        ],
+        [
+          "Target Connect, Inc.",
+          "MN"
+        ],
+        [
+          "Target Corporation India Private Limited",
+          "India"
+        ],
+        [
+          "Target Customs Brokers, Inc.",
+          "MN"
+        ],
+        [
+          "Target Foundation",
+          "a MN not-for-profit organization"
+        ],
+        [
+          "Target Global Trade, Inc.",
+          "MN"
+        ],
+        [
+          "Target National Bank",
+          "a national banking association"
+        ],
+        [
+          "Target Receivables Corporation",
+          "MN"
+        ],
+        [
+          "Target Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Sourcing Services Limited",
+          "Hong Kong"
+        ],
+        [
+          "Target Stores, Inc.",
+          "MN"
+        ],
+        [
+          "TCDC, Inc.",
+          "MN"
+        ],
+        [
+          "TG Holdings",
+          "Bermuda"
+        ],
+        [
+          "TSS One Limited",
+          "Hong Kong"
+        ],
+        [
+          "TSS Two Limited",
+          "Hong Kong"
+        ],
+        [
+          "Westbury Holding Company",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0001104659-06-024036",
+      "filing_date": "2006-04-10",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000110465906024036/a06-2369_1ex21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "AMC Dominican Republic, S.A.",
+          "Dominican Republic"
+        ],
+        [
+          "AMC Guatemala Sociedad Anonima",
+          "Guatemala"
+        ],
+        [
+          "AMC Honduras, S.A.",
+          "Honduras"
+        ],
+        [
+          "AMC El Salvador, S.A.",
+          "El Salvador"
+        ],
+        [
+          "AMC Nicaragua, S.A.",
+          "Nicaragua"
+        ],
+        [
+          "AMC(s) Pte., Ltd.",
+          "Singapore"
+        ],
+        [
+          "Amcrest Corporation",
+          "NY"
+        ],
+        [
+          "Amcrest France Sarl",
+          "France"
+        ],
+        [
+          "Associated Merchandising Corporation",
+          "NY"
+        ],
+        [
+          "Associated Merchandising Corporation GmBH",
+          "Germany"
+        ],
+        [
+          "Associated Merchandising Korea Corporation",
+          "Korea"
+        ],
+        [
+          "Dayton Credit Company",
+          "MN"
+        ],
+        [
+          "Dayton Development Company",
+          "MN"
+        ],
+        [
+          "Eighth Street Development Company",
+          "MN"
+        ],
+        [
+          "Highbridge Company",
+          "MN"
+        ],
+        [
+          "Highbridge Music Company",
+          "MN"
+        ],
+        [
+          "Red Tail LLC",
+          "DE"
+        ],
+        [
+          "Retail Properties, Inc.",
+          "DE"
+        ],
+        [
+          "STL of Nebraska, Inc.",
+          "MN"
+        ],
+        [
+          "Strata Merchandising, Ltd.",
+          "England"
+        ],
+        [
+          "SuperTarget Liquor of Missouri, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Texas, Inc.",
+          "TX"
+        ],
+        [
+          "Target Bank",
+          "UT banking corporation"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Bridges, Inc.",
+          "DE"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Commercial Interiors, Inc.",
+          "MN"
+        ],
+        [
+          "Target Connect, Inc.",
+          "MN"
+        ],
+        [
+          "Target Customs Brokers, Inc.",
+          "MN"
+        ],
+        [
+          "Target Foundation",
+          "a MN not-for-profit organization"
+        ],
+        [
+          "Target Global Trade, Inc.",
+          "MN"
+        ],
+        [
+          "Target National Bank",
+          "a national banking association"
+        ],
+        [
+          "Target Receivables Corporation",
+          "MN"
+        ],
+        [
+          "Target Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Services India Private Limited",
+          "India"
+        ],
+        [
+          "Target Stores, Inc.",
+          "MN"
+        ],
+        [
+          "TCDC, Inc.",
+          "MN"
+        ],
+        [
+          "Westbury Holding Company",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0001104659-05-015954",
+      "filing_date": "2005-04-11",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000110465905015954/a05-4599_1ex21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "AMC Dominican Republic, S.A.",
+          "Dominican Republic"
+        ],
+        [
+          "AMC Guatemala Sociedad Anonima",
+          "Guatemala"
+        ],
+        [
+          "AMC Honduras, S.A.",
+          "Honduras"
+        ],
+        [
+          "AMC El Salvador, S.A.",
+          "El Salvador"
+        ],
+        [
+          "AMC Nicaragua, S.A.",
+          "Nicaragua"
+        ],
+        [
+          "AMC(s) Pte., Ltd.",
+          "Singapore"
+        ],
+        [
+          "Amcrest Corporation",
+          "NY"
+        ],
+        [
+          "Amcrest France Sarl",
+          "Paris, France"
+        ],
+        [
+          "The Associated Merchandising Corporation",
+          "NY"
+        ],
+        [
+          "Associated Merchandising Corporation GmBH",
+          "Frankfurt, Germany"
+        ],
+        [
+          "Associated Merchandising Korea Corporation",
+          "Korea"
+        ],
+        [
+          "Boulder Bridge I Development Corporation",
+          "MN"
+        ],
+        [
+          "Boulder Bridge II Development Corporation",
+          "MN"
+        ],
+        [
+          "Boulder Bridge III Development Corporation",
+          "CA"
+        ],
+        [
+          "Dayton Credit Company",
+          "MN"
+        ],
+        [
+          "Dayton Development Company",
+          "MN"
+        ],
+        [
+          "Deerfield Assumption LLC",
+          "DE"
+        ],
+        [
+          "Eighth Street Development Company",
+          "MN"
+        ],
+        [
+          "Highbridge Company",
+          "MN"
+        ],
+        [
+          "Highbridge Music Company",
+          "MN"
+        ],
+        [
+          "Merchant’s Festival LLC",
+          "GA"
+        ],
+        [
+          "Red Tail LLC",
+          "DE"
+        ],
+        [
+          "Retail Properties, Inc.",
+          "DE"
+        ],
+        [
+          "STL of Nebraska, Inc.",
+          "MN"
+        ],
+        [
+          "Strata Merchandising, Ltd.",
+          "London, England"
+        ],
+        [
+          "SuperTarget Liquor of Colorado, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Missouri, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Texas, Inc.",
+          "TX"
+        ],
+        [
+          "Target Bank",
+          "UT"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Bridges, Inc.",
+          "DE"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Commercial Interiors, Inc.",
+          "MN"
+        ],
+        [
+          "Target Connect, Inc.",
+          "MN"
+        ],
+        [
+          "Target Customs Brokers, Inc.",
+          "MN"
+        ],
+        [
+          "Target Foundation",
+          "a MN not-for-profit organization"
+        ],
+        [
+          "Target Global Trade, Inc.",
+          "MN"
+        ],
+        [
+          "Target Insurance Agency, Inc.",
+          "MN"
+        ],
+        [
+          "Target National Bank",
+          "a national banking association"
+        ],
+        [
+          "Target Technology Services India Private Limited",
+          "India"
+        ],
+        [
+          "Target Receivables Corporation",
+          "MN"
+        ],
+        [
+          "Target Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Stores, Inc.",
+          "MN"
+        ],
+        [
+          "Westbury Holding Company",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0001047469-04-010838",
+      "filing_date": "2004-04-05",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000104746904010838/a2130364zex-21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "AMC Guatemala Sociedad Anonima",
+          "Guatemala"
+        ],
+        [
+          "AMC Honduras, S.A.",
+          "Honduras"
+        ],
+        [
+          "AMC Nicaragua",
+          "Nicaragua"
+        ],
+        [
+          "AMC(S) Pte., Ltd.",
+          "Singapore"
+        ],
+        [
+          "Amcrest Corporation",
+          "NY"
+        ],
+        [
+          "Amcrest France Sarl",
+          "Paris, France"
+        ],
+        [
+          "The Associated Merchandising Corporation",
+          "NY"
+        ],
+        [
+          "Associated Merchandising Corporation GmBH",
+          "Frankfurt, Germany"
+        ],
+        [
+          "Boulder Bridge I Development Corporation",
+          "MN"
+        ],
+        [
+          "Boulder Bridge II Development Corporation",
+          "MN"
+        ],
+        [
+          "Boulder Bridge III Development Corporation",
+          "CA"
+        ],
+        [
+          "Dayton Credit Company",
+          "MN"
+        ],
+        [
+          "Dayton Development Company",
+          "MN"
+        ],
+        [
+          "Dayton's Commercial Interiors, Inc.",
+          "MN"
+        ],
+        [
+          "Dayton's Iron Horse Liquors, Inc.",
+          "MN"
+        ],
+        [
+          "Eighth Street Development Company",
+          "MN"
+        ],
+        [
+          "HighBridge Company",
+          "MN"
+        ],
+        [
+          "HighBridge Music Company",
+          "MN"
+        ],
+        [
+          "Marshall Field's Chicago, Inc.",
+          "DE"
+        ],
+        [
+          "Mayfair Wine & Liquor Shop, Inc.",
+          "WI"
+        ],
+        [
+          "Mervyn's",
+          "CA"
+        ],
+        [
+          "Mervyn's Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Mervyn's, Inc.",
+          "DE"
+        ],
+        [
+          "Retail Properties, Inc.",
+          "DE"
+        ],
+        [
+          "Rooftop, Inc.",
+          "MN"
+        ],
+        [
+          "STL of Nebraska, Inc.",
+          "MN"
+        ],
+        [
+          "Strata Merchandising, Ltd.",
+          "London, England"
+        ],
+        [
+          "SuperTarget Liquor of Colorado, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Missouri, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Texas, Inc.",
+          "TX"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Connect, Inc.",
+          "MN"
+        ],
+        [
+          "Target Customs Brokers, Inc.",
+          "MN"
+        ],
+        [
+          "Target Foundation",
+          "a MN not-for-profit organization"
+        ],
+        [
+          "Target Global Trade, Inc.",
+          "MN"
+        ],
+        [
+          "Target Insurance Agency, Inc.",
+          "MN"
+        ],
+        [
+          "Target Receivables Corporation",
+          "MN"
+        ],
+        [
+          "Target Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Stores, Inc.",
+          "MN"
+        ],
+        [
+          "Westbury Holding Company",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0001047469-03-013199",
+      "filing_date": "2003-04-14",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000104746903013199/a2105670zex-21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "AMC Guatemala Sociedad Anonima",
+          "Guatemala"
+        ],
+        [
+          "AMC Honduras, S.A.",
+          "Honduras"
+        ],
+        [
+          "AMC(S) Pte., Ltd.",
+          "Singapore"
+        ],
+        [
+          "Amcrest Corporation",
+          "NY"
+        ],
+        [
+          "Amcrest France Sarl",
+          "Paris, France"
+        ],
+        [
+          "The Associated Merchandising Corporation",
+          "NY"
+        ],
+        [
+          "Associated Merchandising Corporation GmBH",
+          "Frankfurt, Germany"
+        ],
+        [
+          "Boulder Bridge I Development Corporation",
+          "MN"
+        ],
+        [
+          "Boulder Bridge II Development Corporation",
+          "MN"
+        ],
+        [
+          "Boulder Bridge III Development Corporation",
+          "CA"
+        ],
+        [
+          "Dayton Credit Company",
+          "MN"
+        ],
+        [
+          "Dayton Development Company",
+          "MN"
+        ],
+        [
+          "Dayton's Commercial Interiors, Inc.",
+          "MN"
+        ],
+        [
+          "Dayton's Iron Horse Liquors, Inc.",
+          "MN"
+        ],
+        [
+          "Eighth Street Development Company",
+          "MN"
+        ],
+        [
+          "HighBridge Company",
+          "MN"
+        ],
+        [
+          "HighBridge Music Company",
+          "MN"
+        ],
+        [
+          "Marshall Field's Chicago, Inc.",
+          "DE"
+        ],
+        [
+          "Mayfair Wine & Liquor Shop, Inc.",
+          "WI"
+        ],
+        [
+          "Mervyn's",
+          "CA"
+        ],
+        [
+          "Mervyn's Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Mervyn's, Inc.",
+          "DE"
+        ],
+        [
+          "Retail Properties, Inc.",
+          "DE"
+        ],
+        [
+          "Rooftop, Inc.",
+          "MN"
+        ],
+        [
+          "STL of Nebraska, Inc.",
+          "MN"
+        ],
+        [
+          "Strata Merchandising, Ltd.",
+          "London, England"
+        ],
+        [
+          "SuperTarget Liquor of Colorado, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Missouri, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Texas, Inc.",
+          "TX"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Connect, Inc.",
+          "MN"
+        ],
+        [
+          "Target Customs Brokers, Inc.",
+          "MN"
+        ],
+        [
+          "Target Foundation",
+          "a MN not-for-profit organization"
+        ],
+        [
+          "Target Insurance Agency, Inc.",
+          "MN"
+        ],
+        [
+          "Target Receivables Corporation",
+          "MN"
+        ],
+        [
+          "Target Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Stores, Inc.",
+          "MN"
+        ],
+        [
+          "Westbury Holding Company",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0000912057-02-015068",
+      "filing_date": "2002-04-15",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000091205702015068/a2074039zex-21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "AMC Guatemala Sociedad Anonima",
+          "Guatemala"
+        ],
+        [
+          "AMC Honduras, S.A.",
+          "Honduras"
+        ],
+        [
+          "AMC(S) Pte., Ltd.",
+          "Singapore"
+        ],
+        [
+          "Amcrest Corporation",
+          "NY"
+        ],
+        [
+          "Amcrest France Sarl",
+          "Paris, France"
+        ],
+        [
+          "The Associated Merchandising Corporation",
+          "NY"
+        ],
+        [
+          "Associated Merchandising Corporation GmBH",
+          "Frankfurt, Germany"
+        ],
+        [
+          "Boulder Bridge I Development Corporation",
+          "MN"
+        ],
+        [
+          "Boulder Bridge II Development Corporation",
+          "MN"
+        ],
+        [
+          "Boulder Bridge III Development Corporation",
+          "CA"
+        ],
+        [
+          "Bullseye Corporation",
+          "DE"
+        ],
+        [
+          "Cahill & Company, Inc.",
+          "MN"
+        ],
+        [
+          "Daily Planet Company",
+          "MN"
+        ],
+        [
+          "Dayton Credit Company",
+          "MN"
+        ],
+        [
+          "Dayton Development Company",
+          "MN"
+        ],
+        [
+          "Dayton's Commercial Interiors, Inc.",
+          "MN"
+        ],
+        [
+          "Dayton's Iron Horse Liquors, Inc.",
+          "MN"
+        ],
+        [
+          "Eighth Street Development Company",
+          "MN"
+        ],
+        [
+          "Highbridge Company",
+          "MN"
+        ],
+        [
+          "Highbridge Music Company",
+          "MN"
+        ],
+        [
+          "Hometown America Company",
+          "MN"
+        ],
+        [
+          "Marshall Field's Chicago, Inc.",
+          "DE"
+        ],
+        [
+          "marshallfields.direct LLC",
+          "MN"
+        ],
+        [
+          "Mayfair Wine & Liquor Shop, Inc.",
+          "WI"
+        ],
+        [
+          "Mervyn's",
+          "CA"
+        ],
+        [
+          "Mervyn's Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Mervyn's, Inc.",
+          "DE"
+        ],
+        [
+          "Northern Creations Company",
+          "MN"
+        ],
+        [
+          "Northern Fulfillment Services Company",
+          "MN"
+        ],
+        [
+          "Retail Properties, Inc.",
+          "DE"
+        ],
+        [
+          "RiverCrossings Company",
+          "MN"
+        ],
+        [
+          "Rooftop, Inc.",
+          "MN"
+        ],
+        [
+          "STL of Nebraska, Inc.",
+          "MN"
+        ],
+        [
+          "Strata Merchandising, Ltd.",
+          "London, England"
+        ],
+        [
+          "SuperTarget Liquor of Colorado, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Missouri, Inc.",
+          "MN"
+        ],
+        [
+          "SuperTarget Liquor of Texas, Inc.",
+          "TX"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Connect, Inc.",
+          "MN"
+        ],
+        [
+          "Target Customs Brokers, Inc.",
+          "MN"
+        ],
+        [
+          "target.direct LLC",
+          "MN"
+        ],
+        [
+          "Target Foundation",
+          "a MN not-for-profit organization"
+        ],
+        [
+          "Target Insurance Agency, Inc.",
+          "MN"
+        ],
+        [
+          "Target Receivables Corporation",
+          "MN"
+        ],
+        [
+          "Target Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Stores, Inc.",
+          "MN"
+        ]
+      ]
+    },
+    {
+      "accession": "0000912057-01-508754",
+      "filing_date": "2001-04-16",
+      "form_type": "10-K",
+      "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000091205701508754/a2040678zex-21.htm",
+      "extraction_method": "exhibit_21",
+      "extracted_rows": [
+        [
+          "Subsidiary",
+          "State/Country of Organization"
+        ],
+        [
+          "AMC Guatemala Sociedad Anonima",
+          "Guatemala"
+        ],
+        [
+          "AMC Honduras, S.A.",
+          "Honduras"
+        ],
+        [
+          "AMC(S) Pte., Ltd.",
+          "Singapore"
+        ],
+        [
+          "Amcrest Corporation",
+          "NY"
+        ],
+        [
+          "Amcrest France Sarl",
+          "Paris, France"
+        ],
+        [
+          "The Associated Merchandising Corporation",
+          "NY"
+        ],
+        [
+          "Associated Merchandising Corporation GmBH",
+          "Frankfurt, Germany"
+        ],
+        [
+          "Boulder Bridge I Development Corporation",
+          "MN"
+        ],
+        [
+          "Boulder Bridge II Development Corporation",
+          "MN"
+        ],
+        [
+          "Boulder Bridge III Development Corporation",
+          "CA"
+        ],
+        [
+          "Bullseye Corporation",
+          "DE"
+        ],
+        [
+          "Cahill & Company, Inc.",
+          "MN"
+        ],
+        [
+          "Daily Planet Company",
+          "MN"
+        ],
+        [
+          "Dayton Credit Company",
+          "MN"
+        ],
+        [
+          "Dayton Development Company",
+          "MN"
+        ],
+        [
+          "Dayton's Commercial Interiors, Inc.",
+          "MN"
+        ],
+        [
+          "Dayton's Iron Horse Liquors, Inc.",
+          "MN"
+        ],
+        [
+          "DBI, Ltd.",
+          "IL"
+        ],
+        [
+          "Eighth Street Development Company",
+          "MN"
+        ],
+        [
+          "Highbridge Company",
+          "MN"
+        ],
+        [
+          "Highbridge Music Company",
+          "MN"
+        ],
+        [
+          "Hometown America Company",
+          "MN"
+        ],
+        [
+          "Marshall Field's Chicago, Inc.",
+          "DE"
+        ],
+        [
+          "Mayfair Wine & Liquor Shop, Inc.",
+          "WI"
+        ],
+        [
+          "Mervyn's",
+          "CA"
+        ],
+        [
+          "Mervyn's Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Mervyn's, Inc.",
+          "DE"
+        ],
+        [
+          "Northern Creations Company",
+          "MN"
+        ],
+        [
+          "Northern Fulfillment Services Company",
+          "MN"
+        ],
+        [
+          "PBI, Inc.",
+          "WI"
+        ],
+        [
+          "Retail Properties, Inc.",
+          "DE"
+        ],
+        [
+          "RiverCrossings Company",
+          "MN"
+        ],
+        [
+          "Rivertown Trading Company",
+          "MN"
+        ],
+        [
+          "Rooftop, Inc.",
+          "MN"
+        ],
+        [
+          "Rowley & Schlimgen, Inc.",
+          "WI"
+        ],
+        [
+          "RTC Holding, Inc.",
+          "MN"
+        ],
+        [
+          "STL of Nebraska, Inc.",
+          "MN"
+        ],
+        [
+          "Strata Merchandising, Ltd.",
+          "London, England"
+        ],
+        [
+          "SuperTarget Liquor of Texas, Inc.",
+          "TX"
+        ],
+        [
+          "Target Brands, Inc.",
+          "MN"
+        ],
+        [
+          "Target Capital Corporation",
+          "MN"
+        ],
+        [
+          "Target Connect, Inc.",
+          "MN"
+        ],
+        [
+          "Target Customs Brokers, Inc.",
+          "MN"
+        ],
+        [
+          "target.direct LLC",
+          "MN"
+        ],
+        [
+          "Target Foundation",
+          "a MN not-for-profit organization"
+        ],
+        [
+          "Target Insurance Agency, Inc.",
+          "MN"
+        ],
+        [
+          "Target Receivables Corporation",
+          "MN"
+        ],
+        [
+          "Target Services, Inc.",
+          "MN"
+        ],
+        [
+          "Target Stores, Inc.",
+          "MN"
+        ]
+      ]
+    }
+  ]
+}
