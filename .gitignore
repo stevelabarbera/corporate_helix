@@ -40,3 +40,15 @@ data/processed/gleif_lei.sqlite-wal
 data/processed/gleif_rr.sqlite-shm
 data/processed/gleif_rr.sqlite-wal
 code.zip
+data/raw/edgar_comcast_v2.json
+data/raw/target_exhibit21_debug.zip
+data/raw/target_exhibit21_debug/2001-04-16_000091205701508754.html
+data/raw/target_exhibit21_debug/2005-04-11_000110465905015954.html
+data/raw/target_exhibit21_debug/2006-04-10_000110465906024036.html
+data/raw/target_exhibit21_debug/2007-03-15_000104746907001800.html
+data/raw/target_exhibit21_debug/2008-03-13_000104746908002681.html
+data/raw/target_exhibit21_debug/2009-03-13_000104746909002623.html
+data/raw/target_exhibit21_debug/2010-03-12_000104746910002121.html
+data/raw/target_exhibit21_debug/2010-03-18_000104746910002408.html
+data/raw/target_exhibit21_debug/2020-03-11_000002741920000008.html
+*.zip
