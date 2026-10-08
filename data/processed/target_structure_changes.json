@@ -1,0 +1,4009 @@
+{
+  "schema_version": "structure-disclosure-changes-v1",
+  "company": "TARGET CORP",
+  "cik": "27419",
+  "filing_dates": [
+    "2001-04-16",
+    "2002-04-15",
+    "2003-04-14",
+    "2004-04-05",
+    "2005-04-11",
+    "2006-04-10",
+    "2007-03-15",
+    "2008-03-13",
+    "2009-03-13",
+    "2010-03-12",
+    "2010-03-18",
+    "2011-03-11",
+    "2012-03-15",
+    "2013-03-20",
+    "2014-03-14",
+    "2018-03-14",
+    "2019-03-13",
+    "2020-03-11",
+    "2021-03-10",
+    "2022-03-09",
+    "2023-03-08",
+    "2024-03-13",
+    "2025-03-12",
+    "2026-03-11"
+  ],
+  "changes": [
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "marshallfields direct llc",
+      "previous_filing_date": "2001-04-16",
+      "current_filing_date": "2002-04-15",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "marshallfields direct llc",
+        "names": [
+          "marshallfields.direct LLC"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000912057-02-015068"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "supertarget liquor of colorado inc",
+      "previous_filing_date": "2001-04-16",
+      "current_filing_date": "2002-04-15",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "supertarget liquor of colorado inc",
+        "names": [
+          "SuperTarget Liquor of Colorado, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000912057-02-015068"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "supertarget liquor of missouri inc",
+      "previous_filing_date": "2001-04-16",
+      "current_filing_date": "2002-04-15",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "supertarget liquor of missouri inc",
+        "names": [
+          "SuperTarget Liquor of Missouri, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000912057-02-015068"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "dbi ltd",
+      "previous_filing_date": "2001-04-16",
+      "current_filing_date": "2002-04-15",
+      "previous_disclosure": {
+        "identity_key": "dbi ltd",
+        "names": [
+          "DBI, Ltd."
+        ],
+        "jurisdictions": [
+          "IL"
+        ],
+        "accessions": [
+          "0000912057-01-508754"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "pbi inc",
+      "previous_filing_date": "2001-04-16",
+      "current_filing_date": "2002-04-15",
+      "previous_disclosure": {
+        "identity_key": "pbi inc",
+        "names": [
+          "PBI, Inc."
+        ],
+        "jurisdictions": [
+          "WI"
+        ],
+        "accessions": [
+          "0000912057-01-508754"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "rivertown trading company",
+      "previous_filing_date": "2001-04-16",
+      "current_filing_date": "2002-04-15",
+      "previous_disclosure": {
+        "identity_key": "rivertown trading company",
+        "names": [
+          "Rivertown Trading Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000912057-01-508754"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "rowley and schlimgen inc",
+      "previous_filing_date": "2001-04-16",
+      "current_filing_date": "2002-04-15",
+      "previous_disclosure": {
+        "identity_key": "rowley and schlimgen inc",
+        "names": [
+          "Rowley & Schlimgen, Inc."
+        ],
+        "jurisdictions": [
+          "WI"
+        ],
+        "accessions": [
+          "0000912057-01-508754"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "rtc holding inc",
+      "previous_filing_date": "2001-04-16",
+      "current_filing_date": "2002-04-15",
+      "previous_disclosure": {
+        "identity_key": "rtc holding inc",
+        "names": [
+          "RTC Holding, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000912057-01-508754"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "westbury holding company",
+      "previous_filing_date": "2002-04-15",
+      "current_filing_date": "2003-04-14",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "westbury holding company",
+        "names": [
+          "Westbury Holding Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-03-013199"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "bullseye corporation",
+      "previous_filing_date": "2002-04-15",
+      "current_filing_date": "2003-04-14",
+      "previous_disclosure": {
+        "identity_key": "bullseye corporation",
+        "names": [
+          "Bullseye Corporation"
+        ],
+        "jurisdictions": [
+          "DE"
+        ],
+        "accessions": [
+          "0000912057-02-015068"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "cahill and company inc",
+      "previous_filing_date": "2002-04-15",
+      "current_filing_date": "2003-04-14",
+      "previous_disclosure": {
+        "identity_key": "cahill and company inc",
+        "names": [
+          "Cahill & Company, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000912057-02-015068"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "daily planet company",
+      "previous_filing_date": "2002-04-15",
+      "current_filing_date": "2003-04-14",
+      "previous_disclosure": {
+        "identity_key": "daily planet company",
+        "names": [
+          "Daily Planet Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000912057-02-015068"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "hometown america company",
+      "previous_filing_date": "2002-04-15",
+      "current_filing_date": "2003-04-14",
+      "previous_disclosure": {
+        "identity_key": "hometown america company",
+        "names": [
+          "Hometown America Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000912057-02-015068"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "marshallfields direct llc",
+      "previous_filing_date": "2002-04-15",
+      "current_filing_date": "2003-04-14",
+      "previous_disclosure": {
+        "identity_key": "marshallfields direct llc",
+        "names": [
+          "marshallfields.direct LLC"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000912057-02-015068"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "northern creations company",
+      "previous_filing_date": "2002-04-15",
+      "current_filing_date": "2003-04-14",
+      "previous_disclosure": {
+        "identity_key": "northern creations company",
+        "names": [
+          "Northern Creations Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000912057-02-015068"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "northern fulfillment services company",
+      "previous_filing_date": "2002-04-15",
+      "current_filing_date": "2003-04-14",
+      "previous_disclosure": {
+        "identity_key": "northern fulfillment services company",
+        "names": [
+          "Northern Fulfillment Services Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000912057-02-015068"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "rivercrossings company",
+      "previous_filing_date": "2002-04-15",
+      "current_filing_date": "2003-04-14",
+      "previous_disclosure": {
+        "identity_key": "rivercrossings company",
+        "names": [
+          "RiverCrossings Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000912057-02-015068"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target direct llc",
+      "previous_filing_date": "2002-04-15",
+      "current_filing_date": "2003-04-14",
+      "previous_disclosure": {
+        "identity_key": "target direct llc",
+        "names": [
+          "target.direct LLC"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000912057-02-015068"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "NAME_TEXT_CHANGED",
+      "identity_key": "highbridge company",
+      "previous_filing_date": "2002-04-15",
+      "current_filing_date": "2003-04-14",
+      "previous_disclosure": {
+        "identity_key": "highbridge company",
+        "names": [
+          "Highbridge Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000912057-02-015068"
+        ]
+      },
+      "current_disclosure": {
+        "identity_key": "highbridge company",
+        "names": [
+          "HighBridge Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-03-013199"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "NAME_TEXT_CHANGED",
+      "identity_key": "highbridge music company",
+      "previous_filing_date": "2002-04-15",
+      "current_filing_date": "2003-04-14",
+      "previous_disclosure": {
+        "identity_key": "highbridge music company",
+        "names": [
+          "Highbridge Music Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000912057-02-015068"
+        ]
+      },
+      "current_disclosure": {
+        "identity_key": "highbridge music company",
+        "names": [
+          "HighBridge Music Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-03-013199"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "amc nicaragua",
+      "previous_filing_date": "2003-04-14",
+      "current_filing_date": "2004-04-05",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "amc nicaragua",
+        "names": [
+          "AMC Nicaragua"
+        ],
+        "jurisdictions": [
+          "Nicaragua"
+        ],
+        "accessions": [
+          "0001047469-04-010838"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target global trade inc",
+      "previous_filing_date": "2003-04-14",
+      "current_filing_date": "2004-04-05",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target global trade inc",
+        "names": [
+          "Target Global Trade, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-04-010838"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "amc dominican republic s a",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "amc dominican republic s a",
+        "names": [
+          "AMC Dominican Republic, S.A."
+        ],
+        "jurisdictions": [
+          "Dominican Republic"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "amc el salvador s a",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "amc el salvador s a",
+        "names": [
+          "AMC El Salvador, S.A."
+        ],
+        "jurisdictions": [
+          "El Salvador"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "amc nicaragua s a",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "amc nicaragua s a",
+        "names": [
+          "AMC Nicaragua, S.A."
+        ],
+        "jurisdictions": [
+          "Nicaragua"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "associated merchandising korea corporation",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "associated merchandising korea corporation",
+        "names": [
+          "Associated Merchandising Korea Corporation"
+        ],
+        "jurisdictions": [
+          "Korea"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "deerfield assumption llc",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "deerfield assumption llc",
+        "names": [
+          "Deerfield Assumption LLC"
+        ],
+        "jurisdictions": [
+          "DE"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "merchants festival llc",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "merchants festival llc",
+        "names": [
+          "Merchant’s Festival LLC"
+        ],
+        "jurisdictions": [
+          "GA"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "red tail llc",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "red tail llc",
+        "names": [
+          "Red Tail LLC"
+        ],
+        "jurisdictions": [
+          "DE"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target bank",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target bank",
+        "names": [
+          "Target Bank"
+        ],
+        "jurisdictions": [
+          "UT"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target bridges inc",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target bridges inc",
+        "names": [
+          "Target Bridges, Inc."
+        ],
+        "jurisdictions": [
+          "DE"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target commercial interiors inc",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target commercial interiors inc",
+        "names": [
+          "Target Commercial Interiors, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target national bank",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target national bank",
+        "names": [
+          "Target National Bank"
+        ],
+        "jurisdictions": [
+          "a national banking association"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target technology services india private limited",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target technology services india private limited",
+        "names": [
+          "Target Technology Services India Private Limited"
+        ],
+        "jurisdictions": [
+          "India"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "amc nicaragua",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": {
+        "identity_key": "amc nicaragua",
+        "names": [
+          "AMC Nicaragua"
+        ],
+        "jurisdictions": [
+          "Nicaragua"
+        ],
+        "accessions": [
+          "0001047469-04-010838"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "daytons commercial interiors inc",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": {
+        "identity_key": "daytons commercial interiors inc",
+        "names": [
+          "Dayton's Commercial Interiors, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-04-010838"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "daytons iron horse liquors inc",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": {
+        "identity_key": "daytons iron horse liquors inc",
+        "names": [
+          "Dayton's Iron Horse Liquors, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-04-010838"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "marshall fields chicago inc",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": {
+        "identity_key": "marshall fields chicago inc",
+        "names": [
+          "Marshall Field's Chicago, Inc."
+        ],
+        "jurisdictions": [
+          "DE"
+        ],
+        "accessions": [
+          "0001047469-04-010838"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "mayfair wine and liquor shop inc",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": {
+        "identity_key": "mayfair wine and liquor shop inc",
+        "names": [
+          "Mayfair Wine & Liquor Shop, Inc."
+        ],
+        "jurisdictions": [
+          "WI"
+        ],
+        "accessions": [
+          "0001047469-04-010838"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "mervyns",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": {
+        "identity_key": "mervyns",
+        "names": [
+          "Mervyn's"
+        ],
+        "jurisdictions": [
+          "CA"
+        ],
+        "accessions": [
+          "0001047469-04-010838"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "mervyns brands inc",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": {
+        "identity_key": "mervyns brands inc",
+        "names": [
+          "Mervyn's Brands, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-04-010838"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "mervyns inc",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": {
+        "identity_key": "mervyns inc",
+        "names": [
+          "Mervyn's, Inc."
+        ],
+        "jurisdictions": [
+          "DE"
+        ],
+        "accessions": [
+          "0001047469-04-010838"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "rooftop inc",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": {
+        "identity_key": "rooftop inc",
+        "names": [
+          "Rooftop, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-04-010838"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "NAME_TEXT_CHANGED",
+      "identity_key": "amc s pte ltd",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": {
+        "identity_key": "amc s pte ltd",
+        "names": [
+          "AMC(S) Pte., Ltd."
+        ],
+        "jurisdictions": [
+          "Singapore"
+        ],
+        "accessions": [
+          "0001047469-04-010838"
+        ]
+      },
+      "current_disclosure": {
+        "identity_key": "amc s pte ltd",
+        "names": [
+          "AMC(s) Pte., Ltd."
+        ],
+        "jurisdictions": [
+          "Singapore"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "NAME_TEXT_CHANGED",
+      "identity_key": "highbridge company",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": {
+        "identity_key": "highbridge company",
+        "names": [
+          "HighBridge Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-04-010838"
+        ]
+      },
+      "current_disclosure": {
+        "identity_key": "highbridge company",
+        "names": [
+          "Highbridge Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "NAME_TEXT_CHANGED",
+      "identity_key": "highbridge music company",
+      "previous_filing_date": "2004-04-05",
+      "current_filing_date": "2005-04-11",
+      "previous_disclosure": {
+        "identity_key": "highbridge music company",
+        "names": [
+          "HighBridge Music Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-04-010838"
+        ]
+      },
+      "current_disclosure": {
+        "identity_key": "highbridge music company",
+        "names": [
+          "Highbridge Music Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "associated merchandising corporation",
+      "previous_filing_date": "2005-04-11",
+      "current_filing_date": "2006-04-10",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "associated merchandising corporation",
+        "names": [
+          "Associated Merchandising Corporation"
+        ],
+        "jurisdictions": [
+          "NY"
+        ],
+        "accessions": [
+          "0001104659-06-024036"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target services india private limited",
+      "previous_filing_date": "2005-04-11",
+      "current_filing_date": "2006-04-10",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target services india private limited",
+        "names": [
+          "Target Services India Private Limited"
+        ],
+        "jurisdictions": [
+          "India"
+        ],
+        "accessions": [
+          "0001104659-06-024036"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "tcdc inc",
+      "previous_filing_date": "2005-04-11",
+      "current_filing_date": "2006-04-10",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "tcdc inc",
+        "names": [
+          "TCDC, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001104659-06-024036"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "boulder bridge i development corporation",
+      "previous_filing_date": "2005-04-11",
+      "current_filing_date": "2006-04-10",
+      "previous_disclosure": {
+        "identity_key": "boulder bridge i development corporation",
+        "names": [
+          "Boulder Bridge I Development Corporation"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "boulder bridge ii development corporation",
+      "previous_filing_date": "2005-04-11",
+      "current_filing_date": "2006-04-10",
+      "previous_disclosure": {
+        "identity_key": "boulder bridge ii development corporation",
+        "names": [
+          "Boulder Bridge II Development Corporation"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "boulder bridge iii development corporation",
+      "previous_filing_date": "2005-04-11",
+      "current_filing_date": "2006-04-10",
+      "previous_disclosure": {
+        "identity_key": "boulder bridge iii development corporation",
+        "names": [
+          "Boulder Bridge III Development Corporation"
+        ],
+        "jurisdictions": [
+          "CA"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "deerfield assumption llc",
+      "previous_filing_date": "2005-04-11",
+      "current_filing_date": "2006-04-10",
+      "previous_disclosure": {
+        "identity_key": "deerfield assumption llc",
+        "names": [
+          "Deerfield Assumption LLC"
+        ],
+        "jurisdictions": [
+          "DE"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "merchants festival llc",
+      "previous_filing_date": "2005-04-11",
+      "current_filing_date": "2006-04-10",
+      "previous_disclosure": {
+        "identity_key": "merchants festival llc",
+        "names": [
+          "Merchant’s Festival LLC"
+        ],
+        "jurisdictions": [
+          "GA"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "supertarget liquor of colorado inc",
+      "previous_filing_date": "2005-04-11",
+      "current_filing_date": "2006-04-10",
+      "previous_disclosure": {
+        "identity_key": "supertarget liquor of colorado inc",
+        "names": [
+          "SuperTarget Liquor of Colorado, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target insurance agency inc",
+      "previous_filing_date": "2005-04-11",
+      "current_filing_date": "2006-04-10",
+      "previous_disclosure": {
+        "identity_key": "target insurance agency inc",
+        "names": [
+          "Target Insurance Agency, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target technology services india private limited",
+      "previous_filing_date": "2005-04-11",
+      "current_filing_date": "2006-04-10",
+      "previous_disclosure": {
+        "identity_key": "target technology services india private limited",
+        "names": [
+          "Target Technology Services India Private Limited"
+        ],
+        "jurisdictions": [
+          "India"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "the associated merchandising corporation",
+      "previous_filing_date": "2005-04-11",
+      "current_filing_date": "2006-04-10",
+      "previous_disclosure": {
+        "identity_key": "the associated merchandising corporation",
+        "names": [
+          "The Associated Merchandising Corporation"
+        ],
+        "jurisdictions": [
+          "NY"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "JURISDICTION_TEXT_CHANGED",
+      "identity_key": "amcrest france sarl",
+      "previous_filing_date": "2005-04-11",
+      "current_filing_date": "2006-04-10",
+      "previous_disclosure": {
+        "identity_key": "amcrest france sarl",
+        "names": [
+          "Amcrest France Sarl"
+        ],
+        "jurisdictions": [
+          "Paris, France"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "current_disclosure": {
+        "identity_key": "amcrest france sarl",
+        "names": [
+          "Amcrest France Sarl"
+        ],
+        "jurisdictions": [
+          "France"
+        ],
+        "accessions": [
+          "0001104659-06-024036"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "JURISDICTION_TEXT_CHANGED",
+      "identity_key": "associated merchandising corporation gmbh",
+      "previous_filing_date": "2005-04-11",
+      "current_filing_date": "2006-04-10",
+      "previous_disclosure": {
+        "identity_key": "associated merchandising corporation gmbh",
+        "names": [
+          "Associated Merchandising Corporation GmBH"
+        ],
+        "jurisdictions": [
+          "Frankfurt, Germany"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "current_disclosure": {
+        "identity_key": "associated merchandising corporation gmbh",
+        "names": [
+          "Associated Merchandising Corporation GmBH"
+        ],
+        "jurisdictions": [
+          "Germany"
+        ],
+        "accessions": [
+          "0001104659-06-024036"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "JURISDICTION_TEXT_CHANGED",
+      "identity_key": "strata merchandising ltd",
+      "previous_filing_date": "2005-04-11",
+      "current_filing_date": "2006-04-10",
+      "previous_disclosure": {
+        "identity_key": "strata merchandising ltd",
+        "names": [
+          "Strata Merchandising, Ltd."
+        ],
+        "jurisdictions": [
+          "London, England"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "current_disclosure": {
+        "identity_key": "strata merchandising ltd",
+        "names": [
+          "Strata Merchandising, Ltd."
+        ],
+        "jurisdictions": [
+          "England"
+        ],
+        "accessions": [
+          "0001104659-06-024036"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "JURISDICTION_TEXT_CHANGED",
+      "identity_key": "target bank",
+      "previous_filing_date": "2005-04-11",
+      "current_filing_date": "2006-04-10",
+      "previous_disclosure": {
+        "identity_key": "target bank",
+        "names": [
+          "Target Bank"
+        ],
+        "jurisdictions": [
+          "UT"
+        ],
+        "accessions": [
+          "0001104659-05-015954"
+        ]
+      },
+      "current_disclosure": {
+        "identity_key": "target bank",
+        "names": [
+          "Target Bank"
+        ],
+        "jurisdictions": [
+          "UT banking corporation"
+        ],
+        "accessions": [
+          "0001104659-06-024036"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "dbc llc",
+      "previous_filing_date": "2006-04-10",
+      "current_filing_date": "2007-03-15",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "dbc llc",
+        "names": [
+          "DBC, LLC"
+        ],
+        "jurisdictions": [
+          "AK"
+        ],
+        "accessions": [
+          "0001047469-07-001800"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "glendale west llc",
+      "previous_filing_date": "2006-04-10",
+      "current_filing_date": "2007-03-15",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "glendale west llc",
+        "names": [
+          "Glendale West, LLC"
+        ],
+        "jurisdictions": [
+          "CA"
+        ],
+        "accessions": [
+          "0001047469-07-001800"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "itc sales and procurement llc",
+      "previous_filing_date": "2006-04-10",
+      "current_filing_date": "2007-03-15",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "itc sales and procurement llc",
+        "names": [
+          "ITC Sales and Procurement, LLC"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-07-001800"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target china holdings limited",
+      "previous_filing_date": "2006-04-10",
+      "current_filing_date": "2007-03-15",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target china holdings limited",
+        "names": [
+          "Target China Holdings Limited"
+        ],
+        "jurisdictions": [
+          "Hong Kong"
+        ],
+        "accessions": [
+          "0001047469-07-001800"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target corporation india private limited",
+      "previous_filing_date": "2006-04-10",
+      "current_filing_date": "2007-03-15",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target corporation india private limited",
+        "names": [
+          "Target Corporation India Private Limited"
+        ],
+        "jurisdictions": [
+          "India"
+        ],
+        "accessions": [
+          "0001047469-07-001800"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target sourcing services limited",
+      "previous_filing_date": "2006-04-10",
+      "current_filing_date": "2007-03-15",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target sourcing services limited",
+        "names": [
+          "Target Sourcing Services Limited"
+        ],
+        "jurisdictions": [
+          "Hong Kong"
+        ],
+        "accessions": [
+          "0001047469-07-001800"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "tg holdings",
+      "previous_filing_date": "2006-04-10",
+      "current_filing_date": "2007-03-15",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "tg holdings",
+        "names": [
+          "TG Holdings"
+        ],
+        "jurisdictions": [
+          "Bermuda"
+        ],
+        "accessions": [
+          "0001047469-07-001800"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "tss one limited",
+      "previous_filing_date": "2006-04-10",
+      "current_filing_date": "2007-03-15",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "tss one limited",
+        "names": [
+          "TSS One Limited"
+        ],
+        "jurisdictions": [
+          "Hong Kong"
+        ],
+        "accessions": [
+          "0001047469-07-001800"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "tss two limited",
+      "previous_filing_date": "2006-04-10",
+      "current_filing_date": "2007-03-15",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "tss two limited",
+        "names": [
+          "TSS Two Limited"
+        ],
+        "jurisdictions": [
+          "Hong Kong"
+        ],
+        "accessions": [
+          "0001047469-07-001800"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "highbridge company",
+      "previous_filing_date": "2006-04-10",
+      "current_filing_date": "2007-03-15",
+      "previous_disclosure": {
+        "identity_key": "highbridge company",
+        "names": [
+          "Highbridge Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001104659-06-024036"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "highbridge music company",
+      "previous_filing_date": "2006-04-10",
+      "current_filing_date": "2007-03-15",
+      "previous_disclosure": {
+        "identity_key": "highbridge music company",
+        "names": [
+          "Highbridge Music Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001104659-06-024036"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "retail properties inc",
+      "previous_filing_date": "2006-04-10",
+      "current_filing_date": "2007-03-15",
+      "previous_disclosure": {
+        "identity_key": "retail properties inc",
+        "names": [
+          "Retail Properties, Inc."
+        ],
+        "jurisdictions": [
+          "DE"
+        ],
+        "accessions": [
+          "0001104659-06-024036"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "strata merchandising ltd",
+      "previous_filing_date": "2006-04-10",
+      "current_filing_date": "2007-03-15",
+      "previous_disclosure": {
+        "identity_key": "strata merchandising ltd",
+        "names": [
+          "Strata Merchandising, Ltd."
+        ],
+        "jurisdictions": [
+          "England"
+        ],
+        "accessions": [
+          "0001104659-06-024036"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target services india private limited",
+      "previous_filing_date": "2006-04-10",
+      "current_filing_date": "2007-03-15",
+      "previous_disclosure": {
+        "identity_key": "target services india private limited",
+        "names": [
+          "Target Services India Private Limited"
+        ],
+        "jurisdictions": [
+          "India"
+        ],
+        "accessions": [
+          "0001104659-06-024036"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "NAME_TEXT_CHANGED",
+      "identity_key": "amc s pte ltd",
+      "previous_filing_date": "2006-04-10",
+      "current_filing_date": "2007-03-15",
+      "previous_disclosure": {
+        "identity_key": "amc s pte ltd",
+        "names": [
+          "AMC(s) Pte., Ltd."
+        ],
+        "jurisdictions": [
+          "Singapore"
+        ],
+        "accessions": [
+          "0001104659-06-024036"
+        ]
+      },
+      "current_disclosure": {
+        "identity_key": "amc s pte ltd",
+        "names": [
+          "AMC(S) Pte., Ltd."
+        ],
+        "jurisdictions": [
+          "Singapore"
+        ],
+        "accessions": [
+          "0001047469-07-001800"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "associated merchandising corporation pensionsverwaltung gmbh",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "associated merchandising corporation pensionsverwaltung gmbh",
+        "names": [
+          "Associated Merchandising Corporation Pensionsverwaltung GmBH"
+        ],
+        "jurisdictions": [
+          "Germany"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target jefferson boulevard llc",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target jefferson boulevard llc",
+        "names": [
+          "Target Jefferson Boulevard, LLC"
+        ],
+        "jurisdictions": [
+          "CA"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target medford urban renewal llc",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target medford urban renewal llc",
+        "names": [
+          "Target Medford Urban Renewal, LLC"
+        ],
+        "jurisdictions": [
+          "NJ"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target millville urban renewal llc",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target millville urban renewal llc",
+        "names": [
+          "Target Millville Urban Renewal, LLC"
+        ],
+        "jurisdictions": [
+          "NJ"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target sourcing services asia limited",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target sourcing services asia limited",
+        "names": [
+          "Target Sourcing Services Asia Limited"
+        ],
+        "jurisdictions": [
+          "Hong Kong"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target sourcing services guatemala sociedad anonima",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target sourcing services guatemala sociedad anonima",
+        "names": [
+          "Target Sourcing Services Guatemala Sociedad Anonima"
+        ],
+        "jurisdictions": [
+          "Guatemala"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target sourcing services hong kong limited",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target sourcing services hong kong limited",
+        "names": [
+          "Target Sourcing Services Hong Kong Limited"
+        ],
+        "jurisdictions": [
+          "Hong Kong"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target sourcing services india private limited",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target sourcing services india private limited",
+        "names": [
+          "Target Sourcing Services India Private Limited"
+        ],
+        "jurisdictions": [
+          "India"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target sourcing services italy s r l",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target sourcing services italy s r l",
+        "names": [
+          "Target Sourcing Services Italy S.r.l."
+        ],
+        "jurisdictions": [
+          "Italy"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target sourcing services pacific limited",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target sourcing services pacific limited",
+        "names": [
+          "Target Sourcing Services Pacific Limited"
+        ],
+        "jurisdictions": [
+          "Hong Kong"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target stafford urban renewal llc",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target stafford urban renewal llc",
+        "names": [
+          "Target Stafford Urban Renewal, LLC"
+        ],
+        "jurisdictions": [
+          "NJ"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "tgt energy llc",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "tgt energy llc",
+        "names": [
+          "TGT Energy LLC"
+        ],
+        "jurisdictions": [
+          "TX"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "REAPPEARED_IN_DISCLOSURE",
+      "identity_key": "the associated merchandising corporation",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "the associated merchandising corporation",
+        "names": [
+          "The Associated Merchandising Corporation"
+        ],
+        "jurisdictions": [
+          "NY"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "amc guatemala sociedad anonima",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": {
+        "identity_key": "amc guatemala sociedad anonima",
+        "names": [
+          "AMC Guatemala Sociedad Anonima"
+        ],
+        "jurisdictions": [
+          "Guatemala"
+        ],
+        "accessions": [
+          "0001047469-07-001800"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "associated merchandising corporation",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": {
+        "identity_key": "associated merchandising corporation",
+        "names": [
+          "Associated Merchandising Corporation"
+        ],
+        "jurisdictions": [
+          "NY"
+        ],
+        "accessions": [
+          "0001047469-07-001800"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "associated merchandising corporation gmbh",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": {
+        "identity_key": "associated merchandising corporation gmbh",
+        "names": [
+          "Associated Merchandising Corporation GmBH"
+        ],
+        "jurisdictions": [
+          "Germany"
+        ],
+        "accessions": [
+          "0001047469-07-001800"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target china holdings limited",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": {
+        "identity_key": "target china holdings limited",
+        "names": [
+          "Target China Holdings Limited"
+        ],
+        "jurisdictions": [
+          "Hong Kong"
+        ],
+        "accessions": [
+          "0001047469-07-001800"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "NAME_TEXT_CHANGED",
+      "identity_key": "amc s pte ltd",
+      "previous_filing_date": "2007-03-15",
+      "current_filing_date": "2008-03-13",
+      "previous_disclosure": {
+        "identity_key": "amc s pte ltd",
+        "names": [
+          "AMC(S) Pte., Ltd."
+        ],
+        "jurisdictions": [
+          "Singapore"
+        ],
+        "accessions": [
+          "0001047469-07-001800"
+        ]
+      },
+      "current_disclosure": {
+        "identity_key": "amc s pte ltd",
+        "names": [
+          "AMC (S) Pte. Ltd."
+        ],
+        "jurisdictions": [
+          "Singapore"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target clinic medical associates maryland llc",
+      "previous_filing_date": "2008-03-13",
+      "current_filing_date": "2009-03-13",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target clinic medical associates maryland llc",
+        "names": [
+          "Target Clinic Medical Associates Maryland, LLC"
+        ],
+        "jurisdictions": [
+          "MD"
+        ],
+        "accessions": [
+          "0001047469-09-002623"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target wilson yard qalicb llc",
+      "previous_filing_date": "2008-03-13",
+      "current_filing_date": "2009-03-13",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target wilson yard qalicb llc",
+        "names": [
+          "Target Wilson Yard QALICB, LLC"
+        ],
+        "jurisdictions": [
+          "DE"
+        ],
+        "accessions": [
+          "0001047469-09-002623"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "walsh bros",
+      "previous_filing_date": "2008-03-13",
+      "current_filing_date": "2009-03-13",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "walsh bros",
+        "names": [
+          "Walsh Bros."
+        ],
+        "jurisdictions": [
+          "AZ"
+        ],
+        "accessions": [
+          "0001047469-09-002623"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "dayton development company",
+      "previous_filing_date": "2008-03-13",
+      "current_filing_date": "2009-03-13",
+      "previous_disclosure": {
+        "identity_key": "dayton development company",
+        "names": [
+          "Dayton Development Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "dbc llc",
+      "previous_filing_date": "2008-03-13",
+      "current_filing_date": "2009-03-13",
+      "previous_disclosure": {
+        "identity_key": "dbc llc",
+        "names": [
+          "DBC, LLC"
+        ],
+        "jurisdictions": [
+          "AK"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "eighth street development company",
+      "previous_filing_date": "2008-03-13",
+      "current_filing_date": "2009-03-13",
+      "previous_disclosure": {
+        "identity_key": "eighth street development company",
+        "names": [
+          "Eighth Street Development Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target foundation",
+      "previous_filing_date": "2008-03-13",
+      "current_filing_date": "2009-03-13",
+      "previous_disclosure": {
+        "identity_key": "target foundation",
+        "names": [
+          "Target Foundation"
+        ],
+        "jurisdictions": [
+          "a MN not-for-profit organization"
+        ],
+        "accessions": [
+          "0001047469-08-002681"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "pp and e llc",
+      "previous_filing_date": "2009-03-13",
+      "current_filing_date": "2010-03-12",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "pp and e llc",
+        "names": [
+          "PP&E, LLC"
+        ],
+        "jurisdictions": [
+          "TX"
+        ],
+        "accessions": [
+          "0001047469-10-002121"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "supertarget liquor of massachusetts inc",
+      "previous_filing_date": "2009-03-13",
+      "current_filing_date": "2010-03-12",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "supertarget liquor of massachusetts inc",
+        "names": [
+          "SuperTarget Liquor of Massachusetts, Inc."
+        ],
+        "jurisdictions": [
+          "MA"
+        ],
+        "accessions": [
+          "0001047469-10-002121"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "amc el salvador s a",
+      "previous_filing_date": "2009-03-13",
+      "current_filing_date": "2010-03-12",
+      "previous_disclosure": {
+        "identity_key": "amc el salvador s a",
+        "names": [
+          "AMC El Salvador, S.A."
+        ],
+        "jurisdictions": [
+          "El Salvador"
+        ],
+        "accessions": [
+          "0001047469-09-002623"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "tgt energy llc",
+      "previous_filing_date": "2009-03-13",
+      "current_filing_date": "2010-03-12",
+      "previous_disclosure": {
+        "identity_key": "tgt energy llc",
+        "names": [
+          "TGT Energy LLC"
+        ],
+        "jurisdictions": [
+          "TX"
+        ],
+        "accessions": [
+          "0001047469-09-002623"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "lafayette nominee owner llc",
+      "previous_filing_date": "2010-03-18",
+      "current_filing_date": "2011-03-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "lafayette nominee owner llc",
+        "names": [
+          "Lafayette Nominee Owner, LLC"
+        ],
+        "jurisdictions": [
+          "DE"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target canada co",
+      "previous_filing_date": "2010-03-18",
+      "current_filing_date": "2011-03-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target canada co",
+        "names": [
+          "Target Canada Co."
+        ],
+        "jurisdictions": [
+          "Nova Scotia"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target clinic medical associates florida llc",
+      "previous_filing_date": "2010-03-18",
+      "current_filing_date": "2011-03-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target clinic medical associates florida llc",
+        "names": [
+          "Target Clinic Medical Associates Florida, LLC"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target corporate services inc",
+      "previous_filing_date": "2010-03-18",
+      "current_filing_date": "2011-03-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target corporate services inc",
+        "names": [
+          "Target Corporate Services, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target enterprise inc",
+      "previous_filing_date": "2010-03-18",
+      "current_filing_date": "2011-03-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target enterprise inc",
+        "names": [
+          "Target Enterprise, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target food inc",
+      "previous_filing_date": "2010-03-18",
+      "current_filing_date": "2011-03-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target food inc",
+        "names": [
+          "Target Food, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target general merchandise inc",
+      "previous_filing_date": "2010-03-18",
+      "current_filing_date": "2011-03-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target general merchandise inc",
+        "names": [
+          "Target General Merchandise, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target sourcing services co ltd",
+      "previous_filing_date": "2010-03-18",
+      "current_filing_date": "2011-03-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target sourcing services co ltd",
+        "names": [
+          "Target Sourcing Services Co., Ltd."
+        ],
+        "jurisdictions": [
+          "Shanghai"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "tcc corporation s a r l",
+      "previous_filing_date": "2010-03-18",
+      "current_filing_date": "2011-03-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "tcc corporation s a r l",
+        "names": [
+          "TCC Corporation S.a.r.l."
+        ],
+        "jurisdictions": [
+          "Luxembourg"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "itc sales and procurement llc",
+      "previous_filing_date": "2010-03-18",
+      "current_filing_date": "2011-03-11",
+      "previous_disclosure": {
+        "identity_key": "itc sales and procurement llc",
+        "names": [
+          "ITC Sales and Procurement, LLC"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-10-002408"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target receivables llc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target receivables llc",
+        "names": [
+          "Target Receivables LLC"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-12-002714"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "amc dominican republic s a",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "amc dominican republic s a",
+        "names": [
+          "AMC Dominican Republic, S.A."
+        ],
+        "jurisdictions": [
+          "Dominican Republic"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "amc honduras s a",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "amc honduras s a",
+        "names": [
+          "AMC Honduras, S.A."
+        ],
+        "jurisdictions": [
+          "Honduras"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "amc nicaragua s a",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "amc nicaragua s a",
+        "names": [
+          "AMC Nicaragua, S.A."
+        ],
+        "jurisdictions": [
+          "Nicaragua"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "amc s pte ltd",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "amc s pte ltd",
+        "names": [
+          "AMC (S) Pte. Ltd."
+        ],
+        "jurisdictions": [
+          "Singapore"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "amcrest corporation",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "amcrest corporation",
+        "names": [
+          "Amcrest Corporation"
+        ],
+        "jurisdictions": [
+          "NY"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "amcrest france sarl",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "amcrest france sarl",
+        "names": [
+          "Amcrest France Sarl"
+        ],
+        "jurisdictions": [
+          "France"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "associated merchandising corporation pensionsverwaltung gmbh",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "associated merchandising corporation pensionsverwaltung gmbh",
+        "names": [
+          "Associated Merchandising Corporation Pensionsverwaltung GmBH"
+        ],
+        "jurisdictions": [
+          "Germany"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "associated merchandising korea corporation",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "associated merchandising korea corporation",
+        "names": [
+          "Associated Merchandising Korea Corporation"
+        ],
+        "jurisdictions": [
+          "Korea"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "dayton credit company",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "dayton credit company",
+        "names": [
+          "Dayton Credit Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "glendale west llc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "glendale west llc",
+        "names": [
+          "Glendale West, LLC"
+        ],
+        "jurisdictions": [
+          "CA"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "lafayette nominee owner llc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "lafayette nominee owner llc",
+        "names": [
+          "Lafayette Nominee Owner, LLC"
+        ],
+        "jurisdictions": [
+          "DE"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "pp and e llc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "pp and e llc",
+        "names": [
+          "PP&E, LLC"
+        ],
+        "jurisdictions": [
+          "TX"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "red tail llc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "red tail llc",
+        "names": [
+          "Red Tail LLC"
+        ],
+        "jurisdictions": [
+          "DE"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "stl of nebraska inc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "stl of nebraska inc",
+        "names": [
+          "STL of Nebraska, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "supertarget liquor of massachusetts inc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "supertarget liquor of massachusetts inc",
+        "names": [
+          "SuperTarget Liquor of Massachusetts, Inc."
+        ],
+        "jurisdictions": [
+          "MA"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "supertarget liquor of missouri inc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "supertarget liquor of missouri inc",
+        "names": [
+          "SuperTarget Liquor of Missouri, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "supertarget liquor of texas inc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "supertarget liquor of texas inc",
+        "names": [
+          "SuperTarget Liquor of Texas, Inc."
+        ],
+        "jurisdictions": [
+          "TX"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target bridges inc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target bridges inc",
+        "names": [
+          "Target Bridges, Inc."
+        ],
+        "jurisdictions": [
+          "DE"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target canada co",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target canada co",
+        "names": [
+          "Target Canada Co."
+        ],
+        "jurisdictions": [
+          "Nova Scotia"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target clinic medical associates florida llc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target clinic medical associates florida llc",
+        "names": [
+          "Target Clinic Medical Associates Florida, LLC"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target clinic medical associates maryland llc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target clinic medical associates maryland llc",
+        "names": [
+          "Target Clinic Medical Associates Maryland, LLC"
+        ],
+        "jurisdictions": [
+          "MD"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target connect inc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target connect inc",
+        "names": [
+          "Target Connect, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target corporation india private limited",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target corporation india private limited",
+        "names": [
+          "Target Corporation India Private Limited"
+        ],
+        "jurisdictions": [
+          "India"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target customs brokers inc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target customs brokers inc",
+        "names": [
+          "Target Customs Brokers, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target food inc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target food inc",
+        "names": [
+          "Target Food, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target global trade inc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target global trade inc",
+        "names": [
+          "Target Global Trade, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target jefferson boulevard llc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target jefferson boulevard llc",
+        "names": [
+          "Target Jefferson Boulevard, LLC"
+        ],
+        "jurisdictions": [
+          "CA"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target medford urban renewal llc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target medford urban renewal llc",
+        "names": [
+          "Target Medford Urban Renewal, LLC"
+        ],
+        "jurisdictions": [
+          "NJ"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target millville urban renewal llc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target millville urban renewal llc",
+        "names": [
+          "Target Millville Urban Renewal, LLC"
+        ],
+        "jurisdictions": [
+          "NJ"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target receivables corporation",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target receivables corporation",
+        "names": [
+          "Target Receivables Corporation"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target services inc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target services inc",
+        "names": [
+          "Target Services, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target sourcing services asia limited",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target sourcing services asia limited",
+        "names": [
+          "Target Sourcing Services Asia Limited"
+        ],
+        "jurisdictions": [
+          "Hong Kong"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target sourcing services co ltd",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target sourcing services co ltd",
+        "names": [
+          "Target Sourcing Services Co., Ltd."
+        ],
+        "jurisdictions": [
+          "Shanghai"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target sourcing services guatemala sociedad anonima",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target sourcing services guatemala sociedad anonima",
+        "names": [
+          "Target Sourcing Services Guatemala Sociedad Anonima"
+        ],
+        "jurisdictions": [
+          "Guatemala"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target sourcing services hong kong limited",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target sourcing services hong kong limited",
+        "names": [
+          "Target Sourcing Services Hong Kong Limited"
+        ],
+        "jurisdictions": [
+          "Hong Kong"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target sourcing services india private limited",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target sourcing services india private limited",
+        "names": [
+          "Target Sourcing Services India Private Limited"
+        ],
+        "jurisdictions": [
+          "India"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target sourcing services italy s r l",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target sourcing services italy s r l",
+        "names": [
+          "Target Sourcing Services Italy S.r.l."
+        ],
+        "jurisdictions": [
+          "Italy"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target sourcing services limited",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target sourcing services limited",
+        "names": [
+          "Target Sourcing Services Limited"
+        ],
+        "jurisdictions": [
+          "Hong Kong"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target sourcing services pacific limited",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target sourcing services pacific limited",
+        "names": [
+          "Target Sourcing Services Pacific Limited"
+        ],
+        "jurisdictions": [
+          "Hong Kong"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target stafford urban renewal llc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target stafford urban renewal llc",
+        "names": [
+          "Target Stafford Urban Renewal, LLC"
+        ],
+        "jurisdictions": [
+          "NJ"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target stores inc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target stores inc",
+        "names": [
+          "Target Stores, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target wilson yard qalicb llc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "target wilson yard qalicb llc",
+        "names": [
+          "Target Wilson Yard QALICB, LLC"
+        ],
+        "jurisdictions": [
+          "DE"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "tcc corporation s a r l",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "tcc corporation s a r l",
+        "names": [
+          "TCC Corporation S.a.r.l."
+        ],
+        "jurisdictions": [
+          "Luxembourg"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "tcdc inc",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "tcdc inc",
+        "names": [
+          "TCDC, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "tg holdings",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "tg holdings",
+        "names": [
+          "TG Holdings"
+        ],
+        "jurisdictions": [
+          "Bermuda"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "the associated merchandising corporation",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "the associated merchandising corporation",
+        "names": [
+          "The Associated Merchandising Corporation"
+        ],
+        "jurisdictions": [
+          "NY"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "tss one limited",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "tss one limited",
+        "names": [
+          "TSS One Limited"
+        ],
+        "jurisdictions": [
+          "Hong Kong"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "tss two limited",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "tss two limited",
+        "names": [
+          "TSS Two Limited"
+        ],
+        "jurisdictions": [
+          "Hong Kong"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "walsh bros",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "walsh bros",
+        "names": [
+          "Walsh Bros."
+        ],
+        "jurisdictions": [
+          "AZ"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "westbury holding company",
+      "previous_filing_date": "2011-03-11",
+      "current_filing_date": "2012-03-15",
+      "previous_disclosure": {
+        "identity_key": "westbury holding company",
+        "names": [
+          "Westbury Holding Company"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-11-002032"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "REAPPEARED_IN_DISCLOSURE",
+      "identity_key": "target canada co",
+      "previous_filing_date": "2012-03-15",
+      "current_filing_date": "2013-03-20",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target canada co",
+        "names": [
+          "Target Canada Co."
+        ],
+        "jurisdictions": [
+          "Nova Scotia"
+        ],
+        "accessions": [
+          "0001047469-13-003100"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "tg holdings canada lp",
+      "previous_filing_date": "2012-03-15",
+      "current_filing_date": "2013-03-20",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "tg holdings canada lp",
+        "names": [
+          "TG Holdings Canada LP"
+        ],
+        "jurisdictions": [
+          "Ontario"
+        ],
+        "accessions": [
+          "0001047469-13-003100"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target commercial interiors inc",
+      "previous_filing_date": "2012-03-15",
+      "current_filing_date": "2013-03-20",
+      "previous_disclosure": {
+        "identity_key": "target commercial interiors inc",
+        "names": [
+          "Target Commercial Interiors, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0001047469-12-002714"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "APPEARED_IN_DISCLOSURE",
+      "identity_key": "target canada property lp",
+      "previous_filing_date": "2013-03-20",
+      "current_filing_date": "2014-03-14",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target canada property lp",
+        "names": [
+          "Target Canada Property LP"
+        ],
+        "jurisdictions": [
+          "Ontario"
+        ],
+        "accessions": [
+          "0000027419-14-000014"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "REAPPEARED_IN_DISCLOSURE",
+      "identity_key": "target sourcing services asia limited",
+      "previous_filing_date": "2013-03-20",
+      "current_filing_date": "2014-03-14",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target sourcing services asia limited",
+        "names": [
+          "Target Sourcing Services Asia Limited"
+        ],
+        "jurisdictions": [
+          "Hong Kong"
+        ],
+        "accessions": [
+          "0000027419-14-000014"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target national bank",
+      "previous_filing_date": "2013-03-20",
+      "current_filing_date": "2014-03-14",
+      "previous_disclosure": {
+        "identity_key": "target national bank",
+        "names": [
+          "Target National Bank"
+        ],
+        "jurisdictions": [
+          "a national banking association"
+        ],
+        "accessions": [
+          "0001047469-13-003100"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "tg holdings canada lp",
+      "previous_filing_date": "2013-03-20",
+      "current_filing_date": "2014-03-14",
+      "previous_disclosure": {
+        "identity_key": "tg holdings canada lp",
+        "names": [
+          "TG Holdings Canada LP"
+        ],
+        "jurisdictions": [
+          "Ontario"
+        ],
+        "accessions": [
+          "0001047469-13-003100"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target bank",
+      "previous_filing_date": "2014-03-14",
+      "current_filing_date": "2018-03-14",
+      "previous_disclosure": {
+        "identity_key": "target bank",
+        "names": [
+          "Target Bank"
+        ],
+        "jurisdictions": [
+          "UT banking corporation"
+        ],
+        "accessions": [
+          "0000027419-14-000014"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target canada co",
+      "previous_filing_date": "2014-03-14",
+      "current_filing_date": "2018-03-14",
+      "previous_disclosure": {
+        "identity_key": "target canada co",
+        "names": [
+          "Target Canada Co."
+        ],
+        "jurisdictions": [
+          "Nova Scotia"
+        ],
+        "accessions": [
+          "0000027419-14-000014"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target canada property lp",
+      "previous_filing_date": "2014-03-14",
+      "current_filing_date": "2018-03-14",
+      "previous_disclosure": {
+        "identity_key": "target canada property lp",
+        "names": [
+          "Target Canada Property LP"
+        ],
+        "jurisdictions": [
+          "Ontario"
+        ],
+        "accessions": [
+          "0000027419-14-000014"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target corporate services inc",
+      "previous_filing_date": "2014-03-14",
+      "current_filing_date": "2018-03-14",
+      "previous_disclosure": {
+        "identity_key": "target corporate services inc",
+        "names": [
+          "Target Corporate Services, Inc."
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000027419-14-000014"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target receivables llc",
+      "previous_filing_date": "2014-03-14",
+      "current_filing_date": "2018-03-14",
+      "previous_disclosure": {
+        "identity_key": "target receivables llc",
+        "names": [
+          "Target Receivables LLC"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000027419-14-000014"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target sourcing services asia limited",
+      "previous_filing_date": "2014-03-14",
+      "current_filing_date": "2018-03-14",
+      "previous_disclosure": {
+        "identity_key": "target sourcing services asia limited",
+        "names": [
+          "Target Sourcing Services Asia Limited"
+        ],
+        "jurisdictions": [
+          "Hong Kong"
+        ],
+        "accessions": [
+          "0000027419-14-000014"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target capital corporation",
+      "previous_filing_date": "2018-03-14",
+      "current_filing_date": "2019-03-13",
+      "previous_disclosure": {
+        "identity_key": "target capital corporation",
+        "names": [
+          "Target Capital Corporation"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000027419-18-000010"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "REAPPEARED_IN_DISCLOSURE",
+      "identity_key": "target capital corporation",
+      "previous_filing_date": "2019-03-13",
+      "current_filing_date": "2020-03-11",
+      "previous_disclosure": null,
+      "current_disclosure": {
+        "identity_key": "target capital corporation",
+        "names": [
+          "Target Capital Corporation"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000027419-20-000008"
+        ]
+      },
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    },
+    {
+      "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+      "identity_key": "target capital corporation",
+      "previous_filing_date": "2020-03-11",
+      "current_filing_date": "2021-03-10",
+      "previous_disclosure": {
+        "identity_key": "target capital corporation",
+        "names": [
+          "Target Capital Corporation"
+        ],
+        "jurisdictions": [
+          "MN"
+        ],
+        "accessions": [
+          "0000027419-20-000008"
+        ]
+      },
+      "current_disclosure": null,
+      "inferred_corporate_event": null,
+      "requires_external_confirmation": true
+    }
+  ],
+  "summary": {
+    "comparison_count": 23,
+    "change_count": 183,
+    "counts_by_type": {
+      "APPEARED_IN_DISCLOSURE": 59,
+      "DISAPPEARED_FROM_DISCLOSURE": 109,
+      "JURISDICTION_TEXT_CHANGED": 4,
+      "NAME_TEXT_CHANGED": 7,
+      "REAPPEARED_IN_DISCLOSURE": 4
+    }
+  },
+  "interpretation_warning": "These are changes in SEC disclosure only. Appearance or disappearance does not prove acquisition, divestiture, dissolution, ownership, or legal status."
+}
