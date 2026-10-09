@@ -6,7 +6,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "code"))
 
 from adjudication.structure_change_packet import build_structure_change_packet
-from analysts.structure_change_analyst import validate_structure_change_result
+from analysts.structure_change_analyst import build_model_input, validate_structure_change_result
 
 
 CHANGE = {
@@ -106,3 +106,12 @@ def test_packet_contract_does_not_alias_global_allowed_decisions():
     first["model_contract"]["allowed_decisions"].remove("SUPPORTED_MERGER")
     second = packet()
     assert "SUPPORTED_MERGER" in second["model_contract"]["allowed_decisions"]
+
+
+def test_model_input_excludes_collection_and_adjudication_bookkeeping():
+    source = packet()
+    source["collection"] = {"documents_inspected": [{"document": "large.htm"}]}
+    model_input = build_model_input(source)
+    assert model_input["evidence"] == EVIDENCE
+    assert "collection" not in model_input
+    assert "adjudication" not in model_input

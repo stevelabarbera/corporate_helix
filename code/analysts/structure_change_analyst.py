@@ -15,6 +15,47 @@ not establish an allowed corporate event, return INSUFFICIENT_EVIDENCE. Appearan
 from disclosure is never by itself proof of acquisition, divestiture, dissolution, or ownership.
 Your result is advisory and cannot create trusted graph relationships."""
 
+RESULT_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "decision": {"type": "string", "enum": ALLOWED_DECISIONS},
+        "confidence": {"type": "string", "enum": ["HIGH", "MEDIUM", "LOW"]},
+        "subject_identity_key": {"type": "string"},
+        "supporting_evidence_ids": {"type": "array", "items": {"type": "string"}},
+        "conflicting_evidence_ids": {"type": "array", "items": {"type": "string"}},
+        "supporting_excerpt": {"type": "string"},
+        "event_date": {"type": ["string", "null"]},
+        "rationale": {"type": "string"},
+    },
+    "required": [
+        "decision",
+        "confidence",
+        "subject_identity_key",
+        "supporting_evidence_ids",
+        "conflicting_evidence_ids",
+        "supporting_excerpt",
+        "event_date",
+        "rationale",
+    ],
+    "additionalProperties": False,
+}
+
+
+def build_model_input(packet):
+    """Exclude collection bookkeeping that cannot support an analyst decision."""
+    return {
+        key: packet[key]
+        for key in (
+            "schema_version",
+            "packet_id",
+            "question",
+            "disclosure_change",
+            "evidence",
+            "model_contract",
+        )
+        if key in packet
+    }
+
 
 def _extract_json(text):
     text = text.strip()
@@ -97,11 +138,16 @@ class OllamaStructureChangeAnalyst:
         body = {
             "model": self.model,
             "stream": False,
-            "format": "json",
-            "options": {"temperature": 0},
+            "format": RESULT_SCHEMA,
+            "think": False,
+            "options": {"temperature": 0, "num_predict": 600},
             "messages": [
                 {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": json.dumps(packet, ensure_ascii=False)},
+                {
+                    "role": "user",
+                    "content": "Return only the required JSON object.\n"
+                    + json.dumps(build_model_input(packet), ensure_ascii=False),
+                },
             ],
         }
         request = urllib.request.Request(
