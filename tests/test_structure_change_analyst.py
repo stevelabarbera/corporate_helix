@@ -50,6 +50,18 @@ def test_accepts_supported_result_but_keeps_it_advisory():
     assert result["creates_trusted_graph_edges"] is False
 
 
+def test_accepts_explicitly_supported_merger():
+    raw = valid_result()
+    raw.update({
+        "decision": "SUPPORTED_MERGER",
+        "supporting_excerpt": EVIDENCE[0]["text"],
+        "rationale": "The supplied evidence explicitly states the merger.",
+    })
+    result = validate_structure_change_result(raw, packet(), model="test")
+    assert result["decision"] == "SUPPORTED_MERGER"
+    assert result["advisory_only"] is True
+
+
 def test_rejects_unknown_evidence_id():
     raw = valid_result()
     raw["supporting_evidence_ids"] = ["invented"]
