@@ -1,0 +1,477 @@
+{
+  "schema_version": "structure-change-evidence-packet-v1",
+  "packet_id": "scp:9d09831af28ac0943119",
+  "question": "What, if anything, does the supplied evidence establish about this disclosure change?",
+  "disclosure_change": {
+    "change_type": "DISAPPEARED_FROM_DISCLOSURE",
+    "identity_key": "target capital corporation",
+    "previous_filing_date": "2020-03-11",
+    "current_filing_date": "2021-03-10",
+    "previous_disclosure": {
+      "identity_key": "target capital corporation",
+      "names": [
+        "Target Capital Corporation"
+      ],
+      "jurisdictions": [
+        "MN"
+      ],
+      "accessions": [
+        "0000027419-20-000008"
+      ]
+    },
+    "current_disclosure": null,
+    "inferred_corporate_event": null,
+    "requires_external_confirmation": true
+  },
+  "evidence": [
+    {
+      "evidence_id": "secpass:70acc6a48e0ac853fb09",
+      "accession": "0000027419-20-000008",
+      "filing_date": "2020-03-11",
+      "form": "10-K",
+      "items": "",
+      "document": "tgt-20200201xexhibit21.htm",
+      "document_role": "RELEVANT_EXHIBIT",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741920000008/tgt-20200201xexhibit21.htm",
+      "start_char": 0,
+      "end_char": 592,
+      "matched_terms": [
+        "target capital corporation",
+        "Target Capital Corporation"
+      ],
+      "text": "EX-21\n 7\n tgt-20200201xexhibit21.htm\n EX-21\n \n \n \n \n Document \n \n \n\n Exhibit (21) \n \n \n Target Corporation \n (A Minnesota Corporation) \n \n \n List of Significant Subsidiaries \n (As of February 1, 2020) \n \n \n Target Brands, Inc. (MN) \n Target Capital Corporation (MN) (a) \n Target Enterprise, Inc. (MN) \n Target General Merchandise, Inc. (MN) \n \n \n (a) This entity was merged into Target Brands, Inc. effective February 2, 2020. \n \n \n Subsidiaries not included in the list are omitted because, considered in the aggregate as a single subsidiary, they do not constitute a significant subsidiary."
+    }
+  ],
+  "model_contract": {
+    "reason_only_from_supplied_evidence": true,
+    "allowed_decisions": [
+      "SUPPORTED_ACQUISITION",
+      "SUPPORTED_DIVESTITURE",
+      "SUPPORTED_MERGER",
+      "SUPPORTED_RENAME",
+      "SUPPORTED_CONVERSION",
+      "SUPPORTED_DISSOLUTION",
+      "POSSIBLE_INTERNAL_REORGANIZATION",
+      "REPORTING_SCOPE_CHANGE",
+      "INSUFFICIENT_EVIDENCE",
+      "CONFLICTING_EVIDENCE"
+    ],
+    "confidence_allowed": [
+      "HIGH",
+      "MEDIUM",
+      "LOW"
+    ],
+    "required_fields": [
+      "decision",
+      "confidence",
+      "subject_identity_key",
+      "supporting_evidence_ids",
+      "conflicting_evidence_ids",
+      "supporting_excerpt",
+      "event_date",
+      "rationale"
+    ],
+    "prohibited_behavior": [
+      "Do not use model memory as evidence.",
+      "Do not cite an evidence ID absent from this packet.",
+      "Do not invent or paraphrase the supporting excerpt.",
+      "Do not treat disclosure disappearance as proof of divestiture or dissolution.",
+      "Do not create trusted graph edges."
+    ]
+  },
+  "adjudication": {
+    "status": "PENDING",
+    "llm": null,
+    "human": null,
+    "final": null
+  },
+  "collection": {
+    "cik": "0000027419",
+    "window_start": "2020-03-11",
+    "window_end": "2021-03-10",
+    "search_terms": [
+      "target capital corporation",
+      "Target Capital Corporation"
+    ],
+    "documents_inspected": [
+      {
+        "form": "10-K",
+        "filing_date": "2020-03-11",
+        "accession": "0000027419-20-000008",
+        "primary_document": "tgt-20200201.htm",
+        "items": "",
+        "document": "tgt-20200201.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741920000008/tgt-20200201.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "10-K",
+        "filing_date": "2020-03-11",
+        "accession": "0000027419-20-000008",
+        "primary_document": "tgt-20200201.htm",
+        "items": "",
+        "document": "tgt-20200201xexhibit21.htm",
+        "document_role": "RELEVANT_EXHIBIT",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741920000008/tgt-20200201xexhibit21.htm",
+        "passage_count": 1
+      },
+      {
+        "form": "10-K",
+        "filing_date": "2020-03-11",
+        "accession": "0000027419-20-000008",
+        "primary_document": "tgt-20200201.htm",
+        "items": "",
+        "document": "tgt-20200201xexhibit23.htm",
+        "document_role": "RELEVANT_EXHIBIT",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741920000008/tgt-20200201xexhibit23.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "10-K",
+        "filing_date": "2020-03-11",
+        "accession": "0000027419-20-000008",
+        "primary_document": "tgt-20200201.htm",
+        "items": "",
+        "document": "tgt-20200201xexhibit24.htm",
+        "document_role": "RELEVANT_EXHIBIT",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741920000008/tgt-20200201xexhibit24.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-03-12",
+        "accession": "0001104659-20-032441",
+        "primary_document": "tm2012203d1_8k.htm",
+        "items": "5.02",
+        "document": "tm2012203d1_8k.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000110465920032441/tm2012203d1_8k.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-03-31",
+        "accession": "0001104659-20-040948",
+        "primary_document": "tm2013774-5_8k.htm",
+        "items": "9.01",
+        "document": "tm2013774-5_8k.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000110465920040948/tm2013774-5_8k.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-04-02",
+        "accession": "0001104659-20-042545",
+        "primary_document": "tm2014388-1_8k.htm",
+        "items": "5.03,9.01",
+        "document": "tm2014388-1_8k.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000110465920042545/tm2014388-1_8k.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-04-16",
+        "accession": "0001104659-20-047671",
+        "primary_document": "tm2015674-1_8k.htm",
+        "items": "1.01,2.03",
+        "document": "tm2015674-1_8k.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000110465920047671/tm2015674-1_8k.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-05-20",
+        "accession": "0000027419-20-000011",
+        "primary_document": "tgt-20200520.htm",
+        "items": "2.02,7.01,9.01",
+        "document": "tgt-20200520.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741920000011/tgt-20200520.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-05-20",
+        "accession": "0000027419-20-000011",
+        "primary_document": "tgt-20200520.htm",
+        "items": "2.02,7.01,9.01",
+        "document": "a2020q1ex-99.htm",
+        "document_role": "RELEVANT_EXHIBIT",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741920000011/a2020q1ex-99.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "10-Q",
+        "filing_date": "2020-05-29",
+        "accession": "0000027419-20-000014",
+        "primary_document": "tgt-20200502.htm",
+        "items": "",
+        "document": "tgt-20200502.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741920000014/tgt-20200502.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-06-11",
+        "accession": "0000027419-20-000017",
+        "primary_document": "tgt-20200610.htm",
+        "items": "5.07",
+        "document": "tgt-20200610.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741920000017/tgt-20200610.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-08-19",
+        "accession": "0000027419-20-000020",
+        "primary_document": "tgt-20200819.htm",
+        "items": "2.02,9.01",
+        "document": "tgt-20200819.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741920000020/tgt-20200819.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-08-19",
+        "accession": "0000027419-20-000020",
+        "primary_document": "tgt-20200819.htm",
+        "items": "2.02,9.01",
+        "document": "a2020q2ex-99.htm",
+        "document_role": "RELEVANT_EXHIBIT",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741920000020/a2020q2ex-99.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-08-26",
+        "accession": "0001104659-20-098529",
+        "primary_document": "tm2029307d1_8k.htm",
+        "items": "5.02,9.01",
+        "document": "tm2029307d1_8k.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000110465920098529/tm2029307d1_8k.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-08-26",
+        "accession": "0001104659-20-098529",
+        "primary_document": "tm2029307d1_8k.htm",
+        "items": "5.02,9.01",
+        "document": "tm2029307d1_ex99.htm",
+        "document_role": "RELEVANT_EXHIBIT",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000110465920098529/tm2029307d1_ex99.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "10-Q",
+        "filing_date": "2020-08-28",
+        "accession": "0000027419-20-000023",
+        "primary_document": "tgt-20200801.htm",
+        "items": "",
+        "document": "tgt-20200801.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741920000023/tgt-20200801.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-09-23",
+        "accession": "0001104659-20-107621",
+        "primary_document": "tm2031489d1_8k.htm",
+        "items": "8.01,9.01",
+        "document": "tm2031489d1_8k.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000110465920107621/tm2031489d1_8k.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-09-23",
+        "accession": "0001104659-20-107621",
+        "primary_document": "tm2031489d1_8k.htm",
+        "items": "8.01,9.01",
+        "document": "tm2031489d1_ex99.htm",
+        "document_role": "RELEVANT_EXHIBIT",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000110465920107621/tm2031489d1_ex99.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-10-07",
+        "accession": "0001104659-20-112996",
+        "primary_document": "tm2032591-1_8k.htm",
+        "items": "8.01,9.01",
+        "document": "tm2032591-1_8k.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000110465920112996/tm2032591-1_8k.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-10-07",
+        "accession": "0001104659-20-112996",
+        "primary_document": "tm2032591-1_8k.htm",
+        "items": "8.01,9.01",
+        "document": "tm2032591d1_ex99-1.htm",
+        "document_role": "RELEVANT_EXHIBIT",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000110465920112996/tm2032591d1_ex99-1.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-10-07",
+        "accession": "0001104659-20-112996",
+        "primary_document": "tm2032591-1_8k.htm",
+        "items": "8.01,9.01",
+        "document": "tm2032591d1_ex99-2.htm",
+        "document_role": "RELEVANT_EXHIBIT",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000110465920112996/tm2032591d1_ex99-2.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K/A",
+        "filing_date": "2020-11-17",
+        "accession": "0001104659-20-126152",
+        "primary_document": "tm2036049-1_8ka.htm",
+        "items": "5.02",
+        "document": "tm2036049-1_8ka.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000110465920126152/tm2036049-1_8ka.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-11-18",
+        "accession": "0000027419-20-000028",
+        "primary_document": "tgt-20201118.htm",
+        "items": "2.02,9.01",
+        "document": "tgt-20201118.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741920000028/tgt-20201118.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2020-11-18",
+        "accession": "0000027419-20-000028",
+        "primary_document": "tgt-20201118.htm",
+        "items": "2.02,9.01",
+        "document": "a2020q3ex-99.htm",
+        "document_role": "RELEVANT_EXHIBIT",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741920000028/a2020q3ex-99.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "10-Q",
+        "filing_date": "2020-11-25",
+        "accession": "0000027419-20-000034",
+        "primary_document": "tgt-20201031.htm",
+        "items": "",
+        "document": "tgt-20201031.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741920000034/tgt-20201031.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2021-01-13",
+        "accession": "0000027419-21-000002",
+        "primary_document": "tgt-20210112.htm",
+        "items": "5.02",
+        "document": "tgt-20210112.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741921000002/tgt-20210112.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2021-03-02",
+        "accession": "0000027419-21-000007",
+        "primary_document": "tgt-20210302.htm",
+        "items": "2.02,9.01",
+        "document": "tgt-20210302.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741921000007/tgt-20210302.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2021-03-02",
+        "accession": "0000027419-21-000007",
+        "primary_document": "tgt-20210302.htm",
+        "items": "2.02,9.01",
+        "document": "a2020q4ex-99.htm",
+        "document_role": "RELEVANT_EXHIBIT",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741921000007/a2020q4ex-99.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "8-K",
+        "filing_date": "2021-03-04",
+        "accession": "0001104659-21-031887",
+        "primary_document": "tm218303d1_8k.htm",
+        "items": "5.02",
+        "document": "tm218303d1_8k.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000110465921031887/tm218303d1_8k.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "10-K",
+        "filing_date": "2021-03-10",
+        "accession": "0000027419-21-000010",
+        "primary_document": "tgt-20210130.htm",
+        "items": "",
+        "document": "tgt-20210130.htm",
+        "document_role": "PRIMARY",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741921000010/tgt-20210130.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "10-K",
+        "filing_date": "2021-03-10",
+        "accession": "0000027419-21-000010",
+        "primary_document": "tgt-20210130.htm",
+        "items": "",
+        "document": "tgt-20210130xexhibit21.htm",
+        "document_role": "RELEVANT_EXHIBIT",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741921000010/tgt-20210130xexhibit21.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "10-K",
+        "filing_date": "2021-03-10",
+        "accession": "0000027419-21-000010",
+        "primary_document": "tgt-20210130.htm",
+        "items": "",
+        "document": "tgt-20210130xexhibit23.htm",
+        "document_role": "RELEVANT_EXHIBIT",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741921000010/tgt-20210130xexhibit23.htm",
+        "passage_count": 0
+      },
+      {
+        "form": "10-K",
+        "filing_date": "2021-03-10",
+        "accession": "0000027419-21-000010",
+        "primary_document": "tgt-20210130.htm",
+        "items": "",
+        "document": "tgt20210130-exhibit24.htm",
+        "document_role": "RELEVANT_EXHIBIT",
+        "document_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741921000010/tgt20210130-exhibit24.htm",
+        "passage_count": 0
+      }
+    ],
+    "documents_inspected_count": 34,
+    "evidence_passage_count": 1,
+    "collection_errors": [],
+    "collection_error_count": 0
+  }
+}
