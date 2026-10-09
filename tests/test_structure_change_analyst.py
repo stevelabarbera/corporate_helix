@@ -99,3 +99,10 @@ def test_insufficient_evidence_can_abstain_without_citation():
 def test_packet_rejects_duplicate_evidence_ids():
     with pytest.raises(ValueError, match="unique"):
         build_structure_change_packet(CHANGE, EVIDENCE + EVIDENCE)
+
+
+def test_packet_contract_does_not_alias_global_allowed_decisions():
+    first = packet()
+    first["model_contract"]["allowed_decisions"].remove("SUPPORTED_MERGER")
+    second = packet()
+    assert "SUPPORTED_MERGER" in second["model_contract"]["allowed_decisions"]
