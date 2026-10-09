@@ -43,7 +43,7 @@ def build_structure_change_packet(change, evidence):
         "evidence": evidence,
         "model_contract": {
             "reason_only_from_supplied_evidence": True,
-            "allowed_decisions": ALLOWED_DECISIONS,
+            "allowed_decisions": list(ALLOWED_DECISIONS),
             "confidence_allowed": ["HIGH", "MEDIUM", "LOW"],
             "required_fields": [
                 "decision",
