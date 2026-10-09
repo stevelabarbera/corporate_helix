@@ -1,3 +1,4 @@
+import json
 import sys
 from pathlib import Path
 
@@ -6,7 +7,11 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "code"))
 
 from adjudication.structure_change_packet import build_structure_change_packet
-from analysts.structure_change_analyst import build_model_input, validate_structure_change_result
+from analysts.structure_change_analyst import (
+    OllamaStructureChangeAnalyst,
+    build_model_input,
+    validate_structure_change_result,
+)
 
 
 CHANGE = {
@@ -115,3 +120,27 @@ def test_model_input_excludes_collection_and_adjudication_bookkeeping():
     assert model_input["evidence"] == EVIDENCE
     assert "collection" not in model_input
     assert "adjudication" not in model_input
+
+
+def test_analyst_repairs_a_nonverbatim_excerpt_once():
+    invalid = valid_result()
+    invalid["supporting_excerpt"] = "Example Subsidiary was sold."
+    responses = [json.dumps(invalid), json.dumps(valid_result())]
+    analyst = OllamaStructureChangeAnalyst(model="test")
+    analyst._request = lambda messages: responses.pop(0)
+
+    result = analyst.analyze(packet())
+
+    assert result["decision"] == "SUPPORTED_DIVESTITURE"
+    assert result["supporting_excerpt"] == EVIDENCE[0]["text"]
+    assert responses == []
+
+
+def test_analyst_reports_raw_response_after_failed_repair():
+    invalid = valid_result()
+    invalid["supporting_excerpt"] = "Invented quote"
+    analyst = OllamaStructureChangeAnalyst(model="test")
+    analyst._request = lambda messages: json.dumps(invalid)
+
+    with pytest.raises(ValueError, match="Raw response:.*Invented quote"):
+        analyst.analyze(packet())

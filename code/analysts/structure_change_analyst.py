@@ -133,22 +133,16 @@ class OllamaStructureChangeAnalyst:
         self.model = model
         self.endpoint = endpoint
         self.timeout = timeout
+        self.last_raw_content = None
 
-    def analyze(self, packet):
+    def _request(self, messages):
         body = {
             "model": self.model,
             "stream": False,
             "format": RESULT_SCHEMA,
             "think": False,
             "options": {"temperature": 0, "num_predict": 600},
-            "messages": [
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {
-                    "role": "user",
-                    "content": "Return only the required JSON object.\n"
-                    + json.dumps(build_model_input(packet), ensure_ascii=False),
-                },
-            ],
+            "messages": messages,
         }
         request = urllib.request.Request(
             self.endpoint,
@@ -158,7 +152,42 @@ class OllamaStructureChangeAnalyst:
         )
         with urllib.request.urlopen(request, timeout=self.timeout) as response:
             payload = json.loads(response.read().decode())
-        content = ((payload.get("message") or {}).get("content") or "").strip()
-        return validate_structure_change_result(
-            _extract_json(content), packet, model=self.model
+        return ((payload.get("message") or {}).get("content") or "").strip()
+
+    def analyze(self, packet):
+        messages = [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {
+                "role": "user",
+                "content": "Return only the required JSON object.\n"
+                + json.dumps(build_model_input(packet), ensure_ascii=False),
+            },
+        ]
+        last_error = None
+        for attempt in range(2):
+            content = self._request(messages)
+            self.last_raw_content = content
+            try:
+                return validate_structure_change_result(
+                    _extract_json(content), packet, model=self.model
+                )
+            except (json.JSONDecodeError, ValueError) as exc:
+                last_error = exc
+                if attempt:
+                    break
+                messages.extend([
+                    {"role": "assistant", "content": content},
+                    {
+                        "role": "user",
+                        "content": (
+                            f"That JSON failed validation: {exc}. Correct only the JSON. "
+                            "For supporting_excerpt, copy an exact contiguous substring "
+                            "from the text field of a cited evidence record, preserving every "
+                            "character and punctuation mark. Return only corrected JSON."
+                        ),
+                    },
+                ])
+        raise ValueError(
+            f"Model response remained invalid after one repair attempt: {last_error}. "
+            f"Raw response: {self.last_raw_content[:2000]}"
         )
