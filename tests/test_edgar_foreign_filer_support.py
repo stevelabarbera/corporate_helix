@@ -9,14 +9,15 @@ nothing for that issuer: the form allowlist was 8-K/10-K only, 6-Ks carry
 no Item numbers to pre-filter on, "AB" was not a recognized corporate
 form, and only filings.recent was read from the submissions metadata.
 
-Network is monkeypatched throughout. The extractor passage below is
-RECONSTRUCTED from sentences quoted out of the 6-K, not the verbatim
-filing text -- it pins the intended grammar behavior, and should be
-replaced by the real text once it is saved under data/raw/.
+Network is monkeypatched throughout. EINRIDE_PASSAGE below is a RECONSTRUCTION
+that pins the grammar; the tests at the bottom run the REAL filing text saved
+under data/raw/einride/ and found two further bugs the reconstruction hid
+(cp1252 quotes destroyed by utf-8 decoding; hard-wrapped source lines).
 """
 from __future__ import annotations
 
 import sys
+import re
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "code"))
@@ -204,3 +205,101 @@ def test_reverse_triangular_merger_does_not_make_the_shell_the_counterparty():
     out = EdgarMAExtractor().parse_section(EINRIDE_PASSAGE, None)
     agreed = next(e for e in out["raw_events"] if e["event_type"] == "AGREED_TO_ACQUIRE")
     assert other_party(agreed, "Einride") == "Flipturn, Inc."
+
+
+# ----------------------------------------------- the REAL Einride 6-K (data/raw)
+
+REAL_6K = Path(__file__).resolve().parents[1] / "data" / "raw" / "einride" / "6-K_0001493152-26-034002_form6-k.htm"
+
+
+def _repair_lost_quotes(text: str) -> str:
+    # The saved copy is lossy: every curly quote became U+FFFD. Minimal,
+    # deterministic repair: a replacement char at the start of a word
+    # (after whitespace or "(") opens a quote; any other one -- after a
+    # letter, comma or period -- closes a quote or is an apostrophe.
+    text = re.sub(r"(?<=[\s(])\ufffd", "\u201c", text)
+    return text.replace("\ufffd", "\u201d")
+
+
+def _real_6k_events(*, unwrap):
+    from providers.edgar_resolver import strip_html
+    from parsers.edgar_longform_locator import locate_ma_regions
+    raw = REAL_6K.read_bytes().decode("utf-8")
+    text = _repair_lost_quotes(strip_html(raw, unwrap_source_lines=unwrap))
+    events = []
+    for region in locate_ma_regions(text, form="6-K"):
+        events += EdgarMAExtractor().parse_section(region["text"], None)["raw_events"]
+    return events
+
+
+def test_real_einride_6k_yields_the_flipturn_agreement():
+    from providers.edgar_ma_provider import other_party
+    events = _real_6k_events(unwrap=True)
+    agreed = [e for e in events if e["event_type"] == "AGREED_TO_ACQUIRE"]
+    assert [(e["subject"], e["object"]) for e in agreed] == [("Einride AB", "Flipturn, Inc.")]
+    assert other_party(agreed[0], "Einride") == "Flipturn, Inc."
+    # The completion-flavored status on AGREED_TO_ACQUIRE means "agreement
+    # executed"; the survivor/subsidiary edge is what carries deal state, and
+    # for a signed-not-closed deal it must say PROPOSED.
+    sub = [e for e in events if e["event_type"] == "SUBSIDIARY_OF"]
+    assert [(e["subject"], e["object"], e["status"]) for e in sub] == [("Flipturn, Inc.", "Einride AB", "PROPOSED")]
+
+
+def test_without_unwrapping_the_real_filing_is_missed():
+    # Documents the bug: filing-agent hard wraps ("entered\ninto") defeat the
+    # single-space grammar. If this ever starts yielding the agreement the
+    # unwrap flag is no longer needed.
+    events = _real_6k_events(unwrap=False)
+    assert not [e for e in events if e["event_type"] == "AGREED_TO_ACQUIRE"]
+
+
+def test_cp1252_filings_keep_their_curly_quotes():
+    from providers.edgar_resolver import _decode_filing_bytes
+    assert _decode_filing_bytes(b"(the \x93Company\x94)") == "(the \u201cCompany\u201d)"
+    assert "\ufffd" not in _decode_filing_bytes(b"Company\x92s")
+    # Valid UTF-8 is untouched (frozen 8-K/10-K text must not move).
+    s = "(the \u201cCompany\u201d) \u2014 caf\u00e9"
+    assert _decode_filing_bytes(s.encode("utf-8")) == s
+
+
+def test_lost_quotes_make_the_wrong_counterparty_look_plausible():
+    # Why the decode fix matters: with U+FFFD in place of quotes, Flipturn and
+    # Merger Sub are never defined, and the only surviving "party" is the
+    # stockholder representative.
+    from providers.edgar_resolver import strip_html
+    from parsers.edgar_longform_locator import locate_ma_regions
+    text = strip_html(REAL_6K.read_bytes().decode("utf-8"), unwrap_source_lines=True)
+    orgs = set()
+    for r in locate_ma_regions(text, form="6-K"):
+        orgs |= set(EdgarMAExtractor().parse_section(r["text"], None)["fused"]["orgs"])
+    assert "Flipturn, Inc." not in orgs
+
+
+# ------------------------------------------------------- unwrap flag semantics
+
+def test_unwrap_joins_hard_wrapped_sentences_but_keeps_paragraphs():
+    from providers.edgar_resolver import strip_html
+    html = "<p>It entered\ninto an Agreement.</p>\n<p>Second paragraph.</p>"
+    out = strip_html(html, unwrap_source_lines=True)
+    assert "entered into an Agreement." in out
+    assert "Agreement.\n" in out and "Second paragraph." in out.split("\n")[-1]
+
+
+def test_unwrap_is_off_by_default_so_the_8k_path_is_unchanged():
+    from providers.edgar_resolver import strip_html
+    assert "entered\ninto" in strip_html("<p>It entered\ninto an Agreement.</p>")
+
+
+def test_unwrap_never_touches_pre_or_plain_text():
+    from providers.edgar_resolver import strip_html
+    assert "a\nb" in strip_html("<pre>a\nb</pre>", unwrap_source_lines=True)
+    assert "Item 2.01\nText" in strip_html("Item 2.01\nText", unwrap_source_lines=True)
+
+
+def test_6k_retrieval_applies_unwrap_but_8k_retrieval_does_not(monkeypatch):
+    wrapped = "<p>On July 16, 2026, Example AB (the \u201cCompany\u201d) entered\ninto an Agreement and Plan of Merger with X, Inc.</p>"
+    subs = _submissions(["6-K"], ["2026-07-21"])
+    monkeypatch.setattr(resolver, "_get_json", lambda url, ua: subs)
+    monkeypatch.setattr(resolver, "_get_text", lambda url, ua: wrapped)
+    data = resolver.fetch_ma_filings("1", "t@example.com")
+    assert "entered into an Agreement" in data["filings"][0]["sections"][0]["text"]
