@@ -15,10 +15,12 @@ if str(CODE_DIR) not in sys.path:
     sys.path.insert(0, str(CODE_DIR))
 
 from adjudication.structure_change_packet import ALLOWED_DECISIONS
+from adjudication.structure_change_rules import infer_explicit_structure_change
 from analysts.structure_change_analyst import OllamaStructureChangeAnalyst
 
 
 LLM_REVIEW_STATUS = "LLM_REVIEWED_PENDING_HUMAN"
+DETERMINISTIC_REVIEW_STATUS = "DETERMINISTIC_REVIEW_PENDING_HUMAN"
 
 
 def review_packet(packet, analyst):
@@ -36,6 +38,12 @@ def review_packet(packet, analyst):
         raise ValueError("Packet is missing its adjudication record")
     if adjudication.get("final") is not None:
         raise ValueError("Refusing to overwrite a packet with a final adjudication")
+
+    result = infer_explicit_structure_change(reviewed)
+    if result is not None:
+        adjudication["deterministic"] = result
+        adjudication["status"] = DETERMINISTIC_REVIEW_STATUS
+        return reviewed
 
     result = analyst.analyze(reviewed)
     if not result.get("advisory_only") or result.get("creates_trusted_graph_edges") is not False:
@@ -85,9 +93,12 @@ def main(argv=None):
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(reviewed, indent=2, ensure_ascii=False) + "\n")
 
-    result = reviewed["adjudication"]["llm"]
+    adjudication = reviewed["adjudication"]
+    result = adjudication.get("deterministic") or adjudication["llm"]
+    method = "deterministic rule" if adjudication.get("deterministic") else "LLM"
     print(f"Wrote advisory review -> {args.out}")
     print(f"Decision: {result['decision']} | confidence: {result['confidence']}")
+    print(f"Method: {method}")
     print(f"Evidence: {', '.join(result['supporting_evidence_ids']) or 'none'}")
     print("Trust: advisory only; human/final adjudication remains unset")
     return 0

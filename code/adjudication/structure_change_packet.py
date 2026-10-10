@@ -63,5 +63,11 @@ def build_structure_change_packet(change, evidence):
                 "Do not create trusted graph edges.",
             ],
         },
-        "adjudication": {"status": "PENDING", "llm": None, "human": None, "final": None},
+        "adjudication": {
+            "status": "PENDING",
+            "deterministic": None,
+            "llm": None,
+            "human": None,
+            "final": None,
+        },
     }

@@ -9,7 +9,12 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "code"))
 
 from adjudication.structure_change_packet import build_structure_change_packet
-from run_structure_change_analyst import LLM_REVIEW_STATUS, main, review_packet
+from run_structure_change_analyst import (
+    DETERMINISTIC_REVIEW_STATUS,
+    LLM_REVIEW_STATUS,
+    main,
+    review_packet,
+)
 
 
 CHANGE = {
@@ -55,6 +60,31 @@ def test_review_records_llm_result_without_finalizing_packet():
     assert reviewed["adjudication"]["status"] == LLM_REVIEW_STATUS
     assert reviewed["adjudication"]["llm"]["decision"] == "SUPPORTED_MERGER"
     assert reviewed["adjudication"]["human"] is None
+    assert reviewed["adjudication"]["final"] is None
+
+
+def test_review_uses_explicit_merger_rule_without_calling_llm():
+    source = packet()
+    source["disclosure_change"]["previous_disclosure"] = {
+        "names": ["Target Capital Corporation"]
+    }
+    source["evidence"][0]["text"] = (
+        "Target Capital Corporation (MN) (a)\n"
+        "(a) This entity was merged into Target Brands, Inc. effective February 2, 2020."
+    )
+
+    class FailIfCalled:
+        def analyze(self, packet):
+            raise AssertionError("LLM should not be called for explicit merger evidence")
+
+    reviewed = review_packet(source, FailIfCalled())
+    result = reviewed["adjudication"]["deterministic"]
+    assert reviewed["adjudication"]["status"] == DETERMINISTIC_REVIEW_STATUS
+    assert result["decision"] == "SUPPORTED_MERGER"
+    assert result["surviving_entity_text"] == "Target Brands, Inc."
+    assert result["event_date"] == "2020-02-02"
+    assert result["supporting_excerpt"] in source["evidence"][0]["text"]
+    assert reviewed["adjudication"]["llm"] is None
     assert reviewed["adjudication"]["final"] is None
 
 
