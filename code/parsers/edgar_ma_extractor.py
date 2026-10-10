@@ -26,7 +26,13 @@ def norm(s):
     return re.sub(r"\s+", " ", s).strip(" ,;")
 
 
-CORP = r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|L\.P\.|LP|Ltd\.?|Limited|PLC|plc|Company|Co\.?|Aktiengesellschaft|AG)"
+# AB (Swedish aktiebolag) added after Einride AB -- EDGAR registrant, Nasdaq: ENRD --
+# disclosed its Flipturn merger agreement in a Form 6-K. Without it neither
+# regex-based backend can see "Einride AB" at all, so only spaCy (weight 1.0,
+# below the 1.5 threshold) would -- the same failure shape as Alsid SAS
+# (ADR-EDGAR-007). Other jurisdictions' forms are added when a real filer
+# needs them, not speculatively.
+CORP = r"(?:Inc\.?|Incorporated|Corporation|Corp\.?|LLC|L\.L\.C\.|L\.P\.|LP|Ltd\.?|Limited|PLC|plc|Company|Co\.?|Aktiengesellschaft|AG|AB)"
 _WORD = r"(?:[A-Z][A-Za-z0-9&.'’-]*|[0-9][A-Za-z0-9&.'’-]*)"
 _CONNECTOR = r"(?:of|and|the|for)"
 # A blank line is real document structure (a section-header/paragraph

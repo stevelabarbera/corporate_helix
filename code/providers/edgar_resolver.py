@@ -9,7 +9,39 @@ SEC_DATA = "https://data.sec.gov"
 SEC_ARCHIVE = "https://www.sec.gov/Archives/edgar/data"
 SEC_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
 
-_SUFFIX_WORDS_RE = re.compile(r"\b(corp(oration)?|inc(orporated)?|company|co|llc|l\.l\.c\.|ltd|limited|plc|group|holdings?)\.?\b", re.I)
+# Form families Helix retrieves. Kept as named constants (not literals buried
+# in three different functions) so a new filer type is a config change, not a
+# hunt through the retrieval code.
+#
+#   ITEMIZED_EVENT_FORMS    domestic current reports. EDGAR's submissions
+#                           metadata carries Item numbers for these, so
+#                           Helix can skip a download unless Item 1.01/2.01
+#                           is listed.
+#   FPI_EVENT_FORMS         foreign-private-issuer current reports (6-K).
+#                           A 6-K has NO item numbers -- there is nothing in
+#                           the metadata to pre-filter on, so these go
+#                           through the same text locator the annual
+#                           reports use.
+#   ANNUAL_FORMS            domestic (10-K) and foreign (20-F, 40-F) annual
+#                           reports, plus amendments.
+#
+# Added after Einride AB (Swedish, Nasdaq: ENRD, CIK 2095096) disclosed its
+# July 2026 merger agreement to acquire Flipturn, Inc. in a Form 6-K: with
+# only 8-K/10-K in the allowlist Helix retrieved nothing for that issuer at
+# all. See ADR-EDGAR-012.
+ITEMIZED_EVENT_FORMS: tuple[str, ...] = ("8-K", "8-K/A")
+FPI_EVENT_FORMS: tuple[str, ...] = ("6-K", "6-K/A")
+ANNUAL_FORMS: tuple[str, ...] = ("10-K", "10-K/A", "20-F", "20-F/A", "40-F", "40-F/A")
+LONGFORM_FORMS: tuple[str, ...] = ANNUAL_FORMS + FPI_EVENT_FORMS
+
+# "AB" (Swedish aktiebolag) and "publ" (as in "Einride AB (publ)", the
+# public-company marker) are corporate-form words exactly like "Inc" or
+# "plc": EDGAR's own registrant name is "Einride AB", so without them a plain
+# "Einride" never equals the registrant name. Other European forms (GmbH,
+# NV, SAS, ...) are deliberately NOT added speculatively -- each one earns a
+# place the way AB did, from a real filer, because a short token stripped
+# mid-string can collide with an ordinary word.
+_SUFFIX_WORDS_RE = re.compile(r"\b(corp(oration)?|inc(orporated)?|company|co|llc|l\.l\.c\.|ltd|limited|plc|group|holdings?|ab|publ)\.?\b", re.I)
 _LEADING_ARTICLE_RE = re.compile(r"^the\s+", re.I)
 # EDGAR appends a short disambiguation tag to a registrant's own name when
 # the plain name alone is ambiguous or has been reused across a corporate
@@ -79,9 +111,62 @@ def item_sections(text: str) -> list[dict[str, str]]:
         sections.append({"item": m.group(1), "text": text[start:end].strip()})
     return sections
 
-def _load_submissions(cik: str, user_agent: str) -> tuple[str, dict[str, Any]]:
+def _merge_older_submission_pages(
+    submissions: dict[str, Any], user_agent: str, *, start: str | None, end: str | None,
+) -> dict[str, Any]:
+    """
+    Fold EDGAR's paginated older-filing pages into the "recent" block.
+
+    The submissions JSON only inlines roughly the most recent ~1000 filings
+    (or one year, whichever is more) under filings.recent. Everything older
+    lives in filings.files -- a list of {name, filingFrom, filingTo, ...}
+    pointers to separate JSON pages. Reading only filings.recent therefore
+    silently drops years of history for prolific filers, with no error and
+    no marker in the output. Pages are fetched only when their date range
+    overlaps [start, end], so a bounded study window costs only the pages
+    it needs, and a company with no extra pages costs zero extra requests.
+    Returns a new dict; the input is not mutated.
+    """
+    filings = submissions.get("filings") or {}
+    pages = filings.get("files") or []
+    recent = filings.get("recent") or {}
+    if not pages:
+        return submissions
+
+    merged: dict[str, list[Any]] = {k: list(v) for k, v in recent.items()}
+    seen = set(merged.get("accessionNumber", []))
+    for page in pages:
+        name = page.get("name")
+        if not name:
+            continue
+        lo, hi = page.get("filingFrom"), page.get("filingTo")
+        if start and hi and hi < start:
+            continue
+        if end and lo and lo > end:
+            continue
+        data = _get_json(f"{SEC_DATA}/submissions/{name}", user_agent)
+        accessions = data.get("accessionNumber") or []
+        keep = [i for i, a in enumerate(accessions) if a not in seen]
+        if not keep:
+            continue
+        before = len(merged.get("accessionNumber", []))
+        for key in set(merged) | set(data):
+            col = merged.setdefault(key, [""] * before)
+            src = data.get(key) or []
+            # A column missing from a page is padded rather than skipped,
+            # so every column stays row-aligned with accessionNumber.
+            col.extend(src[i] if i < len(src) else "" for i in keep)
+        seen.update(accessions[i] for i in keep)
+
+    return {**submissions, "filings": {**filings, "recent": merged}}
+
+
+def _load_submissions(
+    cik: str, user_agent: str, *, start: str | None = None, end: str | None = None,
+) -> tuple[str, dict[str, Any]]:
     cik10 = str(int(cik)).zfill(10)
-    return cik10, _get_json(f"{SEC_DATA}/submissions/CIK{cik10}.json", user_agent)
+    submissions = _get_json(f"{SEC_DATA}/submissions/CIK{cik10}.json", user_agent)
+    return cik10, _merge_older_submission_pages(submissions, user_agent, start=start, end=end)
 
 def _document_url(cik: str, accession: str, primary_doc: str) -> str:
     return f"{SEC_ARCHIVE}/{int(cik)}/{accession.replace('-', '')}/{primary_doc}"
@@ -96,7 +181,7 @@ def _collect_recent_8k_filings(cik: str, user_agent: str, submissions: dict[str,
     recent = submissions["filings"]["recent"]
     filings = []
     for i, form in enumerate(recent.get("form", [])):
-        if form not in ("8-K", "8-K/A"):
+        if form not in ITEMIZED_EVENT_FORMS:
             continue
         filing_date = _rv(recent, "filingDate", i, "")
         if not (start <= filing_date <= end):
@@ -144,26 +229,31 @@ def _collect_recent_longform_filings(cik: str, user_agent: str, submissions: dic
     return filings
 
 def fetch_8k_ma_filings(cik: str, user_agent: str, *, start: str = "2015-01-01", end: str = "2026-12-31") -> dict[str, Any]:
-    cik10, submissions = _load_submissions(cik, user_agent)
+    cik10, submissions = _load_submissions(cik, user_agent, start=start, end=end)
     filings = _collect_recent_8k_filings(cik10, user_agent, submissions, start=start, end=end)
     return {"company": submissions.get("name"), "cik": cik10, "filings": filings}
 
 def fetch_longform_ma_filings(
     cik: str, user_agent: str, *,
-    forms: Iterable[str] = ("10-K", "10-K/A"),
+    forms: Iterable[str] = LONGFORM_FORMS,
     start: str = "2015-01-01", end: str = "2026-12-31",
 ) -> dict[str, Any]:
-    cik10, submissions = _load_submissions(cik, user_agent)
+    cik10, submissions = _load_submissions(cik, user_agent, start=start, end=end)
     filings = _collect_recent_longform_filings(cik10, user_agent, submissions, forms=forms, start=start, end=end)
     return {"company": submissions.get("name"), "cik": cik10, "filings": filings}
 
 def fetch_ma_filings(
     cik: str, user_agent: str, *,
     start: str = "2015-01-01", end: str = "2026-12-31",
-    longform_forms: Iterable[str] = ("10-K", "10-K/A"),
+    longform_forms: Iterable[str] = LONGFORM_FORMS,
 ) -> dict[str, Any]:
-    """Fetch 8-K M&A sections plus 10-K long-form locator regions from one submissions read."""
-    cik10, submissions = _load_submissions(cik, user_agent)
+    """Fetch 8-K M&A sections plus long-form locator regions (10-K, 20-F, 40-F, 6-K) in one pass.
+
+    Older filings are folded in from EDGAR's paginated submissions pages when
+    their date range overlaps [start, end]; a company without extra pages costs
+    exactly one submissions request, as before.
+    """
+    cik10, submissions = _load_submissions(cik, user_agent, start=start, end=end)
     filings = _collect_recent_8k_filings(cik10, user_agent, submissions, start=start, end=end)
     filings += _collect_recent_longform_filings(cik10, user_agent, submissions, forms=longform_forms, start=start, end=end)
     filings.sort(key=lambda f: (f.get("filing_date") or "", f.get("accession") or ""))

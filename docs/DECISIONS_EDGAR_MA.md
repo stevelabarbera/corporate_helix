@@ -777,3 +777,122 @@ split into `OPERATIVE_AGREEMENT_TEXT_AVAILABLE` and
 owns the repair. This is also a measurement-runner follow-up: evidence quality
 needs to be represented more precisely than the current boolean
 `entity_recognized` stage.
+
+---
+
+## ADR-EDGAR-012 — Foreign-private-issuer filings (6-K, 20-F, 40-F), older-filing pagination, and the "AB" corporate form
+
+**Date:** 2026-10-10
+**Status:** Accepted (offline-verified; live cohort rerun still owed — see below)
+
+### Trigger
+
+An ASM product under evaluation missed that Einride AB acquired Flipturn,
+Inc. (getflipturn.com). The deal was public: Einride AB (Swedish, Nasdaq:
+ENRD, CIK 2095096) disclosed an Agreement and Plan of Merger dated
+2026-07-16 — Einride FUSE Merger Sub, Inc. merging into Flipturn, Inc.,
+Flipturn surviving as a wholly owned subsidiary, all-stock, reported at
+$38.4M — in a Form 6-K (accession 0001493152-26-034002) filed around
+2026-07-21. Helix retrieved nothing for this issuer at all. Four
+independent blockers, any one of which was sufficient:
+
+1. **Form allowlist.** Retrieval accepted 8-K/8-K/A and 10-K/10-K/A only. A
+   foreign private issuer files 6-K (current reports) and 20-F/40-F
+   (annual reports).
+2. **No Item metadata.** The 8-K path avoids downloading most filings by
+   checking the Item numbers EDGAR lists in the submissions metadata
+   (1.01/2.01). A 6-K has no Items, so there is nothing to pre-filter on.
+3. **"AB" was not a corporate form.** `identity_key("Einride")` is
+   `einride` but EDGAR's registrant name "Einride AB" was `einride ab`; and
+   the extractor's `CORP` suffix list lacked AB, so neither regex-based
+   backend could see "Einride AB" (spaCy alone scores 1.0, below the 1.5
+   threshold) — the same failure shape as Alsid SAS (ADR-EDGAR-007).
+4. **Older filings silently dropped.** Retrieval read only
+   `submissions["filings"]["recent"]`. EDGAR inlines roughly the latest
+   ~1000 filings there; the rest sit in `filings.files` pages. For
+   prolific filers this loses years of history with no error and no marker.
+   Blocker 4 is not Einride-specific and may explain part of the
+   `DISCLOSURE_NOT_IN_RETRIEVED_CORPUS` class in the saturation study; that
+   attribution has NOT been checked.
+
+### Decision
+
+- Form families are named constants in `edgar_resolver.py`
+  (`ITEMIZED_EVENT_FORMS`, `FPI_EVENT_FORMS`, `ANNUAL_FORMS`,
+  `LONGFORM_FORMS`) instead of literals in three functions. 6-K, 20-F and
+  40-F (and amendments) are retrieved through the existing long-form
+  locator — keyword-based, form-agnostic, already proven on 10-K. The 8-K
+  Item 1.01/2.01 gate is unchanged (guarded by a test).
+- `_load_submissions` folds `filings.files` pages into the `recent` block,
+  fetching only pages whose date range overlaps the requested window. A
+  company with no extra pages still costs exactly one request. Columns stay
+  row-aligned (missing columns are padded) and duplicate accessions are
+  dropped.
+- `ab` and `publ` join the `identity_key` corporate-form words; `AB` joins
+  the extractor's `CORP`. Other European forms (GmbH, NV, SAS, ...) are
+  deliberately NOT added speculatively: each earns its place from a real
+  filer, because a short token stripped mid-string can collide with an
+  ordinary word.
+- The S1 study harness (`run_ma_s1_baseline.AUDIT_FORMS`) now derives from
+  the production constants so the study measures what production fetches.
+
+### Evidence and its limits
+
+- 14 new tests (`tests/test_edgar_foreign_filer_support.py`). Run against
+  the original source, 12 fail; the 2 that pass are the intended guards.
+  Full suite: 327 passed, 1 pre-existing unrelated failure (frozen-baseline
+  commit hash absent from a shallow clone).
+- False-positive check for the extractor change: every entity the regex
+  layer finds across all 1,649 text blobs in the cached `data/` corpus was
+  compared before and after — zero entities gained or lost. That shows no
+  regression; it is weak evidence about AB specifically, because the cache
+  contains no AB-style names.
+- **The extractor test passage is RECONSTRUCTED** from sentences quoted out
+  of the 6-K, not verbatim filing text (sec.gov is not reachable from the
+  sandbox shell; the 6-K was read through a summarizing fetch). On that
+  passage the original extractor yields no `AGREED_TO_ACQUIRE` and only
+  `MERGED_INTO(Einride FUSE Merger Sub, Inc. -> Flipturn, Inc.)` — the
+  legal mechanism, which names no parent — and with the AB change it yields
+  `AGREED_TO_ACQUIRE(Einride AB -> Flipturn, Inc.)`. Whether the real text
+  defines its aliases the same way is unconfirmed. Replace the passage with
+  the real text once saved under `data/raw/`.
+- No live EDGAR run was performed.
+
+### Owed under the frozen-baseline rule
+
+This is a generalized failure class (an entire filer type was invisible),
+not a company-specific rule, so it is in scope — but the rule requires
+rerunning the accumulated cohort afterward. That needs live SEC access:
+rerun `run_ma_s1_baseline.py` for the 12 companies from a machine with
+network access and compare. The harness now audits more forms and (for
+prolific filers) more history, so some results may legitimately shift.
+
+### Observed, not changed
+
+- An entity introduced as "X, Inc., a Delaware corporation" with NO
+  parenthetical alias definition earns only regex weight 0.5 (spaCy often
+  misses it; legal_rules requires an alias), below the 1.5 threshold, so
+  an alias-less passage can yield no events at all. Domestic 8-Ks nearly
+  always define aliases, which is why the validated threshold holds up;
+  a foreign-filer 6-K may not. Check against real 6-K text before tuning.
+- A 6-K's main document is often a stub; the substance sits in exhibits
+  (EX-99.1 press release, EX-2.1 agreement). Only the primary document is
+  retrieved. Reading exhibits needs the filing index — follow-up.
+- The merger agreement lists "Shareholder Representative Services LLC" as
+  a party; expect it as a noise candidate.
+- Prolific 6-K filers (hundreds per year) now mean hundreds of downloads,
+  since 6-Ks cannot be pre-filtered. A disk cache and rate limiter are the
+  natural next step.
+
+### Follow-ups
+
+1. Save the real Einride 6-K (main document and EX-99.1) under `data/raw/`
+   and re-run the extractor on verbatim text.
+2. Add `einride-1` to a gold set: Einride AB / Flipturn, Inc.,
+   `AGREED_TO_ACQUIRE`, agreement dated 2026-07-16. Do not label it
+   COMPLETED without checking the closing disclosure; press coverage said
+   closing was planned for July 2026 but that was not confirmed.
+3. 6-K exhibit retrieval (EX-99.1 / EX-2.1).
+4. Disk cache and rate limiting for retrieval.
+5. Second-phase forms with M&A signal: 10-Q, S-4/F-4, 425, DEFM14A.
+6. Rerun the 12-company cohort (see above).

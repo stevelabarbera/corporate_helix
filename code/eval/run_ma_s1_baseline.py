@@ -25,6 +25,8 @@ from iterative_expansion import HelixFact
 from parsers.edgar_longform_locator import locate_ma_regions
 from providers.edgar_ma_provider import EdgarMAExpansionProvider, other_party
 from providers.edgar_resolver import (
+    ITEMIZED_EVENT_FORMS,
+    LONGFORM_FORMS,
     _document_url,
     _get_text,
     _load_submissions,
@@ -44,7 +46,10 @@ STAGES = (
     "event_extracted",
     "candidate_emitted",
 )
-AUDIT_FORMS = {"8-K", "8-K/A", "10-K", "10-K/A"}
+# Mirrors production retrieval (edgar_resolver) so the study measures what
+# production actually fetches -- including foreign-private-issuer forms
+# (6-K, 20-F, 40-F) added in ADR-EDGAR-012.
+AUDIT_FORMS = set(ITEMIZED_EVENT_FORMS) | set(LONGFORM_FORMS)
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -125,7 +130,7 @@ def collect_audit_filings(
             errors.append({"accession": accession, "error": f"{type(exc).__name__}: {exc}"})
             continue
 
-        if form in {"8-K", "8-K/A"}:
+        if form in ITEMIZED_EVENT_FORMS:
             items = _rv(recent, "items", i, "") or ""
             selected = []
             if "1.01" in items or "2.01" in items:
