@@ -66,6 +66,16 @@ def test_nothing_retrieved_flag_is_the_pre_fix_einride_signature():
     assert any(f.startswith("NOTHING RETRIEVED") for f in m["flags"])
 
 
+def test_company_whose_filings_all_predate_the_window_is_flagged():
+    # Trump Entertainment Resorts showed '0 / 0' in the cohort run with no flag.
+    m = cov.build_manifest(_subs([("8-K", "2013-05-01", "2.01"), ("10-K", "2014-03-01", "")]),
+                           start="2015-01-01", end="2026-12-31")
+    assert m["totals"]["in_window"] == 0
+    assert any(f.startswith("NO FILINGS IN WINDOW") and "latest 2014-03-01" in f for f in m["flags"])
+    assert any(f.startswith("NO FILINGS AT ALL") for f in
+               cov.build_manifest(_subs([]), start="2015-01-01", end="2026-12-31")["flags"])
+
+
 def test_8k_without_item_metadata_is_flagged_not_hidden():
     m = cov.build_manifest(_subs([("8-K", "2026-01-01", ""), ("8-K", "2026-01-02", "2.01")]),
                            start="2025-01-01", end="2026-12-31")

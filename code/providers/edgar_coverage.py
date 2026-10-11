@@ -93,6 +93,12 @@ def build_manifest(
     fetched = sum(by_disp[d] for d in FETCHED)
 
     flags = []
+    if not rows:
+        flags.append("NO FILINGS AT ALL in the submissions data (wrong CIK, or older pages not merged)")
+    elif not in_window:
+        dates = sorted(r["filing_date"] for r in rows if r["filing_date"])
+        flags.append(f"NO FILINGS IN WINDOW: {len(rows)} filings exist but all fall outside "
+                     f"{start}..{end} (earliest {dates[0]}, latest {dates[-1]}); nothing in this window is reachable")
     if in_window and fetched == 0:
         flags.append(f"NOTHING RETRIEVED: {len(in_window)} filings in window, none eligible for retrieval "
                      f"(forms present: {sorted({r['form'] for r in in_window})})")
