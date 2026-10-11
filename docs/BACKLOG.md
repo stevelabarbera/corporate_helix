@@ -3,6 +3,24 @@
 Parked work, each with the trigger that put it here and the condition for picking it up.
 Last updated 2026-10-11. Decisions live in the `DECISIONS_*.md` files; this is only the queue.
 
+## Foundation (do first -- decides whether the items below are worth doing)
+
+Trigger: every new company has surfaced a document or format Helix missed (Alsid SAS, Einride/Flipturn).
+Those misses are two different classes: *coverage gaps* (form never fetched: 6-K/20-F/40-F, older
+filing pages) and *extraction failures on fetched documents* (the "AB" suffix, cp1252 quotes, hard-wrapped
+lines). Fetching everything only fixes the first class, so the foundation is two pieces:
+
+1. **Per-company coverage manifest.** Enumerate every filing from the submissions metadata (incl.
+   paginated `filings.files`) and record what Helix did with each: fetched / skipped + reason. Missing
+   form families and date ranges then show up in a report instead of being found by hand. Metadata only,
+   no bulk download. Prototype on Einride/Flipturn.
+2. **Measured recall.** A list of known acquisitions from a source independent of Helix; report how many
+   Helix finds. New misses add a row; fixes are proven against the list.
+
+Only after both: a selective full-document loop over the form types the manifest shows are worth it.
+Needs a networked machine (sec.gov is unreachable from the dev sandbox); the code and tests can be built
+without it.
+
 ## EDGAR / foreign filers (from ADR-EDGAR-012 and its addendum)
 
 | Item | Why parked | Pick up when |
