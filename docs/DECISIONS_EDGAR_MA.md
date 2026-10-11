@@ -896,3 +896,35 @@ prolific filers) more history, so some results may legitimately shift.
 4. Disk cache and rate limiting for retrieval.
 5. Second-phase forms with M&A signal: 10-Q, S-4/F-4, 425, DEFM14A.
 6. Rerun the 12-company cohort (see above).
+
+### ADR-EDGAR-012 addendum -- the real Einride 6-K (2026-10-10)
+
+The reconstructed passage pinned in the original tests was too friendly. Running the
+real main document (`data/raw/einride/`, accession 0001493152-26-034002) exposed two more
+generalized failures, both fixed:
+
+1. **Encoding.** `_get_text` decoded with `utf-8, errors="replace"`. The 6-K declares
+   `charset=windows-1252`; its curly quotes became U+FFFD, the `(the "Company")` /
+   `("Flipturn")` alias grammar never fired, and the only surviving counterparty was
+   *Shareholder Representative Services LLC* -- a confidently wrong
+   `AGREED_TO_ACQUIRE`. Now strict UTF-8 first, cp1252 fallback (`_decode_filing_bytes`).
+   Applies to every form; valid-UTF-8 filings are byte-identical.
+   NOTE: the saved fixture is itself lossy (all 45 quotes already U+FFFD from the browser
+   save); tests repair it with a documented rule. The true original bytes were not seen.
+2. **Hard-wrapped source lines.** Filing-agent HTML wraps mid-sentence ("entered\ninto an
+   Agreement ..."); `strip_html` kept the newline and the grammar matches single spaces, so
+   `AGREED_TO_ACQUIRE` was not emitted at all. `strip_html(..., unwrap_source_lines=True)`
+   folds source newlines before block tags become paragraph breaks. **Gated to FPI forms
+   (6-K/20-F/40-F) only**: the 8-K path reads line-start `Item N.NN` headers and I could not
+   measure the impact offline, so 8-K/10-K text is deliberately unchanged. The same wrap bug
+   very likely affects some 8-Ks/10-Ks (observed, not changed).
+
+Result on the real text: `AGREED_TO_ACQUIRE(Einride AB -> Flipturn, Inc.)`,
+`MERGED_INTO(Einride FUSE Merger Sub, Inc. -> Flipturn, Inc.)` PROPOSED,
+`SUBSIDIARY_OF(Flipturn, Inc. -> Einride AB)` PROPOSED. Deal state: signed 2026-07-16,
+announced 2026-07-21, closing expected Q3 2026 -- closing NOT verified; do not label COMPLETED.
+
+Observed, not changed: noise org `"Regulation S-K. The Company"` (sentence-boundary bleed from
+the Item 601(a)(5) footnote); Shareholder Representative Services LLC appears as an org
+candidate; AGREED_TO_ACQUIRE's `COMPLETED` status means "agreement executed".
+Frozen-baseline rule: decode fix touches all forms -> saturation cohort rerun still owed.

@@ -33,6 +33,10 @@ ITEMIZED_EVENT_FORMS: tuple[str, ...] = ("8-K", "8-K/A")
 FPI_EVENT_FORMS: tuple[str, ...] = ("6-K", "6-K/A")
 ANNUAL_FORMS: tuple[str, ...] = ("10-K", "10-K/A", "20-F", "20-F/A", "40-F", "40-F/A")
 LONGFORM_FORMS: tuple[str, ...] = ANNUAL_FORMS + FPI_EVENT_FORMS
+# Forms from foreign private issuers -- the ones whose retrieval is new in
+# ADR-EDGAR-012 and therefore the only ones whose text normalization may
+# change without moving the frozen 8-K/10-K baseline.
+FPI_FORMS = frozenset(FPI_EVENT_FORMS) | {"20-F", "20-F/A", "40-F", "40-F/A"}
 
 # "AB" (Swedish aktiebolag) and "publ" (as in "Einride AB (publ)", the
 # public-company marker) are corporate-form words exactly like "Inc" or
@@ -76,10 +80,26 @@ def _get_json(url: str, user_agent: str) -> Any:
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.loads(resp.read().decode("utf-8", "replace"))
 
+def _decode_filing_bytes(raw: bytes) -> str:
+    """
+    Decode a filing document without destroying its punctuation.
+
+    Many filing agents emit windows-1252 (the real Einride 6-K declares
+    charset=windows-1252). Decoding those bytes as UTF-8 with errors="replace"
+    turns every curly quote into U+FFFD, and the alias-definition grammar
+    ('(the "Company")') keys on those quotes -- so the Einride 6-K lost
+    "Flipturn" and "Merger Sub" entirely. Strict UTF-8 first (so valid UTF-8
+    filings are byte-for-byte unchanged), cp1252 only when that fails.
+    """
+    try:
+        return raw.decode("utf-8")
+    except UnicodeDecodeError:
+        return raw.decode("cp1252", "replace")
+
 def _get_text(url: str, user_agent: str) -> str:
     req = urllib.request.Request(url, headers={"User-Agent": user_agent, "Accept-Encoding": "identity"})
     with urllib.request.urlopen(req, timeout=60) as resp:
-        return resp.read().decode("utf-8", "replace")
+        return _decode_filing_bytes(resp.read())
 
 def resolve_cik_by_name(name: str, user_agent: str, *, tickers: dict | None = None) -> str | None:
     if tickers is None:
@@ -92,7 +112,19 @@ def resolve_cik_by_name(name: str, user_agent: str, *, tickers: dict | None = No
             return str(row["cik_str"]).zfill(10)
     return None
 
-def strip_html(s: str) -> str:
+def strip_html(s: str, *, unwrap_source_lines: bool = False) -> str:
+    """
+    unwrap_source_lines: HTML ignores newlines inside text, but some filing
+    agents hard-wrap mid-sentence ("entered\ninto an Agreement..."), and the
+    event grammar matches literal single spaces. When True, source newlines
+    are folded to spaces BEFORE block tags are turned into paragraph breaks,
+    so real paragraph structure survives. Off by default: the 8-K path reads
+    line-start "Item N.NN" headers and its frozen baseline must not move.
+    Never applied to <pre> or tag-less plain-text documents, where newlines
+    are content.
+    """
+    if unwrap_source_lines and not re.search(r"(?i)<pre\b", s) and re.search(r"(?i)<(p|div|br|table)\b", s):
+        s = re.sub(r"\s*\r?\n\s*", " ", s)
     s = re.sub(r"(?is)<(script|style).*?>.*?</\1>", " ", s)
     s = re.sub(r"(?i)<br\s*/?>|</p>|</div>|</tr>|</li>", "\n", s)
     s = re.sub(r"(?s)<[^>]+>", " ", s)
@@ -218,7 +250,7 @@ def _collect_recent_longform_filings(cik: str, user_agent: str, submissions: dic
         if not accession or not primary_doc:
             continue
         doc_url = _document_url(cik, accession, primary_doc)
-        text = strip_html(_get_text(doc_url, user_agent))
+        text = strip_html(_get_text(doc_url, user_agent), unwrap_source_lines=form in FPI_FORMS)
         regions = locate_ma_regions(text, form=form)
         if regions:
             filings.append({
