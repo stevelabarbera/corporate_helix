@@ -112,3 +112,23 @@ def test_cli_offline_writes_json_and_markdown(tmp_path, capsys):
     assert (out / "cik0000000001.json").exists()
     md = (out / "cik0000000001.md").read_text(encoding="utf-8")
     assert "Einride AB" in md and "F-4 x1" in md
+
+
+def test_cohort_aggregate_and_cik_discovery(tmp_path, monkeypatch):
+    from eval import coverage_cohort as cc
+    res = tmp_path / "res"
+    res.mkdir()
+    (res / "a.json").write_text(json.dumps({"company": "Acme Inc.", "cik": "0000000001"}))
+    (res / "b.json").write_text(json.dumps({"company": "NoCik"}))            # skipped: no cik
+    assert cc.cohort_ciks(str(res)) == [("Acme Inc.", "0000000001")]
+
+    subs = _subs([("8-K", "2026-01-01", "2.01"), ("425", "2026-02-01", ""), ("425", "2026-02-02", ""),
+                  ("S-4", "2026-02-03", "")], name="Acme Inc.")
+    monkeypatch.setattr(resolver, "_get_json", lambda url, ua: subs)
+    monkeypatch.setattr(cc.time, "sleep", lambda s: None)
+    out = tmp_path / "out"
+    assert cc.main(["--user-agent", "t t@e.com", "--results-dir", str(res), "--out-dir", str(out),
+                    "--start", "2025-01-01"]) == 0
+    summary = (out / "cohort_summary.md").read_text(encoding="utf-8")
+    assert "| Acme Inc. | 1 / 4 | 2 | 1 |" in summary          # 425 x2, S-4 x1 (most common first)
+    assert "**TOTAL**" in summary
