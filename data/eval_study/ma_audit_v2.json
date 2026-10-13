@@ -1,0 +1,15 @@
+{
+  "study_id": "M40_MA_AUDIT_V2",
+  "purpose": "Fresh-company audit set, run AFTER the foreign-filer/decode fixes. Separate from the frozen M39 pilot; never mix scores with it.",
+  "baseline_rule": "Record results as measured; no tuning between the first run and the written-up result.",
+  "ordering_rule": "Preserve declared order.",
+  "companies": [
+    {
+      "order": 1,
+      "id": "crowdstrike",
+      "company": "CrowdStrike Holdings, Inc.",
+      "sector": "software/security",
+      "cik": "0001535527"
+    }
+  ]
+}
