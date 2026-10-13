@@ -1,7 +1,7 @@
 # Helix backlog
 
 Parked work, each with the trigger that put it here and the condition for picking it up.
-Last updated 2026-10-11. Decisions live in the `DECISIONS_*.md` files; this is only the queue.
+Last updated 2026-10-13. Decisions live in the `DECISIONS_*.md` files; this is only the queue.
 
 ## Foundation (do first -- decides whether the items below are worth doing)
 
@@ -10,7 +10,8 @@ Those misses are two different classes: *coverage gaps* (form never fetched: 6-K
 filing pages) and *extraction failures on fetched documents* (the "AB" suffix, cp1252 quotes, hard-wrapped
 lines). Fetching everything only fixes the first class, so the foundation is two pieces:
 
-1. **Per-company coverage manifest.** Enumerate every filing from the submissions metadata (incl.
+1. **Per-company coverage manifest.** *(Built: `code/providers/edgar_coverage.py`, `code/eval/coverage_manifest.py`,
+   `code/eval/coverage_cohort.py`; first cohort run 2026-10-13 -- see the findings below.)* Enumerate every filing from the submissions metadata (incl.
    paginated `filings.files`) and record what Helix did with each: fetched / skipped + reason. Missing
    form families and date ranges then show up in a report instead of being found by hand. Metadata only,
    no bulk download. Prototype on Einride/Flipturn.
@@ -20,6 +21,34 @@ lines). Fetching everything only fixes the first class, so the foundation is two
 Only after both: a selective full-document loop over the form types the manifest shows are worth it.
 Needs a networked machine (sec.gov is unreachable from the dev sandbox); the code and tests can be built
 without it.
+
+## Saturation study notes (frozen baseline -- annotate, do not edit results)
+
+- **Trump Entertainment Resorts is a coverage test, not an extraction test.** Confirmed 2026-10-13 with the
+  coverage manifest (`coverage_manifest.py --cik 943320`): CIK 0000943320 is the right entity, but all 662 of
+  its filings fall between 1995-11-13 and 2013-03-20. It filed nothing in the 2015-2026 study window, so the
+  2016 Icahn change of control (its only gold event) can never reach the extractor. The result file's
+  `DISCLOSURE_NOT_IN_RETRIEVED_CORPUS` label is accurate. Keep this row out of any extraction-quality average.
+  The baseline result is left untouched (frozen-baseline rule).
+- **New test idea: buyer-side pivot.** A company that stops reporting is invisible to Helix by name; its
+  acquisition is only findable in the *acquirer's* filings (here Icahn Enterprises L.P. -- look up and verify
+  its CIK before use). Add as a separate new row, not a rewrite of the Trump row.
+- **General lesson:** the manifest now flags `NO FILINGS IN WINDOW` (with earliest/latest dates) on the first run
+  for any company in this state.
+
+### First cohort run findings (2026-10-13, 12 companies, window 2015-2026)
+
+Skipped deal-relevant forms, totals: 10-Q 315, DEFA14A 209, **425 76**, S-4 + S-4/A 27, 10-Q/A 4, SC TO-T(/A) 5.
+- **Form 425 and S-4 are concentrated in the stock-merger companies** (425: Lumen 32, Intuitive Machines 21,
+  Six Flags 13, Kraft Heinz 10; none elsewhere). Small volume, pre-closing signal -> first candidates for
+  second-phase retrieval, together with F-4/DEFM14A.
+- **10-Q (every company, ~35 each) and DEFA14A (routine proxy material) are high volume and likely low yield**
+  -- deliberately not queued.
+- **Unproven:** counts show where the forms are, not that they add events. Before building, run the extractor
+  on a handful of 425/S-4 documents for Lumen, Six Flags, Kraft Heinz and see whether they surface events the
+  gold lists miss.
+- Einride AB (CIK 2095096): 79 filings, 12 retrievable (all 6-Ks, includes the Flipturn 6-K); 28 x 425 + F-4 + F-4/A
+  appear to belong to its own listing transaction, not Flipturn (inferred from form types, unverified).
 
 ## EDGAR / foreign filers (from ADR-EDGAR-012 and its addendum)
 
