@@ -112,3 +112,13 @@ def test_even_a_plain_suffixed_name_can_lose_its_vote_to_spelling_variants():
     assert v == ["ENTITY_SPLIT_VOTE"]
     assert rows[0]["backends"]["regex"]["orgs_matching_name"] == ["Target Software, Inc."]
     assert rows[0]["backends"]["spacy"]["orgs_matching_name"] == ["Target Software"]
+
+
+def test_short_gold_name_vs_full_legal_name_is_flagged_not_called_below_threshold():
+    # Real CrowdStrike 10-K: backends agree on "SGNL.AI, Inc." (1.5 >= threshold), gold says "SGNL".
+    gold = {"counterparty": "SGNL", "event_type": "AGREED_TO_ACQUIRE", "status": "COMPLETED"}
+    text = ("On January 7, 2026, the Company entered into a definitive agreement to acquire 100 % of the equity "
+            "interest of SGNL.AI, Inc., a leader in continuous identity. The acquisition closed on February 20, 2026.")
+    v, rows = _verdicts(gold, text)
+    assert v == ["EVENT_GRAMMAR_MISS"]
+    assert "NAME FORM" in rows[0]["why"]

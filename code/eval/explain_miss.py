@@ -41,6 +41,7 @@ if str(CODE) not in sys.path:
     sys.path.insert(0, str(CODE))
 
 from eval.run_ma_s1_baseline import (  # noqa: E402
+    identity_key,
     collect_audit_filings, company_spec, event_matches_gold, load_json, name_variants, same_company,
 )
 from parsers.edgar_longform_locator import locate_ma_regions  # noqa: E402
@@ -82,12 +83,29 @@ def backend_view(extractor, passage: str, names: list[str]) -> dict[str, Any]:
     return out
 
 
+def _loosely_same(candidate: str, names: list[str]) -> bool:
+    """True when one identity key is a whole-token prefix of the other ("sgnl" vs "sgnl ai")."""
+    ck = identity_key(candidate or "").split()
+    for n in names:
+        nk = identity_key(n).split()
+        short, long_ = (ck, nk) if len(ck) <= len(nk) else (nk, ck)
+        if short and long_[:len(short)] == short:
+            return True
+    return False
+
+
 def verdict_for(*, in_region: bool, votes: dict[str, Any], threshold: float, fused_orgs: list[str],
                 events: list[dict[str, Any]], gold: dict[str, Any] | None, names: list[str]) -> tuple[str, str]:
     if not in_region:
         return "NOT_IN_REGION", "the name appears in the filing but the locator did not select this passage"
     seen = {b: v for b, v in votes.items() if v["orgs_matching_name"]}
     recognized = [o for o in fused_orgs if same_company(o, names)]
+    loose = [] if recognized else [o for o in fused_orgs if _loosely_same(o, names)]
+    note = ""
+    if loose:
+        recognized = loose
+        note = (f" [NAME FORM: the extractor recognised {loose}, which the baseline's identity match treats as a "
+                f"different company from the gold name {names}; add the legal name to the gold aliases]")
     if not recognized:
         if not seen:
             return "ENTITY_NOT_SEEN", "no backend produced the name as an organization"
@@ -101,12 +119,12 @@ def verdict_for(*, in_region: bool, votes: dict[str, Any], threshold: float, fus
                 f"seen by {sorted(seen)} for total weight {total} < threshold {threshold}")
     involved = [e for e in events if any(same_company(e.get(r), names) for r in ("subject", "object"))]
     if not involved:
-        return "EVENT_GRAMMAR_MISS", "organization recognized, but no event involves it"
+        return "EVENT_GRAMMAR_MISS", "organization recognized, but no event involves it" + note
     if gold and not any(event_matches_gold(e, gold, names) for e in involved):
         got = sorted({f"{e['event_type']}/{e['status']}" for e in involved})
         return ("EVENT_TYPE_MISMATCH",
                 f"event(s) found {got} but gold expects {gold.get('event_type')}/{gold.get('status')}")
-    return "FOUND", "an event involving the name matches the gold type/status"
+    return "FOUND", "an event involving the name matches the gold type/status" + note
 
 
 # ------------------------------------------------------------------ analysis
