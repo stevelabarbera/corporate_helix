@@ -1,0 +1,1199 @@
+{
+  "company_id": "crowdstrike",
+  "company": "CrowdStrike Holdings, Inc.",
+  "baseline_commit": "e8473b78f8d6e7b7a8f5fb2102cf2470b5eec974",
+  "run_timestamp": "2026-10-14T13:37:12.248842+00:00",
+  "scope": {
+    "start": "2015-01-01",
+    "end": "2026-12-31",
+    "forms": [
+      "10-K",
+      "10-K/A",
+      "20-F",
+      "20-F/A",
+      "40-F",
+      "40-F/A",
+      "6-K",
+      "6-K/A",
+      "8-K",
+      "8-K/A"
+    ]
+  },
+  "cik": "0001535527",
+  "pipeline": {
+    "cik_resolved": true,
+    "filings_retrieved": true,
+    "relevant_text_present": true,
+    "locator_captured": true,
+    "entity_recognized": true,
+    "event_extracted": true,
+    "candidate_emitted": true
+  },
+  "gold_events": [
+    {
+      "id": "crowdstrike-1",
+      "counterparty": "Preempt Security, Inc.",
+      "aliases": [
+        "Preempt Security",
+        "Preempt"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2020-09-30",
+      "notes": "Completion press release dated Sep. 30, 2020; Wikipedia gives $96 million",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "ENTITY_RECOGNIZED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0001104659-20-107900",
+          "0001535527-20-000006",
+          "0001535527-21-000007",
+          "0001535527-22-000006"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-21-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-21-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "PURCHASE_PRICE",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001535527-21-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001535527-21-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-21-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001535527-21-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION"
+            ]
+          },
+          {
+            "accession": "0001535527-21-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-20-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "SOLD"
+            ]
+          }
+        ],
+        "entity_accessions": [
+          "0001535527-21-000007",
+          "0001535527-22-000006"
+        ],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "crowdstrike-2",
+      "counterparty": "Humio Limited",
+      "aliases": [
+        "Humio"
+      ],
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2021-02",
+      "notes": "Announced Feb 2021 (month-level, Wikipedia); Danish log-management platform",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": false,
+        "candidate_emitted": true
+      },
+      "deepest_stage": "ENTITY_RECOGNIZED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0001104659-21-025063",
+          "0001535527-21-000007",
+          "0001535527-22-000006",
+          "0001535527-23-000008"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001535527-23-000008",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001535527-23-000008",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-23-000008",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-21-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          }
+        ],
+        "entity_accessions": [
+          "0001535527-22-000006",
+          "0001535527-23-000008"
+        ],
+        "event_hits": [],
+        "candidate_names": [
+          "Humio Limited"
+        ]
+      }
+    },
+    {
+      "id": "crowdstrike-3",
+      "counterparty": "Humio Limited",
+      "aliases": [
+        "Humio"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2021-03-05",
+      "notes": "Completion press release dated Mar. 5, 2021",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": true,
+        "candidate_emitted": true
+      },
+      "deepest_stage": "CANDIDATE_EMITTED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0001104659-21-025063",
+          "0001535527-21-000007",
+          "0001535527-22-000006",
+          "0001535527-23-000008"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001535527-23-000008",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001535527-23-000008",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-23-000008",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-21-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          }
+        ],
+        "entity_accessions": [
+          "0001535527-22-000006",
+          "0001535527-23-000008"
+        ],
+        "event_hits": [
+          {
+            "accession": "0001535527-22-000006",
+            "event_type": "ACQUIRED",
+            "status": "COMPLETED",
+            "extraction_rule": "REGISTRANT_DECLARATIVE_ACQUISITION",
+            "counterparty_roles": [
+              "object"
+            ],
+            "provider_other_party": "Humio Limited"
+          }
+        ],
+        "candidate_names": [
+          "Humio Limited"
+        ]
+      }
+    },
+    {
+      "id": "crowdstrike-4",
+      "counterparty": "SecureCircle, Inc.",
+      "aliases": [
+        "SecureCircle"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2021-11-30",
+      "notes": "Completion press release (Business Wire id 20211130...)",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "LOCATOR_CAPTURED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0001535527-22-000006",
+          "0001535527-23-000008"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001535527-23-000008",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001535527-23-000008",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-23-000008",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-23-000008",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "SOLD"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-22-000006",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          }
+        ],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "crowdstrike-5",
+      "counterparty": "Reposify Ltd",
+      "aliases": [
+        "Reposify"
+      ],
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2022-10",
+      "notes": "External attack surface management vendor; announced ('to acquire'), completion not verified; ASM-relevant",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "ENTITY_RECOGNIZED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0001535527-23-000008",
+          "0001535527-24-000007"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001535527-24-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-24-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-23-000008",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-23-000008",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-23-000008",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          }
+        ],
+        "entity_accessions": [
+          "0001535527-23-000008",
+          "0001535527-24-000007"
+        ],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "crowdstrike-6",
+      "counterparty": "Bionic",
+      "aliases": [
+        "Bionic.ai",
+        "Bionic Stork Ltd"
+      ],
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2023-09",
+      "notes": "Israeli ASPM startup; announced, completion not verified",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "ENTITY_RECOGNIZED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0001535527-24-000007",
+          "0001535527-25-000009"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001535527-25-000009",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-25-000009",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-24-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-24-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-24-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-24-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          }
+        ],
+        "entity_accessions": [
+          "0001535527-24-000007",
+          "0001535527-25-000009"
+        ],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "crowdstrike-7",
+      "counterparty": "Flow Security",
+      "aliases": [
+        "Flow Security Ltd"
+      ],
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2024-11",
+      "notes": "Announced alongside Adaptive Shield (Wikipedia groups both in Nov 2024); completion not verified",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": true,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "ENTITY_RECOGNIZED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0001535527-24-000007",
+          "0001535527-25-000009",
+          "0001535527-26-000010"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001535527-26-000010",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-26-000010",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-26-000010",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-25-000009",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-25-000009",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-25-000009",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-24-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-24-000007",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION",
+              "PURCHASE_PRICE"
+            ]
+          }
+        ],
+        "entity_accessions": [
+          "0001535527-24-000007",
+          "0001535527-25-000009",
+          "0001535527-26-000010"
+        ],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "crowdstrike-8",
+      "counterparty": "Adaptive Shield",
+      "aliases": [
+        "Adaptive Shield Ltd"
+      ],
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2024-11",
+      "notes": "Israeli SaaS security startup; completion not verified",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "LOCATOR_CAPTURED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0001535527-25-000009",
+          "0001535527-26-000010"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001535527-26-000010",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-26-000010",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-25-000009",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-25-000009",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-25-000009",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-25-000009",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          }
+        ],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "crowdstrike-9",
+      "counterparty": "Onum",
+      "aliases": [
+        "Onum Inc"
+      ],
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2025-08",
+      "notes": "Single secondary source (Wikipedia); completion not verified",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "LOCATOR_CAPTURED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0001535527-26-000010",
+          "0001535527-26-000018"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001535527-26-000010",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-26-000010",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION"
+            ]
+          },
+          {
+            "accession": "0001535527-26-000010",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "MERGER",
+              "PURCHASE_PRICE"
+            ]
+          }
+        ],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "crowdstrike-10",
+      "counterparty": "SGNL",
+      "aliases": [
+        "SGNL Inc"
+      ],
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2026-01",
+      "notes": "Announced ~2026-01-07/08; price reported as $740M or $750M depending on source; completion not verified",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "LOCATOR_CAPTURED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0001535527-26-000010",
+          "0001535527-26-000018"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001535527-26-000010",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-26-000010",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "PURCHASE_PRICE"
+            ]
+          }
+        ],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    },
+    {
+      "id": "crowdstrike-11",
+      "counterparty": "Seraphic Security",
+      "aliases": [
+        "Seraphic"
+      ],
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2026-01",
+      "notes": "Israeli browser-security firm announced alongside SGNL; completion not verified",
+      "stages": {
+        "filings_retrieved": true,
+        "relevant_text_present": true,
+        "locator_captured": true,
+        "entity_recognized": false,
+        "event_extracted": false,
+        "candidate_emitted": false
+      },
+      "deepest_stage": "LOCATOR_CAPTURED",
+      "evidence": {
+        "raw_text_accessions": [
+          "0001535527-26-000010",
+          "0001535527-26-000018"
+        ],
+        "selected_section_hits": [
+          {
+            "accession": "0001535527-26-000010",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "BUSINESS_COMBINATION",
+              "PURCHASE_PRICE"
+            ]
+          },
+          {
+            "accession": "0001535527-26-000010",
+            "form": "10-K",
+            "section": "LONGFORM_MA_CANDIDATE",
+            "locator_terms": [
+              "ACQUIRE",
+              "ACQUISITION",
+              "PURCHASE_PRICE"
+            ]
+          }
+        ],
+        "entity_accessions": [],
+        "event_hits": [],
+        "candidate_names": []
+      }
+    }
+  ],
+  "unmatched_candidates": [],
+  "retrieval": {
+    "filing_count": 71,
+    "errors": []
+  },
+  "observed_primitives": [
+    "EXTRACTION_RULE:REGISTRANT_DECLARATIVE_ACQUISITION",
+    "FORM:10-K",
+    "LOCATOR_SIGNAL:ACQUIRE",
+    "LOCATOR_SIGNAL:ACQUISITION",
+    "LOCATOR_SIGNAL:BUSINESS_COMBINATION",
+    "LOCATOR_SIGNAL:MERGER",
+    "LOCATOR_SIGNAL:PURCHASE_PRICE",
+    "LOCATOR_SIGNAL:SOLD",
+    "SECTION:LONGFORM_MA_CANDIDATE"
+  ],
+  "failure_classes": [
+    "ENTITY_RECOGNITION_MISS",
+    "EVENT_GRAMMAR_MISS"
+  ],
+  "notes": "Measurement-only M&A-S1 run; production resolver, locator, extractor, trust, and recursion behavior unchanged."
+}
