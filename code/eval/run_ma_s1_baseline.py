@@ -369,7 +369,14 @@ def main() -> int:
         args.results.mkdir(parents=True, exist_ok=True)
         output = args.results / f"{args.company}.json"
         output.write_text(rendered)
-        print(f"Wrote {output.relative_to(ROOT)}")
+        # A relative --results path used to crash here AFTER the file was
+        # written (relative_to needs both sides absolute).
+        out_abs = output.resolve()
+        try:
+            shown = out_abs.relative_to(ROOT)
+        except ValueError:
+            shown = out_abs
+        print(f"Wrote {shown}")
         print(f"CIK: {result.get('cik') or 'UNRESOLVED'} | filings: {result.get('retrieval', {}).get('filing_count', 0)}")
         for event in result.get("gold_events", []):
             print(f"  {event.get('counterparty', event.get('id'))}: {event.get('deepest_stage', 'CIK_RESOLVED')}")
