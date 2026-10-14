@@ -52,3 +52,6 @@ data/raw/target_exhibit21_debug/2010-03-12_000104746910002121.html
 data/raw/target_exhibit21_debug/2010-03-18_000104746910002408.html
 data/raw/target_exhibit21_debug/2020-03-11_000002741920000008.html
 *.zip
+
+# Local download cache for eval diagnostics
+.helix_cache/

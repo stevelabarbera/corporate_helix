@@ -26,6 +26,7 @@ from parsers.edgar_longform_locator import locate_ma_regions
 from providers.edgar_ma_provider import EdgarMAExpansionProvider, other_party
 from providers.edgar_resolver import (
     ITEMIZED_EVENT_FORMS,
+    FPI_FORMS,
     LONGFORM_FORMS,
     _document_url,
     _get_text,
@@ -125,7 +126,8 @@ def collect_audit_filings(
             continue
         url = _document_url(cik10, accession, primary_doc)
         try:
-            raw_text = strip_html(get_text_fn(url, user_agent))
+            # Same normalization production applies (FPI forms only; see ADR-EDGAR-012 addendum).
+            raw_text = strip_html(get_text_fn(url, user_agent), unwrap_source_lines=form in FPI_FORMS)
         except Exception as exc:  # preserve partial baseline instead of erasing it
             errors.append({"accession": accession, "error": f"{type(exc).__name__}: {exc}"})
             continue
