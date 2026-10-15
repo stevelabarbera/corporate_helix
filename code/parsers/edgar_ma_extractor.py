@@ -717,6 +717,60 @@ def infer_events(text, aliases, orgs, item):
             extraction_rule="REGISTRANT_DECLARATIVE_ACQUISITION",
         )
 
+    # Long-form registrant acquisition grammar (CrowdStrike audit, 2026-10-14).
+    # Real 10-K notes say "the Company acquired 100% of the equity interest of
+    # X Ltd." and "we/the Company entered into a definitive agreement to
+    # acquire X"; only the literal "we acquired X," used to produce an event,
+    # so every deal written in the other voice was recognised as an entity
+    # and then silently dropped. The target is whatever recognised
+    # organization starts the text after the verb -- no name-suffix list.
+    subj = (r"(?:we|the\s+Company|(?:a|our)\s+wholly[- ]owned\s+subsidiary"
+            r"(?:\s+of\s+the\s+Company)?)")
+    stake = (r"(?:(?:100\s*%|all)\s*of\s+the\s+(?:issued\s+and\s+outstanding\s+)?"
+             r"(?:equity\s+interests?|shares|capital\s+stock|stock|membership\s+interests?)"
+             r"\s+of\s+)?")
+    done_re = re.compile(
+        rf"\b{subj}\s+(?:acquired|completed\s+(?:its|our|the)\s+(?:previously\s+announced\s+)?"
+        rf"acquisition\s+of)\s+{stake}", re.I)
+    agree_re = re.compile(
+        rf"\b{subj}\s+entered\s+into\s+(?:a|an)\s+(?:[\w-]+\s+){{0,2}}?agreement\s+"
+        rf"(?:[\w-]+\s+){{0,4}}?to\s+(?:acquire|purchase)\s+{stake}", re.I)
+
+    def _target_after(pos):
+        window = text[pos:pos + 150]
+        t = known_prefix(window, orgs)
+        if not t:
+            short = re.match(r"[A-Z][A-Za-z0-9&.'\u2019-]*", window)
+            if short:
+                r = resolve(short.group(0), aliases)
+                t = r if r in orgs else None
+        return t
+
+    def _have(etype, target):
+        return any(e["event_type"] == etype and e["object"] == target
+                   and e["subject"] == "REGISTRANT_SELF_REFERENCE" for e in out)
+
+    for m in done_re.finditer(text):
+        target = _target_after(m.end())
+        if target and not _have("ACQUIRED", target):
+            add_event(out, "ACQUIRED", "REGISTRANT_SELF_REFERENCE", target, "COMPLETED",
+                      text[max(0, m.start() - 100):m.end() + 250],
+                      extraction_rule="REGISTRANT_ACQUISITION_NARRATIVE")
+    for m in agree_re.finditer(text):
+        target = _target_after(m.end())
+        if not target:
+            continue
+        frag = text[max(0, m.start() - 100):m.end() + 300]
+        # "AGREED_TO_ACQUIRE"+COMPLETED means the agreement was executed.
+        if not _have("AGREED_TO_ACQUIRE", target):
+            add_event(out, "AGREED_TO_ACQUIRE", "REGISTRANT_SELF_REFERENCE", target, "COMPLETED",
+                      frag, extraction_rule="REGISTRANT_AGREEMENT_NARRATIVE")
+        after = text[m.end():m.end() + 300]
+        if re.search(r"\bacquisition\s+(?:was\s+)?(?:closed|completed)\b|\bclosed\s+on\b", after, re.I) \
+                and not _have("ACQUIRED", target):
+            add_event(out, "ACQUIRED", "REGISTRANT_SELF_REFERENCE", target, "COMPLETED",
+                      frag, extraction_rule="REGISTRANT_AGREEMENT_NARRATIVE")
+
     # Direction correction: "the Company entered into an Agreement...with
     # Parent...Merger Sub will merge with and into the Company" is
     # IDENTICAL grammar whether the filer is the acquirer OR the target --

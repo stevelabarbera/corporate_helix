@@ -39,12 +39,12 @@ def test_found_when_event_matches_gold():
     assert v == ["FOUND"]
 
 
-def test_completed_the_acquisition_of_is_reported_as_a_grammar_miss():
-    # Org is recognised (alias defined) but no event grammar covers this phrasing.
+def test_completed_the_acquisition_of_is_now_covered_by_the_narrative_grammar():
+    # Was EVENT_GRAMMAR_MISS before REGISTRANT_ACQUISITION_NARRATIVE (2026-10-15).
     gold = {"counterparty": "Target Software, Inc.", "event_type": "ACQUIRED", "status": "COMPLETED"}
     v, _ = _verdicts(gold, "In March 2024, we completed the acquisition of Target Software, Inc. (\u201cTarget\u201d) for cash. "
                            "The purchase price allocation is described below.")
-    assert v == ["EVENT_GRAMMAR_MISS"]
+    assert v == ["FOUND"]
 
 
 def test_event_type_mismatch_is_reported_when_gold_type_differs():
