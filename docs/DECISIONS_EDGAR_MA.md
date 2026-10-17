@@ -928,3 +928,49 @@ Observed, not changed: noise org `"Regulation S-K. The Company"` (sentence-bound
 the Item 601(a)(5) footnote); Shareholder Representative Services LLC appears as an org
 candidate; AGREED_TO_ACQUIRE's `COMPLETED` status means "agreement executed".
 Frozen-baseline rule: decode fix touches all forms -> saturation cohort rerun still owed.
+
+
+## ADR-EDGAR-013 — CrowdStrike audit: misses were event grammar and gold naming, not entity recognition
+
+Date: 2026-10-17. Branches: `feat/explain-miss`, `feat/acquisition-grammar`, `eval/crowdstrike-gold-amendment`.
+
+**Context.** A random audit (CrowdStrike, 11 tuck-in acquisitions) found 1/11 deals. The first
+guess was entity recognition ("suffixless names"); that was never tested against filing text.
+
+**Method.** `code/eval/explain_miss.py` prints, per miss, the actual filing sentences and the
+vote of each extractor backend, using the same parse path as the baseline harness
+(`--company crowdstrike --counterparty <name> --study data/eval_study/ma_audit_v2.json`).
+
+**Findings (from real 10-K text, not constructed sentences).**
+1. Entities were mostly recognised. Where the filing defines an alias ("X Ltd. (“X”)") all
+   three backends agree (weight 2.75 vs threshold 1.5).
+2. No event was produced. Only the literal `we acquired X,` produced an ACQUIRED event; the
+   filings say `the Company acquired 100% of the equity interest of X Ltd.` and
+   `we entered into a definitive agreement to acquire X ... The acquisition closed on <date>`.
+   Humio ("we acquired") was the only deal found.
+3. The gold used short names ("SGNL", "Seraphic Security", "Bionic") while filings use legal
+   names ("SGNL.AI, Inc.", "Seraphic Algorithms Ltd.", "Bionic Stork, Ltd."); the harness
+   identity match treats these as different companies. This is a gold defect, not an extractor one.
+4. The gold typed unverified tuck-ins AGREED_TO_ACQUIRE; the 10-Ks say they closed (ACQUIRED).
+   Scoring is type-sensitive, so these could never match.
+5. Real, smaller cause: regex captured `Onum Technology Inc. and Pangea Cyber Corporation`
+   as one name, splitting the vote. Cause is a conjunction, not a missing suffix. NOT FIXED.
+6. My diagnostic first mislabelled SGNL as "below threshold" (it compared the gold short name
+   with the legal name). Fixed; it now reports `NAME FORM`.
+
+**Decision.** No suffix list. Added `REGISTRANT_ACQUISITION_NARRATIVE` /
+`REGISTRANT_AGREEMENT_NARRATIVE` in `edgar_ma_extractor.py`: registrant subject (we / the
+Company / wholly owned subsidiary) + acquired | completed the acquisition of | entered into a
+definitive agreement to acquire, then the first already-recognised organization after the
+verb. An agreement followed by "closed" language also yields ACQUIRED; an agreement alone
+stays AGREED_TO_ACQUIRE (status COMPLETED = agreement executed).
+
+**Verification.** Saturation cohort rerun (12 companies, `ma_saturation_results_rerun_1015`):
+10 gold events moved deeper, 0 moved shallower; 9 new unmatched candidates that appear to be
+real acquisitions missing from the gold (not verified against filings). CrowdStrike: 1/11 ->
+about 3/11 on the original gold; the remainder blocked by findings 3 and 4. Gold amendment
+filed separately (`data/eval_gold_amended/crowdstrike.json`); the original gold and first run
+record are unchanged. Rerun against the amended gold: pending.
+
+**Open.** "and"-joined entity names (finding 5); `Preempt` completion (2020) is not in the
+10-Ks examined; 8-K press-release passages are NOT_IN_REGION by design.
