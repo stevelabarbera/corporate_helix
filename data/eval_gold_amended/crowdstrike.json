@@ -59,12 +59,14 @@
       "id": "crowdstrike-4",
       "counterparty": "SecureCircle, Inc.",
       "aliases": [
-        "SecureCircle"
+        "Secure Circle, LLC",
+        "SecureCircle",
+        "SecureCircle, LLC"
       ],
       "event_type": "ACQUIRED",
       "status": "COMPLETED",
       "approx_date": "2021-11-30",
-      "notes": "Completion press release (Business Wire id 20211130...)"
+      "notes": "Completion press release (Business Wire id 20211130...) | AMENDED 2026-10-17: FY2022 10-K goodwill note spells it 'Secure Circle, LLC (“SecureCircle”)'."
     },
     {
       "id": "crowdstrike-5",
