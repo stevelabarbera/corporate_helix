@@ -970,7 +970,14 @@ stays AGREED_TO_ACQUIRE (status COMPLETED = agreement executed).
 real acquisitions missing from the gold (not verified against filings). CrowdStrike: 1/11 ->
 about 3/11 on the original gold; the remainder blocked by findings 3 and 4. Gold amendment
 filed separately (`data/eval_gold_amended/crowdstrike.json`); the original gold and first run
-record are unchanged. Rerun against the amended gold: pending.
+record are unchanged. Rerun against the amended gold
+(`ma_audit_results_rerun2`): 9 of 11 gold rows reach CANDIDATE_EMITTED (was 3 of 11 on the
+original gold, 1 of 11 before the grammar change); 2 unmatched candidates.
+Remaining misses: (a) `SecureCircle, Inc.` -- the 10-K spells it `Secure Circle, LLC`
+(different spacing and entity form; needs a gold alias, and the locator reached it but no
+entity was recognised); (b) the duplicate Humio gold row typed AGREED_TO_ACQUIRE -- the
+10-K only says "we acquired Humio", so no agreement event exists to find; the row is a gold
+defect (the press-release announcement is in an 8-K/exhibit, not the 10-K).
 
 **Open.** "and"-joined entity names (finding 5); `Preempt` completion (2020) is not in the
 10-Ks examined; 8-K press-release passages are NOT_IN_REGION by design.
