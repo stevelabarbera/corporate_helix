@@ -10,6 +10,13 @@
       "company": "CrowdStrike Holdings, Inc.",
       "sector": "software/security",
       "cik": "0001535527"
+    },
+    {
+      "order": 2,
+      "id": "hormel",
+      "company": "Hormel Foods Corporation",
+      "sector": "food",
+      "cik": "0000048465"
     }
   ]
 }

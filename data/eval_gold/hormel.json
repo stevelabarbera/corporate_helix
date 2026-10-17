@@ -1,0 +1,100 @@
+{
+  "company": "Hormel Foods Corporation",
+  "aliases_ok": [
+    "Hormel Foods",
+    "Hormel",
+    "Hormel Foods Corp"
+  ],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "Built 2026-10-17 from press releases and trade press only, before any Hormel SEC filing text or Helix output was fetched or read. Chosen after Domino's was rejected (franchise-store purchases, main deal pre-2015). PARTIAL: closing was verified from a release only for Fontanini (announced as completed) and Planters (closing release 2021-06-07). All other rows are typed ACQUIRED/COMPLETED on general knowledge that the deals closed, with the announcement date recorded; a type mismatch on those rows may be a gold defect. Gold is incomplete: smaller/older Hormel deals (e.g., Century Foods, Black Label Bacon) are deliberately omitted because they were not verified.",
+  "gold_sources": [
+    "https://www.hormelfoods.com/about/our-family/",
+    "https://www.hormelfoods.com/newsroom/press-releases/hormel-foods-adds-foodservice-portfolio-acquisition-fontanini-italian-meats-sausages/",
+    "https://www.hormelfoods.com/newsroom/press-releases/hormel-foods-adds-another-strategic-leading-brand-to-its-portfolio-with-the-acquisition-of-planters/",
+    "https://www.hormelfoods.com/newsroom/press-releases/hormel-foods-announces-closing-of-acquisition-of-planters-snacking-business/",
+    "https://www.hormelfoods.com/newsroom/press-releases/hormel-foods-enhances-position-premium-authentic-deli-meats-acquisition-columbus-manufacturing-inc-maker-columbus-craft-meats/",
+    "https://bizwest.com/?p=371463",
+    "https://tcbmag.com/hormel-acquires-sadlers-smokehouse-for-270m/",
+    "https://www.foodingredientsfirst.com/news/hormel-foods-to-acquire-applegate-for-775-million.html"
+  ],
+  "note": "Fresh-company audit #2 (M40). Do not tune between first run and write-up.",
+  "events": [
+    {
+      "id": "hormel-1",
+      "counterparty": "Applegate Farms, LLC",
+      "aliases": [
+        "Applegate Farms",
+        "Applegate"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2015-05-27",
+      "notes": "Announced 2015-05-27 at ~$775M (foodingredientsfirst); closing expected within 60 days. Completion from general knowledge, not verified from a closing release."
+    },
+    {
+      "id": "hormel-2",
+      "counterparty": "Justin's, LLC",
+      "aliases": [
+        "Justin's",
+        "Justins"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2016-05-18",
+      "notes": "Announced 2016-05-18 at $286M (BizWest). Completion from general knowledge, not verified."
+    },
+    {
+      "id": "hormel-3",
+      "counterparty": "Columbus Manufacturing, Inc.",
+      "aliases": [
+        "Columbus Craft Meats",
+        "Columbus Manufacturing",
+        "Columbus"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2017-10-31",
+      "notes": "Definitive agreement announced 2017-10-31, ~$850M, subject to regulatory approval; closing not verified from press."
+    },
+    {
+      "id": "hormel-4",
+      "counterparty": "Fontanini Foods, LLC",
+      "aliases": [
+        "Fontanini Italian Meats and Sausages",
+        "Fontanini",
+        "Capitol Wholesale Meats, Inc.",
+        "Capitol Wholesale Meats"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2017-08-17",
+      "notes": "Hormel press release 2017-08-17: 'has acquired' (announced as completed). Seller/original name Capitol Wholesale Meats, Inc."
+    },
+    {
+      "id": "hormel-5",
+      "counterparty": "Sadler's Smokehouse",
+      "aliases": [
+        "Sadler's Smokehouse",
+        "Sadlers Smokehouse",
+        "Sadler's"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2020-02-20",
+      "notes": "Announced 2020-02-20, $270M, 'set to close in March' (TCB Magazine). Legal name not stated in press; completion not verified."
+    },
+    {
+      "id": "hormel-6",
+      "counterparty": "Planters",
+      "aliases": [
+        "Planters snack nut portfolio",
+        "Planters snacking business",
+        "Planters brand"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2021-06-07",
+      "notes": "Announced 2021-02-11 ($3.35B cash, from The Kraft Heinz Company); closing release dated 2021-06-07 (hormelfoods.com). Asset/brand purchase, not an entity purchase."
+    }
+  ]
+}
