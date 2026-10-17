@@ -981,3 +981,7 @@ defect (the press-release announcement is in an 8-K/exhibit, not the 10-K).
 
 **Open.** "and"-joined entity names (finding 5); `Preempt` completion (2020) is not in the
 10-Ks examined; 8-K press-release passages are NOT_IN_REGION by design.
+
+**Update 2026-10-17 (rerun3, SecureCircle alias added):** 10 of 11 gold rows reach
+CANDIDATE_EMITTED; 1 unmatched candidate. The only row not emitted is the duplicate Humio
+AGREED_TO_ACQUIRE row, which the 10-Ks cannot support (gold defect, see above).
