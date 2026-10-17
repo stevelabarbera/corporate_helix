@@ -26,6 +26,7 @@ from parsers.edgar_longform_locator import locate_ma_regions
 from providers.edgar_ma_provider import EdgarMAExpansionProvider, other_party
 from providers.edgar_resolver import (
     ITEMIZED_EVENT_FORMS,
+    FPI_FORMS,
     LONGFORM_FORMS,
     _document_url,
     _get_text,
@@ -125,7 +126,8 @@ def collect_audit_filings(
             continue
         url = _document_url(cik10, accession, primary_doc)
         try:
-            raw_text = strip_html(get_text_fn(url, user_agent))
+            # Same normalization production applies (FPI forms only; see ADR-EDGAR-012 addendum).
+            raw_text = strip_html(get_text_fn(url, user_agent), unwrap_source_lines=form in FPI_FORMS)
         except Exception as exc:  # preserve partial baseline instead of erasing it
             errors.append({"accession": accession, "error": f"{type(exc).__name__}: {exc}"})
             continue
@@ -369,7 +371,14 @@ def main() -> int:
         args.results.mkdir(parents=True, exist_ok=True)
         output = args.results / f"{args.company}.json"
         output.write_text(rendered)
-        print(f"Wrote {output.relative_to(ROOT)}")
+        # A relative --results path used to crash here AFTER the file was
+        # written (relative_to needs both sides absolute).
+        out_abs = output.resolve()
+        try:
+            shown = out_abs.relative_to(ROOT)
+        except ValueError:
+            shown = out_abs
+        print(f"Wrote {shown}")
         print(f"CIK: {result.get('cik') or 'UNRESOLVED'} | filings: {result.get('retrieval', {}).get('filing_count', 0)}")
         for event in result.get("gold_events", []):
             print(f"  {event.get('counterparty', event.get('id'))}: {event.get('deepest_stage', 'CIK_RESOLVED')}")

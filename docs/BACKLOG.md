@@ -77,3 +77,10 @@ Skipped deal-relevant forms, totals: 10-Q 315, DEFA14A 209, **425 76**, S-4 + S-
 - M4.3A Sony confirmation run.
 - Fix stale "sec 34.3" cross-reference in `ingest_supplied_evidence.py` (should point to `whois_parser.py` docstring).
 - Clean up the two `EntityCandidate` classes (live `code/models/` package vs orphaned flat `code/models.py`).
+
+## CrowdStrike audit follow-ups (ADR-EDGAR-013)
+- Regex backend joins names across "and" (`Onum Technology Inc. and Pangea Cyber Corporation`), splitting the entity vote; fix by stopping the capture at a conjunction, not with a suffix list.
+- Spaced/variant spellings (`Secure Circle, LLC` vs `SecureCircle`): consider pooling votes by identity rather than per surface spelling; the SecureCircle row still fails to recognise an entity.
+- Gold hygiene: the Humio AGREED_TO_ACQUIRE duplicate row cannot be found in 10-Ks; decide whether announcement rows belong in 8-K/exhibit-only gold.
+- Check the 2 unmatched CrowdStrike candidates and the 9 new cohort candidates against filings (likely real acquisitions missing from gold).
+- Explain-miss: add a `--all` mode that loops gold rows so the shell loop is not needed.

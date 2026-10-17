@@ -303,3 +303,22 @@ def test_6k_retrieval_applies_unwrap_but_8k_retrieval_does_not(monkeypatch):
     monkeypatch.setattr(resolver, "_get_text", lambda url, ua: wrapped)
     data = resolver.fetch_ma_filings("1", "t@example.com")
     assert "entered into an Agreement" in data["filings"][0]["sections"][0]["text"]
+
+
+def test_baseline_harness_accepts_a_relative_results_dir(tmp_path, monkeypatch, capsys):
+    # Regression: `--results data/...` (relative) crashed with ValueError after
+    # writing the result, which looked like a failed run.
+    import json
+    from eval import run_ma_s1_baseline as h
+    study = tmp_path / "study.json"
+    study.write_text(json.dumps({"companies": [{"order": 1, "id": "acme", "company": "Acme Inc."}]}))
+    gold = tmp_path / "gold"
+    gold.mkdir()
+    (gold / "acme.json").write_text(json.dumps({"company": "Acme Inc.", "events": []}))
+    monkeypatch.setattr(h, "run_baseline", lambda *a, **k: {"cik": "1", "retrieval": {"filing_count": 0},
+                                                           "gold_events": [], "unmatched_candidates": []})
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(sys, "argv", ["x", "--company", "acme", "--study", str(study),
+                                      "--gold-dir", str(gold), "--results", "rel_out"])
+    assert h.main() == 0
+    assert (tmp_path / "rel_out" / "acme.json").exists()

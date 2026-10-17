@@ -1,0 +1,158 @@
+{
+  "company": "CrowdStrike Holdings, Inc.",
+  "aliases_ok": [
+    "CrowdStrike",
+    "CrowdStrike, Inc.",
+    "CrowdStrike Holdings"
+  ],
+  "gold_established_blind": "PARTIAL",
+  "blindness_caveat": "Built 2026-10-13 from press coverage and the Wikipedia acquisitions table only, before any CrowdStrike SEC filing text or Helix output was fetched or inspected. PARTIAL because: (1) completion was verified only for Preempt, Humio and SecureCircle, and only from press-release headlines/titles, not full text; (2) the seven later deals are recorded as AGREED_TO_ACQUIRE (announcement) with NO closing event, because no completion announcement was found for them -- do not add ACQUIRED events without checking; (3) month-level dates come from a single Wikipedia table and prices differ between sources (SGNL: $740M vs $750M) so no prices are asserted.",
+  "gold_sources": [
+    "https://en.wikipedia.org/wiki/CrowdStrike (acquisitions table; month-level dates)",
+    "https://ir.crowdstrike.com/news-releases/news-release-details/crowdstrike-completes-acquisition-preempt-security (Sep. 30, 2020)",
+    "https://ir.crowdstrike.com/news-releases/news-release-details/crowdstrike-completes-acquisition-humio (Mar. 5, 2021)",
+    "https://ir.crowdstrike.com/news-releases/news-release-details/crowdstrike-completes-acquisition-securecircle-disrupt-legacy (Nov. 30, 2021)",
+    "https://www.privsource.com/acquisitions/deal/krSNgE (Reposify)",
+    "https://www.nasdaq.com/articles/crowdstrike-crwd-to-acquire-aspm-solution-provider-bionic (Bionic)",
+    "https://www.privsource.com/acquisitions/deal/crowdstrike-acquires-flow-security-3ASDy8 (Flow Security)",
+    "https://en.globes.co.il/en/article-1001493338 (Adaptive Shield)",
+    "https://pureai.com/Articles/2026/01/08/CrowdStrike-acquires-SGNL.aspx (SGNL)",
+    "https://www.privsource.com/acquisitions/deal/crowdstrike-to-acquire-seraphic-security-n8SNnD (Seraphic)"
+  ],
+  "note": "Chosen as a CURRENT domestic filer (CIK 1535527; first SEC filing is its 2019 S-1) with a long run of mostly small deals -- the case where an 8-K Item 1.01/2.01 gate is most likely to miss, since small tuck-ins are often disclosed only in the 10-K/10-Q or press releases. Includes an EASM vendor (Reposify), which is on-topic for ASM seed generation. Excluded on purpose: Payload Security (Nov 2017, before CrowdStrike was a registrant -- a coverage test, not an extraction test, per the Trump lesson); Pangea (recalled as ~Sep 2025 but not corroborated in this research); Orion (reported as talks only). Note Onum rests on a single secondary source (Wikipedia).",
+  "events": [
+    {
+      "id": "crowdstrike-1",
+      "counterparty": "Preempt Security, Inc.",
+      "aliases": [
+        "Preempt Security",
+        "Preempt"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2020-09-30",
+      "notes": "Completion press release dated Sep. 30, 2020; Wikipedia gives $96 million"
+    },
+    {
+      "id": "crowdstrike-2",
+      "counterparty": "Humio Limited",
+      "aliases": [
+        "Humio"
+      ],
+      "event_type": "AGREED_TO_ACQUIRE",
+      "status": "COMPLETED",
+      "approx_date": "2021-02",
+      "notes": "Announced Feb 2021 (month-level, Wikipedia); Danish log-management platform"
+    },
+    {
+      "id": "crowdstrike-3",
+      "counterparty": "Humio Limited",
+      "aliases": [
+        "Humio"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2021-03-05",
+      "notes": "Completion press release dated Mar. 5, 2021"
+    },
+    {
+      "id": "crowdstrike-4",
+      "counterparty": "SecureCircle, Inc.",
+      "aliases": [
+        "Secure Circle, LLC",
+        "SecureCircle",
+        "SecureCircle, LLC"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2021-11-30",
+      "notes": "Completion press release (Business Wire id 20211130...) | AMENDED 2026-10-17: FY2022 10-K goodwill note spells it 'Secure Circle, LLC (“SecureCircle”)'."
+    },
+    {
+      "id": "crowdstrike-5",
+      "counterparty": "Reposify Ltd",
+      "aliases": [
+        "Reposify"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2022-10",
+      "notes": "External attack surface management vendor; announced ('to acquire'), completion not verified; ASM-relevant | AMENDED 2026-10-17 from filing text: FY2024 10-K note: 'On October 3, 2022, the Company acquired 100% of the equity interest of Reposify Ltd.'. Original label AGREED_TO_ACQUIRE kept in the first run record."
+    },
+    {
+      "id": "crowdstrike-6",
+      "counterparty": "Bionic",
+      "aliases": [
+        "Bionic Stork Ltd",
+        "Bionic Stork Ltd.",
+        "Bionic Stork, Ltd.",
+        "Bionic.ai"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2023-09",
+      "notes": "Israeli ASPM startup; announced, completion not verified | AMENDED 2026-10-17 from filing text: FY2025 10-K note: 'On September 28, 2023, the Company acquired 100% of the equity interest of Bionic Stork, Ltd.'. Original label AGREED_TO_ACQUIRE kept in the first run record."
+    },
+    {
+      "id": "crowdstrike-7",
+      "counterparty": "Flow Security",
+      "aliases": [
+        "Flow Security Ltd",
+        "Flow Security Ltd."
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2024-11",
+      "notes": "Announced alongside Adaptive Shield (Wikipedia groups both in Nov 2024); completion not verified | AMENDED 2026-10-17 from filing text: FY2026 10-K note: 'On March 26, 2024, the Company acquired 100% of the equity interest of Flow Security Ltd.'. Original label AGREED_TO_ACQUIRE kept in the first run record."
+    },
+    {
+      "id": "crowdstrike-8",
+      "counterparty": "Adaptive Shield",
+      "aliases": [
+        "A.S. Adaptive Shield Ltd.",
+        "Adaptive Shield Ltd"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2024-11",
+      "notes": "Israeli SaaS security startup; completion not verified | AMENDED 2026-10-17 from filing text: FY2026 10-K note: 'On November 20, 2024, the Company acquired 100% of the equity interest of A.S. Adaptive Shield Ltd.'. Original label AGREED_TO_ACQUIRE kept in the first run record."
+    },
+    {
+      "id": "crowdstrike-9",
+      "counterparty": "Onum",
+      "aliases": [
+        "Onum Inc",
+        "Onum Technology Inc."
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2025-08",
+      "notes": "Single secondary source (Wikipedia); completion not verified | AMENDED 2026-10-17 from filing text: FY2026 10-K: 'The acquisition of Onum did not have a material impact...' and investing-activities text naming Onum Technology Inc. acquisition (FY2026). Original label AGREED_TO_ACQUIRE kept in the first run record."
+    },
+    {
+      "id": "crowdstrike-10",
+      "counterparty": "SGNL",
+      "aliases": [
+        "SGNL Inc",
+        "SGNL.AI, Inc."
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2026-01",
+      "notes": "Announced ~2026-01-07/08; price reported as $740M or $750M depending on source; completion not verified | AMENDED 2026-10-17 from filing text: FY2026 10-K: agreement Jan 7, 2026; 'The acquisition closed on February 20, 2026' (SGNL.AI, Inc.). Original label AGREED_TO_ACQUIRE kept in the first run record."
+    },
+    {
+      "id": "crowdstrike-11",
+      "counterparty": "Seraphic Security",
+      "aliases": [
+        "Seraphic",
+        "Seraphic Algorithms Ltd."
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2026-01",
+      "notes": "Israeli browser-security firm announced alongside SGNL; completion not verified | AMENDED 2026-10-17 from filing text: FY2026 10-K: agreement Jan 12, 2026; 'The acquisition closed on February 3, 2026' (Seraphic Algorithms Ltd.). Original label AGREED_TO_ACQUIRE kept in the first run record."
+    }
+  ],
+  "amendment": "2026-10-17: legal-name aliases and ACQUIRED type for 7 tuck-ins, taken from CrowdStrike 10-K text seen via explain_miss. data/eval_gold/crowdstrike.json is unchanged; the first run record stands."
+}
