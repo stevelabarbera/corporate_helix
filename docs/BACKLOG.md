@@ -79,8 +79,8 @@ Skipped deal-relevant forms, totals: 10-Q 315, DEFA14A 209, **425 76**, S-4 + S-
 - Clean up the two `EntityCandidate` classes (live `code/models/` package vs orphaned flat `code/models.py`).
 
 ## CrowdStrike audit follow-ups (ADR-EDGAR-013)
-- Regex backend joins names across "and" (`Onum Technology Inc. and Pangea Cyber Corporation`), splitting the entity vote; fix by stopping the capture at a conjunction, not with a suffix list.
-- Spaced/variant spellings (`Secure Circle, LLC` vs `SecureCircle`): consider pooling votes by identity rather than per surface spelling; the SecureCircle row still fails to recognise an entity.
+- **DONE (cadb0f7):** Split conjoined Onum/Pangea legal entities while preserving match positions and alias handling; 372 local tests passed.
+- **Improved (ADR-EDGAR-013 rerun3):** SecureCircle alias added; CrowdStrike reached 10/11 candidate emissions. Broader identity-level vote pooling remains optional, not an active blocker.
 - Gold hygiene: the Humio AGREED_TO_ACQUIRE duplicate row cannot be found in 10-Ks; decide whether announcement rows belong in 8-K/exhibit-only gold.
-- Check the 2 unmatched CrowdStrike candidates and the 9 new cohort candidates against filings (likely real acquisitions missing from gold).
+- Verify the 1 unmatched CrowdStrike candidate from rerun3 and the 9 new cohort candidates against filings. Do not treat parser output alone as confirmed acquisitions.
 - Explain-miss: add a `--all` mode that loops gold rows so the shell loop is not needed.

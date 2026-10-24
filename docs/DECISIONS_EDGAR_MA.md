@@ -985,3 +985,15 @@ defect (the press-release announcement is in an 8-K/exhibit, not the 10-K).
 **Update 2026-10-17 (rerun3, SecureCircle alias added):** 10 of 11 gold rows reach
 CANDIDATE_EMITTED; 1 unmatched candidate. The only row not emitted is the duplicate Humio
 AGREED_TO_ACQUIRE row, which the 10-Ks cannot support (gold defect, see above).
+
+**Update 2026-10-24 (conjoined entity regression, commit cadb0f7):**
+The Onum/Pangea joined-name defect is fixed. Entity extraction now
+separates the two legal names while preserving their individual match
+end positions for alias detection. Regression tests cover both names,
+legitimate company names containing "and", and alias handling.
+The complete local test suite passed: 372 tests, 0 failures.
+
+This validates the parser change, not a new CrowdStrike acquisition
+recall result. The latest recorded CrowdStrike audit remains 10/11
+candidate emissions. The Humio AGREED_TO_ACQUIRE row and unmatched
+candidate verification remain open. No trust/pivot policy changed.
