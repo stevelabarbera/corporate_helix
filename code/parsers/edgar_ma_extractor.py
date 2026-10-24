@@ -86,9 +86,25 @@ ENT_LEGALFORM_UNDER_LAWS_OF = re.compile(
 _BARE_SUFFIX = re.compile(r"^" + CORP + r"$")
 
 
+def _split_conjoined_entities(name):
+    """Return (entity, relative end) pairs; only split two complete legal names."""
+    for conjunction in re.finditer(r"\s+and\s+", name):
+        left_span = re.search(r"\S(?:.*\S)?", name[:conjunction.start()], re.S)
+        right_span = re.search(r"\S(?:.*\S)?", name[conjunction.end():], re.S)
+        if not left_span or not right_span:
+            continue
+        left = left_span.group()
+        right = right_span.group()
+        if ENT.fullmatch(left) and ENT.fullmatch(right):
+            return ((norm(left), left_span.end()),
+                    (norm(right), conjunction.end() + right_span.end()))
+    return ((norm(name), len(name)),)
+
+
 def _entity_matches(text):
     for m in ENT.finditer(text):
-        yield norm(m.group(1)), m.end()
+        for ent, relative_end in _split_conjoined_entities(m.group(1)):
+            yield ent, m.start(1) + relative_end
     for m in ENT_LEGALFORM.finditer(text):
         ent = norm(m.group(1))
         if _BARE_SUFFIX.match(ent):
