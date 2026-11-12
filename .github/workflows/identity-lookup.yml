@@ -17,6 +17,6 @@ jobs:
       - name: Install minimal test dependencies
         run: python -m pip install ijson pytest
       - name: Compile changed Python modules
-        run: python -m compileall -q code/identity_lookup.py code/build_gleif_lei_index.py code/migrate_gleif_lookup_key.py code/root_entity_resolver.py code/helix_company.py
+        run: python -m compileall -q code/identity_lookup.py code/build_gleif_lei_index.py code/migrate_gleif_lookup_key.py code/root_entity_resolver.py code/helix_company.py code/run_company_ma_expansion.py
       - name: Run identity lookup regressions
         run: python -m pytest -q tests/test_gleif_identity_lookup_key.py tests/test_edgar_resolver_identity_key.py
