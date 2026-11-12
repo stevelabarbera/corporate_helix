@@ -7,6 +7,8 @@ import sqlite3
 from pathlib import Path
 from typing import Any
 
+from identity_lookup import legal_name_lookup_key
+
 
 def connect(path: str) -> sqlite3.Connection:
     if not Path(path).is_file():
@@ -17,9 +19,7 @@ def connect(path: str) -> sqlite3.Connection:
 
 
 def normalize_name(value: str) -> str:
-    value = value.casefold().strip()
-    value = re.sub(r"[^\w]+", " ", value, flags=re.UNICODE)
-    return " ".join(value.split())
+    return legal_name_lookup_key(value)
 
 
 def name_tokens(value: str) -> list[str]:
@@ -158,7 +158,7 @@ def find_seed_matches(
         """
         SELECT *
         FROM lei_entities
-        WHERE legal_name_normalized = ?
+        WHERE legal_name_lookup_key = ?
         ORDER BY CASE WHEN entity_status = 'ACTIVE' THEN 0 ELSE 1 END, legal_name
         LIMIT ?
         """,
@@ -172,7 +172,7 @@ def find_seed_matches(
             """
             SELECT *
             FROM lei_entities
-            WHERE legal_name_normalized LIKE ?
+            WHERE legal_name_lookup_key LIKE ?
             ORDER BY CASE WHEN entity_status = 'ACTIVE' THEN 0 ELSE 1 END, legal_name
             LIMIT ?
             """,

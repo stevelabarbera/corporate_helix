@@ -59,8 +59,31 @@ def main() -> int:
 
     result = run_expansion([seed], providers, max_iterations=args.max_iterations)
 
+    # Distinguish a completed provider pass from a verified identity start.
+    # A seed-only run can converge without establishing any legal identity.
+    discovered = [fact for fact in result.facts if fact.source != "SEED"]
+    identified = [fact for fact in discovered if fact.identifier]
+    if identified:
+        start_status = "IDENTITY_RESOLVED"
+    elif discovered:
+        start_status = "CANDIDATES_FOUND"
+    else:
+        start_status = "IDENTITY_UNRESOLVED"
+    start_diagnostics = {
+        "start_status": start_status,
+        "seed_only": not discovered,
+        "resolved_identifiers": len(identified),
+        "discovered_facts": len(discovered),
+        "note": (
+            "Expansion convergence does not imply a verified legal-entity identity."
+            if not identified else
+            "Identifier-bearing facts were discovered; review their evidence before attribution."
+        ),
+    }
+
     if args.json:
         print(json.dumps({
+            **start_diagnostics,
             "converged": result.converged,
             "stop_reason": result.stop_reason,
             "iterations_run": result.iterations_run,
@@ -76,6 +99,7 @@ def main() -> int:
     print("CORPORATION HELIX -- RECURSIVE M&A DISCOVERY")
     print("=" * 72)
     print(f"Seed        : {args.company}")
+    print(f"Start status: {start_status}")
     print(f"Converged   : {result.converged}  ({result.stop_reason})")
     print(f"Iterations  : {result.iterations_run}")
     print(f"Entities    : {len(result.facts)}\n")
