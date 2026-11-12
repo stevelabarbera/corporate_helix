@@ -8,7 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "code"))
 
 from identity_lookup import legal_name_lookup_key
 from root_entity_resolver import find_seed_matches
-from build_gleif_lei_index import configure_database, backfill_lookup_keys, create_indexes
+from build_gleif_lei_index import configure_database, backfill_lookup_keys, create_indexes, SCHEMA
 from migrate_gleif_lookup_key import migrate
 
 
@@ -27,16 +27,11 @@ class IdentityLookupTests(unittest.TestCase):
     def test_legacy_database_migration_is_idempotent(self):
         conn = sqlite3.connect(":memory:")
         conn.row_factory = sqlite3.Row
-        conn.execute("""
-            CREATE TABLE lei_entities (
-                lei TEXT PRIMARY KEY,
-                legal_name TEXT,
-                legal_name_normalized TEXT,
-                entity_status TEXT
-            )
-        """)
+        # Model the complete legacy schema, not a four-column approximation.
+        legacy_schema = SCHEMA.replace("    legal_name_lookup_key TEXT,\\n", "")
+        conn.executescript(legacy_schema)
         conn.execute(
-            "INSERT INTO lei_entities VALUES (?,?,?,?)",
+            "INSERT INTO lei_entities (lei, legal_name, legal_name_normalized, entity_status) VALUES (?,?,?,?)",
             ("HCTKJGUQOPZ5NBK7NP58", "CITRIX SYSTEMS, INC.",
              "citrix systems, inc.", "ACTIVE"),
         )
