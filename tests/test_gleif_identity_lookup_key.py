@@ -28,7 +28,7 @@ class IdentityLookupTests(unittest.TestCase):
         conn = sqlite3.connect(":memory:")
         conn.row_factory = sqlite3.Row
         # Model the complete legacy schema, not a four-column approximation.
-        legacy_schema = SCHEMA.replace("    legal_name_lookup_key TEXT,\n", "")
+        legacy_schema = SCHEMA.replace("    legal_name_lookup_key TEXT," + chr(10), "")
         conn.executescript(legacy_schema)
         conn.execute(
             "INSERT INTO lei_entities (lei, legal_name, legal_name_normalized, entity_status) VALUES (?,?,?,?)",
