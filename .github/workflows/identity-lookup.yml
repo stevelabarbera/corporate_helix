@@ -2,6 +2,8 @@ name: Identity lookup regression
 on:
   push:
     branches: [fix/identity-resolution-contract]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
