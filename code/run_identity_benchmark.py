@@ -75,8 +75,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", type=Path,
                         default=ROOT / "data/eval_study/identity_ground_truth_candidates_v1.json")
-    parser.add_argument("--lei-db", type=Path, default=ROOT / "data/gleif_lei.sqlite")
-    parser.add_argument("--rr-db", type=Path, default=ROOT / "data/gleif_rr.sqlite")
+    parser.add_argument("--lei-db", type=Path, default=ROOT / "data/processed/gleif_lei.sqlite")
+    parser.add_argument("--rr-db", type=Path, default=ROOT / "data/processed/gleif_rr.sqlite")
     parser.add_argument("--output", type=Path,
                         default=ROOT / "data/eval_study/identity_benchmark_results.json")
     args = parser.parse_args()
