@@ -430,14 +430,16 @@ def resolve_company_root(
         ]
 
         topology_strong = (
-            top.matched_seed_count >= 2
+            top.entity_status == "ACTIVE"
+            and top.matched_seed_count >= 2
             and top.coverage >= 0.60
             and (top.ultimate_parent_votes >= 1 or top.terminal_votes >= 2)
             and margin >= 8.0
         )
 
         unique_exact = (
-            len(exact_active) == 1
+            top.entity_status == "ACTIVE"
+            and len(exact_active) == 1
             and top.lei == exact_active[0]["lei"]
             and (second is None or margin >= 8.0)
         )
