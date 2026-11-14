@@ -311,6 +311,40 @@ def test_inactive_parent_does_not_outvote_active_parent():
         print("PASS test_inactive_parent_does_not_outvote_active_parent")
 
 
+def test_inactive_topology_root_cannot_auto_resolve():
+    # Two active subsidiaries converging on an inactive parent are not
+    # sufficient to declare that parent a current automatically resolved root.
+    with tempfile.TemporaryDirectory() as d:
+        lei, rr, lc, rc = make_dbs(Path(d))
+        add_entity(lc, "A", "EXAMPLE ALPHA")
+        add_entity(lc, "B", "EXAMPLE BETA")
+        add_entity(lc, "OLD", "Former Group Parent", status="INACTIVE")
+        add_rel(rc, "A", "OLD", "IS_ULTIMATELY_CONSOLIDATED_BY")
+        add_rel(rc, "B", "OLD", "IS_ULTIMATELY_CONSOLIDATED_BY")
+        lc.commit(); rc.commit(); lc.close(); rc.close()
+
+        result = resolve_company_root("Example", str(lei), str(rr))
+        assert result.status == "REVIEW_REQUIRED"
+        assert result.root.lei == "OLD"
+        print("PASS test_inactive_topology_root_cannot_auto_resolve")
+
+
+def test_exact_name_seed_cannot_auto_resolve_to_inactive_root():
+    # Exact seed matches should not override the inactive status of a
+    # different, higher-scoring root candidate.
+    with tempfile.TemporaryDirectory() as d:
+        lei, rr, lc, rc = make_dbs(Path(d))
+        add_entity(lc, "A", "Example")
+        add_entity(lc, "OLD", "Former Parent", status="INACTIVE")
+        add_rel(rc, "A", "OLD", "IS_ULTIMATELY_CONSOLIDATED_BY")
+        lc.commit(); rc.commit(); lc.close(); rc.close()
+
+        result = resolve_company_root("Example", str(lei), str(rr))
+        assert result.status == "REVIEW_REQUIRED"
+        assert result.root.lei == "OLD"
+        print("PASS test_exact_name_seed_cannot_auto_resolve_to_inactive_root")
+
+
 if __name__ == "__main__":
     suite = [
         test_acronym_token_matching_rejects_substrings,
@@ -328,6 +362,8 @@ if __name__ == "__main__":
         test_adio_lookalike_is_not_auto_resolved,
         test_inactive_parent_relationship_is_not_current_root,
         test_inactive_parent_does_not_outvote_active_parent,
+        test_inactive_topology_root_cannot_auto_resolve,
+        test_exact_name_seed_cannot_auto_resolve_to_inactive_root,
     ]
 
     failed = 0
