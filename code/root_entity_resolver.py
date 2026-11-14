@@ -208,6 +208,7 @@ def _parents_for(rr_conn: sqlite3.Connection, child_lei: str) -> list[dict[str, 
         SELECT parent_lei, relationship_type, relationship_status
         FROM relationships
         WHERE child_lei = ?
+          AND relationship_status = 'ACTIVE'
           AND relationship_type IN (
               'IS_DIRECTLY_CONSOLIDATED_BY',
               'IS_ULTIMATELY_CONSOLIDATED_BY'
