@@ -84,3 +84,27 @@ Skipped deal-relevant forms, totals: 10-Q 315, DEFA14A 209, **425 76**, S-4 + S-
 - Gold hygiene: the Humio AGREED_TO_ACQUIRE duplicate row cannot be found in 10-Ks; decide whether announcement rows belong in 8-K/exhibit-only gold.
 - Verify the 1 unmatched CrowdStrike candidate from rerun3 and the 9 new cohort candidates against filings. Do not treat parser output alone as confirmed acquisitions.
 - Explain-miss: add a `--all` mode that loops gold rows so the shell loop is not needed.
+
+## Configurable identity resolution and evidence validation (next milestone; 2026-11-14)
+
+Trigger: 30-case identity benchmark completed without execution errors but all 30 cases remain NOT_SCORED pending independent ground truth. Sempra Energy was matched to SEMPRA ENERGY TRADING LLC and the ownership traversal proposed NATWEST GROUP PLC as a REVIEW_REQUIRED root. This is an incorrect proposed root for the intended query, even though the resolver did not auto-resolve it. Distinguish incorrect *recommendations* from incorrect *automatic decisions*.
+
+**Design decision:** Evidence weights, acceptance/review thresholds, and operating profiles should be configurable at the highest level. Retain only a small set of narrowly scoped, non-bypassable identity-integrity requirements. Identity matching and ownership traversal are separate assertions: a real ownership edge does not prove the seed entity is the requested company. Keep exploratory leads visible, with provenance, rather than silently dropping them. Version each configuration and record the version with every decision.
+
+### Immediate development batch (priorities 1–4)
+
+1. [ ] **Sempra regression:** Query `Sempra Energy` must not treat `SEMPRA ENERGY TRADING LLC` → `NATWEST GROUP PLC` as verified identity or a supported corporate root. Retain the evidence as a flagged, investigatory lead. Assert both proposed-root correctness and decision status.
+2. [ ] **Configurable scoring:** Externalize signal weights, penalties, and decision thresholds; validate config schema and supply conservative, balanced, and exploratory profiles. Initial weights are hypotheses, not calibrated accuracy claims.
+3. [ ] **Minimal mandatory safeguards:** Require independently supported seed identity before an ownership path can justify auto-resolution; block automatic resolution on unresolved conflicting-root evidence. Make the hard rules explicit, narrow, and separately testable.
+4. [ ] **Explainability/audit:** Emit per-signal contributions, penalties, evidence/provenance, safeguard outcomes, chosen profile/config version, and reasons for AUTO_RESOLVED / REVIEW_REQUIRED / NO_MATCH.
+
+### Validation and integration (priorities 5–10)
+
+5. [ ] Independently verify ground truth for the existing 30 benchmark cases; preserve PENDING/NOT_SCORED until verified.
+6. [ ] Run the same frozen cohort under all three profiles; compare auto-resolution rate, review burden, proposed-root precision, and false positives once ground truth exists.
+7. [ ] Investigate suspect parent selections, including Sempra and SentinelOne; add confirmed failures as regression cases.
+8. [ ] Model temporal ownership explicitly (current, former, acquired, divested) and avoid treating historical paths as present-day control.
+9. [ ] Connect verified identity and temporally qualified M&A relationships to downstream corporate/ASM discovery without silently promoting exploratory leads.
+10. [ ] Run end-to-end MVP evaluation from evidence ingestion through identity, M&A relationships, and actionable ASM outputs.
+
+**Acceptance criteria for first batch:** Sempra case cannot surface NatWest as a verified root; existing resolver tests remain green; all decisions expose reproducible score explanations; changing profiles changes permitted scoring/threshold behavior without bypassing identity safeguards. Do not interpret 0/30 scored as 0% accuracy or expand the benchmark for headline numbers before independent ground truth is established.
