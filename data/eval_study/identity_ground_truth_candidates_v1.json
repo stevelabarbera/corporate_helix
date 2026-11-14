@@ -337,15 +337,21 @@
         "company_name": "NetScaler",
         "hints": {}
       },
-      "verification_status": "PENDING",
+      "verification_status": "PARTIALLY_VERIFIED",
       "expected": {
         "relationship": null,
         "target_legal_name": null,
         "target_lei": null,
         "expected_resolution": null
       },
-      "evidence": [],
-      "notes": "Additional proposed case; pending independent verification"
+      "evidence": [
+        {
+          "source": "NetScaler official About page",
+          "url": "https://www.netscaler.com/about-netscaler",
+          "supports": "NetScaler is an application delivery and security platform within the Citrix business unit of Cloud Software Group"
+        }
+      ],
+      "notes": "Platform/business-unit affiliation verified, but no specific target legal entity established. Do NOT label as SAME_LEGAL_ENTITY or claim BRAND_OF a particular legal entity without corroboration."
     },
     {
       "id": "identity-022",
@@ -369,15 +375,21 @@
         "company_name": "Target",
         "hints": {}
       },
-      "verification_status": "PENDING",
+      "verification_status": "EVIDENCE_REVIEWED",
       "expected": {
-        "relationship": null,
-        "target_legal_name": null,
+        "relationship": "SAME_LEGAL_ENTITY",
+        "target_legal_name": "Target Corporation",
         "target_lei": null,
-        "expected_resolution": null
+        "expected_resolution": "IDENTITY_CONFIRMED_BY_SEC"
       },
-      "evidence": [],
-      "notes": "Additional proposed case; pending independent verification"
+      "evidence": [
+        {
+          "source": "SEC Form 10-K FY2025 (year ended 2026-01-31)",
+          "url": "https://www.sec.gov/Archives/edgar/data/27419/000002741926000016/tgt-20260131.htm",
+          "supports": "Registrant exact legal name Target Corporation; Minnesota incorporation; SEC CIK 0000027419"
+        }
+      ],
+      "notes": "Legal identity corroborated by issuer filing; LEI not yet independently verified. Reviewer sign-off pending."
     },
     {
       "id": "identity-024",
@@ -385,15 +397,26 @@
         "company_name": "SentinelOne",
         "hints": {}
       },
-      "verification_status": "PENDING",
+      "verification_status": "EVIDENCE_REVIEWED",
       "expected": {
-        "relationship": null,
-        "target_legal_name": null,
+        "relationship": "SAME_LEGAL_ENTITY",
+        "target_legal_name": "SentinelOne, Inc.",
         "target_lei": null,
-        "expected_resolution": null
+        "expected_resolution": "IDENTITY_CONFIRMED_BY_SEC"
       },
-      "evidence": [],
-      "notes": "Additional proposed case; pending independent verification"
+      "evidence": [
+        {
+          "source": "SEC Form 10-K FY2026",
+          "url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370826000020/s-20260131.htm",
+          "supports": "Registrant exact legal name SentinelOne, Inc.; Delaware incorporation; prior name Sentinel Labs, Inc."
+        },
+        {
+          "source": "SEC EDGAR submission header",
+          "url": "https://www.sec.gov/Archives/edgar/data/1583708/000158370826000020/0001583708-26-000020-index-headers.html",
+          "supports": "SEC CIK 0001583708"
+        }
+      ],
+      "notes": "Legal identity corroborated by SEC filing; LEI not yet independently verified. Reviewer sign-off pending."
     },
     {
       "id": "identity-025",
