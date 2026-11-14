@@ -274,6 +274,43 @@ def test_adio_lookalike_is_not_auto_resolved():
         print("PASS test_adio_lookalike_is_not_auto_resolved")
 
 
+def test_inactive_parent_relationship_is_not_current_root():
+    # Historical GLEIF relationships must not be traversed as current ownership.
+    with tempfile.TemporaryDirectory() as d:
+        lei, rr, lc, rc = make_dbs(Path(d))
+        add_entity(lc, "CHILD", "Example Holdings")
+        add_entity(lc, "OLD", "Former Parent")
+        add_rel(rc, "CHILD", "OLD", "IS_ULTIMATELY_CONSOLIDATED_BY")
+        rc.execute("UPDATE relationships SET relationship_status = 'INACTIVE'")
+        lc.commit(); rc.commit(); lc.close(); rc.close()
+
+        result = resolve_company_root("Example Holdings", str(lei), str(rr))
+        assert result.status == "AUTO_RESOLVED"
+        assert result.root.lei == "CHILD"
+        assert all(candidate.lei != "OLD" for candidate in result.candidates)
+        print("PASS test_inactive_parent_relationship_is_not_current_root")
+
+
+def test_inactive_parent_does_not_outvote_active_parent():
+    with tempfile.TemporaryDirectory() as d:
+        lei, rr, lc, rc = make_dbs(Path(d))
+        add_entity(lc, "A", "Example Alpha")
+        add_entity(lc, "B", "Example Beta")
+        add_entity(lc, "CURRENT", "Current Parent")
+        add_entity(lc, "OLD", "Former Parent")
+        for child in ("A", "B"):
+            add_rel(rc, child, "CURRENT", "IS_ULTIMATELY_CONSOLIDATED_BY")
+            add_rel(rc, child, "OLD", "IS_ULTIMATELY_CONSOLIDATED_BY")
+        rc.execute("UPDATE relationships SET relationship_status = 'INACTIVE' WHERE parent_lei = 'OLD'")
+        lc.commit(); rc.commit(); lc.close(); rc.close()
+
+        result = resolve_company_root("Example", str(lei), str(rr))
+        assert result.status == "AUTO_RESOLVED"
+        assert result.root.lei == "CURRENT"
+        assert all(candidate.lei != "OLD" for candidate in result.candidates)
+        print("PASS test_inactive_parent_does_not_outvote_active_parent")
+
+
 if __name__ == "__main__":
     suite = [
         test_acronym_token_matching_rejects_substrings,
@@ -289,6 +326,8 @@ if __name__ == "__main__":
         test_sole_uncontested_gate_does_not_apply_when_a_second_candidate_exists,
         test_sole_uncontested_gate_requires_active_status,
         test_adio_lookalike_is_not_auto_resolved,
+        test_inactive_parent_relationship_is_not_current_root,
+        test_inactive_parent_does_not_outvote_active_parent,
     ]
 
     failed = 0
