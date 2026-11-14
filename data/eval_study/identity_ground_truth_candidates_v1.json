@@ -1,0 +1,495 @@
+{
+  "schema": "corporate-helix/identity-ground-truth/v1",
+  "status": "CANDIDATES_ONLY_NOT_VERIFIED",
+  "description": "Thirty proposed cases for independent research. No expected identity or relationship is asserted until supported by citations. Never score pending cases as ground truth.",
+  "labels": [
+    "SAME_LEGAL_ENTITY",
+    "BRAND_OF",
+    "SUBSIDIARY_OF",
+    "FORMERLY_KNOWN_AS",
+    "ACQUIRED_BY",
+    "UNRESOLVED"
+  ],
+  "cases": [
+    {
+      "id": "identity-001",
+      "input": {
+        "company_name": "Akorn",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-002",
+      "input": {
+        "company_name": "Arkadium",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-003",
+      "input": {
+        "company_name": "Bank of the West",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-004",
+      "input": {
+        "company_name": "Bolthouse Farms",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-005",
+      "input": {
+        "company_name": "Cathay Bank",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-006",
+      "input": {
+        "company_name": "Diagenode",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-007",
+      "input": {
+        "company_name": "Fifth Third Bank",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-008",
+      "input": {
+        "company_name": "HDFC Bank",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-009",
+      "input": {
+        "company_name": "Jacuzzi",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-010",
+      "input": {
+        "company_name": "Lucerna",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-011",
+      "input": {
+        "company_name": "Maxim Integrated",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-012",
+      "input": {
+        "company_name": "Pacific Gas and Electric Company",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-013",
+      "input": {
+        "company_name": "PC World",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-014",
+      "input": {
+        "company_name": "PTC Therapeutics",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-015",
+      "input": {
+        "company_name": "Sempra Energy",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-016",
+      "input": {
+        "company_name": "Silicon Graphics",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-017",
+      "input": {
+        "company_name": "Southwest Airlines",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-018",
+      "input": {
+        "company_name": "Ticketmaster",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-019",
+      "input": {
+        "company_name": "Timken Company",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-020",
+      "input": {
+        "company_name": "Verisign",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "From earlier review-required cohort; pending independent verification"
+    },
+    {
+      "id": "identity-021",
+      "input": {
+        "company_name": "NetScaler",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "Additional proposed case; pending independent verification"
+    },
+    {
+      "id": "identity-022",
+      "input": {
+        "company_name": "Adio",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "Additional proposed case; pending independent verification"
+    },
+    {
+      "id": "identity-023",
+      "input": {
+        "company_name": "Target",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "Additional proposed case; pending independent verification"
+    },
+    {
+      "id": "identity-024",
+      "input": {
+        "company_name": "SentinelOne",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "Additional proposed case; pending independent verification"
+    },
+    {
+      "id": "identity-025",
+      "input": {
+        "company_name": "Sony",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "Additional proposed case; pending independent verification"
+    },
+    {
+      "id": "identity-026",
+      "input": {
+        "company_name": "NTT",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "Additional proposed case; pending independent verification"
+    },
+    {
+      "id": "identity-027",
+      "input": {
+        "company_name": "Tenable",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "Additional proposed case; pending independent verification"
+    },
+    {
+      "id": "identity-028",
+      "input": {
+        "company_name": "Disney",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "Additional proposed case; pending independent verification"
+    },
+    {
+      "id": "identity-029",
+      "input": {
+        "company_name": "AIG",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "Additional proposed case; pending independent verification"
+    },
+    {
+      "id": "identity-030",
+      "input": {
+        "company_name": "Caterpillar",
+        "hints": {}
+      },
+      "verification_status": "PENDING",
+      "expected": {
+        "relationship": null,
+        "target_legal_name": null,
+        "target_lei": null,
+        "expected_resolution": null
+      },
+      "evidence": [],
+      "notes": "Additional proposed case; pending independent verification"
+    }
+  ]
+}
