@@ -345,6 +345,29 @@ def test_exact_name_seed_cannot_auto_resolve_to_inactive_root():
         print("PASS test_exact_name_seed_cannot_auto_resolve_to_inactive_root")
 
 
+
+def test_sempra_ownership_convergence_does_not_prove_queried_identity():
+    # Synthetic analogue of Sempra Energy Trading -> NatWest convergence.
+    # Valid ownership edges do not establish that the matched trading
+    # companies are the intended queried corporate entity.
+    with tempfile.TemporaryDirectory() as d:
+        lei, rr, lc, rc = make_dbs(Path(d))
+        add_entity(lc, "S1", "SEMPRA ENERGY TRADING LLC")
+        add_entity(lc, "S2", "SEMPRA ENERGY TRADING INTERNATIONAL LLC")
+        add_entity(lc, "N", "NATWEST GROUP PLC", "GB")
+        add_rel(rc, "S1", "N", "IS_ULTIMATELY_CONSOLIDATED_BY")
+        add_rel(rc, "S2", "N", "IS_ULTIMATELY_CONSOLIDATED_BY")
+        lc.commit(); rc.commit(); lc.close(); rc.close()
+
+        result = resolve_company_root("Sempra Energy", str(lei), str(rr))
+        assert result.status == "REVIEW_REQUIRED"
+        assert result.confidence == "LOW"
+        assert result.root is not None and result.root.lei == "N"
+        assert "seed identity" in result.reason.lower()
+        assert result.seed_matches
+        print("PASS test_sempra_ownership_convergence_does_not_prove_queried_identity")
+
+
 if __name__ == "__main__":
     suite = [
         test_acronym_token_matching_rejects_substrings,
@@ -364,6 +387,7 @@ if __name__ == "__main__":
         test_inactive_parent_does_not_outvote_active_parent,
         test_inactive_topology_root_cannot_auto_resolve,
         test_exact_name_seed_cannot_auto_resolve_to_inactive_root,
+        test_sempra_ownership_convergence_does_not_prove_queried_identity,
     ]
 
     failed = 0
