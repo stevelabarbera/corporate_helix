@@ -453,7 +453,23 @@ def resolve_company_root(
             and top.entity_status == "ACTIVE"
         )
 
-        if topology_strong:
+        # A GLEIF relationship can be real while the phrase-matched seed
+        # is not the company the user asked about. For multi-token queries,
+        # topology alone cannot validate a non-exact seed identity.
+        unsupported_multitoken_seed = (
+            len(name_tokens(company)) >= 2
+            and not exact_active
+        )
+
+        if topology_strong and unsupported_multitoken_seed:
+            status = "REVIEW_REQUIRED"
+            confidence = "LOW"
+            reason = (
+                "Ownership topology converges, but seed identity is not "
+                "independently supported by an exact active legal-name match; "
+                "the proposed root remains an investigatory lead."
+            )
+        elif topology_strong:
             status = "AUTO_RESOLVED"
             confidence = "HIGH"
             reason = (
