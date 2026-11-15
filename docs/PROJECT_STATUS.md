@@ -21,6 +21,18 @@
 4. **Coverage transparency:** report which sources, filing periods, transaction types, and jurisdictions were checked or missing; never claim complete coverage without support.
 5. **Secondary features must not displace core M&A discovery** unless explicitly reprioritized.
 
+## Current engineering strategy: SEC EDGAR + GLEIF reliability
+
+**Primary near-term investment:** Make the two foundational data sources as reliable and measurable as possible before expanding optional graph, dashboard, or standalone infrastructure features.
+
+- **SEC EDGAR — unstructured transaction evidence:** Relevant M&A facts appear in different filing families, exhibits, sections, tables, and legal prose. Treat **retrieval/coverage** (did we fetch the relevant document?) separately from **extraction** (did we correctly find and interpret the transaction?). Maintain a filing coverage manifest, independently verified transaction gold sets, parser-miss taxonomy, and frozen regression cohorts. Selectively expand form/exhibit retrieval based on measured incremental yield, not indiscriminate fetching.
+- **GLEIF — structured identity and ownership evidence:** Level 1 legal-entity records and Level 2 relationship records provide structured anchors for entity resolution, parent/child traversal, and candidate discovery. Validate indexing, identifier linkage, endpoint completeness, relationship semantics and dates, CLI integration, and reproducible results. **GLEIF relationship edges are not automatically M&A events** and cannot independently establish a transaction closing or historical acquisition.
+- **Shared evidence/discovery pipeline:** Resolve the requested company; gather EDGAR events and GLEIF relationships; normalize/deduplicate entities; cross-reference sources; preserve event-versus-ownership distinctions, provenance, dates, uncertainty, and source gaps; recursively pursue trusted or reviewable leads without promoting guesses into facts.
+- **Priority rule:** Prefer tasks that demonstrably improve EDGAR/GLEIF coverage, extraction correctness, structured-relationship correctness, integration reliability, or independently measured M&A recall/precision. Treat broad graph presentation, additional provider families, dashboards, and infrastructure scanning as secondary unless needed to validate the core.
+- **Measurement rule:** Record retrieval coverage, extraction recall on retrieved evidence, entity/relationship accuracy, and end-to-end transaction recall separately. Never use an unverified candidate count as a discovery-accuracy metric.
+
+This strategy explains the historical sequence: SEC legal documents proved difficult because both the location and structure of disclosures varied, so engineering focus shifted toward GLEIF's structured records while retaining EDGAR as an essential complementary source.
+
 ## Start here: current position
 
 - The 30-company identity benchmark executed **30/30** cases with **zero execution errors**.
