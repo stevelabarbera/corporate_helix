@@ -7,7 +7,19 @@
 
 ## Purpose
 
-Corporate Helix discovers and verifies corporate legal entities, ownership structures, and mergers/acquisitions. The intended MVP produces evidence-backed relationships that can inform Attack Surface Management (ASM) and other business functions. A discovered lead is **not** automatically a verified corporate relationship.
+**Primary product definition (2026-11-15):** Given a company name, Corporate Helix aims to discover as comprehensively as practicable **all mergers, acquisitions, and related corporate transactions associated with that company**, including historical transactions and relevant acquired/merged legal entities. It resolves identities, corroborates transaction evidence, preserves event dates/status, and recursively investigates additional leads. The principal deliverable is an **evidence-backed M&A inventory** containing counterparties, canonical names and aliases, identifiers, relationship/event type, dates, confidence/review status, and provenance. “All” is a coverage objective, **not a guarantee of exhaustive discovery**.
+
+**ASM boundary:** Helix is **not** responsible for discovering the target company's network footprint. Its M&A findings provide additional company identities and qualified domain/hostname *discovery leads* for a downstream Attack Surface Management (ASM) platform. The ASM platform or customer system performs infrastructure discovery and decides which discovered hostnames/assets are added to scope. A transaction, acquired-company name, or historical ownership edge is **not itself proof of present-day asset ownership** and must not be silently promoted to an approved ASM seed.
+
+**Secondary capabilities:** Corporate ownership graphs, broad corporate-family mapping, infrastructure attribution, virtual analysts, dashboards, and non-security applications are optional capabilities that leverage the core M&A dataset. Entity resolution, relationship modeling, evidence adjudication, temporal semantics, and evaluation are necessary *supporting foundations*, not competing primary product goals. A discovered lead is **not** automatically a verified transaction.
+
+## Product success criteria
+
+1. **M&A discovery recall:** independently measure known relevant transactions discovered for the input company, including historical and private-company cases where sources permit.
+2. **Evidence quality:** track verified findings, investigatory leads, incorrect counterparties, and false-positive rates separately; distinguish signing/announcement from closing and divestiture.
+3. **Actionable handoff:** output deduplicated corporate identities, aliases, dates, relationship context, evidence, and review state suitable for downstream ASM enrichment—not fabricated hostnames.
+4. **Coverage transparency:** report which sources, filing periods, transaction types, and jurisdictions were checked or missing; never claim complete coverage without support.
+5. **Secondary features must not displace core M&A discovery** unless explicitly reprioritized.
 
 ## Start here: current position
 
