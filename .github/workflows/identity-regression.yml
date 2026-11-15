@@ -1,0 +1,22 @@
+name: Identity resolver regression
+on:
+  pull_request:
+    paths:
+      - 'code/root_entity_resolver.py'
+      - 'tests/test_root_entity_resolver.py'
+      - '.github/workflows/identity-regression.yml'
+  push:
+    branches:
+      - fix/sempra-seed-identity-regression
+  workflow_dispatch:
+jobs:
+  root-resolver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run self-contained SQLite regression tests
+        run: python3 tests/test_root_entity_resolver.py
