@@ -1,5 +1,44 @@
 # Helix backlog
 
+## Master workstream index — M&A-first prioritization (2026-11-15)
+
+**Product:** Given a company name, discover as comprehensively as practicable all relevant M&A transactions and related entities; provide evidence-backed corporate identities to downstream ASM. ASM owns network footprint discovery. See [PROJECT_STATUS.md](PROJECT_STATUS.md) for the authoritative mission and current handoff.
+
+**Status labels:** Historical validation is not proof of current-branch integration. Before closing a task, verify the actual implementation, tests and (where applicable) live-source behavior. The detailed historical findings and acceptance criteria below remain in force.
+
+| Workstream | Feature / deliverable | Priority | Disposition / current evidence |
+| --- | --- | --- | --- |
+| GLEIF | Level 1 ingestion, identity index, canonical entity matching | P0 | Historically validated; verify current pipeline |
+| GLEIF | Level 2 relationship ingestion, endpoint enrichment, parent traversal | P0 | Historically validated; verify integration and semantics |
+| GLEIF | Sempra wrong-seed/wrong-root regression; suspect SentinelOne roots | P0 | Active; regression not yet verified complete |
+| GLEIF | Configurable evidence weights, thresholds, operating profiles | P0 | Planned; detailed tasks below |
+| GLEIF | Non-bypassable identity-integrity safeguards and conflict handling | P0 | Planned; detailed tasks below |
+| GLEIF | Decision explanations, source provenance, versioned scoring | P0 | Planned/partial; detailed tasks below |
+| GLEIF | Independent labels for 30-company identity cohort and profile comparison | P0 | 30 executed, 0 independently scored |
+| SEC coverage | Per-company filing manifest, source periods and skipped-form reasons | P0 | Built and cohort-run; verify live behavior |
+| SEC coverage | Document, section and exhibit discovery; missing-form attribution | P0 | Partial; prioritize by measured yield |
+| SEC coverage | Selective 425/S-4/F-4 and foreign-filer exhibit evaluation | P1 | Conditional research; do not indiscriminately fetch |
+| SEC extraction | 10-K, 8-K, Exhibit 21 and foreign-filer transaction extraction | P0 | Implemented in parts; benchmark robustness |
+| SEC extraction | Robust legal-language/event recognition beyond fragile keyword patterns | P0 | Open reliability gap; preserve provenance and event type |
+| SEC extraction | Parser miss taxonomy: encoding, wrapping, aliases, counterparties, event grammar | P0 | Historical fixes plus unresolved cases |
+| SEC extraction | Agreement vs closing vs divestiture and temporal transaction semantics | P0 | Partial; validate against independent disclosures |
+| M&A integration | Reconcile SEC transactions and GLEIF entities without treating ownership edges as M&A events | P0 | Partial; end-to-end verification required |
+| M&A integration | Trusted recursive expansion, historical names, acquired/merged entities | P0 | Historically validated; verify end-to-end |
+| M&A integration | Private-to-private and inactive-filer/buyer-side discovery gaps | P1 | Known coverage gaps; targeted research |
+| Evaluation | Independent known-transaction gold set and measured M&A recall | P0 | Incomplete; never equate candidate count with recall |
+| Evaluation | Separate retrieval, section/exhibit, extraction and end-to-end failure metrics | P0 | Coverage manifest exists; full attribution pending |
+| Evaluation | Frozen 12-company saturation cohort, regression tests, unseen holdouts | P0 | Partial; preserve historical baselines |
+| Reliability | CLI smoke tests, reproducible indexes, data/source version tracking | P0 | Historical wiring regressions require verification |
+| Delivery | Evidence-backed M&A inventory with identities, aliases, dates, confidence and provenance | P0 | Core MVP output; end-to-end validation pending |
+| Delivery | ASM handoff of qualified corporate identity candidates (not fabricated hostnames) | P1 | Integration work; downstream ASM performs footprint discovery |
+| Secondary | Broad corporate graph presentation and infrastructure attribution | P2 | Deprioritize unless needed for core M&A evidence |
+| Secondary | State merger filings, DBA/trade names, new registries/provider adapters | P2 | Targeted exceptions; reconsider for measured source gaps |
+| Secondary | Virtual analyst, LLM hypotheses, dashboards, customer UI | P2 | Optional enhancements; trust guardrails remain mandatory |
+| Maintenance | Duplicate model cleanup, stale references, docs consolidation | P2 | Address when blocking development or causing regressions |
+
+**Execution order:** Complete the Sempra regression and configurable GLEIF identity-resolution batch below; independently validate the current GLEIF pipeline; then prioritize SEC coverage and extraction fixes based on measured missed transactions. Do not reopen old unchecked tasks without checking code/tests. **No P0 label is a claim that implementation is complete.**
+
+
 Parked work, each with the trigger that put it here and the condition for picking it up.
 Last updated 2026-10-13. Decisions live in the `DECISIONS_*.md` files; this is only the queue.
 
