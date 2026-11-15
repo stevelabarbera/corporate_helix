@@ -82,3 +82,7 @@ At the **end** of a session:
 ## Latest handoff
 
 **2026-11-15:** Created this consolidated project-status entry point. The immediate next task is to inspect the current identity resolver and benchmark fixtures, then implement a failing Sempra regression test **before** modifying scoring. The configurable scoring framework follows, with no premature claims of benchmark accuracy. No code implementation or new test execution is asserted by this documentation update.
+
+## Documentation consolidation
+
+A first-pass repository documentation audit is recorded in [DOCUMENTATION_AUDIT.md](DOCUMENTATION_AUDIT.md). It indexes historical context/roadmap snapshots, decision logs, trust-boundary pitfalls, conflicting source-of-truth labels, and the remaining verification work. **This file remains the current session entry point;** historical handoff documents are retained, not deleted. The audit is not yet exhaustive, and older milestone completion claims require code/test verification before being promoted into current status.
