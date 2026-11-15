@@ -456,7 +456,25 @@ def resolve_company_root(
             and top.entity_status == "ACTIVE"
         )
 
-        if topology_strong:
+        # A complete multi-token phrase inside a longer legal name is not
+        # independent evidence that the seed IS the queried corporation.
+        # Topology proves a relationship from that seed, not seed identity.
+        # Keep the candidate and its path visible for investigation.
+        seed_identity_supported = bool(exact_active)
+        unsupported_multitoken_seed = (
+            len(name_tokens(company)) >= 2
+            and not seed_identity_supported
+        )
+
+        if topology_strong and unsupported_multitoken_seed:
+            status = "REVIEW_REQUIRED"
+            confidence = "LOW"
+            reason = (
+                "Ownership topology converges, but seed identity is not "
+                "independently supported by an exact active legal-name match; "
+                "the proposed root remains an investigatory lead."
+            )
+        elif topology_strong:
             status = "AUTO_RESOLVED"
             confidence = "HIGH"
             reason = (
