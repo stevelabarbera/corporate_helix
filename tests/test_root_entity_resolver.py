@@ -257,6 +257,27 @@ def test_sole_uncontested_gate_requires_active_status():
         print("PASS test_sole_uncontested_gate_requires_active_status")
 
 
+def test_sempra_ownership_convergence_does_not_prove_queried_identity():
+    # Synthetic analogue of the reported Sempra Energy -> trading LLC ->
+    # unrelated parent failure. The graph edges can be real while the seed
+    # is not the requested corporate identity.
+    with tempfile.TemporaryDirectory() as d:
+        lei, rr, lc, rc = make_dbs(Path(d))
+        add_entity(lc, "S1", "SEMPRA ENERGY TRADING LLC")
+        add_entity(lc, "S2", "SEMPRA ENERGY TRADING INTERNATIONAL LLC")
+        add_entity(lc, "N", "NATWEST GROUP PLC", "GB")
+        add_rel(rc, "S1", "N", "IS_ULTIMATELY_CONSOLIDATED_BY")
+        add_rel(rc, "S2", "N", "IS_ULTIMATELY_CONSOLIDATED_BY")
+        lc.commit(); rc.commit(); lc.close(); rc.close()
+
+        result = resolve_company_root("Sempra Energy", str(lei), str(rr))
+        assert result.status == "REVIEW_REQUIRED"
+        assert result.root is not None and result.root.lei == "N"
+        assert result.candidates and result.seed_matches
+        assert "identity" in result.reason.lower()
+        print("PASS test_sempra_ownership_convergence_does_not_prove_queried_identity")
+
+
 if __name__ == "__main__":
     suite = [
         test_acronym_token_matching_rejects_substrings,
@@ -271,6 +292,7 @@ if __name__ == "__main__":
         test_sole_uncontested_candidate_resolves_without_exact_string_match,
         test_sole_uncontested_gate_does_not_apply_when_a_second_candidate_exists,
         test_sole_uncontested_gate_requires_active_status,
+        test_sempra_ownership_convergence_does_not_prove_queried_identity,
     ]
 
     failed = 0
