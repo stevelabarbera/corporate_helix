@@ -150,3 +150,10 @@ Trigger: 30-case identity benchmark completed without execution errors but all 3
 10. [ ] Run end-to-end MVP evaluation from evidence ingestion through identity, M&A relationships, and actionable ASM outputs.
 
 **Acceptance criteria for first batch:** Sempra case cannot surface NatWest as a verified root; existing resolver tests remain green; all decisions expose reproducible score explanations; changing profiles changes permitted scoring/threshold behavior without bypassing identity safeguards. Do not interpret 0/30 scored as 0% accuracy or expand the benchmark for headline numbers before independent ground truth is established.
+
+### MVP identity input contract — agreed 2026-11-16
+
+- **Expected user input:** the company's **exact legal name**. State this requirement plainly in product instructions and API/CLI documentation; optional domain, LEI, CIK, and jurisdiction may improve disambiguation.
+- **Best-effort on nonexact input:** accept brands, short names, abbreviations, and partial names, but display an explicit **higher-risk / ambiguous-input warning**; do not imply that the discovered legal entity is verified.
+- **Safety independent of input quality:** preserve candidate evidence and REVIEW_REQUIRED/abstention where necessary. Even an exact legal name may be shared across jurisdictions and is not, by itself, proof of ownership, identity, or an M&A event.
+- **Validation:** include exact-name and ambiguous-name variants of Target and Sempra in future real-data regression runs; keep input-quality metadata separate from final identity confidence. Do not let the warning replace existing safety gates.
