@@ -35,6 +35,9 @@
 | Secondary | State merger filings, DBA/trade names, new registries/provider adapters | P2 | Targeted exceptions; reconsider for measured source gaps |
 | Secondary | Virtual analyst, LLM hypotheses, dashboards, customer UI | P2 | Optional enhancements; trust guardrails remain mandatory |
 | Maintenance | Duplicate model cleanup, stale references, docs consolidation | P2 | Address when blocking development or causing regressions |
+| Maintenance | Branch-wide implementation inventory to prevent duplicate work | P2 | Deferred; index features across branches with module/test/PR references, implemented vs merged vs verified statuses; link registry from project status and backlog |
+
+**Deferred branch inventory task:** Audit all live branches and any relevant historical PRs for reusable features, especially isolated experiments. Create `docs/IMPLEMENTATION_REGISTRY.md` with capabilities, source paths, tests, owners/PR links, and implementation/merge/validation states. Link it from `docs/PROJECT_STATUS.md` and this backlog. This is **not a blocker** for the current P0 GLEIF identity-safety validation or SEC M&A coverage/extraction work.
 
 **Execution order:** Complete the Sempra regression and configurable GLEIF identity-resolution batch below; independently validate the current GLEIF pipeline; then prioritize SEC coverage and extraction fixes based on measured missed transactions. Do not reopen old unchecked tasks without checking code/tests. **No P0 label is a claim that implementation is complete.**
 
