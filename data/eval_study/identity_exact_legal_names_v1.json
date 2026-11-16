@@ -1,0 +1,199 @@
+{
+  "schema": "corporate-helix/exact-legal-name-screen/v1",
+  "status": "EVALUATION_INPUTS_NOT_INDEPENDENT_GROUND_TRUTH",
+  "description": "Exact legal names from prior live GLEIF seed matches, plus selected SEC-confirmed or full-name examples. LEIs from prior GLEIF output are reference identity candidates, not independently verified ground truth. Interpret AUTO_RESOLVED as a proposed identity; evaluate manually. Some legal names may collide; inactive entities are deliberately included.",
+  "cases": [
+    {
+      "id": "exact-001",
+      "input": {
+        "company_name": "Akorn, Inc."
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "549300REUQNNF5W5TA64"
+    },
+    {
+      "id": "exact-002",
+      "input": {
+        "company_name": "ARKADIUM, INC."
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "549300D6UH4NEQNVUT10"
+    },
+    {
+      "id": "exact-003",
+      "input": {
+        "company_name": "Bank of the West"
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "QOT5WN9RBKQTFRVKEV31"
+    },
+    {
+      "id": "exact-004",
+      "input": {
+        "company_name": "WM. BOLTHOUSE FARMS, INC."
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "254900AVSAWDJLMUWV53"
+    },
+    {
+      "id": "exact-005",
+      "input": {
+        "company_name": "Cathay Bank"
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "FT6J43S06X6CLJ0R0B48"
+    },
+    {
+      "id": "exact-006",
+      "input": {
+        "company_name": "DIAGENODE"
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "5493006F0WPPG3MLW903"
+    },
+    {
+      "id": "exact-007",
+      "input": {
+        "company_name": "Fifth Third Bank, National Association"
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "QFROUN1UWUYU0DVIWD51"
+    },
+    {
+      "id": "exact-008",
+      "input": {
+        "company_name": "HDFC BANK LIMITED"
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "335800ZQ6I4E2JXENC50"
+    },
+    {
+      "id": "exact-009",
+      "input": {
+        "company_name": "JACUZZI BRANDS LLC"
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "549300PSHUGBOQ47QR63"
+    },
+    {
+      "id": "exact-010",
+      "input": {
+        "company_name": "Maxim Integrated Products, Inc."
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "SO0H5YEO14Y4PVKQH532"
+    },
+    {
+      "id": "exact-011",
+      "input": {
+        "company_name": "PACIFIC GAS AND ELECTRIC COMPANY"
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "1HNPXZSMMB7HMBMVBS46"
+    },
+    {
+      "id": "exact-012",
+      "input": {
+        "company_name": "PTC THERAPEUTICS, INC."
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "549300UJLWOIWFDGB318"
+    },
+    {
+      "id": "exact-013",
+      "input": {
+        "company_name": "SOUTHWEST AIRLINES CO."
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "UDTZ87G0STFETI6HGH41"
+    },
+    {
+      "id": "exact-014",
+      "input": {
+        "company_name": "VERISIGN, INC."
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "LMPL4N8ZOJRMF0KOF759"
+    },
+    {
+      "id": "exact-015",
+      "input": {
+        "company_name": "SENTINELONE, INC."
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "984500DCD44DBF954221"
+    },
+    {
+      "id": "exact-016",
+      "input": {
+        "company_name": "TENABLE HOLDINGS, INC."
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": null
+    },
+    {
+      "id": "exact-017",
+      "input": {
+        "company_name": "THE WALT DISNEY COMPANY"
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": null
+    },
+    {
+      "id": "exact-018",
+      "input": {
+        "company_name": "AMERICAN INTERNATIONAL GROUP, INC."
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": null
+    },
+    {
+      "id": "exact-019",
+      "input": {
+        "company_name": "CATERPILLAR INC."
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": null
+    },
+    {
+      "id": "exact-020",
+      "input": {
+        "company_name": "THE TIMKEN COMPANY"
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "B0I35MLPFXZSE70ASS73"
+    },
+    {
+      "id": "exact-021",
+      "input": {
+        "company_name": "Target Corporation"
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": null
+    },
+    {
+      "id": "exact-022",
+      "input": {
+        "company_name": "Citrix Systems Inc"
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "HCTKJGUQOPZ5NBK7NP58"
+    },
+    {
+      "id": "exact-023",
+      "input": {
+        "company_name": "LIVE NATION ENTERTAINMENT, INC."
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "5493007B9BM9ZXJINO78"
+    },
+    {
+      "id": "exact-024",
+      "input": {
+        "company_name": "THE CAMPBELL'S COMPANY"
+      },
+      "verification_status": "PENDING",
+      "observed_lei_reference": "5493007JDSMX8Z5Z1902"
+    }
+  ]
+}
