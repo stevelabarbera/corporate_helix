@@ -38,6 +38,33 @@ from providers.edgar_ma_provider import EdgarMAExpansionProvider
 from providers.gleif_identity_fallback_provider import GleifIdentityFallbackProvider
 
 
+
+def summarize_start_diagnostics(facts) -> dict:
+    """Report discovery without confusing identifiers with verified seed identity."""
+    discovered = [fact for fact in facts if fact.source != "SEED"]
+    identified = [fact for fact in discovered if fact.identifier]
+    # The starting company is not independently adjudicated merely because
+    # a downstream discovery has a LEI or other identifier.
+    if identified:
+        start_status = "IDENTIFIER_CANDIDATES_FOUND"
+    elif discovered:
+        start_status = "CANDIDATES_FOUND"
+    else:
+        start_status = "IDENTITY_UNRESOLVED"
+    return {
+        "start_status": start_status,
+        "seed_only": not discovered,
+        "resolved_identifiers": len(identified),
+        "discovered_facts": len(discovered),
+        "note": (
+            "Identifier-bearing facts were discovered, but the starting company's "
+            "identity has not been independently verified."
+            if identified else
+            "Expansion convergence does not imply a verified legal-entity identity."
+        ),
+    }
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--company", required=True)
@@ -61,25 +88,7 @@ def main() -> int:
 
     # Distinguish a completed provider pass from a verified identity start.
     # A seed-only run can converge without establishing any legal identity.
-    discovered = [fact for fact in result.facts if fact.source != "SEED"]
-    identified = [fact for fact in discovered if fact.identifier]
-    if identified:
-        start_status = "IDENTITY_RESOLVED"
-    elif discovered:
-        start_status = "CANDIDATES_FOUND"
-    else:
-        start_status = "IDENTITY_UNRESOLVED"
-    start_diagnostics = {
-        "start_status": start_status,
-        "seed_only": not discovered,
-        "resolved_identifiers": len(identified),
-        "discovered_facts": len(discovered),
-        "note": (
-            "Expansion convergence does not imply a verified legal-entity identity."
-            if not identified else
-            "Identifier-bearing facts were discovered; review their evidence before attribution."
-        ),
-    }
+    start_diagnostics = summarize_start_diagnostics(result.facts)
 
     if args.json:
         print(json.dumps({
