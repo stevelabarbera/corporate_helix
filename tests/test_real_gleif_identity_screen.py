@@ -30,12 +30,12 @@ def test_screen_legacy_l1_without_mutating_sources(tmp_path):
         "cases": [{"input": {"company_name": "Citrix Systems Inc"}}]
     }))
     output = tmp_path / "report.json"
-    assert screen(lei, rr, cohort, output) == 0
+    assert screen(lei, rr, cohort, output, cohort_only=True) == 0
     report = json.loads(output.read_text())
     assert report["l1_rows"] == 1
     assert report["data_kind"] == "UNADJUDICATED_SCREEN_NOT_ACCURACY"
     assert report["verified_identity_accuracy"] is None
-    assert report["cases"] >= 1
+    assert report["cases"] == 1
     assert any(x["company"] == "Citrix Systems Inc" for x in report["results"])
     with sqlite3.connect(lei) as conn:
         columns = {row[1] for row in conn.execute("PRAGMA table_info(lei_entities)")}
