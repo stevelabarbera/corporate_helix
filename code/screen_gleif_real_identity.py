@@ -27,10 +27,11 @@ EXTRA_NAMES = (
 )
 
 
-def screen(lei_path: Path, rr_path: Path, cohort_path: Path, output_path: Path):
+def screen(lei_path: Path, rr_path: Path, cohort_path: Path, output_path: Path, cohort_only: bool = False):
     dataset = json.loads(cohort_path.read_text(encoding="utf-8"))
     names = [c["input"]["company_name"] for c in dataset["cases"]]
-    names.extend(EXTRA_NAMES)
+    if not cohort_only:
+        names.extend(EXTRA_NAMES)
     names = list(dict.fromkeys(names))
 
     if not lei_path.is_file() or not rr_path.is_file():
@@ -115,8 +116,11 @@ def main():
     parser.add_argument("--cohort", type=Path, default=CASES)
     parser.add_argument("--output", type=Path,
                         default=ROOT / "data/eval_study/real_gleif_identity_screen.json")
+    parser.add_argument("--cohort-only", action="store_true",
+                        help="Screen only cohort entries; do not append short-name controls")
     args = parser.parse_args()
-    return screen(args.lei_index, args.rr_index, args.cohort, args.output)
+    return screen(args.lei_index, args.rr_index, args.cohort, args.output,
+                  cohort_only=args.cohort_only)
 
 
 if __name__ == "__main__":
