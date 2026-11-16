@@ -151,9 +151,8 @@ Trigger: 30-case identity benchmark completed without execution errors but all 3
 
 **Acceptance criteria for first batch:** Sempra case cannot surface NatWest as a verified root; existing resolver tests remain green; all decisions expose reproducible score explanations; changing profiles changes permitted scoring/threshold behavior without bypassing identity safeguards. Do not interpret 0/30 scored as 0% accuracy or expand the benchmark for headline numbers before independent ground truth is established.
 
-### MVP identity input contract — agreed 2026-11-16
+### MVP identity input scope — exact legal names (agreed 2026-11-16)
 
-- **Expected user input:** the company's **exact legal name**. State this requirement plainly in product instructions and API/CLI documentation; optional domain, LEI, CIK, and jurisdiction may improve disambiguation.
-- **Best-effort on nonexact input:** accept brands, short names, abbreviations, and partial names, but display an explicit **higher-risk / ambiguous-input warning**; do not imply that the discovered legal entity is verified.
-- **Safety independent of input quality:** preserve candidate evidence and REVIEW_REQUIRED/abstention where necessary. Even an exact legal name may be shared across jurisdictions and is not, by itself, proof of ownership, identity, or an M&A event.
-- **Validation:** include exact-name and ambiguous-name variants of Target and Sempra in future real-data regression runs; keep input-quality metadata separate from final identity confidence. Do not let the warning replace existing safety gates.
+- **P0 working assumption:** caller provides the company's **exact legal name**. Focus near-term effort on correct identity resolution, legal-entity selection, Level 2 ownership interpretation, and real-data validation **under that input contract**. Preserve abstention and provenance safeguards even for exact names, which may collide across jurisdictions.
+- **Deferred / nice-to-have (P2):** best-effort short-name, brand, abbreviation, and partial-name disambiguation; progressive input prompts; input-quality warnings; and recall improvements specifically for vague queries such as `Target` instead of `Target Corporation`. Do not allow these enhancements to block the P0 integration milestone.
+- **Regression safety:** retain Sempra-style wrong-root tests and other existing safeguards; do not turn off checks for ambiguous inputs merely because the MVP expects exact names.
