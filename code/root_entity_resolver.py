@@ -7,6 +7,8 @@ import sqlite3
 from pathlib import Path
 from typing import Any
 
+from identity_lookup import legal_name_lookup_key
+
 
 def connect(path: str) -> sqlite3.Connection:
     if not Path(path).is_file():
@@ -17,9 +19,7 @@ def connect(path: str) -> sqlite3.Connection:
 
 
 def normalize_name(value: str) -> str:
-    value = value.casefold().strip()
-    value = re.sub(r"[^\w]+", " ", value, flags=re.UNICODE)
-    return " ".join(value.split())
+    return legal_name_lookup_key(value)
 
 
 def name_tokens(value: str) -> list[str]:
@@ -127,7 +127,61 @@ class RootResolution:
     reason: str
 
     def to_dict(self) -> dict[str, Any]:
+        # Queried legal-entity identity is separate from the graph's proposed
+        # corporate root. An exact GLEIF name match is NOT independent proof
+        # of the caller's intent, ownership, or an M&A event.
+        exact = [
+            row for row in self.seed_matches
+            if row.get("name_match") == 1.0
+        ]
+        active = [row for row in exact if row.get("entity_status") == "ACTIVE"]
+        if len(exact) == 1 and len(active) == 1:
+            identity_status = "UNIQUE_ACTIVE_EXACT_NAME"
+            entity = active[0]
+            identity_reason = (
+                "Exactly one active GLEIF entity matches the full normalized "
+                "query name. This does not independently verify caller intent."
+            )
+        elif len(exact) > 1:
+            identity_status = "AMBIGUOUS_EXACT_NAME"
+            entity = None
+            identity_reason = (
+                "Multiple GLEIF entities share the exact normalized legal name; "
+                "entity type, jurisdiction, or identifiers must disambiguate."
+            )
+        elif len(exact) == 1:
+            identity_status = "INACTIVE_EXACT_NAME"
+            entity = None
+            identity_reason = (
+                "The single exact GLEIF name match is inactive; preserve "
+                "historical identity evidence without automatic confirmation."
+            )
+        else:
+            identity_status = "NO_EXACT_NAME_MATCH"
+            entity = None
+            identity_reason = (
+                "No exact normalized GLEIF legal name was found. Phrase or "
+                "ownership matches do not establish queried-company identity."
+            )
+
+        def identity_view(row: dict[str, Any]) -> dict[str, Any]:
+            return {
+                "lei": row.get("lei"),
+                "legal_name": row.get("legal_name"),
+                "entity_status": row.get("entity_status"),
+                "entity_category": row.get("entity_category"),
+                "jurisdiction": row.get("legal_jurisdiction"),
+                "registration_status": row.get("registration_status"),
+            }
+
         return {
+            "queried_identity": {
+                "status": identity_status,
+                "entity": identity_view(entity) if entity else None,
+                "exact_name_matches": [identity_view(row) for row in exact],
+                "reason": identity_reason,
+                "evidence_level": "GLEIF_LEGAL_NAME_MATCH_ONLY",
+            },
             "query": self.query,
             "status": self.status,
             "confidence": self.confidence,
@@ -158,7 +212,7 @@ def find_seed_matches(
         """
         SELECT *
         FROM lei_entities
-        WHERE legal_name_normalized = ?
+        WHERE legal_name_lookup_key = ?
         ORDER BY CASE WHEN entity_status = 'ACTIVE' THEN 0 ELSE 1 END, legal_name
         LIMIT ?
         """,
@@ -172,7 +226,7 @@ def find_seed_matches(
             """
             SELECT *
             FROM lei_entities
-            WHERE legal_name_normalized LIKE ?
+            WHERE legal_name_lookup_key LIKE ?
             ORDER BY CASE WHEN entity_status = 'ACTIVE' THEN 0 ELSE 1 END, legal_name
             LIMIT ?
             """,
@@ -208,6 +262,7 @@ def _parents_for(rr_conn: sqlite3.Connection, child_lei: str) -> list[dict[str, 
         SELECT parent_lei, relationship_type, relationship_status
         FROM relationships
         WHERE child_lei = ?
+          AND relationship_status = 'ACTIVE'
           AND relationship_type IN (
               'IS_DIRECTLY_CONSOLIDATED_BY',
               'IS_ULTIMATELY_CONSOLIDATED_BY'
@@ -429,34 +484,46 @@ def resolve_company_root(
         ]
 
         topology_strong = (
-            top.matched_seed_count >= 2
+            top.entity_status == "ACTIVE"
+            and top.matched_seed_count >= 2
             and top.coverage >= 0.60
             and (top.ultimate_parent_votes >= 1 or top.terminal_votes >= 2)
             and margin >= 8.0
         )
 
         unique_exact = (
-            len(exact_active) == 1
+            top.entity_status == "ACTIVE"
+            and len(exact_active) == 1
             and top.lei == exact_active[0]["lei"]
             and (second is None or margin >= 8.0)
         )
 
-        # A single candidate with no competing entity at all is a different,
-        # safer case than unique_exact: there's no similarly-named alternative
-        # to be confused with, so requiring the query to equal the FULL legal
-        # name string (unique_exact's bar) is stricter than the ambiguity
-        # actually calls for. This is the common shape for smaller companies
-        # with no reported GLEIF relationships -- e.g. querying "Hawkeye
-        # Innovations" against a lone "Hawkeye Innovations Ltd" entity -- and
-        # without this gate it always fell to REVIEW_REQUIRED/LOW regardless
-        # of how unambiguous the match was.
+        # A lone lexical candidate is not verified identity evidence.
+        # Preserve it for review, but never auto-resolve solely because no
+        # competing GLEIF candidate was discovered.
         sole_uncontested = (
             len(candidates) == 1
             and top.name_match >= 0.90
             and top.entity_status == "ACTIVE"
         )
 
-        if topology_strong:
+        # A GLEIF relationship can be real while the phrase-matched seed
+        # is not the company the user asked about. For multi-token queries,
+        # topology alone cannot validate a non-exact seed identity.
+        unsupported_multitoken_seed = (
+            len(name_tokens(company)) >= 2
+            and not exact_active
+        )
+
+        if topology_strong and unsupported_multitoken_seed:
+            status = "REVIEW_REQUIRED"
+            confidence = "LOW"
+            reason = (
+                "Ownership topology converges, but seed identity is not "
+                "independently supported by an exact active legal-name match; "
+                "the proposed root remains an investigatory lead."
+            )
+        elif topology_strong:
             status = "AUTO_RESOLVED"
             confidence = "HIGH"
             reason = (
@@ -473,12 +540,11 @@ def resolve_company_root(
                 "after relationship-graph inspection."
             )
         elif sole_uncontested:
-            status = "AUTO_RESOLVED"
-            confidence = "MEDIUM"
+            status = "REVIEW_REQUIRED"
+            confidence = "LOW"
             reason = (
-                "Exactly one active GLEIF entity matched the query as a "
-                "complete name phrase, and no other candidate exists to "
-                "compete with it."
+                "A sole active name-phrase candidate was found, but name "
+                "similarity and lack of competitors do not establish identity."
             )
         else:
             status = "REVIEW_REQUIRED"

@@ -24,6 +24,8 @@ import time
 
 import ijson
 
+from identity_lookup import legal_name_lookup_key
+
 
 DEFAULT_PATH = "records.item"
 DEFAULT_BATCH_SIZE = 10_000
@@ -131,6 +133,7 @@ def flatten_record(record):
         "lei": lei,
         "legal_name": legal_name,
         "legal_name_normalized": legal_name.casefold() if legal_name else None,
+        "legal_name_lookup_key": legal_name_lookup_key(legal_name),
 
         "legal_jurisdiction": clean(
             extract_value(entity.get("LegalJurisdiction", {}))
@@ -193,6 +196,7 @@ CREATE TABLE IF NOT EXISTS lei_entities (
 
     legal_name TEXT,
     legal_name_normalized TEXT,
+    legal_name_lookup_key TEXT,
 
     legal_jurisdiction TEXT,
     entity_status TEXT,
@@ -228,6 +232,7 @@ INSERT INTO lei_entities (
     lei,
     legal_name,
     legal_name_normalized,
+    legal_name_lookup_key,
     legal_jurisdiction,
     entity_status,
     entity_category,
@@ -249,6 +254,7 @@ VALUES (
     :lei,
     :legal_name,
     :legal_name_normalized,
+    :legal_name_lookup_key,
     :legal_jurisdiction,
     :entity_status,
     :entity_category,
@@ -269,6 +275,7 @@ VALUES (
 ON CONFLICT(lei) DO UPDATE SET
     legal_name = excluded.legal_name,
     legal_name_normalized = excluded.legal_name_normalized,
+    legal_name_lookup_key = excluded.legal_name_lookup_key,
     legal_jurisdiction = excluded.legal_jurisdiction,
     entity_status = excluded.entity_status,
     entity_category = excluded.entity_category,
@@ -297,6 +304,10 @@ def configure_database(conn):
     conn.execute("PRAGMA foreign_keys=ON;")
 
     conn.executescript(SCHEMA)
+    # Existing Level 1 databases were built before lookup keys existed.
+    columns = {row[1] for row in conn.execute('PRAGMA table_info(lei_entities)')}
+    if 'legal_name_lookup_key' not in columns:
+        conn.execute('ALTER TABLE lei_entities ADD COLUMN legal_name_lookup_key TEXT')
     conn.commit()
 
 
@@ -311,6 +322,20 @@ def write_metadata(conn, key, value):
     )
 
 
+def backfill_lookup_keys(conn, batch_size=10000):
+    """Backfill legacy databases without changing gazetteer normalization."""
+    cursor = conn.execute("SELECT lei, legal_name FROM lei_entities WHERE legal_name_lookup_key IS NULL")
+    while True:
+        batch = cursor.fetchmany(batch_size)
+        if not batch:
+            break
+        conn.executemany(
+            "UPDATE lei_entities SET legal_name_lookup_key = ? WHERE lei = ?",
+            [(legal_name_lookup_key(name), lei) for lei, name in batch],
+        )
+        conn.commit()
+
+
 def create_indexes(conn):
     print("Creating lookup indexes...", file=sys.stderr)
 
@@ -318,6 +343,9 @@ def create_indexes(conn):
         """
         CREATE INDEX IF NOT EXISTS idx_lei_entities_legal_name
             ON lei_entities(legal_name_normalized);
+
+        CREATE INDEX IF NOT EXISTS idx_lei_entities_lookup_key
+            ON lei_entities(legal_name_lookup_key);
 
         CREATE INDEX IF NOT EXISTS idx_lei_entities_jurisdiction
             ON lei_entities(legal_jurisdiction);
@@ -465,6 +493,7 @@ def main():
                 ",".join(str(x) for x in f.repairs),
             )
 
+        backfill_lookup_keys(conn)
         create_indexes(conn)
 
         write_metadata(conn, "records_scanned", total_scanned)

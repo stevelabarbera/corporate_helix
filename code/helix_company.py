@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 
 from root_entity_resolver import resolve_company_root
+from identity_lookup import legal_name_lookup_key
 
 
 RELATIONSHIP_LABELS = {
@@ -27,7 +28,7 @@ def connect(path):
 
 
 def normalize_name(value):
-    return " ".join(value.casefold().strip().split())
+    return legal_name_lookup_key(value)
 
 
 def find_company(db_path, company):
@@ -40,7 +41,7 @@ def find_company(db_path, company):
         """
         SELECT *
         FROM lei_entities
-        WHERE legal_name_normalized = ?
+        WHERE legal_name_lookup_key = ?
         ORDER BY
             CASE WHEN entity_status = 'ACTIVE' THEN 0 ELSE 1 END,
             legal_name
@@ -55,7 +56,7 @@ def find_company(db_path, company):
             """
             SELECT *
             FROM lei_entities
-            WHERE legal_name_normalized LIKE ?
+            WHERE legal_name_lookup_key LIKE ?
             ORDER BY
                 CASE WHEN entity_status = 'ACTIVE' THEN 0 ELSE 1 END,
                 legal_name

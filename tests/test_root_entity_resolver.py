@@ -8,6 +8,8 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "code"))
 
+from identity_lookup import legal_name_lookup_key
+
 from root_entity_resolver import (
     _contains_token_phrase,
     find_seed_matches,
@@ -26,7 +28,7 @@ def make_dbs(tmp: Path):
         CREATE TABLE lei_entities (
             lei TEXT PRIMARY KEY,
             legal_name TEXT,
-            legal_name_normalized TEXT,
+            legal_name_lookup_key TEXT,
             legal_jurisdiction TEXT,
             entity_status TEXT
         );
@@ -52,10 +54,10 @@ def add_entity(conn, lei, name, jurisdiction="US", status="ACTIVE"):
     conn.execute(
         """
         INSERT INTO lei_entities
-        (lei, legal_name, legal_name_normalized, legal_jurisdiction, entity_status)
+        (lei, legal_name, legal_name_lookup_key, legal_jurisdiction, entity_status)
         VALUES (?, ?, ?, ?, ?)
         """,
-        (lei, name, name.casefold(), jurisdiction, status),
+        (lei, name, legal_name_lookup_key(name), jurisdiction, status),
     )
 
 
@@ -215,7 +217,7 @@ def test_competing_informative_families_still_require_review():
         print("PASS test_competing_informative_families_still_require_review")
 
 
-def test_sole_uncontested_candidate_resolves_without_exact_string_match():
+def test_sole_uncontested_candidate_requires_review_without_exact_string_match():
     # Smaller-company shape: one GLEIF entity, no reported relationships,
     # query is a fair phrase match but not the full legal-name string.
     with tempfile.TemporaryDirectory() as d:
@@ -224,10 +226,11 @@ def test_sole_uncontested_candidate_resolves_without_exact_string_match():
         lc.commit(); rc.commit(); lc.close(); rc.close()
 
         result = resolve_company_root("Hawkeye Innovations", str(lei), str(rr))
-        assert result.status == "AUTO_RESOLVED"
-        assert result.confidence == "MEDIUM"
+        assert result.status == "REVIEW_REQUIRED"
+        assert result.confidence == "LOW"
         assert result.root.lei == "X"
-        print("PASS test_sole_uncontested_candidate_resolves_without_exact_string_match")
+        assert "sole active name-phrase candidate" in result.reason
+        print("PASS test_sole_uncontested_candidate_requires_review_without_exact_string_match")
 
 
 def test_sole_uncontested_gate_does_not_apply_when_a_second_candidate_exists():
@@ -257,6 +260,114 @@ def test_sole_uncontested_gate_requires_active_status():
         print("PASS test_sole_uncontested_gate_requires_active_status")
 
 
+def test_adio_lookalike_is_not_auto_resolved():
+    # Regression: a single lexical hit from another company must not be
+    # treated as verified identity, even when it is the only GLEIF hit.
+    with tempfile.TemporaryDirectory() as d:
+        lei, rr, lc, rc = make_dbs(Path(d))
+        add_entity(lc, "LOOKALIKE", "ADIO IMPEX PRIVATE LIMITED", "IN")
+        lc.commit(); rc.commit(); lc.close(); rc.close()
+
+        result = resolve_company_root("Adio", str(lei), str(rr))
+        assert result.status == "REVIEW_REQUIRED"
+        assert result.root.lei == "LOOKALIKE"
+        print("PASS test_adio_lookalike_is_not_auto_resolved")
+
+
+def test_inactive_parent_relationship_is_not_current_root():
+    # Historical GLEIF relationships must not be traversed as current ownership.
+    with tempfile.TemporaryDirectory() as d:
+        lei, rr, lc, rc = make_dbs(Path(d))
+        add_entity(lc, "CHILD", "Example Holdings")
+        add_entity(lc, "OLD", "Former Parent")
+        add_rel(rc, "CHILD", "OLD", "IS_ULTIMATELY_CONSOLIDATED_BY")
+        rc.execute("UPDATE relationships SET relationship_status = 'INACTIVE'")
+        lc.commit(); rc.commit(); lc.close(); rc.close()
+
+        result = resolve_company_root("Example Holdings", str(lei), str(rr))
+        assert result.status == "AUTO_RESOLVED"
+        assert result.root.lei == "CHILD"
+        assert all(candidate.lei != "OLD" for candidate in result.candidates)
+        print("PASS test_inactive_parent_relationship_is_not_current_root")
+
+
+def test_inactive_parent_does_not_outvote_active_parent():
+    with tempfile.TemporaryDirectory() as d:
+        lei, rr, lc, rc = make_dbs(Path(d))
+        add_entity(lc, "A", "Example Alpha")
+        add_entity(lc, "B", "Example Beta")
+        add_entity(lc, "CURRENT", "Current Parent")
+        add_entity(lc, "OLD", "Former Parent")
+        for child in ("A", "B"):
+            add_rel(rc, child, "CURRENT", "IS_ULTIMATELY_CONSOLIDATED_BY")
+            add_rel(rc, child, "OLD", "IS_ULTIMATELY_CONSOLIDATED_BY")
+        rc.execute("UPDATE relationships SET relationship_status = 'INACTIVE' WHERE parent_lei = 'OLD'")
+        lc.commit(); rc.commit(); lc.close(); rc.close()
+
+        result = resolve_company_root("Example", str(lei), str(rr))
+        assert result.status == "AUTO_RESOLVED"
+        assert result.root.lei == "CURRENT"
+        assert all(candidate.lei != "OLD" for candidate in result.candidates)
+        print("PASS test_inactive_parent_does_not_outvote_active_parent")
+
+
+def test_inactive_topology_root_cannot_auto_resolve():
+    # Two active subsidiaries converging on an inactive parent are not
+    # sufficient to declare that parent a current automatically resolved root.
+    with tempfile.TemporaryDirectory() as d:
+        lei, rr, lc, rc = make_dbs(Path(d))
+        add_entity(lc, "A", "EXAMPLE ALPHA")
+        add_entity(lc, "B", "EXAMPLE BETA")
+        add_entity(lc, "OLD", "Former Group Parent", status="INACTIVE")
+        add_rel(rc, "A", "OLD", "IS_ULTIMATELY_CONSOLIDATED_BY")
+        add_rel(rc, "B", "OLD", "IS_ULTIMATELY_CONSOLIDATED_BY")
+        lc.commit(); rc.commit(); lc.close(); rc.close()
+
+        result = resolve_company_root("Example", str(lei), str(rr))
+        assert result.status == "REVIEW_REQUIRED"
+        assert result.root.lei == "OLD"
+        print("PASS test_inactive_topology_root_cannot_auto_resolve")
+
+
+def test_exact_name_seed_cannot_auto_resolve_to_inactive_root():
+    # Exact seed matches should not override the inactive status of a
+    # different, higher-scoring root candidate.
+    with tempfile.TemporaryDirectory() as d:
+        lei, rr, lc, rc = make_dbs(Path(d))
+        add_entity(lc, "A", "Example")
+        add_entity(lc, "OLD", "Former Parent", status="INACTIVE")
+        add_rel(rc, "A", "OLD", "IS_ULTIMATELY_CONSOLIDATED_BY")
+        lc.commit(); rc.commit(); lc.close(); rc.close()
+
+        result = resolve_company_root("Example", str(lei), str(rr))
+        assert result.status == "REVIEW_REQUIRED"
+        assert result.root.lei == "OLD"
+        print("PASS test_exact_name_seed_cannot_auto_resolve_to_inactive_root")
+
+
+
+def test_sempra_ownership_convergence_does_not_prove_queried_identity():
+    # Synthetic analogue of Sempra Energy Trading -> NatWest convergence.
+    # Valid ownership edges do not establish that the matched trading
+    # companies are the intended queried corporate entity.
+    with tempfile.TemporaryDirectory() as d:
+        lei, rr, lc, rc = make_dbs(Path(d))
+        add_entity(lc, "S1", "SEMPRA ENERGY TRADING LLC")
+        add_entity(lc, "S2", "SEMPRA ENERGY TRADING INTERNATIONAL LLC")
+        add_entity(lc, "N", "NATWEST GROUP PLC", "GB")
+        add_rel(rc, "S1", "N", "IS_ULTIMATELY_CONSOLIDATED_BY")
+        add_rel(rc, "S2", "N", "IS_ULTIMATELY_CONSOLIDATED_BY")
+        lc.commit(); rc.commit(); lc.close(); rc.close()
+
+        result = resolve_company_root("Sempra Energy", str(lei), str(rr))
+        assert result.status == "REVIEW_REQUIRED"
+        assert result.confidence == "LOW"
+        assert result.root is not None and result.root.lei == "N"
+        assert "seed identity" in result.reason.lower()
+        assert result.seed_matches
+        print("PASS test_sempra_ownership_convergence_does_not_prove_queried_identity")
+
+
 if __name__ == "__main__":
     suite = [
         test_acronym_token_matching_rejects_substrings,
@@ -268,9 +379,15 @@ if __name__ == "__main__":
         test_cycle_is_bounded,
         test_isolated_lexical_matches_do_not_dilute_real_convergence,
         test_competing_informative_families_still_require_review,
-        test_sole_uncontested_candidate_resolves_without_exact_string_match,
+        test_sole_uncontested_candidate_requires_review_without_exact_string_match,
         test_sole_uncontested_gate_does_not_apply_when_a_second_candidate_exists,
         test_sole_uncontested_gate_requires_active_status,
+        test_adio_lookalike_is_not_auto_resolved,
+        test_inactive_parent_relationship_is_not_current_root,
+        test_inactive_parent_does_not_outvote_active_parent,
+        test_inactive_topology_root_cannot_auto_resolve,
+        test_exact_name_seed_cannot_auto_resolve_to_inactive_root,
+        test_sempra_ownership_convergence_does_not_prove_queried_identity,
     ]
 
     failed = 0
