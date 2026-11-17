@@ -127,7 +127,61 @@ class RootResolution:
     reason: str
 
     def to_dict(self) -> dict[str, Any]:
+        # Queried legal-entity identity is separate from the graph's proposed
+        # corporate root. An exact GLEIF name match is NOT independent proof
+        # of the caller's intent, ownership, or an M&A event.
+        exact = [
+            row for row in self.seed_matches
+            if row.get("name_match") == 1.0
+        ]
+        active = [row for row in exact if row.get("entity_status") == "ACTIVE"]
+        if len(exact) == 1 and len(active) == 1:
+            identity_status = "UNIQUE_ACTIVE_EXACT_NAME"
+            entity = active[0]
+            identity_reason = (
+                "Exactly one active GLEIF entity matches the full normalized "
+                "query name. This does not independently verify caller intent."
+            )
+        elif len(exact) > 1:
+            identity_status = "AMBIGUOUS_EXACT_NAME"
+            entity = None
+            identity_reason = (
+                "Multiple GLEIF entities share the exact normalized legal name; "
+                "entity type, jurisdiction, or identifiers must disambiguate."
+            )
+        elif len(exact) == 1:
+            identity_status = "INACTIVE_EXACT_NAME"
+            entity = None
+            identity_reason = (
+                "The single exact GLEIF name match is inactive; preserve "
+                "historical identity evidence without automatic confirmation."
+            )
+        else:
+            identity_status = "NO_EXACT_NAME_MATCH"
+            entity = None
+            identity_reason = (
+                "No exact normalized GLEIF legal name was found. Phrase or "
+                "ownership matches do not establish queried-company identity."
+            )
+
+        def identity_view(row: dict[str, Any]) -> dict[str, Any]:
+            return {
+                "lei": row.get("lei"),
+                "legal_name": row.get("legal_name"),
+                "entity_status": row.get("entity_status"),
+                "entity_category": row.get("entity_category"),
+                "jurisdiction": row.get("legal_jurisdiction"),
+                "registration_status": row.get("registration_status"),
+            }
+
         return {
+            "queried_identity": {
+                "status": identity_status,
+                "entity": identity_view(entity) if entity else None,
+                "exact_name_matches": [identity_view(row) for row in exact],
+                "reason": identity_reason,
+                "evidence_level": "GLEIF_LEGAL_NAME_MATCH_ONLY",
+            },
             "query": self.query,
             "status": self.status,
             "confidence": self.confidence,
