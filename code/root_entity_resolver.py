@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from datetime import date
 import re
 import sqlite3
 from pathlib import Path
@@ -202,10 +203,52 @@ def find_seed_matches(
     return result
 
 
-def _parents_for(rr_conn: sqlite3.Connection, child_lei: str) -> list[dict[str, Any]]:
+def _parse_relationship_date(value: Any) -> date | None:
+    """Interpret a GLEIF date or timestamp; malformed dates fail closed."""
+    if value is None or value == "":
+        return None
+    if not isinstance(value, str):
+        raise ValueError(f"Invalid relationship period date: {value!r}")
+    try:
+        return date.fromisoformat(value[:10])
+    except ValueError as exc:
+        raise ValueError(f"Invalid relationship period date: {value!r}") from exc
+
+
+def _relationship_applies_now(rel: dict[str, Any], as_of: date) -> bool:
+    """Current-snapshot eligibility, not proof of legal ownership.
+
+    An old accounting period is not an ownership end date. ACTIVE and the
+    relationship-specific start/end period are the eligibility checks.
+    Missing relationship dates remain provisionally eligible. A snapshot's
+    current status cannot reconstruct historical status at an earlier date.
+    """
+    if rel.get("relationship_status") != "ACTIVE":
+        return False
+    try:
+        start = _parse_relationship_date(rel.get("relationship_start"))
+        end = _parse_relationship_date(rel.get("relationship_end"))
+    except ValueError:
+        return False
+    if start and start > as_of:
+        return False
+    if end and end < as_of:
+        return False
+    if start and end and start > end:
+        return False
+    return True
+
+
+def _parents_for(
+    rr_conn: sqlite3.Connection,
+    child_lei: str,
+    as_of: date | None = None,
+) -> list[dict[str, Any]]:
+    """Return only edges eligible for current-snapshot root traversal."""
+    as_of = as_of or date.today()
     rows = rr_conn.execute(
         """
-        SELECT parent_lei, relationship_type, relationship_status
+        SELECT *
         FROM relationships
         WHERE child_lei = ?
           AND relationship_type IN (
@@ -215,14 +258,38 @@ def _parents_for(rr_conn: sqlite3.Connection, child_lei: str) -> list[dict[str, 
         """,
         (child_lei,),
     ).fetchall()
-    return [dict(r) for r in rows]
+    return [
+        rel for row in rows
+        if _relationship_applies_now(rel := dict(row), as_of)
+    ]
+
+
+def _coerce_as_of_date(value: str | date | None) -> date:
+    """Validate the requested as-of date at the resolver boundary."""
+    if value is None:
+        return date.today()
+    if isinstance(value, date):
+        return value
+    # Require a calendar date, not an arbitrary timestamp or partial date.
+    if not isinstance(value, str) or len(value) != 10:
+        raise ValueError("as_of_date must be YYYY-MM-DD")
+    try:
+        parsed = date.fromisoformat(value)
+    except ValueError as exc:
+        raise ValueError("as_of_date must be YYYY-MM-DD") from exc
+    if parsed.isoformat() != value:
+        raise ValueError("as_of_date must be YYYY-MM-DD")
+    return parsed
 
 
 def walk_upward(
     rr_conn: sqlite3.Connection,
     seed_lei: str,
     max_depth: int = 12,
+    as_of_date: str | date | None = None,
 ) -> dict[str, dict[str, Any]]:
+    as_of = _coerce_as_of_date(as_of_date)
+
     observed = {
         seed_lei: {
             "depth": 0,
@@ -239,7 +306,7 @@ def walk_upward(
         if depth >= max_depth:
             continue
 
-        parents = _parents_for(rr_conn, current)
+        parents = _parents_for(rr_conn, current, as_of)
         if not parents:
             observed[current]["terminal"] = True
             continue
@@ -287,7 +354,9 @@ def resolve_company_root(
     rr_db: str = "data/processed/gleif_rr.sqlite",
     seed_limit: int = 100,
     max_depth: int = 12,
+    as_of_date: str | date | None = None,
 ) -> RootResolution:
+    as_of = _coerce_as_of_date(as_of_date)
     lei_conn = connect(lei_db)
     rr_conn = connect(rr_db)
 
@@ -312,7 +381,7 @@ def resolve_company_root(
         all_leis = set()
 
         for seed in seeds:
-            path = walk_upward(rr_conn, seed["lei"], max_depth=max_depth)
+            path = walk_upward(rr_conn, seed["lei"], max_depth=max_depth, as_of_date=as_of)
             paths[seed["lei"]] = path
             all_leis.update(path)
 
