@@ -37,6 +37,7 @@ def main() -> int:
     ap.add_argument("--rr-index", default="data/processed/gleif_rr.sqlite")
     ap.add_argument("--seed-limit", type=int, default=100)
     ap.add_argument("--max-depth", type=int, default=12)
+    ap.add_argument("--as-of", dest="as_of_date", help="Evaluate current-snapshot relationships as of YYYY-MM-DD")
     ap.add_argument("--top", type=int, default=10)
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--verbose", "-v", action="store_true",
@@ -45,7 +46,10 @@ def main() -> int:
 
     started = time.monotonic()
     try:
-        result = resolve_company_root(args.company, args.lei_index, args.rr_index, args.seed_limit, args.max_depth)
+        result = resolve_company_root(args.company, args.lei_index, args.rr_index, args.seed_limit, args.max_depth, as_of_date=args.as_of_date)
+    except ValueError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
     except FileNotFoundError as exc:
         print(f"error: {exc}", file=sys.stderr)
         print("hint: build the local GLEIF indexes first, or pass --lei-index/--rr-index "
