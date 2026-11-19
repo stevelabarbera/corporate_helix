@@ -12,7 +12,6 @@ from collections import Counter
 import json
 from pathlib import Path
 import sqlite3
-from urllib.parse import quote
 
 from build_gleif_rr_index import SUPPORTED_TYPES, _v, records, relationship_periods
 
@@ -77,6 +76,8 @@ def inspect(source_zip: str, index_db: str, sample_limit: int = 12):
         mismatch_fields = Counter()
         source_types = Counter()
         repeated_periods = Counter()
+        repeated_period_conflicts = Counter()
+        repeated_period_examples = []
         samples = []
         source_keys = set()
         # 260k 3-field keys is manageable; detect missing index rows separately below.
@@ -91,7 +92,31 @@ def inspect(source_zip: str, index_db: str, sample_limit: int = 12):
             source_keys.add(key)
             for kind_name, count in pcounts.items():
                 if count > 1:
-                    repeated_periods[kind_name or "<missing>"] += 1
+                    label = kind_name or "<missing>"
+                    repeated_periods[label] += 1
+                    rel = wrapper.get("RelationshipRecord", wrapper).get("Relationship") or {}
+                    raw_periods = (rel.get("RelationshipPeriods") or {}).get("RelationshipPeriod") or []
+                    if isinstance(raw_periods, dict):
+                        raw_periods = [raw_periods]
+                    matches = [
+                        {"start": _v(p, "StartDate"), "end": _v(p, "EndDate")}
+                        for p in raw_periods
+                        if isinstance(p, dict) and _v(p, "PeriodType") == kind_name
+                    ]
+                    distinct = {
+                        (item["start"], item["end"])
+                        for item in matches
+                    }
+                    if len(distinct) > 1:
+                        repeated_period_conflicts[label] += 1
+                    if len(repeated_period_examples) < sample_limit:
+                        repeated_period_examples.append({
+                            "record_number": ordinal,
+                            "key": key,
+                            "period_type": label,
+                            "distinct_periods": len(distinct),
+                            "periods": matches,
+                        })
             stored = conn.execute(sql, key).fetchone()
             if stored is None:
                 totals["missing_in_index"] += 1
@@ -144,6 +169,8 @@ def inspect(source_zip: str, index_db: str, sample_limit: int = 12):
             "source_relationship_types": dict(source_types.most_common()),
             "fields_with_mismatches": dict(mismatch_fields.most_common()),
             "records_with_repeated_period_type": dict(repeated_periods),
+            "repeated_period_types_with_different_values": dict(repeated_period_conflicts),
+            "repeated_period_examples": repeated_period_examples,
             "examples": samples,
             "limitations": [
                 "Uses production ZIP record parser; cannot independently prove it found every JSON record.",
