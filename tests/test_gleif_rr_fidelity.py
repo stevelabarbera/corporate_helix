@@ -92,6 +92,8 @@ class FidelityTests(unittest.TestCase):
         self.insert(raw)
         result = self.check(raw)
         self.assertEqual(result["records_with_repeated_period_type"]["ACCOUNTING_PERIOD"], 1)
+        self.assertEqual(result["repeated_period_types_with_different_values"]["ACCOUNTING_PERIOD"], 1)
+        self.assertEqual(result["repeated_period_examples"][0]["distinct_periods"], 2)
 
 
 if __name__ == "__main__":
