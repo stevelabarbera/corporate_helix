@@ -112,3 +112,24 @@ Tests: **4/4 passed** on the local machine.
 - [ ] Author normalized evidence schema and append-only snapshot design; keep lookup backward compatibility.
 - [ ] Implement migration/import with tests proving no source period or version is lost.
 - [ ] Run end-to-end regression suite and evaluate current-versus-historical interpretations.
+
+## First enforcement increment: ingestion contract gate (PR #7)
+
+`code/check_gleif_ingestion_contract.py` reads the **full** cardinality report JSON for either level. It creates a candidate frozen field-shape baseline, detects new paths, novel types, newly repeated arrays, larger array sizes, disappeared paths, and flags repeating source fields not yet reviewed. It explicitly reports the major known repeating fields as **unpreserved** or **partially flattened** in the current query-only indexes. It exits with code 2 for unresolved findings. This is a **read-only preflight/prototype gate**, not wired to the production importer and not evidence that the index is currently safe.
+
+Field-level mapping review of `code/build_gleif_lei_index.py`: `flatten_record()` selects **19 scalar identity/registration columns** (including normalized legal name) and **does not ingest** legal entity events, other names, successor entities, other validation authorities, geocoding, or full address-line collections. The omissions are real in this **query-only index**; classifying them as data corruption would be misleading because this importer never claimed to store those structures. The original source ZIP is still available outside the DB. No immutable source observation table is implemented yet. `code/build_gleif_rr_index.py` has a confirmed overwrite for repeated same-type periods and omits qualifiers and unsupported relationship types from the lookup index.
+
+**Next implementation requirements, still open:** independent raw source/parser validation; immutable source snapshots and per-record raw evidence with hashes; normalized one-to-many child tables; source-to-new-storage replay parity; opt-in repair and robust fail-closed import; staged/published-only-after-validation production integration; end-to-end resolver regressions. An audit report alone must never make the ingest pipeline claim losslessness.
+
+Local usage after branch checkout:
+
+```bash
+python3 -m unittest discover -s tests -p 'test_gleif_ingestion_contract.py' -v
+
+python3 code/check_gleif_ingestion_contract.py \
+  --audit data/processed/gleif_lei_cardinality_full.json \
+  --baseline-out data/processed/gleif_lei_candidate_baseline.json \
+  --out data/processed/gleif_lei_contract_report.json
+```
+
+The second command is **expected to exit 2 and report BLOCKED**, since this is an honest account of the current index limitations. Creating a *candidate* baseline does not approve the schema or waive missing preservation.
