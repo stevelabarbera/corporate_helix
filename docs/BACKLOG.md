@@ -1,5 +1,11 @@
 # Helix backlog
 
+## GLEIF ingestion integrity and cardinality (active P0; 2026-11-20)
+
+**Confirmed defect:** Seven Level 2 source relationship records contain two different `ACCOUNTING_PERIOD` values of the same type; the current dictionary-based importer silently retains only the last, not necessarily newest. Source-to-index equality for 258,887 relationships validates the **selected** fields, not full source preservation. Full Level 2 cardinality scan also identified repeating relationship qualifiers; initial 10,000-record Level 1 sample identified repeating legal events, aliases, successors, and other structures. A full Level 1 scan is pending.
+
+**Decision:** Audit field cardinality and actual importer transformations first, normalize only genuinely repeating structures, preserve complete original provider evidence and snapshot history, retain an optimized compatibility index, and do not make destructive schema changes before validation. **Details, measured evidence, acceptance gates, and task checklist:** [GLEIF_INGESTION_INTEGRITY.md](GLEIF_INGESTION_INTEGRITY.md). Investigation PRs: #4, #5, #6 (unmerged; layered branches).
+
 ## Master workstream index — M&A-first prioritization (2026-11-15)
 
 **Product:** Given a company name, discover as comprehensively as practicable all relevant M&A transactions and related entities; provide evidence-backed corporate identities to downstream ASM. ASM owns network footprint discovery. See [PROJECT_STATUS.md](PROJECT_STATUS.md) for the authoritative mission and current handoff.
