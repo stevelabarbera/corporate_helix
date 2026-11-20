@@ -53,33 +53,27 @@ Tests: **4/4 passed** on the local machine.
 - `RelationshipQualifiers.RelationshipQualifier`: 151,514 array occurrences, **41 with multiple values**, maximum 3. These qualifiers are not represented in the current `relationships` columns. Assess their semantics and coverage before assigning an ownership interpretation or deciding precise normalized storage.
 - Seven repeated `ACCOUNTING_PERIOD` cases are reproduced in the cardinality inventory.
 
-**Level 1: initial first 10,000-record sample**, 264 observed JSON paths:
+**Level 1: full August 17 source scan completed, 3,403,856 records**, 283 observed JSON paths; compared with 10,000-record preliminary sample (264 paths). Local result was submitted 2026-11-20. The full scan used `ijson` over the source ZIP and printed `coverage: full_requested`; this establishes that the audit iterator reached the end, **not** independent proof of GLEIF source schema completeness or equivalence to every destination field.
 
-| Source field path (within `Entity` unless otherwise noted) | Multi-item array occurrences | Max items in sample | Why investigate |
+| Source field path (within `Entity` unless otherwise noted) | Multi-item array occurrences | Max items | Why investigate |
 | --- | ---: | ---: | --- |
-| `LegalEntityEvents.LegalEntityEvent` | 950 | 8 | Legal-history / change events |
-| `OtherEntityNames.OtherEntityName` | 71 | 6 | Aliases and alternate names |
-| `SuccessorEntity` | 1 | 2 | Entity continuity / succession |
-| `LegalEntityEvents.LegalEntityEvent[].AffectedFields.AffectedField` | 1 | 2 | Nested event field references |
-| `LegalAddress.AdditionalAddressLine` | 193 | 3 | Multiple address lines |
-| `HeadquartersAddress.AdditionalAddressLine` | 125 | 3 | Multiple address lines |
-| `OtherAddresses.OtherAddress` | 3 | 2 | Alternate addresses |
-| `TransliteratedOtherAddresses.TransliteratedOtherAddress` | 323 | 2 | Transliterated address variants |
-| `TransliteratedOtherEntityNames.TransliteratedOtherEntityName` | 1 | 2 | Transliterated names |
-| `Extension.gleif:Geocoding` | 221 | 3 | One or multiple geocoding objects |
+| `LegalEntityEvents.LegalEntityEvent` | **348,328** | 28 | Entity changes, events and history |
+| `LegalEntityEvents.LegalEntityEvent[].AffectedFields.AffectedField` | **747** | 53 | Nested event field references |
+| `OtherEntityNames.OtherEntityName` | **52,453** | 32 | Alternate names and aliases |
+| `SuccessorEntity` | **570** | 53 | Multiple potential successor links |
+| `LegalAddress.AdditionalAddressLine` | **324,833** | 3 | Multiple address lines |
+| `HeadquartersAddress.AdditionalAddressLine` | **238,144** | 3 | Multiple address lines |
+| `OtherAddresses.OtherAddress` | **44,080** | 2 | Additional addresses |
+| `OtherAddresses.OtherAddress[].AdditionalAddressLine` | **5,114** | 3 | Nested address lines |
+| `TransliteratedOtherAddresses.TransliteratedOtherAddress` | **77,491** | 2 | Address transliterations |
+| `TransliteratedOtherAddresses.TransliteratedOtherAddress[].AdditionalAddressLine` | **7,433** | 3 | Nested transliterated address lines |
+| `TransliteratedOtherEntityNames.TransliteratedOtherEntityName` | **1,257** | 4 | Transliterated names |
+| `Extension.gleif:Geocoding` | **210,035** | 4 | Multiple geocoding observations |
+| `Registration.OtherValidationAuthorities.OtherValidationAuthority` | **22,509** | 5 | Multiple validation authorities |
 
-Level 1 `Extension.gleif:Geocoding` appears both as an object (3,809 occurrences) and as an array (221); `Extension` can be null. Additional nested repeating paths exist; the *full* JSON report is the complete audit artifact. **These figures are from a 10,000-record sample**, not 3-million-entity population counts. An occurrence is not always a distinct legal entity, particularly at nested paths.
+**Shape variation:** `Extension.gleif:Geocoding` was an **object** 1,359,707 times and an **array** 210,035 times. `Extension` was an object 3,402,841 times and `null` 1,015 times. Do not assume a singular object path is always scalar.
 
-**Next pending validation:** Full Level 1 cardinality scan against the August 17 ZIP. The user has been given:
-
-```bash
-python3 code/audit_gleif_cardinality.py \
-  --level lei \
-  --source "../Gleif_Golden_Copies/20260817-0800-gleif-goldencopy-lei2-golden-copy.json.zip" \
-  --out data/processed/gleif_lei_cardinality_full.json
-```
-
-Do not represent that scan as completed until its results have been reviewed.
+**Interpretation safeguards:** These are counts of *array instances containing two or more items*, not counts of individually lost source values. Nested paths can occur more than once per entity, and an array is not necessarily an ownership relationship or an M&A event. Each field must still be inspected against the Level 1 importer and provider schema before asserting loss. The earlier first-10,000 record sample is now superseded for population cardinality statistics by the complete scan.
 
 ### C. Other ingestion and historical risks (different from cardinality)
 
@@ -113,7 +107,7 @@ Do not represent that scan as completed until its results have been reviewed.
 - [x] Source-to-current-index 17-field fidelity and matching key audit for Aug 17 Level 2.
 - [x] Full Level 2 cardinality inventory.
 - [x] Initial 10,000-record Level 1 cardinality sample.
-- [ ] Review complete Level 1 inventory once local run finishes; update this document with new data.
+- [x] Review complete Level 1 inventory (3,403,856 records; 283 observed paths) and record findings above.
 - [ ] Audit importer **field mapping and omitted structures**, cross-check official provider schema, and classify all discovered repeating paths.
 - [ ] Author normalized evidence schema and append-only snapshot design; keep lookup backward compatibility.
 - [ ] Implement migration/import with tests proving no source period or version is lost.
