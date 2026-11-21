@@ -206,7 +206,10 @@ def find_seed_matches(
 
 def find_alias_seed_matches(lei_conn, alias_db, company, limit=100, scan_limit=5000, allow_sample=False):
     """Return review-only candidates from COMPLETE Level 1 staged name evidence."""
-    source = connect(alias_db)
+    if not Path(alias_db).is_file():
+        raise FileNotFoundError(f"Alias evidence not found: {alias_db}")
+    source = sqlite3.connect(f"{Path(alias_db).resolve().as_uri()}?mode=ro", uri=True)
+    source.row_factory = sqlite3.Row
     try:
         snapshot = source.execute(
             "SELECT source_level, is_sample FROM source_snapshot"
@@ -218,7 +221,11 @@ def find_alias_seed_matches(lei_conn, alias_db, company, limit=100, scan_limit=5
         q = normalize_name(company)
         if not q:
             return []
-        escaped = q.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+        # Use first whole query token for coarse retrieval, then enforce the
+        # full normalized token phrase in Python. A punctuation-bearing alias
+        # may not contain the query's space-normalized string literally.
+        token = q.split()[0]
+        escaped = token.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
         names = source.execute(
             """
             SELECT n.name, n.source_path, n.raw_value_json,
