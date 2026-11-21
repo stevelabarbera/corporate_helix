@@ -34,6 +34,14 @@ def sequence(value):
     return value if isinstance(value, list) else ([] if value is None else [value])
 
 
+def scalar(value):
+    return value.get("$") if isinstance(value, dict) else value
+
+
+def normalized_name(value):
+    return value.strip().casefold() if isinstance(value, str) else None
+
+
 def raw_children(level, record):
     """Independent source-path extraction, without invoking the stage writer."""
     if level == "lei":
@@ -48,7 +56,8 @@ def raw_children(level, record):
             ("Entity.TransliteratedOtherEntityNames.TransliteratedOtherEntityName",
              sequence(translated.get("TransliteratedOtherEntityName"))),
         ]:
-            names.extend((path, n, jdump(value)) for n, value in enumerate(elements))
+            names.extend((path, n, scalar(value), normalized_name(scalar(value)), jdump(value))
+                         for n, value in enumerate(elements))
         return {
             "entity_name": names,
             "entity_event": [(n, jdump(value)) for n, value in enumerate(
@@ -59,8 +68,13 @@ def raw_children(level, record):
     rr = record.get("RelationshipRecord", record)
     rel = rr.get("Relationship") or {}
     return {
-        "relationship_period": [(n, jdump(value)) for n, value in enumerate(
-            sequence((rel.get("RelationshipPeriods") or {}).get("RelationshipPeriod")))],
+        "relationship_period": [
+            (n, scalar(value.get("PeriodType")),
+             scalar(value.get("StartDate")), scalar(value.get("EndDate")),
+             jdump(value))
+            for n, value in enumerate(
+                sequence((rel.get("RelationshipPeriods") or {}).get("RelationshipPeriod")))
+        ],
         "relationship_qualifier": [(n, jdump(value)) for n, value in enumerate(
             sequence((rel.get("RelationshipQualifiers") or {}).get("RelationshipQualifier")))],
     }
@@ -122,15 +136,19 @@ def verify(source, database):
                 for table, wanted in raw_children(level, raw).items():
                     if table == "entity_name":
                         actual = conn.execute(
-                            "SELECT source_path, source_ordinal, raw_value_json FROM entity_name "
+                            "SELECT source_path, source_ordinal, name, name_normalized, raw_value_json FROM entity_name "
                             "WHERE observation_id=? ORDER BY source_path, source_ordinal",
                             (observation_id,),
                         ).fetchall()
                         if sorted(actual) != sorted(wanted):
                             errors.append({"ordinal": ordinal, "kind": "CHILD_MISMATCH", "table": table})
                     else:
+                        if table == "relationship_period":
+                            columns = "source_ordinal, period_type, start_date, end_date, raw_value_json"
+                        else:
+                            columns = "source_ordinal, raw_value_json"
                         actual = conn.execute(
-                            f"SELECT source_ordinal, raw_value_json FROM {table} "
+                            f"SELECT {columns} FROM {table} "
                             "WHERE observation_id=? ORDER BY source_ordinal",
                             (observation_id,),
                         ).fetchall()
