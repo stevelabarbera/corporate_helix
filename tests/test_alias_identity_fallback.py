@@ -40,8 +40,13 @@ class AliasFallbackTests(unittest.TestCase):
                     observation_id INTEGER PRIMARY KEY,
                     record_identifier TEXT, source_ordinal INTEGER);
                 CREATE TABLE entity_name (
-                    observation_id INTEGER, name TEXT,
-                    name_normalized TEXT, source_path TEXT, raw_value_json TEXT);
+                    observation_id INTEGER,
+                    source_path TEXT,
+                    source_ordinal INTEGER,
+                    name TEXT,
+                    name_normalized TEXT,
+                    raw_value_json TEXT,
+                    PRIMARY KEY(observation_id, source_path, source_ordinal));
             """)
             db.execute("INSERT INTO source_snapshot VALUES ('lei',0)")
             db.executemany("INSERT INTO source_observation VALUES (?,?,?)", [
@@ -54,8 +59,12 @@ class AliasFallbackTests(unittest.TestCase):
     def alias_row(self, identifier, name, path="Entity.OtherEntityNames.OtherEntityName"):
         with sqlite3.connect(self.alias) as db:
             db.execute(
-                "INSERT INTO entity_name VALUES (?,?,?,?,?)",
-                (identifier, name, name.casefold(), path, json.dumps({"$":name,"@type":"PREVIOUS_LEGAL_NAME"})),
+                """INSERT INTO entity_name
+                   (observation_id, source_path, source_ordinal,
+                    name, name_normalized, raw_value_json)
+                   VALUES (?,?,?,?,?,?)""",
+                (identifier, path, 0, name, name.casefold(),
+                 json.dumps({"$": name, "@type": "PREVIOUS_LEGAL_NAME"})),
             )
 
     def test_exact_historical_name_is_review_only(self):
