@@ -19,10 +19,58 @@ import zlib
 from audit_gleif_cardinality import source_stream
 
 
-def source_records(source):
+def source_records(source, level="lei"):
+    """Read records using source structure, independently of the line-based RR importer.
+
+    The official RR Golden Copy places RelationshipRecord entries under a
+    container rather than necessarily a Level-1-style records array. Locate
+    the actual path by structural events and fail closed if none exists.
+    """
     import ijson
+    if level == "lei":
+        path, wrap = "records.item", False
+    elif level == "rr":
+        with source_stream(source) as reader:
+            path, wrap = None, False
+            for prefix, event, value in ijson.parse(reader):
+                if event == "map_key" and value == "RelationshipRecord":
+                    if prefix.endswith(".item"):
+                        # Each records.item is already a wrapper object.
+                        path, wrap = prefix, False
+                    else:
+                        # A container holds RelationshipRecord entries.
+                        # The next structural event distinguishes array vs object.
+                        path = prefix + ".RelationshipRecord"
+                        wrap = True
+                    break
+            if path is None:
+                raise ValueError("RR source lacks a RelationshipRecord key")
+            if wrap:
+                with source_stream(source) as inner:
+                    found = False
+                    for pre, evt, _ in ijson.parse(inner):
+                        if pre == path and evt in ("start_array", "start_map"):
+                            if evt != "start_array":
+                                raise ValueError(
+                                    f"RR RelationshipRecord container at {path} is not an array"
+                                )
+                            path += ".item"
+                            found = True
+                            break
+                    if not found:
+                        raise ValueError("RR RelationshipRecord array not found")
+    else:
+        raise ValueError(f"Unknown GLEIF level: {level}")
+
     with source_stream(source) as reader:
-        yield from ijson.items(reader, "records.item")
+        count = 0
+        for obj in ijson.items(reader, path):
+            count += 1
+            if not isinstance(obj, dict):
+                raise ValueError("GLEIF record must be a JSON object")
+            yield {"RelationshipRecord": obj} if wrap else obj
+        if not count:
+            raise ValueError(f"No {level.upper()} records found at detected JSON path: {path}")
 
 
 def jdump(obj):
@@ -115,7 +163,7 @@ def verify(source, database):
         found = set()
         counts = Counter()
         last_ordinal = max(positions)
-        for ordinal, raw in enumerate(source_records(str(source)), 1):
+        for ordinal, raw in enumerate(source_records(str(source), level), 1):
             if ordinal not in positions:
                 if is_sample and ordinal >= last_ordinal:
                     break
