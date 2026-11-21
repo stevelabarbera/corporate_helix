@@ -203,6 +203,63 @@ def find_seed_matches(
     return result
 
 
+
+def find_alias_seed_matches(lei_conn, alias_db, company, limit=100, scan_limit=5000):
+    """Return review-only candidates from COMPLETE Level 1 staged name evidence."""
+    source = connect(alias_db)
+    try:
+        snapshot = source.execute(
+            "SELECT source_level, is_sample FROM source_snapshot"
+        ).fetchall()
+        if len(snapshot) != 1 or snapshot[0]["source_level"] != "lei":
+            raise ValueError("Alias evidence must contain one Level 1 snapshot")
+        if snapshot[0]["is_sample"]:
+            raise ValueError("Alias identity discovery requires a complete Level 1 snapshot")
+        q = normalize_name(company)
+        if not q:
+            return []
+        escaped = q.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+        names = source.execute(
+            """
+            SELECT n.name, n.source_path, n.raw_value_json,
+                   o.record_identifier AS lei, o.source_ordinal AS record_ordinal
+            FROM entity_name n
+            JOIN source_observation o ON o.observation_id=n.observation_id
+            WHERE n.source_path != 'Entity.LegalName'
+              AND n.name_normalized LIKE ? ESCAPE '\\'
+            ORDER BY n.name_normalized, o.record_identifier, n.source_ordinal
+            LIMIT ?
+            """,
+            (f"%{escaped}%", scan_limit),
+        )
+        matches = {}
+        for entry in names:
+            alias = entry["name"]
+            if not _contains_token_phrase(company, alias):
+                continue
+            lei = entry["lei"]
+            if not lei or lei in matches:
+                continue
+            row = lei_conn.execute("SELECT * FROM lei_entities WHERE lei=?", (lei,)).fetchone()
+            if row is None:
+                continue
+            seed = dict(row)
+            seed["name_match"] = _name_similarity(company, alias)
+            seed["match_source"] = "GLEIF_LEVEL1_ALIAS"
+            seed["matched_name"] = alias
+            seed["alias_source_path"] = entry["source_path"]
+            seed["alias_raw_value_json"] = entry["raw_value_json"]
+            seed["alias_source_record_ordinal"] = entry["record_ordinal"]
+            matches[lei] = seed
+            if len(matches) >= limit:
+                break
+        return sorted(matches.values(), key=lambda row: (
+            -(row["name_match"] or 0), row.get("legal_name") or "", row["lei"]
+        ))
+    finally:
+        source.close()
+
+
 def _parse_relationship_date(value: Any) -> date | None:
     """Interpret a GLEIF date or timestamp; malformed dates fail closed."""
     if value is None or value == "":
@@ -355,6 +412,7 @@ def resolve_company_root(
     seed_limit: int = 100,
     max_depth: int = 12,
     as_of_date: str | date | None = None,
+    alias_db: str | None = None,
 ) -> RootResolution:
     as_of = _coerce_as_of_date(as_of_date)
     lei_conn = connect(lei_db)
@@ -362,6 +420,10 @@ def resolve_company_root(
 
     try:
         seeds = find_seed_matches(lei_conn, company, limit=seed_limit)
+        alias_fallback = False
+        if not seeds and alias_db is not None:
+            seeds = find_alias_seed_matches(lei_conn, alias_db, company, limit=seed_limit)
+            alias_fallback = bool(seeds)
 
         if not seeds:
             return RootResolution(
@@ -525,7 +587,15 @@ def resolve_company_root(
             and top.entity_status == "ACTIVE"
         )
 
-        if topology_strong:
+        if alias_fallback:
+            status = "REVIEW_REQUIRED"
+            confidence = "LOW"
+            reason = (
+                "Candidate discovered only through a GLEIF alternative or historical "
+                "name. Review current identity and ownership before attribution; "
+                "graph topology is contextual evidence, not confirmation."
+            )
+        elif topology_strong:
             status = "AUTO_RESOLVED"
             confidence = "HIGH"
             reason = (
