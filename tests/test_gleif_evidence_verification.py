@@ -59,6 +59,28 @@ class ReplayTests(unittest.TestCase):
         self.assertEqual(result["source_records_verified"], 2)
         self.assertEqual(result["tier1_elements_verified"]["relationship_qualifier"], 4)
 
+    def test_rr_golden_copy_container_layout_is_read(self):
+        # GLEIF RR Golden Copy uses a RelationshipRecord container, unlike
+        # the Level 1 records.item sequence.
+        records = [
+            rr("C1", [{"PeriodType": "ACCOUNTING_PERIOD", "StartDate": "2018"},
+                      {"PeriodType": "ACCOUNTING_PERIOD", "StartDate": "2017"}]),
+            rr("C2", [{"PeriodType": "RELATIONSHIP_PERIOD", "StartDate": "2024"}]),
+        ]
+        with zipfile.ZipFile(self.source, "w", zipfile.ZIP_DEFLATED) as output:
+            output.writestr("relationship.json", json.dumps({
+                "records": {"RelationshipRecord": [
+                    record["RelationshipRecord"] for record in records
+                ]}
+            }))
+        with patch("build_gleif_tier1_evidence.iter_source", return_value=iter(records)):
+            build("rr", str(self.source), str(self.db),
+                  record_ordinals=[1, 2], progress_every=0)
+        result = verify(self.source, self.db)
+        self.assertEqual(result["status"], "PASS", result)
+        self.assertEqual(result["source_records_verified"], 2)
+        self.assertEqual(result["tier1_elements_verified"]["relationship_period"], 3)
+
     def test_fails_on_corrupted_child_even_when_full_raw_record_matches(self):
         records = self.make_source()
         with patch("build_gleif_tier1_evidence.iter_source", return_value=iter(records)):
