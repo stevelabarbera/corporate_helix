@@ -92,6 +92,17 @@ class AliasFallbackTests(unittest.TestCase):
             resolve_company_root("Legacy Brand", str(self.lei), str(self.rr),
                                  alias_db=str(self.alias))
 
+    def test_sample_opt_in_never_autoresolves_and_no_match_is_inconclusive(self):
+        self.alias_row(1, "Legacy Brand")
+        with sqlite3.connect(self.alias) as db:
+            db.execute("UPDATE source_snapshot SET is_sample=1")
+        result = resolve_company_root("Legacy Brand", str(self.lei), str(self.rr),
+                                      alias_db=str(self.alias), allow_sample_aliases=True)
+        self.assertEqual(result.status, "REVIEW_REQUIRED")
+        absent = resolve_company_root("Unseen Brand", str(self.lei), str(self.rr),
+                                      alias_db=str(self.alias), allow_sample_aliases=True)
+        self.assertEqual(absent.status, "INSUFFICIENT_EVIDENCE")
+
     def test_token_substrings_rejected(self):
         self.alias_row(1, "Planttechnology Labs")
         result = resolve_company_root("NTT", str(self.lei), str(self.rr),
