@@ -175,13 +175,19 @@ def add_children(conn, level, observation_id, record):
     return count
 
 
-def build(level, source, out, max_records=None, progress_every=100000):
+def build(level, source, out, max_records=None, progress_every=100000, record_ordinals=None):
     source = Path(source).resolve()
     target = Path(out).resolve()
     if not source.is_file():
         raise ValueError(f"Source not found: {source}")
     if max_records is not None and max_records < 1:
         raise ValueError("max_records must be positive")
+    selected = set(record_ordinals) if record_ordinals is not None else None
+    if selected is not None:
+        if not selected or any(not isinstance(x, int) or x < 1 for x in selected):
+            raise ValueError("record_ordinals must contain positive integers")
+        if max_records is not None:
+            raise ValueError("Specify record_ordinals or max_records, not both")
     if source == target:
         raise ValueError("Refusing source/output path collision")
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -194,10 +200,12 @@ def build(level, source, out, max_records=None, progress_every=100000):
         conn.executescript(SCHEMA)
         conn.execute(
             "INSERT INTO source_snapshot (source_level, source_path, source_archive_sha256, is_sample) VALUES (?,?,?,?)",
-            (level, str(source), digest_file(source), int(max_records is not None)),
+            (level, str(source), digest_file(source), int(max_records is not None or selected is not None)),
         )
         counters = {"source_observation": 0}
         for ordinal, record in enumerate(iter_source(str(source), level), 1):
+            if selected is not None and ordinal not in selected:
+                continue
             record_hash, payload = record_payload(record)
             if level == "lei":
                 identifier = leaf(record.get("LEI"))
@@ -221,6 +229,10 @@ def build(level, source, out, max_records=None, progress_every=100000):
                 print(f"Staged {ordinal:,} records", file=sys.stderr)
             if max_records is not None and ordinal >= max_records:
                 break
+            if selected is not None and counters["source_observation"] == len(selected):
+                break
+        if selected is not None and counters["source_observation"] != len(selected):
+            raise RuntimeError("Some requested source ordinals were not found")
         conn.execute("UPDATE source_snapshot SET record_count=? WHERE snapshot_id=1",
                      (counters["source_observation"],))
         for name, value in counters.items():
@@ -257,11 +269,15 @@ def main():
     parser.add_argument("--source", required=True)
     parser.add_argument("--out", required=True, help="NEW output path only; existing files are rejected")
     parser.add_argument("--max-records", type=int)
+    parser.add_argument("--record-ordinals", type=int, nargs="+",
+                        help="Stage only selected 1-based source record ordinals (RR audit cases)")
     parser.add_argument("--progress-every", type=int, default=100000)
     args = parser.parse_args()
-    result = build(args.level, args.source, args.out, args.max_records, args.progress_every)
+    result = build(args.level, args.source, args.out, args.max_records,
+                   args.progress_every, args.record_ordinals)
     print(json.dumps({"status": "STAGED_ONLY", "level": args.level,
-                      "is_sample": args.max_records is not None, "counts": result}, indent=2))
+                      "is_sample": args.max_records is not None or args.record_ordinals is not None,
+                      "counts": result}, indent=2))
 
 
 if __name__ == "__main__":
