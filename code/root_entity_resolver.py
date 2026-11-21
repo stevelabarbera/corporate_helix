@@ -204,7 +204,7 @@ def find_seed_matches(
 
 
 
-def find_alias_seed_matches(lei_conn, alias_db, company, limit=100, scan_limit=5000):
+def find_alias_seed_matches(lei_conn, alias_db, company, limit=100, scan_limit=5000, allow_sample=False):
     """Return review-only candidates from COMPLETE Level 1 staged name evidence."""
     source = connect(alias_db)
     try:
@@ -213,7 +213,7 @@ def find_alias_seed_matches(lei_conn, alias_db, company, limit=100, scan_limit=5
         ).fetchall()
         if len(snapshot) != 1 or snapshot[0]["source_level"] != "lei":
             raise ValueError("Alias evidence must contain one Level 1 snapshot")
-        if snapshot[0]["is_sample"]:
+        if snapshot[0]["is_sample"] and not allow_sample:
             raise ValueError("Alias identity discovery requires a complete Level 1 snapshot")
         q = normalize_name(company)
         if not q:
@@ -413,6 +413,7 @@ def resolve_company_root(
     max_depth: int = 12,
     as_of_date: str | date | None = None,
     alias_db: str | None = None,
+    allow_sample_aliases: bool = False,
 ) -> RootResolution:
     as_of = _coerce_as_of_date(as_of_date)
     lei_conn = connect(lei_db)
@@ -422,13 +423,16 @@ def resolve_company_root(
         seeds = find_seed_matches(lei_conn, company, limit=seed_limit)
         alias_fallback = False
         if not seeds and alias_db is not None:
-            seeds = find_alias_seed_matches(lei_conn, alias_db, company, limit=seed_limit)
+            seeds = find_alias_seed_matches(
+                lei_conn, alias_db, company, limit=seed_limit,
+                allow_sample=allow_sample_aliases,
+            )
             alias_fallback = bool(seeds)
 
         if not seeds:
             return RootResolution(
                 query=company,
-                status="NO_MATCH",
+                status="INSUFFICIENT_EVIDENCE" if alias_db and allow_sample_aliases else "NO_MATCH",
                 confidence="UNKNOWN",
                 root=None,
                 candidates=[],
@@ -436,6 +440,9 @@ def resolve_company_root(
                 reason=(
                     "No GLEIF Level 1 legal names contained the query as a "
                     "complete normalized token/phrase."
+                    + (" Alias search was based on an incomplete sample; "
+                       "absence is not evidence of no match."
+                       if alias_db and allow_sample_aliases else "")
                 ),
             )
 
