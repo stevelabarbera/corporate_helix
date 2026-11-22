@@ -9,6 +9,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "code"))
 from benchmark_alias_identity_discovery import load_cohort, run
+from build_compact_gleif_alias_index import SCHEMA as COMPACT_ALIAS_SCHEMA
 
 
 class PairedBenchmarkTests(unittest.TestCase):
@@ -32,18 +33,14 @@ class PairedBenchmarkTests(unittest.TestCase):
                 relationship_status TEXT);
             """)
         with sqlite3.connect(self.alias) as db:
+            # Reuse the production compact-index DDL so fixture and resolver
+            # cannot silently drift apart on source_snapshot or child columns.
+            db.executescript(COMPACT_ALIAS_SCHEMA)
             db.executescript("""
-            CREATE TABLE source_snapshot (
-                source_archive_sha256 TEXT, record_count INTEGER,
-                alias_count INTEGER, is_sample INTEGER);
-            INSERT INTO source_snapshot VALUES ('fixture',2,2,0);
-            CREATE TABLE source_observation (
-                observation_id INTEGER PRIMARY KEY,
-                source_ordinal INTEGER, record_identifier TEXT);
-            INSERT INTO source_observation VALUES (1,1,'X'),(2,2,'Y');
-            CREATE TABLE entity_name (
-                observation_id INTEGER, source_path TEXT, source_ordinal INTEGER,
-                name TEXT, name_normalized TEXT, raw_value_json TEXT);
+            INSERT INTO source_snapshot VALUES ('lei','fixture.zip','fixture',2,2,0);
+            INSERT INTO source_observation
+                (observation_id,source_ordinal,record_identifier)
+                VALUES (1,1,'X'),(2,2,'Y');
             INSERT INTO entity_name VALUES
                 (1,'Entity.OtherEntityNames.OtherEntityName',0,
                  'Old Entity Ltd','old entity ltd','{"$":"Old Entity Ltd"}'),
