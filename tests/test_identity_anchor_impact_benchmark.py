@@ -66,6 +66,13 @@ class ImpactBenchmarkTests(unittest.TestCase):
         self.assertTrue(any(x["stratum"] == "general_exact" for x in first))
         self.assertTrue(any(x["stratum"] == "known_risk" for x in first))
         self.assertTrue(any(x["stratum"] == "relationship_child_exact" for x in first))
+        # Alpha appears in both the general and relationship sampling pools.
+        # It must be assigned to the relationship stratum; Beta should
+        # remain in the general exact-name stratum.
+        strata = {x["query"]: x["stratum"] for x in first}
+        self.assertEqual(strata["Alpha Trading Limited"], "relationship_child_exact")
+        self.assertEqual(strata["Beta Holdings Limited"], "general_exact")
+        self.assertEqual(len(first), len({bench.normalize_name(x["query"]) for x in first}))
 
     def test_auto_to_review_is_counted_not_called_accuracy(self):
         rows = [{"query": "Acme", "stratum": "general_exact"}]
