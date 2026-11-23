@@ -135,11 +135,17 @@ def generate_cohort(lei_db, rr_db, alias_db, seed=SEED):
             })
         result = []
         seen = set()
+        # Priority matters: a relationship-linked exact name can also be
+        # drawn in the general sample. Give that name to the more diagnostic
+        # relationship stratum instead of silently emptying the category.
+        # Known risk probes are similarly reserved before general samples.
         for category, items in (
-            ("general_exact", general), ("relationship_child_exact", linked),
-            ("inactive_exact", inactive), ("shortened_name", shortened),
-            ("historical_alias", historical),
             ("known_risk", [{"query": "Sempra Energy"}, {"query": "SentinelOne"}]),
+            ("relationship_child_exact", linked),
+            ("inactive_exact", inactive),
+            ("historical_alias", historical),
+            ("shortened_name", shortened),
+            ("general_exact", general),
         ):
             for item in items:
                 name = item["query"]
