@@ -159,7 +159,8 @@ def generate_cohort(lei_db, rr_db, alias_db, seed=SEED):
 
 def load_cohort(path):
     parsed = json.loads(Path(path).read_text(encoding="utf-8"))
-    rows = parsed.get("cases") if isinstance(parsed, dict) else parsed
+    rows = (parsed.get("frozen_cohort", parsed.get("cases"))
+            if isinstance(parsed, dict) else parsed)
     if not isinstance(rows, list) or not rows:
         raise ValueError("Cohort JSON must contain non-empty cases list")
     for row in rows:
@@ -252,6 +253,8 @@ def main():
     p.add_argument("--out", required=True, help="New comparison JSON; refuses overwrite")
     args = p.parse_args()
     baseline, sha, source_hash = previous_resolver(args.baseline_ref)
+    current_source = (Path(__file__).resolve().parent / "root_entity_resolver.py").read_bytes()
+    current_sha = hashlib.sha256(current_source).hexdigest()
     cohort = load_cohort(args.cohort) if args.cohort else generate_cohort(
         args.lei_db, args.rr_db, args.alias_db
     )
@@ -260,6 +263,7 @@ def main():
         "benchmark": "PAIRED_PRE_POST_IDENTITY_ANCHORING",
         "baseline_commit": sha,
         "baseline_resolver_sha256": source_hash,
+        "current_resolver_sha256": current_sha,
         "cohort_origin": str(Path(args.cohort).resolve()) if args.cohort else "GENERATED_DETERMINISTIC_STRATIFIED",
         "generator_seed": SEED if not args.cohort else None,
         "frozen_cohort": cohort,
