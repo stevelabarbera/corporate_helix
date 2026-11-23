@@ -21,7 +21,7 @@ The script uses a fixed RNG seed to construct an approximately 100-query diagnos
 - **Up to 12 historical/alternative aliases** from the verified compact index, whose LEIs are also present in the canonical index.
 - **2 known risk queries**: Sempra Energy and SentinelOne.
 
-The actual cohort size may be smaller if a stratum has fewer qualified entries or duplicates with another. Counts and every query are preserved in the output under `frozen_cohort`. All sampling is repeatable against unchanged input DBs, but it is **purposefully stratified, not statistically representative**. Do not generalize aggregate percentages to the whole corporate population.
+The actual cohort size may be smaller if a stratum has fewer qualified entries or duplicates with another. **Overlapping queries are assigned to the more diagnostic stratum first:** known risks, relationship children, inactive entities, historical aliases, shortened names, then general exact names. This ensures relationship-linked companies are not silently reclassified as ordinary exact-name samples. Counts and every query are preserved in the output under `frozen_cohort`. All sampling is repeatable against unchanged input DBs, but it is **purposefully stratified, not statistically representative**. Do not generalize aggregate percentages to the whole corporate population.
 
 To reuse exactly those names later, point the same script at the previous output:
 
