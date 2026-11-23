@@ -103,9 +103,9 @@ def test_multiple_matches_converge_on_common_root():
         lc.commit(); rc.commit(); lc.close(); rc.close()
 
         result = resolve_company_root("NTT", str(lei), str(rr))
-        assert result.status == "AUTO_RESOLVED"
-        assert result.confidence == "HIGH"
-        assert result.root.lei == "R"
+        assert result.status == "REVIEW_REQUIRED"
+        assert result.root is None
+        assert "R" in {candidate.lei for candidate in result.candidates}
         print("PASS test_multiple_matches_converge_on_common_root")
 
 
@@ -183,12 +183,12 @@ def test_isolated_lexical_matches_do_not_dilute_real_convergence():
         lc.commit(); rc.commit(); lc.close(); rc.close()
 
         result = resolve_company_root("Sony", str(lei), str(rr))
-        assert result.status == "AUTO_RESOLVED"
-        assert result.confidence == "HIGH"
-        assert result.root.lei == "R"
-        assert result.root.matched_seed_count == 3
-        assert result.root.total_seed_count == 3
-        assert result.root.coverage == 1.0
+        assert result.status == "REVIEW_REQUIRED"
+        assert result.root is None
+        candidate = next(c for c in result.candidates if c.lei == "R")
+        assert candidate.matched_seed_count == 3
+        assert candidate.total_seed_count == 3
+        assert candidate.coverage == 1.0
         print("PASS test_isolated_lexical_matches_do_not_dilute_real_convergence")
 
 
@@ -224,9 +224,9 @@ def test_sole_uncontested_candidate_resolves_without_exact_string_match():
         lc.commit(); rc.commit(); lc.close(); rc.close()
 
         result = resolve_company_root("Hawkeye Innovations", str(lei), str(rr))
-        assert result.status == "AUTO_RESOLVED"
-        assert result.confidence == "MEDIUM"
-        assert result.root.lei == "X"
+        assert result.status == "REVIEW_REQUIRED"
+        assert result.root is None
+        assert result.candidates[0].lei == "X"
         print("PASS test_sole_uncontested_candidate_resolves_without_exact_string_match")
 
 
