@@ -5,6 +5,14 @@
 **Next work item:** Sempra Energy regression test  
 **Status convention:** This is a planning/handoff snapshot, not a claim that unverified local work or branches are merged.
 
+## Foundational decision — customer-owned evidence and trust policy (2026-11-23)
+
+See [ADR_CUSTOMER_EVIDENCE_TRUST_POLICY.md](ADR_CUSTOMER_EVIDENCE_TRUST_POLICY.md). **Customer-provided records are first-class evidence**; each organization controls authorized acceptance/review/corroboration policy within hard tenant and security boundaries. Distinguish raw claims, source authority, confidence, verification status, tenant-specific disposition and downstream permissions. Retain append-only auditable decisions with policy versions; do not equate a customer-accepted identity with independently verified ownership or approved ASM scope.
+
+**Local validation so far:** PR #15 passed 32/32 regression checks; on real Sempra/SentinelOne queries both roots were suppressed from endorsed outputs but exploratory candidates preserved. PR #16's locally executed *99-query deliberately stratified* before/after study showed 34→24 automatic approvals and 37→47 reviews, with all ten lost auto approvals among shortened names; seed sets and leading exploratory candidates unchanged. No independent accuracy labels, and these changes remain in unmerged stacked PRs.
+
+**Next MVP step:** implement a small, versioned tenant-scoped customer assertion and review-decision contract with provenance, acceptance authority, auditability and ASM permission separation. Begin CLI/JSONL or SQLite; avoid constructing a large policy UI. The GLEIF exact-name rule remains conservative until additional evidence can be incorporated under explicit policy. Continue inspecting exact-name review cases and evaluating alias/LEI vintage discrepancies.
+
 ## Purpose
 
 **Primary product definition (2026-11-15):** Given a company name, Corporate Helix aims to discover as comprehensively as practicable **all mergers, acquisitions, and related corporate transactions associated with that company**, including historical transactions and relevant acquired/merged legal entities. It resolves identities, corroborates transaction evidence, preserves event dates/status, and recursively investigates additional leads. The principal deliverable is an **evidence-backed M&A inventory** containing counterparties, canonical names and aliases, identifiers, relationship/event type, dates, confidence/review status, and provenance. “All” is a coverage objective, **not a guarantee of exhaustive discovery**.
