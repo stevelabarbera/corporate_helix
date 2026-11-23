@@ -73,7 +73,8 @@ class AliasFallbackTests(unittest.TestCase):
             "Old Organization Ltd", str(self.lei), str(self.rr), alias_db=str(self.alias))
         self.assertEqual(result.status, "REVIEW_REQUIRED")
         self.assertEqual(result.confidence, "LOW")
-        self.assertEqual(result.root.lei, "X")
+        self.assertIsNone(result.root)
+        self.assertIn("X", {candidate.lei for candidate in result.candidates})
         self.assertEqual(result.seed_matches[0]["match_source"], "GLEIF_LEVEL1_ALIAS")
         self.assertEqual(result.seed_matches[0]["alias_source_record_ordinal"], 9)
 
