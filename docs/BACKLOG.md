@@ -1,5 +1,18 @@
 # Helix backlog
 
+## Customer-owned evidence and trust policy (P0 design, 2026-11-23)
+
+**Accepted architectural decision:** [ADR_CUSTOMER_EVIDENCE_TRUST_POLICY.md](ADR_CUSTOMER_EVIDENCE_TRUST_POLICY.md). Helix must accept customer-supplied evidence as a first-class input and support **per-tenant configurable authority, confidence, verification, disposition and permitted use**. Organization-asserted is not independently verified; accepted identity is not ASM scanning authorization. Preserve append-only provenance, decision/policy versions, conflicts, tenant isolation and future reevaluation.
+
+**Next implementation batch:**
+1. [ ] Minimal versioned, append-only customer assertion + review-decision contract; JSONL/SQLite and CLI first, not a broad UI.
+2. [ ] Conservative default policy plus explicit authorized organization-asserted acceptance and review path.
+3. [ ] Enforce tenant isolation, roles/authority, evidence-versus-decision-versus-permission separation, reason codes and audit trail.
+4. [ ] Test that tenant accepted identity never implies global truth or ASM scope approval; simulate conflicts and evidence arrival.
+5. [ ] Reuse frozen identity cohort to measure changes in review burden and acceptance while keeping accuracy unscored until independent labels.
+
+**Research still open:** the 99-query benchmark's remaining exact-name review cases, the 1,394 alias-bearing LEIs absent from canonical index, and source-vintage mismatch. Customer evidence supplements rather than obviates these validation steps.
+
 ## GLEIF ingestion integrity and cardinality (active P0; 2026-11-20)
 
 **Confirmed defect:** Seven Level 2 source relationship records contain two different `ACCOUNTING_PERIOD` values of the same type; the current dictionary-based importer silently retains only the last, not necessarily newest. Source-to-index equality for 258,887 relationships validates the **selected** fields, not full source preservation. Full Level 2 cardinality scan also identified repeating relationship qualifiers; initial 10,000-record Level 1 sample identified repeating legal events, aliases, successors, and other structures. A full Level 1 scan is pending.
