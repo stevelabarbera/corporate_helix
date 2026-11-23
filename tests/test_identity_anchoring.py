@@ -75,10 +75,12 @@ class IdentityAnchorTests(unittest.TestCase):
         self.entity("NAT", "NATWEST GROUP PLC")
         self.parent("TRADE", "NAT")
         result = self.resolve("Sempra Energy")
-        self.assertEqual(result.status, "REVIEW_REQUIRED")
-        self.assertIsNone(result.root)
-        self.assertIn("REAL", {s["lei"] for s in result.seed_matches})
-        self.assertIn("NAT", {c.lei for c in result.candidates})
+        # Exact-name retrieval must not be contaminated by weaker phrase
+        # matches whose consolidation paths lead into a different family.
+        self.assertEqual(result.status, "AUTO_RESOLVED")
+        self.assertEqual(result.root.lei, "REAL")
+        self.assertEqual({s["lei"] for s in result.seed_matches}, {"REAL"})
+        self.assertNotIn("NAT", {c.lei for c in result.candidates})
 
     def test_multiple_exact_legal_names_are_ambiguous(self):
         self.entity("A", "Acme Corp")
