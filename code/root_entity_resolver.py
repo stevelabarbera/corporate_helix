@@ -556,6 +556,48 @@ def resolve_company_root(
         top = candidates[0] if candidates else None
         second = candidates[1] if len(candidates) > 1 else None
 
+        # Mandatory integrity safeguard: a GLEIF relationship proves only
+        # that two *indexed entities* have a reported consolidation link. It
+        # does NOT establish that a phrase-matched seed is the requested
+        # entity. Historical/alternative names are discovery evidence only.
+        # Preserve all graph candidates, but do not endorse a root without a
+        # unique exact canonical legal-name anchor.
+        exact_anchor_seeds = [
+            seed for seed in seeds
+            if not seed.get("match_source")
+            and normalize_name(seed.get("legal_name") or "") == normalize_name(company)
+        ]
+        if len(exact_anchor_seeds) != 1:
+            reason = (
+                "No exact canonical legal-name identity anchor; phrase and "
+                "historical-name matches and their ownership paths are "
+                "exploratory leads, not an endorsed corporate root."
+                if not exact_anchor_seeds else
+                "Multiple exact canonical legal-name entities share this "
+                "query; jurisdiction/LEI adjudication is required before "
+                "recommending any corporate root."
+            )
+            return RootResolution(
+                query=company, status="REVIEW_REQUIRED", confidence="LOW",
+                root=None, candidates=candidates[:20], seed_matches=seeds,
+                reason=reason,
+            )
+
+        # Graph scoring may favor a different family member or parent. Even
+        # with an exact seed, a graph-only *parent proposal* needs separate
+        # ownership validation before being promoted to root.
+        anchored_lei = exact_anchor_seeds[0]["lei"]
+        if top is not None and top.lei != anchored_lei:
+            return RootResolution(
+                query=company, status="REVIEW_REQUIRED", confidence="LOW",
+                root=None, candidates=candidates[:20], seed_matches=seeds,
+                reason=(
+                    "Exact canonical seed identified, but graph ranking "
+                    "selected a different LEI. Relationship candidates are "
+                    "retained for review; no parent root is endorsed."
+                ),
+            )
+
         if top is None:
             return RootResolution(
                 query=company,
@@ -641,11 +683,13 @@ def resolve_company_root(
                 "strong enough to select it automatically."
             )
 
+        # An unaccepted recommendation must not masquerade as an endorsed
+        # root in the public contract. Reviewers can inspect candidates.
         return RootResolution(
             query=company,
             status=status,
             confidence=confidence,
-            root=top,
+            root=top if status == "AUTO_RESOLVED" else None,
             candidates=candidates[:20],
             seed_matches=seeds,
             reason=reason,
