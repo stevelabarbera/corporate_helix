@@ -107,6 +107,7 @@ def inspect_case(company, lei_db, rr_db, alias_db=None):
             "independently_verified_identity": False,
         })
     root = result.root.to_dict() if result.root else None
+    exploratory = result.candidates[0].to_dict() if result.candidates else None
     selected_root_is_seed = bool(root and any(
         s["lei"] == root["lei"] for s in seeds
     ))
@@ -117,10 +118,12 @@ def inspect_case(company, lei_db, rr_db, alias_db=None):
     warnings = []
     if seeds and not exact_canonical:
         warnings.append("NO_EXACT_CANONICAL_NAME_IDENTITY_ANCHOR")
-    if root and not selected_root_is_seed:
-        warnings.append("PROPOSED_ROOT_FROM_RELATIONSHIP_TRAVERSAL")
-    if root and not exact_canonical:
-        warnings.append("ROOT_NOT_VALIDATED_AGAINST_QUERY_IDENTITY")
+    if exploratory and not any(
+        seed["lei"] == exploratory["lei"] for seed in seeds
+    ):
+        warnings.append("EXPLORATORY_PARENT_FROM_RELATIONSHIP_TRAVERSAL")
+    if exploratory and not exact_canonical:
+        warnings.append("EXPLORATORY_ROOT_LACKS_VERIFIED_QUERY_IDENTITY")
     if result.status == "AUTO_RESOLVED" and not exact_canonical:
         warnings.append("AUTOMATIC_SELECTION_WITHOUT_EXACT_CANONICAL_NAME")
     return {
@@ -130,6 +133,7 @@ def inspect_case(company, lei_db, rr_db, alias_db=None):
         "resolver_reason": result.reason,
         "seed_evidence": seeds,
         "proposed_root": root,
+        "exploratory_top_candidate": exploratory,
         "selected_root_is_seed": selected_root_is_seed,
         "quality_warnings": warnings,
         "identity_correctness": "NOT_SCORED",
@@ -182,6 +186,8 @@ def main():
                 "status": case["resolver_status"],
                 "proposed_root": case["proposed_root"]["legal_name"]
                     if case["proposed_root"] else None,
+                "exploratory_top_candidate": case["exploratory_top_candidate"]["legal_name"]
+                    if case["exploratory_top_candidate"] else None,
                 "warnings": case["quality_warnings"],
             }
             for case in report["cases"]
