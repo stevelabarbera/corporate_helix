@@ -41,7 +41,7 @@ class Challenge16Tests(unittest.TestCase):
 
     def test_live_expansion_without_cik_is_not_sec_retrieval(self):
         class NoopProvider:
-            def __init__(self, **kwargs):
+            def __init__(self, *args, **kwargs):
                 pass
             def __call__(self, pivot, iteration):
                 return []
@@ -51,7 +51,7 @@ class Challenge16Tests(unittest.TestCase):
                 "unused_lei.sqlite", "unused_rr.sqlite", "2015-01-01", "2026-11-24", 1,
                 provider_factory=NoopProvider,
             )
-        self.assertEqual(outcome["state"], "COMPLETED")
+        self.assertEqual(outcome["state"], "COMPLETED", outcome)
         self.assertEqual(outcome["sec_retrieval"], "NOT_ATTEMPTED_NO_CIK")
         self.assertIsNone(outcome["filings_with_selected_sections"])
         self.assertEqual(outcome["ma_evidence_events"], [])
