@@ -70,13 +70,14 @@ def identity_probe(name, lei_db, rr_db, alias_db):
         return {"state": "ERROR", "error": f"{type(exc).__name__}: {exc}"}
 
 
-def sec_probe(name, user_agent, tickers_fn=None):
+def sec_probe(name, user_agent, tickers_fn=None, tickers=None):
     """A company_tickers-only probe. Non-match does NOT prove no SEC filings."""
     from providers import edgar_resolver
     try:
-        tickers = (tickers_fn or edgar_resolver._get_json)(
-            edgar_resolver.SEC_TICKERS_URL, user_agent
-        )
+        if tickers is None:
+            tickers = (tickers_fn or edgar_resolver._get_json)(
+                edgar_resolver.SEC_TICKERS_URL, user_agent
+            )
         cik = resolve_cik_by_name(name, user_agent, tickers=tickers)
         return {
             "state": "MATCHED" if cik else "NO_EXACT_TICKER_NAME_MATCH",
@@ -211,6 +212,16 @@ def main(argv=None):
         companies = [x for x in companies if x["id"] in set(a.only)]
     # Intentional: no silent query spelling corrections or alias substitution.
     rows = []
+    # Resolve the SEC ticker directory once per run. A failure here remains
+    # an observable source error rather than being retried 16 times.
+    tickers = None
+    ticker_error = None
+    if a.mode == "live":
+        from providers.edgar_resolver import _get_json, SEC_TICKERS_URL
+        try:
+            tickers = _get_json(SEC_TICKERS_URL, a.user_agent)
+        except Exception as exc:
+            ticker_error = f"{type(exc).__name__}: {exc}"
     for index, spec in enumerate(companies, 1):
         print(f"[{index}/{len(companies)}] {spec['id']}: {spec['query']}", file=sys.stderr, flush=True)
         record = {
@@ -219,12 +230,22 @@ def main(argv=None):
             "gleif_identity": identity_probe(spec["query"], a.lei_db, a.rr_db, a.alias_db),
         }
         if a.mode == "live":
-            sec = sec_probe(spec["query"], a.user_agent)
-            record["sec_directory"] = sec
-            record["ma_pipeline"] = expansion_probe(
-                spec["query"], sec.get("cik"), a.user_agent,
-                a.lei_db, a.rr_db, a.start, a.end, a.max_iterations
+            sec = (
+                sec_probe(spec["query"], a.user_agent, tickers=tickers)
+                if ticker_error is None else
+                {"state": "ERROR", "cik": None, "error": ticker_error}
             )
+            record["sec_directory"] = sec
+            if sec["state"] == "ERROR":
+                record["ma_pipeline"] = {
+                    "state": "NOT_ATTEMPTED_SEC_DIRECTORY_ERROR",
+                    "sec_retrieval": "NOT_ATTEMPTED",
+                }
+            else:
+                record["ma_pipeline"] = expansion_probe(
+                    spec["query"], sec.get("cik"), a.user_agent,
+                    a.lei_db, a.rr_db, a.start, a.end, a.max_iterations
+                )
         rows.append(record)
     report = {
         "study_id": study["study_id"], "mode": a.mode,
