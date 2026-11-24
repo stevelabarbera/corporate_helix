@@ -5,6 +5,25 @@
 
 This study directly addresses the risk that Helix misses a transaction **before** identifying useful source documents. The 16 queries in `data/eval_study/ma_challenge16_v1.json` were supplied by the user and are kept verbatim. They include large public acquisitive companies, private or potentially non-US businesses, a former acquired company (Monsanto), short names (Meta), and spelling/name variants (Exon Mobile, The Proctor and gamble Company, jp Morgan Chase). **Do not silently replace the query**: correcting a name is part of the quality analysis and should be tracked as a separate input variation in a later controlled run.
 
+## Baseline finding and targeted correction (2026-11-24)
+
+The user's first **local** 16-company execution at commit `fae3715` recorded **0 AUTO_RESOLVED, 12 REVIEW_REQUIRED, 4 NO_MATCH, 0 GLEIF runtime errors**. Test suite for the challenge subsequently passed **6/6** at `8d6d5e3`. This baseline JSON remains immutable and must not be confused with a rerun after fixes.
+
+Inspecting source identified a **specific exact-name retrieval defect**: `build_gleif_lei_index.py` stores `legal_name_normalized = legal_name.casefold()` (punctuation retained), while `find_seed_matches` queried only the punctuation-stripped `normalize_name(query)`; for `Johnson & Johnson`, that produces `johnson johnson` and fails to retrieve the indexed exact name `johnson & johnson`. GLEIF graph traversal later reached the correct Johnson & Johnson legal entity as an *exploratory* parent but could not anchor it from canonical seed discovery.
+
+A deliberately narrow resolver fix checks both the raw case-folded query and query-normalized form against the legacy index, then requires full normalized-name equality **in Python**. New synthetic tests verify canonical recovery, continued caution for partial/ambiguous identities, and no automatic endorsement from graph parents. This preserves the original GLEIF dataset and conservative policy. More general punctuation/Unicode/alias mismatches and SQL search caps remain separately open.
+
+After pulling the patch, run:
+
+```bash
+python3 -m unittest discover -s tests -p 'test_canonical_punctuation_anchor.py' -v
+python3 -m unittest discover -s tests -p 'test_ma_challenge16.py' -v
+python3 code/eval/run_ma_challenge16.py --mode local \
+  --out data/eval_study/ma_challenge16_local_after_punctuation_v1.json
+```
+
+Compare original and after report, especially Johnson & Johnson, without overwriting the frozen baseline. An improvement in identity decision does **not** establish any newly discovered M&A transactions; live SEC stage validation follows independently.
+
 ## 1. First run: fast local identity/alias coverage — no SEC requests
 
 ```bash
