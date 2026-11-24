@@ -1,0 +1,86 @@
+{
+  "study_id": "MA_CHALLENGE16_V1",
+  "purpose": "Unseen 16-company end-to-end discovery challenge; diagnose early-stage misses before adding features or tuning",
+  "frozen": true,
+  "baseline_rule": "Preserve original queries and order; record stage observability; no per-company tuning while acquiring baseline",
+  "companies": [
+    {
+      "id": "constellation_software",
+      "query": "Constellation Software",
+      "notes": "Short corporate name; may differ from registered legal name"
+    },
+    {
+      "id": "grub_market",
+      "query": "Grub Market",
+      "notes": "Potential private-filer coverage gap; do not infer no M&A from no EDGAR CIK"
+    },
+    {
+      "id": "automattic",
+      "query": "Automattic",
+      "notes": "Private-company coverage challenge"
+    },
+    {
+      "id": "epic_games",
+      "query": "Epic Games",
+      "notes": "Private-company coverage challenge"
+    },
+    {
+      "id": "afh_financial_group",
+      "query": "AFH Financial Group",
+      "notes": "Non-US or historical identity coverage challenge"
+    },
+    {
+      "id": "cvc_capital_partners",
+      "query": "CVC Capital Partners",
+      "notes": "Investment firm: distinguish fund/company/portfolio identity"
+    },
+    {
+      "id": "jp_morgan_chase",
+      "query": "jp Morgan Chase",
+      "notes": "Original input preserved; legal entity spelling may differ"
+    },
+    {
+      "id": "johnson_and_johnson",
+      "query": "Johnson & Johnson"
+    },
+    {
+      "id": "general_electric",
+      "query": "General Electric",
+      "notes": "Historical restructuring and successor identity are important"
+    },
+    {
+      "id": "walmart",
+      "query": "Walmart"
+    },
+    {
+      "id": "meta",
+      "query": "Meta",
+      "notes": "Short-name collision risk"
+    },
+    {
+      "id": "exon_mobile",
+      "query": "Exon Mobile",
+      "notes": "Original spelling preserved; possible intended company is Exxon Mobil; do not silently substitute"
+    },
+    {
+      "id": "united_health_group",
+      "query": "United Health Group",
+      "notes": "May differ from SEC registrant legal name"
+    },
+    {
+      "id": "proctor_and_gamble",
+      "query": "The Proctor and gamble Company",
+      "notes": "Original spelling preserved; possible intended The Procter & Gamble Company; do not silently substitute"
+    },
+    {
+      "id": "vodafone",
+      "query": "Vodafone",
+      "notes": "Foreign-filer coverage and historical subsidiaries"
+    },
+    {
+      "id": "monsanto",
+      "query": "Monsanto",
+      "notes": "Historical acquired entity: do not confuse former ownership with current filer"
+    }
+  ]
+}
