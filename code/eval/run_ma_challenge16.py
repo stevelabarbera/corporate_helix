@@ -104,7 +104,16 @@ def expansion_probe(name, cik, user_agent, lei_db, rr_db, start, end, max_iterat
             data = load(cik, user_agent, start=start, end=end)
             filings = data.get("filings") or []
             sections = sum(len(f.get("sections") or []) for f in filings)
-            edgar = provider_factory(fetch_filings_fn=lambda pivot: data)
+            # Never feed the seed company's SEC filings to a DIFFERENT
+            # later pivot: that would fabricate counterparty/source linkage.
+            # Only an independently resolved CIK may authorize that pivot's
+            # own EDGAR retrieval in a future iteration.
+            edgar = provider_factory(
+                fetch_filings_fn=lambda pivot: (
+                    data if pivot.value.casefold().strip() == name.casefold().strip()
+                    else None
+                )
+            )
         else:
             filings = []
             sections = 0
