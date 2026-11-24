@@ -155,18 +155,29 @@ def find_seed_matches(
     """
     q = normalize_name(company)
 
+    # The legacy Level 1 importer stores legal_name_normalized as
+    # legal_name.casefold(), including punctuation. The query normalizer
+    # removes punctuation. Searching only for q loses exact legal names
+    # such as "Johnson & Johnson" (indexed: "johnson & johnson",
+    # queried: "johnson johnson"). Prefer direct indexed variants and
+    # validate full-name identity *after* retrieval. This does not make a
+    # partial string or punctuation-ambiguous name an exact identity.
+    variants = sorted({q, company.strip().casefold()})
+    placeholders = ",".join("?" for _ in variants)
     exact = lei_conn.execute(
-        """
+        f"""
         SELECT *
         FROM lei_entities
-        WHERE legal_name_normalized = ?
+        WHERE legal_name_normalized IN ({placeholders})
         ORDER BY CASE WHEN entity_status = 'ACTIVE' THEN 0 ELSE 1 END, legal_name
         LIMIT ?
         """,
-        (q, limit),
+        (*variants, limit),
     ).fetchall()
-
-    rows = list(exact)
+    rows = [
+        row for row in exact
+        if normalize_name(row["legal_name"] or "") == q
+    ]
 
     if not rows:
         coarse = lei_conn.execute(
