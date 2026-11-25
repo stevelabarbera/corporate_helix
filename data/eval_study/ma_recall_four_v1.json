@@ -1,0 +1,43 @@
+{
+  "study_id": "MA_RECALL_FOUR_V1",
+  "purpose": "Frozen initial independently sourced transaction sentinel cases for actual Helix M&A discovery recall diagnosis; legal name and SEC CIK supplied to bypass identity resolution",
+  "baseline_rule": "No parser/provider/retrieval changes until first observed baseline; CIK pinned and current branch commit recorded; missing transaction investigated by pipeline stage",
+  "scope": {
+    "start": "2015-01-01",
+    "end": "2026-11-24",
+    "source": "SEC EDGAR",
+    "caveat": "This is a small sentinel event set, not complete company M&A history or all-source recall."
+  },
+  "companies": [
+    {
+      "order": 1,
+      "id": "johnson_and_johnson",
+      "company": "Johnson & Johnson",
+      "cik": "0000200406",
+      "cik_source": "https://www.sec.gov/edgar/browse/?CIK=200406"
+    },
+    {
+      "order": 2,
+      "id": "walmart",
+      "company": "Walmart Inc.",
+      "cik": "0000104169",
+      "cik_source": "https://www.sec.gov/edgar/browse/?CIK=104169"
+    },
+    {
+      "order": 3,
+      "id": "general_electric",
+      "company": "General Electric Company",
+      "cik": "0000040545",
+      "cik_source": "https://www.sec.gov/edgar/browse/?CIK=0000040545",
+      "note": "This is the historical GE filing lineage; distinguish subsequent spinoffs."
+    },
+    {
+      "order": 4,
+      "id": "monsanto",
+      "company": "Monsanto Company",
+      "cik": "0001110783",
+      "cik_source": "https://www.sec.gov/Archives/edgar/data/1110783/000119312517375746/0001193125-17-375746-index.htm",
+      "note": "Historical acquired SEC filer; company ticker directory need not list this filer today."
+    }
+  ]
+}
