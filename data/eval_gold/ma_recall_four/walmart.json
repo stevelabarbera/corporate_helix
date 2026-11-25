@@ -1,0 +1,22 @@
+{
+  "company": "Walmart Inc.",
+  "gold_established_blind": "SOURCE_SEPARATE_FROM_EDGAR_PIPELINE",
+  "gold_sources": [
+    "https://corporate.walmart.com/news/2024/12/03/walmart-completes-acquisition-of-vizio"
+  ],
+  "events": [
+    {
+      "id": "walmart-vizio-close-2024",
+      "counterparty": "VIZIO Holding Corp.",
+      "aliases": [
+        "VIZIO",
+        "Vizio Holding Corp",
+        "VIZIO Holding Corp"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2024-12-03",
+      "notes": "Walmart announced closing; independent publisher channel from SEC EDGAR pipeline. One historical transaction sentinel, not full Walmart acquisition list."
+    }
+  ]
+}
