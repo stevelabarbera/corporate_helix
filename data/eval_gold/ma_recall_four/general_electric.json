@@ -1,0 +1,22 @@
+{
+  "company": "General Electric Company",
+  "gold_established_blind": "SOURCE_SEPARATE_FROM_EDGAR_PIPELINE",
+  "gold_sources": [
+    "https://www.ge.com/news/press-releases/ge-completes-acquisition-alstom-power-and-grid-businesses"
+  ],
+  "events": [
+    {
+      "id": "ge-alstom-power-grid-close-2015",
+      "counterparty": "Alstom Power and Grid businesses",
+      "aliases": [
+        "Alstom",
+        "Alstom Power",
+        "Alstom's Power and Grid businesses"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2015-11-02",
+      "notes": "Asset/business acquisition, not necessarily acquisition of Alstom SA itself. The existing M&A parser's legal-entity event grammar may not represent this semantic; classify separately rather than force incorrect corporate-acquisition label."
+    }
+  ]
+}
