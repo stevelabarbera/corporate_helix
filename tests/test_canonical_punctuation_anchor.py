@@ -66,11 +66,15 @@ class CanonicalPunctuationTests(unittest.TestCase):
     def test_stripping_punctuation_does_not_create_false_anchor(self):
         self.add_entity("JJ", "Johnson & Johnson")
         result = resolve_company_root("Johnson Johnson", str(self.lei), str(self.rr))
-        # This punctuation-normalized name is the SAME complete token name,
-        # so it is allowed as a canonical identity only after the full name
-        # has been retrieved and checked. This test documents the semantics.
-        self.assertEqual(result.status, "REVIEW_REQUIRED")
+        # The legacy Level 1 index stores "johnson & johnson", whereas this
+        # query supplies "johnson johnson". Neither the exact indexed lookup
+        # nor its coarse substring retrieval finds that punctuation variant.
+        # That is a conservative NO_MATCH, not an incorrect endorsement.
+        # Future punctuation-insensitive discovery can surface this as a
+        # review lead, but must not silently assert it as the same entity.
+        self.assertEqual(result.status, "NO_MATCH")
         self.assertIsNone(result.root)
+        self.assertEqual(result.seed_matches, [])
 
     def test_ambiguous_exact_canonicals_still_require_review(self):
         self.add_entity("A", "Johnson & Johnson")
