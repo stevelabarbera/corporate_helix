@@ -79,6 +79,32 @@ This summary reports each known deal's deepest stage and first unpassed stage, n
 - The baseline dataset is 2015-01-01 through 2026-11-24; events before or after that window are not evaluated.
 - Existing Mongo/CSV, alternative commercial providers, and tenant internal data are outside this pass.
 
+## First live four-filer capture: evaluator defect found (2026-11-26)
+
+User successfully processed **603 selected filings** (J&J 159, Walmart 180, GE 217, Monsanto 47), all four CIKs resolved, and the run summary reported **zero retrieval errors**. Preliminary stages:
+
+| Known deal | Counterparty candidate emitted | Gold acquisition event extracted | Stage reported |
+| --- | --- | --- | --- |
+| J&J / Abiomed | Yes | Yes | CANDIDATE_EMITTED |
+| Walmart / VIZIO | Yes | Yes | CANDIDATE_EMITTED |
+| GE / Alstom Power and Grid businesses | No | No | LOCATOR_CAPTURED |
+| Monsanto / Bayer | **Yes** | **No** | ENTITY_RECOGNIZED |
+
+**Critical metric bug in original aggregator**: it equated `candidate_emitted=True` with a discovered M&A event, causing the original user run to show **3/4 (75%)** despite the Monsanto gold event not being extracted. The updated aggregator reports *three distinct facts*: counterparty candidate emission (3/4), gold event extraction (2/4), and cases satisfying both (2/4). **Even the 2/4 joint-stage figure is not proven end-to-end transaction recall**: names and event hits can arise from different documents, the existing gold event matcher checks event type/status and counterparty but not necessarily buyer/seller direction, and these are just four selected sentinels.
+
+The existing evaluation report has `evidence.event_hits`, `evidence.candidate_names`, `stages` and `failure_classes`; only review of all four individual JSON reports can determine exactly what was extracted and attributed. Recalculate the report with the patched aggregator under a new filename (not the existing `ma_recall_four_summary_v1.json`). The original first-run summary should be preserved as evidence of the metric defect.
+
+```bash
+git pull --ff-only
+python3 -m unittest discover -s tests -p 'test_ma_recall_four_summary.py' -v
+python3 code/eval/summarize_ma_recall_four.py \
+  --study data/eval_study/ma_recall_four_v1.json \
+  --results data/eval_study/ma_recall_four_results \
+  --out data/eval_study/ma_recall_four_summary_v2.json
+```
+
+**No SEC refetch needed**, because this is an evaluator/summary correction only. Next inspect individual case JSON, run `explain_miss.py` for Alstom and Bayer if evidence warrants, and check transaction direction before modifying production logic.
+
 ## Later, only after this baseline
 
 1. Trace missed sentinel transactions with existing `code/eval/explain_miss.py` using pinned CIK and stored evidence.
