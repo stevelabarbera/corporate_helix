@@ -1,6 +1,6 @@
 # SEC–GLEIF relationship reconciliation V1
 
-Status: **NEXT PRIORITY — design/implementation backlog, not implemented**  
+Status: **READ-ONLY DIAGNOSTIC IMPLEMENTED — cross-source transaction reconciliation not implemented**  
 Decision: pause company-specific SEC grammar tuning; increase source coverage and useful relationship discovery.
 
 ## Current code reality (verified 2026-11-26)
@@ -47,3 +47,26 @@ Then implement explicit typed CIK/LEI identities and relationship-edge records, 
 ## Immediate next work
 
 Implement the read-only joint diagnostic first; inspect results for Monsanto/Bayer and GE/Alstom and record GLEIF coverage before promoting any new edge into the trusted graph.
+
+## First slice implemented (2026-11-26)
+
+- `code/eval/compare_sec_gleif_coverage.py` reads the frozen SEC S1 event JSONs and gold set, calls `resolve_company_root` on the seed and each counterparty at **both** the event date and a current comparison date, and writes a new JSON report exclusively (never overwrites).
+- Explicitly keeps SEC CIK and GLEIF LEI identities separate. Both GLEIF root and exact-name seed LEIs are shown without equating a root with the queried company. No SEC network calls; no fact promotion, graph mutation, or ASM scope decisions.
+- GLEIF results are status-distinguished: `AUTO_RESOLVED`, `REVIEW_REQUIRED`, `NO_MATCH`, `INSUFFICIENT_EVIDENCE`, and `ERROR`. An absent SEC result is `NOT_CHECKED`, not a scored miss. Event-date queries carry the warning that a modern GLEIF snapshot is **not** a historical reconstruction.
+- `tests/test_sec_gleif_coverage.py` adds four isolated tests, including Monsanto-shaped SEC candidate-only miss and separate historical/current GLEIF views.
+- Tests and live local GLEIF comparison **not yet executed**; run on the user's Mac with installed databases, after pulling branch.
+
+```bash
+git pull --ff-only
+python3 -m unittest discover -s tests -p 'test_sec_gleif_coverage.py' -v
+python3 code/eval/compare_sec_gleif_coverage.py \
+  --study data/eval_study/ma_recall_four_v1.json \
+  --results data/eval_study/ma_recall_four_results \
+  --gold-dir data/eval_gold/ma_recall_four \
+  --lei-index data/processed/gleif_lei.sqlite \
+  --rr-index data/processed/gleif_rr.sqlite \
+  --as-of 2026-11-26 \
+  --out data/eval_study/sec_gleif_coverage_v1.json
+```
+
+Upload the resulting report so we can see what GLEIF actually contributes. Do not use this comparator to claim an increase in historical M&A recall or to assert exact parent relationships: that is a later, explicitly separate step requiring period-level L2 evidence and reconciled identifiers.
