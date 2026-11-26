@@ -118,6 +118,28 @@ User ran `code/eval/explain_miss.py --company monsanto --counterparty Bayer --st
 
 **Correct next steps without production modifications:** create exact source excerpt regression fixtures from the 2018 opening note, Item 5.01, and Item 8.01, plus the 2017 reversed agreement example; write failing tests separated into (1) section locator, (2) status/closing classification, (3) acquirer/target direction. Fix in production only once each observed case is reproduced and safety of the change assessed. **Do not convert every SUBSIDIARY_OF edge into ACQUIRED**: ownership can be longstanding, reorganizations can be non-acquisition, and this will produce false acquisitions.
 
+## Narrow production fix candidate (2026-11-26; awaiting local regression verification)
+
+Commits `1c977fb`, `87e0a06`, `8b24a3c`, `ad88a9a` add:
+1. **Production 8-K retrieval/selection**: metadata now considers Items 5.01 and 8.01 in addition to 1.01/2.01; only newly selected 5.01/8.01 sections with both explicit closing/change-in-control and merger/acquisition signals are sent to extraction. A strong M&A introductory note ahead of the first `Item` heading is preserved as `8K_INTRO_CLOSING`. Existing 1.01/2.01 selection remains unchanged.
+2. **Production closing extractor**: create `ACQUIRED/COMPLETED` only when the *same short passage* explicitly announces merger completion, specifies `with and into [survivor]`, and names that survivor continuing as the subsidiary of a recognized acquirer. Emit `acquirer -> survivor`, not the shell merger sub. Ordinary `SUBSIDIARY_OF` alone never triggers this acquisition rule. Source provenance is tagged `COMPLETED_MERGER_SURVIVING_SUBSIDIARY`.
+3. **Audit parity**: S1 baseline collector calls the same 8-K section-selection helper. New `tests/test_ma_closing_8k_regressions.py` covers 8.01/intro/5.01 extraction, merger direction, future/proposed cases, and routine 8.01 negative controls. Existing four-company v1/v2 outputs remain untouched.
+
+**Verification limitation:** these commits have not yet been run in the user's validated spaCy environment; no 603-filing comparative run after the fix exists. First run the new targeted tests, then run only Monsanto into a **new results directory** to compare with baseline. Historic 2017 agreement-direction inconsistency remains under investigation; it is not claimed fixed by this patch.
+
+```bash
+git pull --ff-only
+python3 -m unittest discover -s tests -p 'test_ma_closing_8k_regressions.py' -v
+mkdir -p data/eval_study/ma_recall_four_after_closing_v1
+python3 code/eval/run_ma_s1_baseline.py \
+  --study data/eval_study/ma_recall_four_v1.json \
+  --gold-dir data/eval_gold/ma_recall_four \
+  --results data/eval_study/ma_recall_four_after_closing_v1 \
+  --company monsanto \
+  --start 2015-01-01 --end 2026-11-24 \
+  --user-agent "$SEC_USER_AGENT"
+```
+
 ## Later, only after this baseline
 
 1. Trace missed sentinel transactions with existing `code/eval/explain_miss.py` using pinned CIK and stored evidence.
