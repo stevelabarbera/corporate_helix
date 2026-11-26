@@ -607,6 +607,45 @@ def infer_events(text, aliases, orgs, item):
                 extraction_rule="SUBSIDIARY_RELATION",
             )
 
+    # Closing-merger disclosure in an 8-K Item 8.01 or introductory note.
+    # Real Monsanto filing (2018-06-07): "announcing the completion of the
+    # merger of KWA Investment Co. ('Merger Sub') with and into Monsanto,
+    # with Monsanto continuing as an indirect, wholly-owned subsidiary of
+    # Bayer Aktiengesellschaft". The acquiree is the *surviving* company,
+    # not the transitory merger shell. Mere SUBSIDIARY_OF is NOT enough:
+    # require the closing language and the merged-with-and-into syntax.
+    closing_marker = re.search(
+        r"\b(?:announcing the completion of the merger|"
+        r"completed the merger|merger was completed)\b", text, re.I,
+    )
+    if closing_marker:
+        closing_span = text[closing_marker.start():closing_marker.start() + 700]
+        relationship = re.search(
+            r"\bwith and into\s+(.{1,180}?),\s*with\s+"
+            r"([A-Z][\w.'’-]*(?:\s+[A-Z][\w.'’-]*){0,5})\s+"
+            r"continuing as (?:an?\s+)?(?:indirect,?\s+)?"
+            r"(?:wholly[- ]owned\s+)?subsidiary of\s+"
+            r"([A-Z][\w.'’-]*(?:\s+[A-Z][\w.'’-]*){0,5})",
+            closing_span, re.I,
+        )
+        if relationship:
+            # Ensure the surviving company appears immediately after "into"
+            # as well as after "with"; avoid linking distinct transactions
+            # merely because both are mentioned in a 700-char window.
+            survivor = norm(relationship.group(2))
+            merged_into = norm(relationship.group(1))
+            if merged_into.casefold().endswith(survivor.casefold()):
+                target = resolve(survivor, aliases)
+                parent = resolve(norm(relationship.group(3)), aliases)
+                target = target if target in orgs else known_prefix(survivor, orgs)
+                parent = parent if parent in orgs else known_prefix(norm(relationship.group(3)), orgs)
+                if target and parent and target != parent:
+                    add_event(
+                        out, "ACQUIRED", parent, target, "COMPLETED",
+                        closing_span[:relationship.end()],
+                        extraction_rule="COMPLETED_MERGER_SURVIVING_SUBSIDIARY",
+                    )
+
     # DIVESTED_BUSINESS: a real, previously entirely-unimplemented event
     # type. Gold files for Lumen (3 events) and Disney (1 event) have
     # referenced it since before this session, but no pattern ever
