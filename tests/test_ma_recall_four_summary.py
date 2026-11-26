@@ -36,10 +36,40 @@ class RecallFourSummaryTests(unittest.TestCase):
             (Path(directory)/"x.json").write_text(json.dumps(data))
             result=summarize(study,directory)
         self.assertEqual(result["known_sentinel_events_evaluated"],2)
-        self.assertEqual(result["candidate_emitted_for_sentinel_events"],1)
+        self.assertEqual(result["counterparty_candidate_emitted_for_sentinel_events"],1)
+        self.assertEqual(result["gold_events_extracted_for_sentinel_events"],1)
+        self.assertEqual(result["fully_detected_sentinel_events"],1)
         self.assertEqual(result["sentinel_event_detection_fraction"],0.5)
         self.assertEqual(result["companies"][0]["events"][0]["first_unpassed_stage"],
                          "entity_recognized")
+
+    def test_counterparty_emitted_without_gold_event_is_not_found(self):
+        study={"study_id":"fixture","companies":[{"id":"x","company":"X","cik":"1"}]}
+        with tempfile.TemporaryDirectory() as directory:
+            (Path(directory)/"x.json").write_text(json.dumps({
+                "cik":"1",
+                "retrieval":{"filing_count":4,"errors":[]},
+                "gold_events":[{
+                    "id":"historical",
+                    "counterparty":"Bayer Aktiengesellschaft",
+                    "stages":{
+                        "filings_retrieved":True,
+                        "relevant_text_present":True,
+                        "locator_captured":True,
+                        "entity_recognized":True,
+                        "event_extracted":False,
+                        "candidate_emitted":True
+                    }
+                }]
+            }))
+            result=summarize(study,directory)
+        self.assertEqual(result["counterparty_candidate_emitted_for_sentinel_events"],1)
+        self.assertEqual(result["gold_events_extracted_for_sentinel_events"],0)
+        self.assertEqual(result["fully_detected_sentinel_events"],0)
+        self.assertEqual(result["sentinel_event_detection_fraction"],0)
+        event=result["companies"][0]["events"][0]
+        self.assertFalse(event["found"])
+        self.assertEqual(event["first_unpassed_stage"],"event_extracted")
 
     def test_retrieval_errors_preclude_clean_rate(self):
         study={"study_id":"fixture","companies":[{"id":"x","company":"X"}]}
