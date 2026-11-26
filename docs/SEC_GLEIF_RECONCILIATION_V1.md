@@ -70,3 +70,31 @@ python3 code/eval/compare_sec_gleif_coverage.py \
 ```
 
 Upload the resulting report so we can see what GLEIF actually contributes. Do not use this comparator to claim an increase in historical M&A recall or to assert exact parent relationships: that is a later, explicitly separate step requiring period-level L2 evidence and reconciled identifiers.
+
+## Live four-company diagnostic findings and raw L2 next step
+
+User ran `compare_sec_gleif_coverage.py` successfully on 2026-11-26; report `data/eval_study/sec_gleif_coverage_v1.json` reviewed. The exact legal-entity and proposed parent LEIs:
+
+| Pair | Exact seed LEI | Exact counterparty LEI | Current graph proposal |
+| --- | --- | --- | --- |
+| Monsanto → Bayer | `NONUZEX43GHIPSVDD938` | `549300J4U55H3WP1XT59` | Bayer 1 direct + 1 ultimate parent votes; root still REVIEW_REQUIRED |
+| Abiomed → Johnson & Johnson | `5493001EZN4ZTB4Z5887` | `549300G0CFPGEF6X2043` | J&J 1 ultimate-parent vote; root still REVIEW_REQUIRED |
+| GE / Alstom Power and Grid businesses | GE `3C7474T6CDKPR9K6YT90` | no exact LEI | Business-unit label not a GLEIF legal name |
+| Walmart / VIZIO Holding Corp. | Walmart `Y87794H0US1R65VBXU25` | no exact LEI | No GLEIF legal-name match |
+
+The parent votes are topology evidence, **not** proof of a historical transaction or accepted current root. Particularly important: Monsanto as-of 2018-06-07 did NOT project a Bayer parent while current-as-of does; modern GLEIF relationship status applied to a historic date is not a reconstructed past snapshot.
+
+### Raw L2 pair-level audit (implemented, verification pending)
+
+`code/eval/inspect_gleif_l2_edges.py` reads the saved coverage JSON and exact LEIs for **both entities**. It opens the local L2 database read-only, emits raw matching direct/ultimate accounting-consolidation rows in either direction, and marks row eligibility on 2026-11-26 versus the sentinel event date. It emits neither an M&A event nor attribution authorization. `tests/test_inspect_gleif_l2_edges.py` adds four offline checks.
+
+```bash
+git pull --ff-only
+python3 -m unittest discover -s tests -p 'test_inspect_gleif_l2_edges.py' -v
+python3 code/eval/inspect_gleif_l2_edges.py \
+  --coverage data/eval_study/sec_gleif_coverage_v1.json \
+  --rr-index data/processed/gleif_rr.sqlite \
+  --out data/eval_study/sec_gleif_l2_pairs_v1.json
+```
+
+Review `sec_gleif_l2_pairs_v1.json` for raw relationship period/status/source information before proposing cross-source promotion. Known L2 period-flattening and snapshot-freshness defects remain an explicit risk. If a relationship row is absent or only expired, do not automatically claim a verified historical acquisition.
