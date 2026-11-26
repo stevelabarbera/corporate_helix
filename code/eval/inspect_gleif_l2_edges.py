@@ -10,9 +10,14 @@ from __future__ import annotations
 import argparse
 import json
 import sqlite3
+import sys
 from datetime import date
 from pathlib import Path
 from typing import Any
+
+CODE = Path(__file__).resolve().parents[1]
+if str(CODE) not in sys.path:
+    sys.path.insert(0, str(CODE))
 
 from root_entity_resolver import _relationship_applies_now, _parse_relationship_date
 
@@ -23,7 +28,7 @@ RELATIONSHIP_TYPES = {
 
 def exact_leis(view: dict[str, Any]) -> list[str]:
     # REVIEW_REQUIRED can still have a unique exact *entity* identity.
-    return list(view.get("exact_seed_leis") or [])
+    return sorted({str(lei).strip() for lei in (view.get("exact_seed_leis") or []) if str(lei).strip()})
 
 
 def edge_view(row: dict[str, Any], as_of: str) -> dict[str, Any]:
