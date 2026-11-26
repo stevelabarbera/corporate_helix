@@ -143,6 +143,44 @@ def item_sections(text: str) -> list[dict[str, str]]:
         sections.append({"item": m.group(1), "text": text[start:end].strip()})
     return sections
 
+# A current report can disclose a closed merger in its introductory note,
+# change-of-control Item 5.01, or other-events Item 8.01. Previously the
+# pipeline silently ignored each of these even when the same filing's Item
+# 2.01 was already downloaded. Require a transaction-specific phrase for
+# newly considered sections to avoid mining routine 8-K chatter.
+_MA_CLOSING_RE = re.compile(
+    r"\b(?:completion of (?:the |a )?merger|"
+    r"(?:merger|acquisition) (?:was |has been )?completed|"
+    r"completed (?:the |its )?(?:merger|acquisition)|"
+    r"closing (?:of|date)|"
+    r"change in control)\b",
+    re.I,
+)
+_MA_TRANSACTION_RE = re.compile(r"\b(?:merger|acquisition|acquired|merged)\b", re.I)
+_MA_8K_ITEMS = ("1.01", "2.01", "5.01", "8.01")
+
+
+def select_ma_8k_sections(text: str) -> list[dict[str, str]]:
+    """Select acquisition evidence from current reports without losing pre-Item notes."""
+    sections = item_sections(text)
+    selected = [
+        section for section in sections
+        if section["item"] in ("1.01", "2.01")
+        or (section["item"] in ("5.01", "8.01")
+            and _MA_CLOSING_RE.search(section["text"])
+            and _MA_TRANSACTION_RE.search(section["text"]))
+    ]
+    # The first Item marker terminates the introductory note. Parse it
+    # only if it itself contains strong closing AND transaction language.
+    marker = re.search(r"(?m)^\s*Item\s+\d\.\d{2}\.?\s", text)
+    if marker:
+        introductory = text[:marker.start()]
+        if (_MA_CLOSING_RE.search(introductory)
+                and _MA_TRANSACTION_RE.search(introductory)):
+            selected.insert(0, {"item": "8K_INTRO_CLOSING", "text": introductory.strip()})
+    return selected
+
+
 def _merge_older_submission_pages(
     submissions: dict[str, Any], user_agent: str, *, start: str | None, end: str | None,
 ) -> dict[str, Any]:
@@ -219,7 +257,7 @@ def _collect_recent_8k_filings(cik: str, user_agent: str, submissions: dict[str,
         if not (start <= filing_date <= end):
             continue
         items = _rv(recent, "items", i, "") or ""
-        if not ("1.01" in items or "2.01" in items):
+        if not any(item in items for item in _MA_8K_ITEMS):
             continue
         accession = _rv(recent, "accessionNumber", i)
         primary_doc = _rv(recent, "primaryDocument", i)
@@ -227,7 +265,7 @@ def _collect_recent_8k_filings(cik: str, user_agent: str, submissions: dict[str,
             continue
         doc_url = _document_url(cik, accession, primary_doc)
         text = strip_html(_get_text(doc_url, user_agent))
-        sections = [s for s in item_sections(text) if s["item"] in ("1.01", "2.01")]
+        sections = select_ma_8k_sections(text)
         if sections:
             filings.append({
                 "accession": accession, "filing_date": filing_date, "form": form, "items": items,
