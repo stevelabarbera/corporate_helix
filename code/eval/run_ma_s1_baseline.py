@@ -34,6 +34,8 @@ from providers.edgar_resolver import (
     _rv,
     identity_key,
     item_sections,
+    select_ma_8k_sections,
+    _MA_8K_ITEMS,
     resolve_cik_by_name,
     strip_html,
 )
@@ -135,8 +137,8 @@ def collect_audit_filings(
         if form in ITEMIZED_EVENT_FORMS:
             items = _rv(recent, "items", i, "") or ""
             selected = []
-            if "1.01" in items or "2.01" in items:
-                selected = [s for s in item_sections(raw_text) if s["item"] in {"1.01", "2.01"}]
+            if any(item in items for item in _MA_8K_ITEMS):
+                selected = select_ma_8k_sections(raw_text)
         else:
             items = ""
             selected = locate_ma_regions(raw_text, form=form)
