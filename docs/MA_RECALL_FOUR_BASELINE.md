@@ -105,6 +105,19 @@ python3 code/eval/summarize_ma_recall_four.py \
 
 **No SEC refetch needed**, because this is an evaluator/summary correction only. Next inspect individual case JSON, run `explain_miss.py` for Alstom and Bayer if evidence warrants, and check transaction direction before modifying production logic.
 
+## Monsanto/Bayer passage-level diagnostic: verified failure causes (2026-11-26)
+
+User ran `code/eval/explain_miss.py --company monsanto --counterparty Bayer --study data/eval_study/ma_recall_four_v1.json --gold-dir data/eval_gold/ma_recall_four` on original pipeline. Summary: **13 NOT_IN_REGION; 3 ENTITY_BELOW_THRESHOLD; 2 EVENT_GRAMMAR_MISS; 4 EVENT_TYPE_MISMATCH**. Diagnostic classifications count passages, not distinct events/filings.
+
+**High-priority closing evidence**:
+- 2018-06-08 8-K accession `0001193125-18-188226` introductory note refers to the actual June 7, 2018 *Closing Date*, names `Bayer Aktiengesellschaft`, and is **NOT_IN_REGION**, despite all three recognition backends together scoring 2.75. Direct passage parsing emits `SUBSIDIARY_OF/COMPLETED Monsanto Company -> Bayer Aktiengesellschaft`, **not `ACQUIRED/COMPLETED`**. Thus missing the gold acquisition is a *locator-coverage + event-type representation* issue, not inability to recognize Bayer.
+- Same filing Item 5.01 (change in control of registrant) likewise is **NOT_IN_REGION**. Item 2.01 selected passage mentions `Bayer, Merger Sub`, only spaCy vote 1.0, below 1.5 threshold. Existing 8-K section gating only selects Items 1.01 and 2.01; 5.01 deserves evidence-grounded review. The introductory note is before first Item marker and `item_sections()` drops it.
+- 2018-06-07 8-K accession `0001193125-18-186836` states merger completion, Monsanto continuing as indirect wholly owned subsidiary of Bayer, but is **NOT_IN_REGION**, because it is under Item 8.01 (not selected under current gate); direct passage parsing emits `SUBSIDIARY_OF/PROPOSED` despite completed wording. That is a separate temporal-status defect.
+- 2016/2017 10-K merger-agreement narratives yield `AGREED_TO_ACQUIRE/COMPLETED` and `SUBSIDIARY_OF/PROPOSED`, which are *agreement milestones*, not 2018 acquisition closing. The 2017-10-27 10-K in this diagnostic even shows reversed `AGREED_TO_ACQUIRE Monsanto Company -> Bayer Aktiengesellschaft` while 2016-09-20 8-K correctly shows `Bayer Aktiengesellschaft -> Monsanto Company`. Thus **transaction direction is inconsistent across documents**. Also, `COMPLETED` for an `AGREED_TO_ACQUIRE` event may mean the agreement is signed, not the acquisition closed; status semantics must be explicit.
+- Historical `CONTEXT_EVENT_EXTRACTION_BAYER_MONSANTO.md` verified 2016 **agreement** extraction on a 10-Q fixture (which remains outside this study's selected forms); that prior behavior does not establish extraction of the 2018 closing.
+
+**Correct next steps without production modifications:** create exact source excerpt regression fixtures from the 2018 opening note, Item 5.01, and Item 8.01, plus the 2017 reversed agreement example; write failing tests separated into (1) section locator, (2) status/closing classification, (3) acquirer/target direction. Fix in production only once each observed case is reproduced and safety of the change assessed. **Do not convert every SUBSIDIARY_OF edge into ACQUIRED**: ownership can be longstanding, reorganizations can be non-acquisition, and this will produce false acquisitions.
+
 ## Later, only after this baseline
 
 1. Trace missed sentinel transactions with existing `code/eval/explain_miss.py` using pinned CIK and stored evidence.
