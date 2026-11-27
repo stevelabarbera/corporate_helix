@@ -45,6 +45,39 @@ def _sec_pair_event(sec_fact: HelixFact, investigated: str, root: str) -> list[d
     ]
 
 
+def _parent_side_events(facts: list[HelixFact], seed_name: str,
+                        target_name: str) -> list[dict[str, Any]]:
+    """Use existing parent SEC filing extraction to link a specific child.
+
+    The parent seed is already queried by run_expansion. This does not
+    duplicate SEC downloads, trust arbitrary substring mentions, or infer
+    an acquisition from L2. Exact normalized counterparty plus original
+    filing-pivot match is mandatory.
+    """
+    hits = []
+    for fact in facts:
+        if fact.source != "EDGAR_MA" or fact.fact_type != "LEGAL_ENTITY":
+            continue
+        if normalize_name(fact.value) != normalize_name(target_name):
+            continue
+        for evidence in fact.evidence:
+            if (evidence.get("type") == "EDGAR_MA_EVENT"
+                    and evidence.get("event_type") in TRANSACTION_TYPES
+                    and normalize_name(evidence.get("pivot_name") or "") == normalize_name(seed_name)):
+                hits.append({
+                    "source": "SEC_PARENT_FILING",
+                    "filing_pivot": seed_name,
+                    "accession": evidence.get("accession"),
+                    "filing_date": evidence.get("filing_date"),
+                    "document_url": evidence.get("document_url"),
+                    "event_type": evidence.get("event_type"),
+                    "event_status": evidence.get("status"),
+                    "source_text": evidence.get("source_text"),
+                    "decision": "REVIEW_ONLY_NOT_TRANSACTION_CONFIRMATION",
+                })
+    return hits
+
+
 def investigate_l2_leads(
     *, seed: HelixFact, facts: list[HelixFact], edgar_provider: Callable,
     max_probes: int = 3,
@@ -88,6 +121,7 @@ def investigate_l2_leads(
             "eligible_by_current_snapshot": [],
             "decision": "NOT_PROBED",
             "sec_events": [],
+            "parent_sec_events": [],
         })
         if edge.value not in lead["relationship_fact_keys"]:
             lead["relationship_fact_keys"].append(edge.value)
@@ -106,6 +140,15 @@ def investigate_l2_leads(
         -max((int(d[:4]) for d in x["relationship_dates"] if d[:4].isdigit()), default=0),
         x["related_name"].casefold(),
     ))
+    for lead in ranked:
+        lead["parent_sec_events"] = _parent_side_events(
+            facts, seed.value, lead["related_name"]
+        )
+        lead["parent_side_decision"] = (
+            "SEC_PARENT_TRANSACTION_CANDIDATE_REVIEW"
+            if lead["parent_sec_events"]
+            else "NO_PARENT_SIDE_PAIR_EVENT_IN_CURRENT_GRAPH"
+        )
     for idx, lead in enumerate(ranked, 1):
         lead["research_priority"] = idx
         lead["priority_basis"] = "DIRECTION_CURRENT_ELIGIBILITY_REGISTRATION_RELATIONSHIP_RECENCY"
@@ -168,5 +211,6 @@ def investigate_l2_leads(
             "gleif_l2_is_acquisition": False,
             "probe_results_pivot_eligible": False,
             "no_sec_result_excludes_acquisition": False,
+            "parent_side_sec_evidence_is_review_only": True,
         },
     }
