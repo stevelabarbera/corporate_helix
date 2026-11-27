@@ -1,0 +1,22 @@
+{
+  "company": "Monsanto Company",
+  "gold_established_blind": "PARTIAL_HISTORICAL_EXISTING_GOLD",
+  "gold_sources": [
+    "https://www.bayer.com/media/en-us/bayer-closes-monsanto-acquisition/",
+    "https://www.nasdaq.com/articles/quick-overview-bayer-monsanto-merger-after-doj-approval-2018-05-30"
+  ],
+  "events": [
+    {
+      "id": "monsanto-bayer-close-2018",
+      "counterparty": "Bayer Aktiengesellschaft",
+      "aliases": [
+        "Bayer AG",
+        "Bayer"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2018-06-07",
+      "notes": "Monsanto was the ACQUIRED company, not acquirer. Existing repo gold `data/eval_gold/bayer_monsanto.json` already tests this deal; event is reused as a documented, non-holdout regression sentinel."
+    }
+  ]
+}

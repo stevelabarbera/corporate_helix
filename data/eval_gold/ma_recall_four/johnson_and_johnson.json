@@ -1,0 +1,21 @@
+{
+  "company": "Johnson & Johnson",
+  "gold_established_blind": "SOURCE_SEPARATE_FROM_EDGAR_PIPELINE",
+  "gold_sources": [
+    "https://www.jnj.com/media-center/press-releases/johnson-johnson-completes-acquisition-of-abiomed"
+  ],
+  "events": [
+    {
+      "id": "jnj-abiomed-close-2022",
+      "counterparty": "Abiomed, Inc.",
+      "aliases": [
+        "Abiomed",
+        "ABIOMED INC"
+      ],
+      "event_type": "ACQUIRED",
+      "status": "COMPLETED",
+      "approx_date": "2022-12-22",
+      "notes": "J&J announced closing; independent publisher channel from SEC EDGAR pipeline. One historical transaction sentinel, not full J&J acquisition list."
+    }
+  ]
+}
