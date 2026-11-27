@@ -98,3 +98,31 @@ python3 code/eval/inspect_gleif_l2_edges.py \
 ```
 
 Review `sec_gleif_l2_pairs_v1.json` for raw relationship period/status/source information before proposing cross-source promotion. Known L2 period-flattening and snapshot-freshness defects remain an explicit risk. If a relationship row is absent or only expired, do not automatically claim a verified historical acquisition.
+
+## Production integration slice: shared review-only graph (2026-11-27)
+
+**Implemented; live execution and local tests pending** on `eval/ma-recall-four-baseline`:
+
+- `providers/gleif_relationship_provider.py` uses a unique exact canonical L1 name anchor (not a proposed ultimate-root identity) or an explicit LEI to fetch raw L2 accounting parent and child edges, preserving the original child LEI, parent LEI, relationship type, status, effective dates, accounting dates, source file, validation, initial registration, last update and snapshot eligibility. The return facts have `fact_type=CORPORATE_RELATIONSHIP`, `status=REVIEW` and `pivot_eligible=False`. Fanout is capped and truncation reported. Inactive/dated edges are evidence-only and cannot become historical acquisitions.
+- `ma_cross_source.py` uses the existing trusted iterative-expansion engine with EDGAR and the GLEIF relationship provider together. After trusted iterations, it enriches SEC `REVIEW` counterparty candidates without pivoting or recursively exploring them. It links an EDGAR candidate to a GLEIF edge **only if both the filing pivot and counterparty have separately anchored exact LEIs and the L2 edge contains precisely that pair**. Such links are tagged `REVIEW_ONLY_NOT_TRANSACTION_CORROBORATION`. No SEC syntax changes.
+- `run_company_ma_expansion.py` now routes the production command through that integration, outputs complete facts + `cross_source` coverage under `--json`, accepts `--cik` and `--sec-user-agent` (or `SEC_USER_AGENT` environment variable). A CIK is never interpreted as an LEI.
+- `tests/test_ma_cross_source_integration.py` includes independent source discovery, candidate/evidence association, missing counterparties, typed identity, and historical effective-date safeguards.
+
+### Verify locally
+
+```bash
+git pull --ff-only
+python3 -m unittest discover -s tests -p 'test_ma_cross_source_integration.py' -v
+python3 code/run_company_ma_expansion.py \
+  --company 'Monsanto Company' \
+  --cik 0001110783 \
+  --max-iterations 1 \
+  --max-gleif-edges 50 \
+  --max-sec-candidates 25 \
+  --as-of 2026-11-26 \
+  --json > data/eval_study/monsanto_integrated_v1.json
+```
+
+The last command can contact SEC EDGAR live; supply a legitimate `SEC_USER_AGENT` before running. It also uses existing local GLEIF SQLite files. If SEC returns no filings, the L2 provider may still emit evidence. The report is NOT a new event-recall score.
+
+**Still pending**: local test verification and live output inspection; historical GLEIF source period-flattening repair; full typed CIK–LEI crosswalk persisted outside fact metadata; differentiated direct/ultimate relationship time history; evidence-driven transaction lead generation beyond explicitly matched SEC counterparties. In particular, independent L2 rows alone are not M&A claims, even when the direct and ultimate parent LEIs agree.
