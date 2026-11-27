@@ -46,20 +46,46 @@ def main() -> int:
         pivot_eligible=True,
         metadata={"identifiers": {"cik": args.cik}},
     )
-    if args.sec_user_agent:
-        def fetch(pivot):
-            cik = (
-                pivot.metadata.get("identifiers", {}).get("cik")
-                or (pivot.identifier if (pivot.identifier or "").isdigit()
-                    and len(pivot.identifier) <= 10 else None)
-                or resolve_cik_by_name(pivot.value, args.sec_user_agent)
-            )
-            return fetch_ma_filings(cik, args.sec_user_agent) if cik else None
-        edgar = EdgarMAExpansionProvider(fetch_filings_fn=fetch)
-    else:
-        edgar = EdgarMAExpansionProvider()
+    # Capture SEC identity and retrieval diagnostics per research probe.
+    # No guessed CIK is acceptable: an unresolved name is explicitly recorded.
+    if not args.sec_user_agent:
         print("WARNING: SEC_USER_AGENT missing; SEC requests may be rejected.",
               file=sys.stderr)
+    agent = args.sec_user_agent or "CorporationHelix research contact@example.com"
+
+    def fetch(pivot):
+        diagnostics = {
+            "status": "NO_SEC_IDENTITY",
+            "cik": None,
+            "identity_method": None,
+            "filings_retrieved": 0,
+            "sections_retrieved": 0,
+        }
+        pivot.metadata["sec_probe"] = diagnostics
+        supplied = pivot.metadata.get("identifiers", {}).get("cik")
+        if supplied:
+            cik = str(supplied)
+            diagnostics["identity_method"] = "EXPLICIT_CIK"
+        elif (pivot.identifier or "").isdigit() and len(pivot.identifier) <= 10:
+            cik = pivot.identifier
+            diagnostics["identity_method"] = "IDENTIFIER_CIK"
+        else:
+            cik = resolve_cik_by_name(pivot.value, agent)
+            diagnostics["identity_method"] = "SEC_TICKERS_EXACT_NAME"
+        if not cik:
+            return None
+        diagnostics["cik"] = str(cik).zfill(10)
+        diagnostics["status"] = "CIK_RESOLVED_FETCH_PENDING"
+        data = fetch_ma_filings(cik, agent)
+        filings = list((data or {}).get("filings") or [])
+        diagnostics["filings_retrieved"] = len(filings)
+        diagnostics["sections_retrieved"] = sum(
+            len(filing.get("sections") or []) for filing in filings
+        )
+        diagnostics["status"] = "FILINGS_RETRIEVED" if filings else "NO_SEC_FILINGS"
+        return data
+
+    edgar = EdgarMAExpansionProvider(fetch_filings_fn=fetch)
     gleif = GleifRelationshipEvidenceProvider(
         args.lei_index, args.rr_index, as_of_date=args.as_of,
         max_edges=args.max_gleif_edges,
