@@ -127,5 +127,6 @@ def run_integrated(seed: HelixFact, edgar_provider: Callable,
     result = run_expansion([seed], [edgar_provider, gleif_provider],
                            max_iterations=max_iterations)
     integration = join_evidence(result, gleif_provider,
-                                max_candidates=max_sec_candidates,\n                                seed_name=seed.value)
+                                max_candidates=max_sec_candidates,
+                                seed_name=seed.value)
     return result, integration
