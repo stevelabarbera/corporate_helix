@@ -19,6 +19,7 @@ from iterative_expansion import HelixFact
 from providers.edgar_ma_provider import EdgarMAExpansionProvider
 from providers.gleif_relationship_provider import GleifRelationshipEvidenceProvider
 from ma_cross_source import run_integrated
+from ma_bidirectional import investigate_l2_leads
 from providers.edgar_resolver import fetch_ma_filings, resolve_cik_by_name
 
 
@@ -32,6 +33,8 @@ def main() -> int:
     ap.add_argument("--max-iterations", type=int, default=10)
     ap.add_argument("--max-gleif-edges", type=int, default=150)
     ap.add_argument("--max-sec-candidates", type=int, default=100)
+    ap.add_argument("--gleif-sec-probes", type=int, default=0,
+                    help="Number of distinct L2 counterparties to investigate with SEC (default: 0)")
     ap.add_argument("--as-of", default=None,
                     help="GLEIF snapshot eligibility date YYYY-MM-DD")
     ap.add_argument("--json", action="store_true")
@@ -66,10 +69,16 @@ def main() -> int:
         max_sec_candidates=args.max_sec_candidates,
     )
 
+    reverse = investigate_l2_leads(
+        seed=seed, facts=result.facts, edgar_provider=edgar,
+        max_probes=args.gleif_sec_probes,
+    )
+
     if args.json:
         print(json.dumps({
             **result.to_dict(),
             "cross_source": integration,
+            "gleif_to_sec_research": reverse,
         }, indent=2, ensure_ascii=False))
         return 0
 
@@ -82,6 +91,7 @@ def main() -> int:
     print(f"Facts       : {len(result.facts)}")
     print(f"GLEIF edges : {integration['relationship_facts']}")
     print(f"SEC links   : {len(integration['links'])}")
+    print(f"L2 leads    : {reverse['leads_found']} ({reverse['leads_probed']} SEC-probed)")
     print()
     for fact in result.facts:
         if fact.fact_type == "CORPORATE_RELATIONSHIP":
@@ -92,6 +102,9 @@ def main() -> int:
                   "(GLEIF L2, REVIEW)")
         else:
             print(f"- {fact.value} ({fact.source}, {fact.status})")
+    for lead in reverse["leads"]:
+        if lead["decision"] == "SEC_TRANSACTION_CANDIDATE_FOUND_REVIEW":
+            print(f"  SEC research lead: {lead[\'related_name\']} (REVIEW)")
     if integration["errors"]:
         print(f"GLEIF enrichment errors: {len(integration['errors'])}")
     return 0
