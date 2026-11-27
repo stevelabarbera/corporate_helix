@@ -167,7 +167,7 @@ def relationship_period_entries(rel):
     if not isinstance(periods, list):
         raise ValueError("Malformed RelationshipPeriod container")
     return [
-        {"ordinal": i, "type": _v(p, "PeriodType"),
+        {"ordinal": i, "type": _v(p, "PeriodType") or "UNKNOWN",
          "start": _v(p, "StartDate"), "end": _v(p, "EndDate"),
          "raw": p}
         for i, p in enumerate(periods) if isinstance(p, dict)
