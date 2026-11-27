@@ -82,7 +82,11 @@ def main() -> int:
         diagnostics["sections_retrieved"] = sum(
             len(filing.get("sections") or []) for filing in filings
         )
-        diagnostics["status"] = "FILINGS_RETRIEVED" if filings else "NO_SEC_FILINGS"
+        diagnostics["status"] = (
+            "NO_SEC_FILINGS" if not filings
+            else "NO_SEC_SECTIONS" if not diagnostics["sections_retrieved"]
+            else "FILINGS_RETRIEVED"
+        )
         return data
 
     edgar = EdgarMAExpansionProvider(fetch_filings_fn=fetch)
