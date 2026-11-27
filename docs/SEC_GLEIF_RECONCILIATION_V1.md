@@ -189,3 +189,26 @@ python3 -m unittest discover -s tests -p 'test_ma_cross_source_integration.py' -
 ```
 
 Repeat the Bayer command with the same caps to compare results. If the parent still has `NO_SEC_IDENTITY`, that reflects the lack of an audited CIK, not a failure of the parent-side event match. There is no fabricated fallback CIK for Bayer, and no assumption that foreign public companies have SEC registrant identities. **Current scope excludes** historic CIK alias databases, automatically verified LEI–CIK links, content-level parent filing search for subsidiary aliases not extracted by the existing event parser, pagination/stratification of GLEIF L2 results, and GLEIF relationship period import repair.
+
+## Monsanto live validation: direction and stage guards (2026-11-27)
+
+Live Monsanto run used explicit CIK `0001110783`, examined 8 selected SEC filings and 129 sections. SEC 2016 and 2017 agreement evidence and the 2018-06-07 acquisition-completion event both matched the Bayer accounting parent. The earlier reverse report had a **source-role bug**: it labeled Monsanto's target-company filing as `SEC_PARENT_FILING`, and its lead queue accepted sibling edges brought in by candidate GLEIF enrichment, burying the actual Bayer parent.
+
+Corrective commit introduces the following safeguards:
+
+- Reverse leads are **only** relationships directly anchored to the original seed LEI. The broader SEC candidate GLEIF family can remain in the research graph for context, but unrelated sibling edges **never consume SEC reverse-probe slots**.
+- When the seed is the child, its direct parent is prioritized ahead of all child-side/sibling candidates. This prioritization remains a *research choice*, not evidence of acquisition.
+- `seed_filing_events` records exact SEC candidate matches filed by the original seed with explicit `seed_filing_source_role` (`ACQUIRED_COMPANY_FILER` for a child seed, `ACQUIRING_PARENT_FILER` for a parent seed). The legacy `parent_sec_events` field is now populated **only when the seed is the parent**. It must not claim that a target's filing was filed by the acquirer.
+- `normalized_transaction_stage` is now separate from the legacy parser `event_status`: `AGREED_TO_ACQUIRE` is **AGREEMENT_NOT_CLOSING** even when the parser wrongly says `COMPLETED`; `ACQUIRED` and `COMPLETED_ACQUISITION` are `COMPLETION_CANDIDATE_REVIEW`; other types remain `TRANSACTION_STAGE_UNDETERMINED`. All stages remain review-only. This does **not** change the extractor's raw output or infer any completion date from GLEIF.
+- The existing SEC candidate graph may still include GLEIF sibling context from candidate enrichment. The new protection limits the **reverse investigation queue**, not all relationship-fact output. Further work may restrict enrichment at the source.
+
+Verify:
+
+```bash
+git pull --ff-only
+python3 -m py_compile code/ma_bidirectional.py
+python3 -m unittest discover -s tests -p 'test_ma_bidirectional.py' -v
+python3 -m unittest discover -s tests -p 'test_ma_cross_source_integration.py' -v
+```
+
+Rerun the previous Monsanto CLI command and compare `gleif_to_sec_research`: expected related Bayer parent at priority 1, no sibling reverse leads; `seed_filing_events` contains Monsanto-filed acquisition evidence, `parent_sec_events` empty for Bayer as a parent relation with Monsanto as the seed. A parent-filed SEC 8-K is **not** claimed without actually retrieving one. Historical period flattening and cross-sectional extraction remain open work.
