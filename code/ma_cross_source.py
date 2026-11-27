@@ -15,6 +15,7 @@ from providers.gleif_relationship_provider import (
     typed_pivot_lei,
 )
 from root_entity_resolver import normalize_name
+from ma_bidirectional import transaction_stage
 
 
 def join_evidence(result: ExpansionResult,
@@ -84,6 +85,7 @@ def join_evidence(result: ExpansionResult,
                         "accession": sec.get("accession"),
                         "event_type": sec.get("event_type"),
                         "event_status": sec.get("status"),
+                        "normalized_transaction_stage": transaction_stage(sec),
                         "subject": sec.get("subject"),
                         "object": sec.get("object"),
                         "filing_date": sec.get("filing_date"),
