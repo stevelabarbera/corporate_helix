@@ -126,3 +126,33 @@ python3 code/run_company_ma_expansion.py \
 The last command can contact SEC EDGAR live; supply a legitimate `SEC_USER_AGENT` before running. It also uses existing local GLEIF SQLite files. If SEC returns no filings, the L2 provider may still emit evidence. The report is NOT a new event-recall score.
 
 **Still pending**: local test verification and live output inspection; historical GLEIF source period-flattening repair; full typed CIK–LEI crosswalk persisted outside fact metadata; differentiated direct/ultimate relationship time history; evidence-driven transaction lead generation beyond explicitly matched SEC counterparties. In particular, independent L2 rows alone are not M&A claims, even when the direct and ultimate parent LEIs agree.
+
+## Bidirectional research slice (2026-11-27)
+
+`code/ma_bidirectional.py` adds bounded GLEIF-to-SEC research *probes*.
+The integrated CLI now accepts `--gleif-sec-probes N` (default **0** to avoid unexpected EDGAR network traffic or fanout).
+
+- Group direct and ultimate accounting relationships by exact counterparty LEI. Each unique LEI becomes at most one SEC probe, even if two L2 records exist.
+- Only evidence facts anchored to the current research seed and with non-invalid relationship periods become leads. Prefer legal entities consolidated by the seed; display how many leads were deferred by the configured probe budget. Probe order is deterministic, **not** a confidence-ranked transaction prediction.
+- A probe is a temporary, nonpivot `LEGAL_ENTITY` fact fed to the *existing* SEC extractor, not a trusted recursive expansion. No SEC parser modifications and no automatic company trust/pivot or ASM attribution.
+- An event counts as a provisional pair match only when the SEC extractor identifies the exact original seed as the counterparty, with an M&A-class event type and a matching filing-pivot identity. No SEC result is **not proof** of no transaction, particularly for private firms.
+- Return a separate `gleif_to_sec_research` report in the CLI JSON. Both the positive and negative outcomes are explicitly research-only; no event date is synthesized from GLEIF effective/start/accounting dates.
+- `tests/test_ma_bidirectional.py` covers pair matching, wrong counterparty, wrong filing pivot, missing SEC data, event-type gate, max-probe budget/deduplication and disabled default.
+
+Verification (requires user's local GLEIF SQLite and optional live EDGAR network; set `SEC_USER_AGENT` to a real identifying value):
+
+```bash
+git pull --ff-only
+python3 -m unittest discover -s tests -p 'test_ma_bidirectional.py' -v
+python3 -m unittest discover -s tests -p 'test_ma_cross_source_integration.py' -v
+
+python3 code/run_company_ma_expansion.py \
+  --company "Bayer Aktiengesellschaft" \
+  --max-iterations 1 \
+  --max-gleif-edges 30 \
+  --gleif-sec-probes 2 \
+  --as-of 2026-11-26 \
+  --json > data/eval_study/bayer_reverse_discovery_v1.json
+```
+
+**Limitations:** This first bounded probe does not yet use a typed SEC CIK–LEI index, so historical/delisted companies can lack CIK lookup and produce an empty SEC response. It doesn't fix the known period flattening in the GLEIF importer. `AGREED_TO_ACQUIRE` with a parser-emitted `COMPLETED` status needs separate stage-consistency handling; a pair match alone is not transaction confirmation. For large parent companies, the first N leads are determined by alphabetical order after direction and publication status, not by likely M&A relevance. The earlier graph still fetches the first capped L2 rows, which can bias coverage; improvement to evidence-aware/fair pagination is a subsequent step.
