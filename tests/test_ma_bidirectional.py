@@ -8,7 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "code"))
 
 from iterative_expansion import HelixFact
-from ma_bidirectional import investigate_l2_leads
+from ma_bidirectional import investigate_l2_leads, transaction_stage
 from providers.gleif_relationship_provider import EDGE_FACT_TYPE
 
 
@@ -238,6 +238,66 @@ class ReverseDiscoveryTests(unittest.TestCase):
             edgar_provider=lambda p,n: [], max_probes=0,
         )
         self.assertEqual(report["leads"][0]["parent_sec_events"], [])
+
+    def test_monsanto_child_seed_parent_first_no_sibling_fanout(self):
+        monsanto = HelixFact(
+            fact_type="COMPANY", value="Monsanto Company",
+            source="SEED", confidence="HIGH", status="ACCEPTED",
+            pivot_eligible=True,
+            metadata={"identifiers": {"lei": "LEI-MONSANTO"}},
+        )
+        parent_edge = edge("Monsanto Company", "LEI-MONSANTO")
+        parent_edge.metadata["identity_anchor_lei"] = "LEI-MONSANTO"
+        sibling = edge("A Sibling LLC", "LEI-SIBLING")
+        sibling.metadata["identity_anchor_lei"] = "LEI-BAYER"
+        sibling.metadata["discovered_from"] = "Bayer Aktiengesellschaft"
+        # The real SEC event was filed by MONSANTO, not its parent.
+        event = sec_fact("Bayer Aktiengesellschaft",
+                         pivot="Monsanto Company")
+        calls = []
+        def sec(p,n):
+            calls.append(p.value)
+            return []
+        report = investigate_l2_leads(
+            seed=monsanto, facts=[parent_edge, sibling, event],
+            edgar_provider=sec, max_probes=1,
+        )
+        self.assertEqual(report["leads_found"], 1)
+        self.assertEqual(report["leads_probed"], 1)
+        self.assertEqual(calls, ["Bayer Aktiengesellschaft"])
+        lead = report["leads"][0]
+        self.assertEqual(lead["direction"], "SEED_IS_CHILD")
+        self.assertEqual(lead["seed_filing_source_role"], "ACQUIRED_COMPANY_FILER")
+        self.assertEqual(lead["seed_filing_events"][0]["source"],
+                         "SEC_ACQUIRED_COMPANY_FILING")
+        self.assertEqual(lead["parent_sec_events"], [])
+        self.assertEqual(lead["seed_filing_decision"],
+                         "SEC_SEED_TRANSACTION_CANDIDATE_REVIEW")
+
+    def test_agreement_is_not_completion_even_with_parser_completed(self):
+        agreement = {"event_type": "AGREED_TO_ACQUIRE", "status": "COMPLETED"}
+        closed = {"event_type": "ACQUIRED", "status": "COMPLETED"}
+        self.assertEqual(transaction_stage(agreement), "AGREEMENT_NOT_CLOSING")
+        self.assertEqual(transaction_stage(closed),
+                         "COMPLETION_CANDIDATE_REVIEW")
+        self.assertEqual(transaction_stage({"event_type": "MERGED_WITH"}),
+                         "TRANSACTION_STAGE_UNDETERMINED")
+
+    def test_parent_seed_filing_stays_labeled_parent(self):
+        parent_event = sec_fact("Monsanto Company",
+                                pivot="Bayer Aktiengesellschaft")
+        report = investigate_l2_leads(
+            seed=seed(),
+            facts=[edge("Monsanto Company", "LEI-MONSANTO"), parent_event],
+            edgar_provider=lambda p,n: [], max_probes=0,
+        )
+        lead = report["leads"][0]
+        self.assertEqual(lead["seed_filing_source_role"],
+                         "ACQUIRING_PARENT_FILER")
+        self.assertEqual(lead["parent_sec_events"][0]["source"],
+                         "SEC_ACQUIRING_PARENT_FILING")
+        self.assertEqual(lead["parent_sec_events"][0]["filing_source_role"],
+                         "PARENT_FILER")
 
     def test_disabled_never_calls_sec(self):
         def sec(p,n):
