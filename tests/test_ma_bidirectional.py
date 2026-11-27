@@ -299,6 +299,31 @@ class ReverseDiscoveryTests(unittest.TestCase):
         self.assertEqual(lead["parent_sec_events"][0]["filing_source_role"],
                          "PARENT_FILER")
 
+    def test_missing_seed_lei_recovers_only_exact_anchored_name(self):
+        # Older callers supply a seed without metadata.identifiers. A
+        # sibling edge from a different anchor cannot become the seed.
+        valid = edge("Monsanto Company", "LEI-MONSANTO")
+        sibling = edge("Unrelated Inc.", "LEI-UNRELATED")
+        sibling.metadata["identity_anchor_lei"] = "LEI-UNRELATED"
+        sibling.metadata["discovered_from"] = "Bayer Aktiengesellschaft"
+        report = investigate_l2_leads(
+            seed=seed(), facts=[valid, sibling],
+            edgar_provider=lambda p,n: [], max_probes=0,
+        )
+        self.assertEqual(report["leads_found"], 1)
+        self.assertEqual(report["leads"][0]["related_name"], "Monsanto Company")
+
+    def test_ambiguous_seed_anchor_fails_closed(self):
+        bad = edge("Monsanto Company", "LEI-MONSANTO")
+        bad.metadata["parent"]["lei"] = "LEI-OTHER-BAYER"
+        bad.metadata["identity_anchor_lei"] = "LEI-OTHER-BAYER"
+        report = investigate_l2_leads(
+            seed=seed(), facts=[edge("Monsanto Company", "LEI-MONSANTO"), bad],
+            edgar_provider=lambda p,n: [], max_probes=1,
+        )
+        self.assertEqual(report["leads_found"], 0)
+        self.assertEqual(report["leads_probed"], 0)
+
     def test_disabled_never_calls_sec(self):
         def sec(p,n):
             self.fail("SEC must not run when probes disabled")
