@@ -294,6 +294,7 @@ def main():
     unsupported = 0
     incomplete = 0
     batch = []
+    period_batch = []
 
     started = time.time()
 
@@ -318,6 +319,7 @@ def main():
                 incomplete += 1
                 continue
 
+            entries = relationship_period_entries(rel)
             periods = relationship_periods(rel)
 
             relationship_period = periods.get(
@@ -361,15 +363,31 @@ def main():
                     _v(reg, "ValidationReference"),
 
                     os.path.basename(args.zip),
+                    json.dumps(rr, ensure_ascii=False, separators=(',', ':')),
+                    os.path.basename(args.zip),
+                    os.path.basename(args.zip),
                 )
             )
 
+            for entry in entries:
+                period_batch.append((
+                    child_lei, parent_lei, relationship_type,
+                    entry["ordinal"], entry["type"],
+                    entry["start"], entry["end"],
+                    json.dumps(entry["raw"], ensure_ascii=False, separators=(',', ':')),
+                    os.path.basename(args.zip),
+                ))
             indexed += 1
 
             if len(batch) >= args.batch_size:
                 conn.executemany(UPSERT, batch)
+                conn.executemany("""INSERT INTO relationship_periods
+                    (child_lei,parent_lei,relationship_type,period_ordinal,
+                     period_type,start_date,end_date,raw_period_json,source_file)
+                    VALUES (?,?,?,?,?,?,?,?,?)""", period_batch)
                 conn.commit()
                 batch.clear()
+                period_batch.clear()
 
             if args.progress_every and scanned % args.progress_every == 0:
                 elapsed = time.time() - started
@@ -386,10 +404,17 @@ def main():
 
         if batch:
             conn.executemany(UPSERT, batch)
+            conn.executemany("""INSERT INTO relationship_periods
+                (child_lei,parent_lei,relationship_type,period_ordinal,
+                 period_type,start_date,end_date,raw_period_json,source_file)
+                VALUES (?,?,?,?,?,?,?,?,?)""", period_batch)
             conn.commit()
 
         create_lookup_indexes(conn)
 
+        write_metadata(conn, "period_schema_version", "2")
+        write_metadata(conn, "raw_records_preserved", "true")
+        write_metadata(conn, "snapshot_lineage", "single_snapshot_rebuild")
         write_metadata(conn, "records_scanned", scanned)
         write_metadata(conn, "records_indexed_supported", indexed)
         write_metadata(conn, "records_unsupported", unsupported)
