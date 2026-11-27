@@ -111,6 +111,11 @@ def main() -> int:
         args.lei_index, args.rr_index, as_of_date=args.as_of,
         max_edges=args.max_gleif_edges,
     )
+    # Anchor the root's exact legal-name LEI before the SEC provider runs.
+    # A GLEIF parent relationship is not itself an SEC filing identity.
+    seed_lei = gleif._resolve_exact_lei(seed)
+    if seed_lei:
+        seed.metadata["identifiers"]["lei"] = seed_lei
     result, integration = run_integrated(
         seed, edgar, gleif, max_iterations=args.max_iterations,
         max_sec_candidates=args.max_sec_candidates,
