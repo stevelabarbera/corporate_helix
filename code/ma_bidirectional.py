@@ -19,6 +19,16 @@ TRANSACTION_TYPES = {
 }
 
 
+def transaction_stage(event: dict[str, Any]) -> str:
+    """Derive transaction stage without trusting legacy parser status."""
+    kind = event.get("event_type")
+    if kind == "AGREED_TO_ACQUIRE":
+        return "AGREEMENT_NOT_CLOSING"
+    if kind in ("ACQUIRED", "COMPLETED_ACQUISITION"):
+        return "COMPLETION_CANDIDATE_REVIEW"
+    return "TRANSACTION_STAGE_UNDETERMINED"
+
+
 def _sec_pair_event(sec_fact: HelixFact, investigated: str, root: str) -> list[dict[str, Any]]:
     """SEC counterparty output must name our exact other legal entity.
 
@@ -35,6 +45,8 @@ def _sec_pair_event(sec_fact: HelixFact, investigated: str, root: str) -> list[d
             "document_url": ev.get("document_url"),
             "event_type": ev.get("event_type"),
             "event_status": ev.get("status"),
+            "normalized_transaction_stage": transaction_stage(ev),
+            "filing_source_role": "RELATED_ENTITY_FILER",
             "extraction_rule": ev.get("extraction_rule"),
             "source_text": ev.get("source_text"),
         }
@@ -45,8 +57,8 @@ def _sec_pair_event(sec_fact: HelixFact, investigated: str, root: str) -> list[d
     ]
 
 
-def _parent_side_events(facts: list[HelixFact], seed_name: str,
-                        target_name: str) -> list[dict[str, Any]]:
+def _seed_filing_events(facts: list[HelixFact], seed_name: str,
+                        target_name: str, direction: str) -> list[dict[str, Any]]:
     """Use existing parent SEC filing extraction to link a specific child.
 
     The parent seed is already queried by run_expansion. This does not
@@ -65,13 +77,17 @@ def _parent_side_events(facts: list[HelixFact], seed_name: str,
                     and evidence.get("event_type") in TRANSACTION_TYPES
                     and normalize_name(evidence.get("pivot_name") or "") == normalize_name(seed_name)):
                 hits.append({
-                    "source": "SEC_PARENT_FILING",
+                    "source": ("SEC_ACQUIRING_PARENT_FILING" if direction == "SEED_IS_PARENT"
+                               else "SEC_ACQUIRED_COMPANY_FILING"),
+                    "filing_source_role": ("PARENT_FILER" if direction == "SEED_IS_PARENT"
+                                           else "CHILD_FILER"),
                     "filing_pivot": seed_name,
                     "accession": evidence.get("accession"),
                     "filing_date": evidence.get("filing_date"),
                     "document_url": evidence.get("document_url"),
                     "event_type": evidence.get("event_type"),
                     "event_status": evidence.get("status"),
+                    "normalized_transaction_stage": transaction_stage(evidence),
                     "source_text": evidence.get("source_text"),
                     "decision": "REVIEW_ONLY_NOT_TRANSACTION_CONFIRMATION",
                 })
@@ -89,7 +105,20 @@ def investigate_l2_leads(
     imply that GLEIF relationship effective date equals acquisition date.
     """
     max_probes = max(0, int(max_probes))
-    edges = [x for x in facts if x.fact_type == EDGE_FACT_TYPE]
+    # SEC candidate enrichment may add sibling edges: never treat these
+    # as research leads for the original seed.
+    seed_lei = (seed.metadata.get("identifiers") or {}).get("lei")
+    seed_lei = seed_lei or next((
+        e.metadata.get("identity_anchor_lei") for e in facts
+        if e.fact_type == EDGE_FACT_TYPE
+        and normalize_name(e.metadata.get("discovered_from") or "") == normalize_name(seed.value)
+    ), None)
+    edges = [
+        e for e in facts if e.fact_type == EDGE_FACT_TYPE
+        and e.metadata.get("identity_anchor_lei") == seed_lei
+        and (e.metadata.get("child", {}).get("lei") == seed_lei
+             or e.metadata.get("parent", {}).get("lei") == seed_lei)
+    ]
     # Prioritize entities consolidated by the seed (potential acquisition
     # targets), then earlier relationship starts; preserve stable record order.
     leads = {}
@@ -122,6 +151,7 @@ def investigate_l2_leads(
             "decision": "NOT_PROBED",
             "sec_events": [],
             "parent_sec_events": [],
+            "seed_filing_events": [],
         })
         if edge.value not in lead["relationship_fact_keys"]:
             lead["relationship_fact_keys"].append(edge.value)
@@ -134,24 +164,37 @@ def investigate_l2_leads(
 
     # Deterministic research priority, not acquisition-date inference.
     ranked = sorted(leads.values(), key=lambda x: (
-        0 if x["direction"] == "SEED_IS_PARENT" else 1,
+        0 if x["direction"] == "SEED_IS_CHILD" else 1,
         0 if any(x["eligible_by_current_snapshot"]) else 1,
         0 if "PUBLISHED" in x["registration_statuses"] else 1,
         -max((int(d[:4]) for d in x["relationship_dates"] if d[:4].isdigit()), default=0),
         x["related_name"].casefold(),
     ))
     for lead in ranked:
-        lead["parent_sec_events"] = _parent_side_events(
-            facts, seed.value, lead["related_name"]
+        matches = _seed_filing_events(
+            facts, seed.value, lead["related_name"], lead["direction"]
+        )
+        lead["seed_filing_events"] = matches
+        lead["seed_filing_source_role"] = (
+            "ACQUIRED_COMPANY_FILER" if lead["direction"] == "SEED_IS_CHILD"
+            else "ACQUIRING_PARENT_FILER"
+        )
+        # Compatibility field: never label a child's filings as parent's.
+        lead["parent_sec_events"] = (
+            matches if lead["direction"] == "SEED_IS_PARENT" else []
         )
         lead["parent_side_decision"] = (
             "SEC_PARENT_TRANSACTION_CANDIDATE_REVIEW"
             if lead["parent_sec_events"]
             else "NO_PARENT_SIDE_PAIR_EVENT_IN_CURRENT_GRAPH"
         )
+        lead["seed_filing_decision"] = (
+            "SEC_SEED_TRANSACTION_CANDIDATE_REVIEW"
+            if matches else "NO_SEED_FILING_PAIR_EVENT_IN_CURRENT_GRAPH"
+        )
     for idx, lead in enumerate(ranked, 1):
         lead["research_priority"] = idx
-        lead["priority_basis"] = "DIRECTION_CURRENT_ELIGIBILITY_REGISTRATION_RELATIONSHIP_RECENCY"
+        lead["priority_basis"] = "DIRECT_PARENT_FIRST_THEN_CURRENT_ELIGIBILITY_REGISTRATION_RECENCY"
     attempted = ranked[:max_probes]
     for lead in attempted:
         probe = HelixFact(
@@ -212,5 +255,7 @@ def investigate_l2_leads(
             "probe_results_pivot_eligible": False,
             "no_sec_result_excludes_acquisition": False,
             "parent_side_sec_evidence_is_review_only": True,
+            "seed_filing_evidence_is_review_only": True,
+            "indirect_family_edges_excluded": True,
         },
     }
