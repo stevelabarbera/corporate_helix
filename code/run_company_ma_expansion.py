@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -18,11 +19,14 @@ from iterative_expansion import HelixFact
 from providers.edgar_ma_provider import EdgarMAExpansionProvider
 from providers.gleif_relationship_provider import GleifRelationshipEvidenceProvider
 from ma_cross_source import run_integrated
+from providers.edgar_resolver import fetch_ma_filings, resolve_cik_by_name
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--company", required=True)
+    ap.add_argument("--cik", default=None, help="SEC CIK for delisted issuers")
+    ap.add_argument("--sec-user-agent", default=os.environ.get("SEC_USER_AGENT"))
     ap.add_argument("--lei-index", default="data/processed/gleif_lei.sqlite")
     ap.add_argument("--rr-index", default="data/processed/gleif_rr.sqlite")
     ap.add_argument("--max-iterations", type=int, default=10)
@@ -34,11 +38,25 @@ def main() -> int:
     args = ap.parse_args()
 
     seed = HelixFact(
-        fact_type="COMPANY", value=args.company, identifier=None,
+        fact_type="COMPANY", value=args.company, identifier=args.cik,
         source="SEED", confidence="HIGH", status="ACCEPTED",
         pivot_eligible=True,
+        metadata={"identifiers": {"cik": args.cik}},
     )
-    edgar = EdgarMAExpansionProvider()
+    if args.sec_user_agent:
+        def fetch(pivot):
+            cik = (
+                pivot.metadata.get("identifiers", {}).get("cik")
+                or (pivot.identifier if (pivot.identifier or "").isdigit()
+                    and len(pivot.identifier) <= 10 else None)
+                or resolve_cik_by_name(pivot.value, args.sec_user_agent)
+            )
+            return fetch_ma_filings(cik, args.sec_user_agent) if cik else None
+        edgar = EdgarMAExpansionProvider(fetch_filings_fn=fetch)
+    else:
+        edgar = EdgarMAExpansionProvider()
+        print("WARNING: SEC_USER_AGENT missing; SEC requests may be rejected.",
+              file=sys.stderr)
     gleif = GleifRelationshipEvidenceProvider(
         args.lei_index, args.rr_index, as_of_date=args.as_of,
         max_edges=args.max_gleif_edges,
