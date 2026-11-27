@@ -85,6 +85,7 @@ def investigate_l2_leads(
             "relationship_fact_keys": [],
             "relationship_dates": [],
             "registration_statuses": [],
+            "eligible_by_current_snapshot": [],
             "decision": "NOT_PROBED",
             "sec_events": [],
         })
@@ -94,15 +95,20 @@ def investigate_l2_leads(
             lead["relationship_dates"].append(ev["relationship_start"])
         if ev.get("registration_status"):
             lead["registration_statuses"].append(ev["registration_status"])
+        if "eligible_by_current_snapshot_as_of" in ev:
+            lead["eligible_by_current_snapshot"].append(bool(ev["eligible_by_current_snapshot_as_of"]))
 
-    ranked = sorted(
-        leads.values(),
-        key=lambda x: (
-            0 if x["direction"] == "SEED_IS_PARENT" else 1,
-            0 if "PUBLISHED" in x["registration_statuses"] else 1,
-            x["related_name"].casefold(),
-        ),
-    )
+    # Deterministic research priority, not acquisition-date inference.
+    ranked = sorted(leads.values(), key=lambda x: (
+        0 if x["direction"] == "SEED_IS_PARENT" else 1,
+        0 if any(x["eligible_by_current_snapshot"]) else 1,
+        0 if "PUBLISHED" in x["registration_statuses"] else 1,
+        -max((int(d[:4]) for d in x["relationship_dates"] if d[:4].isdigit()), default=0),
+        x["related_name"].casefold(),
+    ))
+    for idx, lead in enumerate(ranked, 1):
+        lead["research_priority"] = idx
+        lead["priority_basis"] = "DIRECTION_CURRENT_ELIGIBILITY_REGISTRATION_RELATIONSHIP_RECENCY"
     attempted = ranked[:max_probes]
     for lead in attempted:
         probe = HelixFact(
@@ -121,6 +127,19 @@ def investigate_l2_leads(
         except Exception as exc:
             lead["decision"] = "SEC_PROBE_ERROR"
             lead["error"] = f"{type(exc).__name__}: {exc}"
+            lead["sec_probe"] = dict(probe.metadata.get("sec_probe") or {})
+            continue
+        coverage = probe.metadata.get("sec_probe")
+        lead["sec_probe"] = dict(coverage) if coverage else {
+            "status": "UNKNOWN_PROVIDER_COVERAGE",
+            "cik": None, "filings_retrieved": None, "sections_retrieved": None,
+        }
+        status = lead["sec_probe"]["status"]
+        if status == "NO_SEC_IDENTITY":
+            lead["decision"] = "NO_SEC_IDENTITY"
+            continue
+        if status == "NO_SEC_FILINGS":
+            lead["decision"] = "NO_SEC_FILINGS_RETRIEVED"
             continue
         matches = []
         for sec_fact in sec_facts:
@@ -131,7 +150,11 @@ def investigate_l2_leads(
             lead["decision"] = "SEC_TRANSACTION_CANDIDATE_FOUND_REVIEW"
             lead["sec_events"] = matches
         else:
-            lead["decision"] = "NO_SEC_PAIR_EVENT_FOUND_NOT_NEGATIVE_PROOF"
+            lead["decision"] = (
+                "SEC_FILINGS_EXAMINED_NO_PAIR_EVENT"
+                if status == "FILINGS_RETRIEVED"
+                else "NO_SEC_PAIR_EVENT_FOUND_COVERAGE_UNKNOWN"
+            )
     return {
         "leads_found": len(ranked),
         "leads_probed": len(attempted),
