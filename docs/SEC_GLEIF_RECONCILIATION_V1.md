@@ -156,3 +156,16 @@ python3 code/run_company_ma_expansion.py \
 ```
 
 **Limitations:** This first bounded probe does not yet use a typed SEC CIK–LEI index, so historical/delisted companies can lack CIK lookup and produce an empty SEC response. It doesn't fix the known period flattening in the GLEIF importer. `AGREED_TO_ACQUIRE` with a parser-emitted `COMPLETED` status needs separate stage-consistency handling; a pair match alone is not transaction confirmation. For large parent companies, the first N leads are determined by alphabetical order after direction and publication status, not by likely M&A relevance. The earlier graph still fetches the first capped L2 rows, which can bias coverage; improvement to evidence-aware/fair pagination is a subsequent step.
+
+## Reverse SEC coverage diagnostics and lead ordering (2026-11-27)
+
+The Bayer reverse run (30 L2 rows, 15 distinct companies, 2 attempted probes) showed that the old `NO_SEC_PAIR_EVENT_FOUND_NOT_NEGATIVE_PROOF` outcome conflated missing CIK, no selected filings and actual parser search. The CLI now captures on each probe:
+
+- `sec_probe.status`: `NO_SEC_IDENTITY`, `NO_SEC_FILINGS`, `NO_SEC_SECTIONS`, `FILINGS_RETRIEVED`, or `CIK_RESOLVED_FETCH_PENDING` if fetching throws; `UNKNOWN_PROVIDER_COVERAGE` for injected providers that do not provide telemetry.
+- `sec_probe.cik`, `identity_method`, `filings_retrieved`, and `sections_retrieved`; the last field counts selected SEC filing sections/locator regions, **not** successful extraction or all EDGAR submissions.
+- `decision`: `NO_SEC_IDENTITY`, `NO_SEC_FILINGS_RETRIEVED`, `NO_SEC_SECTIONS_RETRIEVED`, `SEC_FILINGS_EXAMINED_NO_PAIR_EVENT`, `NO_SEC_PAIR_EVENT_FOUND_COVERAGE_UNKNOWN`, `SEC_TRANSACTION_CANDIDATE_FOUND_REVIEW`, or `SEC_PROBE_ERROR`.
+- `research_priority` and `priority_basis` now sort deterministic candidates by seed-as-parent, current eligibility where available, PUBLISHED registration, **newer relationship period start**, then legal name. Date ordering is a research heuristic only; it does **not** assert when an acquisition happened.
+
+The current CIK name resolver still primarily searches SEC's tickers index; it is not sufficient for private, delisted or many foreign issuers. A CIK lookup miss is now observable rather than silently reported as zero transaction events. The old alphabetical selection behavior is superseded; results from the same `--max-gleif-edges` cap can still be unrepresentative because the L2 query first sorts by child LEI. The GLEIF historical period importer remains a separate unresolved correctness task.
+
+Targeted tests extended in `tests/test_ma_bidirectional.py`. Verify on local Mac, then repeat the Bayer command with the same options to compare the new stage-specific outcomes. A real `SEC_USER_AGENT` is needed for reliable live EDGAR access.
