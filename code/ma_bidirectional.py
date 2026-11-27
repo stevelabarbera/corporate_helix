@@ -141,6 +141,9 @@ def investigate_l2_leads(
         if status == "NO_SEC_FILINGS":
             lead["decision"] = "NO_SEC_FILINGS_RETRIEVED"
             continue
+        if status == "NO_SEC_SECTIONS":
+            lead["decision"] = "NO_SEC_SECTIONS_RETRIEVED"
+            continue
         matches = []
         for sec_fact in sec_facts:
             matches.extend(_sec_pair_event(
