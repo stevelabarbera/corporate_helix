@@ -20,7 +20,8 @@ from providers.edgar_ma_provider import EdgarMAExpansionProvider
 from providers.gleif_relationship_provider import GleifRelationshipEvidenceProvider
 from ma_cross_source import run_integrated
 from ma_bidirectional import investigate_l2_leads
-from providers.edgar_resolver import fetch_ma_filings, resolve_cik_by_name
+from providers.edgar_resolver import fetch_ma_filings
+from sec_identity_bridge import resolve_sec_identity, normalize_cik
 
 
 def main() -> int:
@@ -29,6 +30,8 @@ def main() -> int:
     ap.add_argument("--cik", default=None, help="SEC CIK for delisted issuers")
     ap.add_argument("--sec-user-agent", default=os.environ.get("SEC_USER_AGENT"))
     ap.add_argument("--lei-index", default="data/processed/gleif_lei.sqlite")
+    ap.add_argument("--sec-cik-crosswalk", default=None,
+                    help="Audited CSV: lei,cik,verification_status,evidence_url")
     ap.add_argument("--rr-index", default="data/processed/gleif_rr.sqlite")
     ap.add_argument("--max-iterations", type=int, default=10)
     ap.add_argument("--max-gleif-edges", type=int, default=150)
@@ -62,16 +65,30 @@ def main() -> int:
             "sections_retrieved": 0,
         }
         pivot.metadata["sec_probe"] = diagnostics
-        supplied = pivot.metadata.get("identifiers", {}).get("cik")
+        identifiers = pivot.metadata.get("identifiers") or {}
+        supplied = normalize_cik(identifiers.get("cik"))
+        identifier = normalize_cik(pivot.identifier)
         if supplied:
-            cik = str(supplied)
+            cik = supplied
             diagnostics["identity_method"] = "EXPLICIT_CIK"
-        elif (pivot.identifier or "").isdigit() and len(pivot.identifier) <= 10:
-            cik = pivot.identifier
+            diagnostics["identity_status"] = "USER_SUPPLIED_CIK"
+        elif identifier:
+            cik = identifier
             diagnostics["identity_method"] = "IDENTIFIER_CIK"
+            diagnostics["identity_status"] = "EXPLICIT_IDENTIFIER_CIK"
         else:
-            cik = resolve_cik_by_name(pivot.value, agent)
-            diagnostics["identity_method"] = "SEC_TICKERS_EXACT_NAME"
+            resolved = resolve_sec_identity(
+                pivot.value, identifiers.get("lei"), agent,
+                crosswalk_path=args.sec_cik_crosswalk,
+            )
+            cik = resolved.get("cik")
+            diagnostics.update({
+                "identity_method": resolved.get("identity_method"),
+                "identity_status": resolved["status"],
+                "identity_verified_lei_cik": resolved.get("identity_verified_lei_cik", resolved["status"] == "VERIFIED_CROSSWALK"),
+                "crosswalk_status": resolved.get("crosswalk_status"),
+                "identity_evidence_url": resolved.get("identity_evidence_url"),
+            })
         if not cik:
             return None
         diagnostics["cik"] = str(cik).zfill(10)
