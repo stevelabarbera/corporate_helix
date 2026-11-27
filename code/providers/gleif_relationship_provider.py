@@ -46,7 +46,7 @@ def typed_pivot_lei(pivot: HelixFact) -> str | None:
 
 
 def edge_fact(row: dict[str, Any], *, pivot: HelixFact, as_of: date,
-              names: dict[str, str | None]) -> HelixFact:
+              names: dict[str, str | None], anchor_lei: str) -> HelixFact:
     child, parent = row["child_lei"], row["parent_lei"]
     relation = row["relationship_type"]
     applicable = _relationship_applies_now(row, as_of)
@@ -96,7 +96,7 @@ def edge_fact(row: dict[str, Any], *, pivot: HelixFact, as_of: date,
             "child": {"lei": child, "legal_name": names.get(child)},
             "parent": {"lei": parent, "legal_name": names.get(parent)},
             "relationship_type": relation,
-            "identity_anchor_lei": typed_pivot_lei(pivot),
+            "identity_anchor_lei": anchor_lei,
             "discovered_from": pivot.value,
             "review_reason": "ACCOUNTING_RELATIONSHIP_NOT_MA_EVENT",
             "infrastructure_attribution_confidence": "UNKNOWN",
@@ -134,9 +134,10 @@ class GleifRelationshipEvidenceProvider:
 
     def _resolve_exact_lei(self, pivot: HelixFact) -> str | None:
         explicit = typed_pivot_lei(pivot)
-        if explicit:
-            return explicit
         key = normalize_name(pivot.value)
+        if explicit:
+            self._identity_cache[key] = explicit
+            return explicit
         if key not in self._identity_cache:
             result = self.resolve_fn(
                 pivot.value, self.lei_index, self.rr_index,
@@ -192,5 +193,6 @@ class GleifRelationshipEvidenceProvider:
             "returned_edges": len(rows),
             "max_edges": self.max_edges,
         })
-        return [edge_fact(dict(row), pivot=pivot, as_of=self.as_of, names=names)
+        return [edge_fact(dict(row), pivot=pivot, as_of=self.as_of, names=names,
+                          anchor_lei=lei)
                 for row in rows]
