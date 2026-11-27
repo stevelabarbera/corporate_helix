@@ -108,11 +108,24 @@ def investigate_l2_leads(
     # SEC candidate enrichment may add sibling edges: never treat these
     # as research leads for the original seed.
     seed_lei = (seed.metadata.get("identifiers") or {}).get("lei")
-    seed_lei = seed_lei or next((
-        e.metadata.get("identity_anchor_lei") for e in facts
-        if e.fact_type == EDGE_FACT_TYPE
-        and normalize_name(e.metadata.get("discovered_from") or "") == normalize_name(seed.value)
-    ), None)
+    if not seed_lei:
+        # Research fixtures and older consumers need not supply a typed LEI.
+        # Recover it ONLY from an edge whose original identity anchor points
+        # to an endpoint bearing the seed's exact normalized legal name.
+        # SEC-enriched siblings cannot authorize a seed identity by proximity.
+        anchors = {
+            anchor
+            for e in facts if e.fact_type == EDGE_FACT_TYPE
+            for anchor in [e.metadata.get("identity_anchor_lei")]
+            if anchor and any(
+                endpoint.get("lei") == anchor
+                and normalize_name(endpoint.get("legal_name") or "")
+                    == normalize_name(seed.value)
+                for endpoint in (e.metadata.get("child") or {},
+                                 e.metadata.get("parent") or {})
+            )
+        }
+        seed_lei = next(iter(anchors)) if len(anchors) == 1 else None
     edges = [
         e for e in facts if e.fact_type == EDGE_FACT_TYPE
         and e.metadata.get("identity_anchor_lei") == seed_lei
