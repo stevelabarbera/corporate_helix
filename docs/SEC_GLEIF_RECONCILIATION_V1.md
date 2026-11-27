@@ -169,3 +169,23 @@ The Bayer reverse run (30 L2 rows, 15 distinct companies, 2 attempted probes) sh
 The current CIK name resolver still primarily searches SEC's tickers index; it is not sufficient for private, delisted or many foreign issuers. A CIK lookup miss is now observable rather than silently reported as zero transaction events. The old alphabetical selection behavior is superseded; results from the same `--max-gleif-edges` cap can still be unrepresentative because the L2 query first sorts by child LEI. The GLEIF historical period importer remains a separate unresolved correctness task.
 
 Targeted tests extended in `tests/test_ma_bidirectional.py`. Verify on local Mac, then repeat the Bayer command with the same options to compare the new stage-specific outcomes. A real `SEC_USER_AGENT` is needed for reliable live EDGAR access.
+
+## SEC identity crosswalk and parent-side filing evidence (2026-11-27)
+
+The Bayer v2 run proved that zero filings were examined: both selected GLEIF subsidiaries were `NO_SEC_IDENTITY`, as was the Bayer parent seed. We now add two **conservative** capabilities:
+
+1. `code/sec_identity_bridge.py` supports an **optional audited CSV**, selected with `--sec-cik-crosswalk PATH`. Required columns: `lei,cik,verification_status,evidence_url`. An exact LEI is used to retrieve a CIK only if `verification_status=VERIFIED`, its evidence URL is present and HTTP(S), the CIK parses to 1–10 digits, and no row for that LEI presents a conflicting valid CIK. The URL is a cited claim supplied by a curator; **the loader does not independently verify URL content**. Ambiguous LEI mappings resolve to no CIK. All source and resolution-method fields are preserved in `sec_probe`. Without an audited entry, existing exact-name SEC ticker matching is still permitted **as a research candidate**, never as verified LEI–CIK equivalence. No fuzzy LEI–CIK joins are performed.
+2. `code/ma_bidirectional.py` correlates the **already extracted parent-seed SEC filings** against exact L1 names of GLEIF related companies, even when the child cannot file independently. This is recorded in `parent_sec_events` and `parent_side_decision`. It requires `EDGAR_MA` parser evidence, matching SEC filing pivot equal to the investigated parent, M&A-class event, and exact normalized child company name. The result remains `SEC_PARENT_TRANSACTION_CANDIDATE_REVIEW`, not confirmed M&A; no additional graph pivots and no ASM scope promotion. Parent-side investigation reuses the existing SEC root fetch and doesn't add an unbounded second network pass.
+
+To wire an audited parent CIK: include a row like `549300J4U55H3WP1XT59,0000000000,VERIFIED,https://...evidence...` **only after replacing the illustrative zeros with an independently verified actual CIK and a real supporting source**. Do not treat an asserted relationship as crosswalk verification. The root legal-name LEI is anchored before SEC retrieval, allowing the CSV to apply.
+
+Targeted local checks:
+```bash
+git pull --ff-only
+python3 -m py_compile code/sec_identity_bridge.py code/ma_bidirectional.py code/run_company_ma_expansion.py
+python3 -m unittest discover -s tests -p 'test_sec_identity_bridge.py' -v
+python3 -m unittest discover -s tests -p 'test_ma_bidirectional.py' -v
+python3 -m unittest discover -s tests -p 'test_ma_cross_source_integration.py' -v
+```
+
+Repeat the Bayer command with the same caps to compare results. If the parent still has `NO_SEC_IDENTITY`, that reflects the lack of an audited CIK, not a failure of the parent-side event match. There is no fabricated fallback CIK for Bayer, and no assumption that foreign public companies have SEC registrant identities. **Current scope excludes** historic CIK alias databases, automatically verified LEI–CIK links, content-level parent filing search for subsidiary aliases not extracted by the existing event parser, pagination/stratification of GLEIF L2 results, and GLEIF relationship period import repair.
