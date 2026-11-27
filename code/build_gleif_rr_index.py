@@ -44,8 +44,20 @@ CREATE TABLE IF NOT EXISTS relationships (
     validation_documents TEXT,
     validation_reference TEXT,
 
-    source_file TEXT
+    source_file TEXT,
+    raw_record_json TEXT,
+    first_seen_snapshot TEXT,
+    last_seen_snapshot TEXT
 );
+CREATE TABLE IF NOT EXISTS relationship_periods (
+    child_lei TEXT NOT NULL, parent_lei TEXT NOT NULL,
+    relationship_type TEXT NOT NULL,
+    period_ordinal INTEGER NOT NULL, period_type TEXT NOT NULL,
+    start_date TEXT, end_date TEXT,
+    raw_period_json TEXT NOT NULL, source_file TEXT NOT NULL,
+    PRIMARY KEY(child_lei,parent_lei,relationship_type,period_ordinal)
+);
+CREATE INDEX IF NOT EXISTS idx_period_relationship ON relationship_periods(child_lei,parent_lei,relationship_type);
 
 CREATE TABLE IF NOT EXISTS index_metadata (
     key TEXT PRIMARY KEY,
@@ -144,42 +156,29 @@ def records(path):
                         buf = []
 
 
-def relationship_periods(rel):
-    """
-    Return periods keyed by GLEIF PeriodType.
-
-    Example:
-        {
-            "RELATIONSHIP_PERIOD": (start, end),
-            "ACCOUNTING_PERIOD": (start, end),
-            "DOCUMENT_FILING_PERIOD": (start, end),
-        }
-    """
-    result = {}
-
+def relationship_period_entries(rel):
+    """Lossless typed periods with source ordering and duplicates."""
     container = rel.get("RelationshipPeriods") or {}
     periods = container.get("RelationshipPeriod") if isinstance(container, dict) else None
-
     if not periods:
-        return result
-
+        return []
     if isinstance(periods, dict):
         periods = [periods]
+    if not isinstance(periods, list):
+        raise ValueError("Malformed RelationshipPeriod container")
+    return [
+        {"ordinal": i, "type": _v(p, "PeriodType"),
+         "start": _v(p, "StartDate"), "end": _v(p, "EndDate"),
+         "raw": p}
+        for i, p in enumerate(periods) if isinstance(p, dict)
+    ]
 
-    for period in periods:
-        if not isinstance(period, dict):
-            continue
 
-        period_type = _v(period, "PeriodType")
-
-        if not period_type:
-            continue
-
-        result[period_type] = (
-            _v(period, "StartDate"),
-            _v(period, "EndDate"),
-        )
-
+def relationship_periods(rel):
+    """Legacy single-period projection (first occurrence only)."""
+    result = {}
+    for entry in relationship_period_entries(rel):
+        result.setdefault(entry["type"], (entry["start"], entry["end"]))
     return result
 
 
@@ -208,9 +207,12 @@ INSERT INTO relationships (
     validation_documents,
     validation_reference,
 
-    source_file
+    source_file,
+    raw_record_json,
+    first_seen_snapshot,
+    last_seen_snapshot
 )
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 
 ON CONFLICT(
     child_lei,
@@ -238,7 +240,9 @@ DO UPDATE SET
     validation_documents = excluded.validation_documents,
     validation_reference = excluded.validation_reference,
 
-    source_file = excluded.source_file
+    source_file = excluded.source_file,
+    raw_record_json = excluded.raw_record_json,
+    last_seen_snapshot = excluded.last_seen_snapshot
 """
 
 
