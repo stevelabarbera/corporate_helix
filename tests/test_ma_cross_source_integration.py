@@ -111,6 +111,10 @@ class CrossSourceTests(unittest.TestCase):
                             for x in edges))
         self.assertTrue(all(any(ev.get("type") == "SEC_GLEIF_CANDIDATE_ASSOCIATION"
                                 for ev in x.evidence) for x in edges))
+        stages = [ev["edgar_event_evidence"]["normalized_transaction_stage"]
+                  for edge in edges for ev in edge.evidence
+                  if ev.get("type") == "SEC_GLEIF_CANDIDATE_ASSOCIATION"]
+        self.assertEqual(set(stages), {"COMPLETION_CANDIDATE_REVIEW"})
         self.assertFalse(audit["policy"]["gleif_infers_acquisition"])
         self.assertEqual(result.iterations_run, 1)
 
