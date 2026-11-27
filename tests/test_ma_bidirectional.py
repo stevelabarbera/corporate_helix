@@ -85,7 +85,7 @@ class ReverseDiscoveryTests(unittest.TestCase):
         )
         self.assertEqual(
             result["leads"][0]["decision"],
-            "NO_SEC_PAIR_EVENT_FOUND_NOT_NEGATIVE_PROOF",
+            "NO_SEC_PAIR_EVENT_FOUND_COVERAGE_UNKNOWN",
         )
 
     def test_unrelated_event_does_not_count(self):
@@ -96,7 +96,7 @@ class ReverseDiscoveryTests(unittest.TestCase):
         )
         self.assertEqual(
             result["leads"][0]["decision"],
-            "NO_SEC_PAIR_EVENT_FOUND_NOT_NEGATIVE_PROOF",
+            "NO_SEC_PAIR_EVENT_FOUND_COVERAGE_UNKNOWN",
         )
 
     def test_missing_or_wrong_pivot_does_not_count(self):
@@ -129,6 +129,82 @@ class ReverseDiscoveryTests(unittest.TestCase):
         monsanto=next(x for x in result["leads"]
                      if x["related_name"]=="Monsanto Company")
         self.assertEqual(len(monsanto["relationship_fact_keys"]),2)
+
+    def test_no_cik_is_distinct_from_no_transaction(self):
+        def no_cik(p, n):
+            p.metadata["sec_probe"] = {
+                "status": "NO_SEC_IDENTITY", "cik": None,
+                "filings_retrieved": 0, "sections_retrieved": 0,
+            }
+            return []
+        result = investigate_l2_leads(
+            seed=seed(), facts=[edge("Monsanto Company", "LEI-MONSANTO")],
+            edgar_provider=no_cik, max_probes=1,
+        )
+        lead = result["leads"][0]
+        self.assertEqual(lead["decision"], "NO_SEC_IDENTITY")
+        self.assertIsNone(lead["sec_probe"]["cik"])
+
+    def test_cik_found_but_no_filings(self):
+        def empty(p, n):
+            p.metadata["sec_probe"] = {
+                "status": "NO_SEC_FILINGS", "cik": "0000123456",
+                "filings_retrieved": 0, "sections_retrieved": 0,
+            }
+            return []
+        result = investigate_l2_leads(
+            seed=seed(), facts=[edge("Monsanto Company", "LEI-MONSANTO")],
+            edgar_provider=empty, max_probes=1,
+        )
+        self.assertEqual(result["leads"][0]["decision"],
+                         "NO_SEC_FILINGS_RETRIEVED")
+
+    def test_filings_examined_without_pair_event(self):
+        def searched(p, n):
+            p.metadata["sec_probe"] = {
+                "status": "FILINGS_RETRIEVED", "cik": "0000123456",
+                "filings_retrieved": 4, "sections_retrieved": 8,
+            }
+            return []
+        result = investigate_l2_leads(
+            seed=seed(), facts=[edge("Monsanto Company", "LEI-MONSANTO")],
+            edgar_provider=searched, max_probes=1,
+        )
+        self.assertEqual(result["leads"][0]["decision"],
+                         "SEC_FILINGS_EXAMINED_NO_PAIR_EVENT")
+        self.assertEqual(result["leads"][0]["sec_probe"]["sections_retrieved"], 8)
+
+    def test_newer_published_relationship_precedes_old_alphabetical(self):
+        old = edge("A Old Company", "LEI-OLD")
+        old.evidence[0]["relationship_start"] = "2016-01-01"
+        new = edge("Z Recent Company", "LEI-NEW")
+        new.evidence[0]["relationship_start"] = "2025-01-01"
+        calls = []
+        def sec(p, n):
+            calls.append(p.value)
+            return []
+        report = investigate_l2_leads(
+            seed=seed(), facts=[old, new], edgar_provider=sec,
+            max_probes=1,
+        )
+        self.assertEqual(calls, ["Z Recent Company"])
+        self.assertEqual(report["leads"][0]["research_priority"], 1)
+
+    def test_probe_exception_reports_stage_and_does_not_promote(self):
+        def failed(p, n):
+            p.metadata["sec_probe"] = {
+                "status": "CIK_RESOLVED_FETCH_PENDING",
+                "cik": "0000123456",
+            }
+            raise RuntimeError("SEC 503")
+        report = investigate_l2_leads(
+            seed=seed(), facts=[edge("Monsanto Company", "LEI-MONSANTO")],
+            edgar_provider=failed, max_probes=1,
+        )
+        lead = report["leads"][0]
+        self.assertEqual(lead["decision"], "SEC_PROBE_ERROR")
+        self.assertEqual(lead["sec_probe"]["cik"], "0000123456")
+        self.assertEqual(lead["sec_events"], [])
 
     def test_disabled_never_calls_sec(self):
         def sec(p,n):
