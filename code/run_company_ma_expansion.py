@@ -104,7 +104,7 @@ def main() -> int:
             print(f"- {fact.value} ({fact.source}, {fact.status})")
     for lead in reverse["leads"]:
         if lead["decision"] == "SEC_TRANSACTION_CANDIDATE_FOUND_REVIEW":
-            print(f"  SEC research lead: {lead[\'related_name\']} (REVIEW)")
+            print(f"  SEC research lead: {lead['related_name']} (REVIEW)")
     if integration["errors"]:
         print(f"GLEIF enrichment errors: {len(integration['errors'])}")
     return 0
