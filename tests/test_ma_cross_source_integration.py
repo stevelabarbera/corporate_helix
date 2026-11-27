@@ -149,6 +149,34 @@ class CrossSourceTests(unittest.TestCase):
             fact("Monsanto Company", identifier="NONUZEX43GHIPSVDD938")
         ), "NONUZEX43GHIPSVDD938")
 
+    def test_unrelated_family_parent_is_not_false_sec_corroboration(self):
+        conn = sqlite3.connect(self.l2)
+        conn.execute("INSERT INTO relationships VALUES (?,?,?,?,?,?,?,?,?)",
+                     (3, "LEI-BAYER", "LEI-OTHER",
+                      "IS_ULTIMATELY_CONSOLIDATED_BY", "ACTIVE",
+                      "2020-01-01", None, "2025-01-01", "fixture"))
+        conn.commit(); conn.close()
+
+        def sec(pivot, iteration):
+            if pivot.value != "Monsanto Company":
+                return []
+            return [fact(
+                "Bayer Aktiengesellschaft", source="EDGAR_MA",
+                typ="LEGAL_ENTITY", status="REVIEW",
+                confidence="MEDIUM", pivot=False,
+                evidence=[{"type":"EDGAR_MA_EVENT", "accession":"1",
+                           "event_type":"ACQUIRED", "status":"COMPLETED"}],
+            )]
+        result, audit = run_integrated(fact("Monsanto Company"), sec,
+                                       self.provider(), max_iterations=2)
+        edges = [f for f in result.facts if f.fact_type == EDGE_FACT_TYPE]
+        self.assertEqual(len(edges), 3)
+        self.assertEqual(len(audit["links"]), 2)
+        unrelated = next(e for e in edges
+                         if e.metadata["parent"]["lei"] == "LEI-OTHER")
+        self.assertFalse(any(e.get("type") == "SEC_GLEIF_CANDIDATE_ASSOCIATION"
+                             for e in unrelated.evidence))
+
     def test_future_l2_relation_cannot_backdate_acquisition(self):
         p = GleifRelationshipEvidenceProvider(
             self.l1, self.l2, as_of_date="2018-06-07",
