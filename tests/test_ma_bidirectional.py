@@ -206,6 +206,39 @@ class ReverseDiscoveryTests(unittest.TestCase):
         self.assertEqual(lead["sec_probe"]["cik"], "0000123456")
         self.assertEqual(lead["sec_events"], [])
 
+    def test_parent_filing_exact_child_match_when_child_has_no_cik(self):
+        parent_event = sec_fact("Monsanto Company", pivot="Bayer Aktiengesellschaft")
+        report = investigate_l2_leads(
+            seed=seed(), facts=[edge("Monsanto Company", "LEI-MONSANTO"),
+                                parent_event],
+            edgar_provider=lambda p,n: [], max_probes=0,
+        )
+        lead = report["leads"][0]
+        self.assertEqual(lead["decision"], "NOT_PROBED")
+        self.assertEqual(lead["parent_side_decision"],
+                         "SEC_PARENT_TRANSACTION_CANDIDATE_REVIEW")
+        self.assertEqual(len(lead["parent_sec_events"]), 1)
+        self.assertEqual(lead["parent_sec_events"][0]["accession"], "0001")
+
+    def test_parent_filing_unrelated_child_is_not_linked(self):
+        parent_event = sec_fact("Unrelated Corporation",
+                                pivot="Bayer Aktiengesellschaft")
+        report = investigate_l2_leads(
+            seed=seed(), facts=[edge("Monsanto Company", "LEI-MONSANTO"),
+                                parent_event],
+            edgar_provider=lambda p,n: [], max_probes=0,
+        )
+        self.assertEqual(report["leads"][0]["parent_sec_events"], [])
+
+    def test_parent_filing_wrong_filing_pivot_is_not_linked(self):
+        parent_event = sec_fact("Monsanto Company", pivot="Other Company")
+        report = investigate_l2_leads(
+            seed=seed(), facts=[edge("Monsanto Company", "LEI-MONSANTO"),
+                                parent_event],
+            edgar_provider=lambda p,n: [], max_probes=0,
+        )
+        self.assertEqual(report["leads"][0]["parent_sec_events"], [])
+
     def test_disabled_never_calls_sec(self):
         def sec(p,n):
             self.fail("SEC must not run when probes disabled")
