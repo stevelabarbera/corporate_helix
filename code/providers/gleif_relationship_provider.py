@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any, Callable, Iterable
 
 from iterative_expansion import HelixFact
+from gleif_temporal import assess_relationship
 from expansion_bridges import LEGAL_ENTITY_FACT_TYPE, ROOT_FACT_TYPE
 from root_entity_resolver import (
     _relationship_applies_now, _parse_relationship_date, normalize_name,
@@ -46,7 +47,8 @@ def typed_pivot_lei(pivot: HelixFact) -> str | None:
 
 
 def edge_fact(row: dict[str, Any], *, pivot: HelixFact, as_of: date,
-              names: dict[str, str | None], anchor_lei: str) -> HelixFact:
+              names: dict[str, str | None], anchor_lei: str,
+              periods: list[dict[str, Any]] | None = None) -> HelixFact:
     child, parent = row["child_lei"], row["parent_lei"]
     relation = row["relationship_type"]
     applicable = _relationship_applies_now(row, as_of)
@@ -56,6 +58,7 @@ def edge_fact(row: dict[str, Any], *, pivot: HelixFact, as_of: date,
         period_valid = not (start and end and start > end)
     except ValueError:
         period_valid = False
+    temporal = assess_relationship(row, as_of, periods)
     evidence = {
         "type": "GLEIF_L2_ACCOUNTING_RELATIONSHIP",
         "source": row.get("source_file") or "GLEIF_L2",
@@ -80,6 +83,9 @@ def edge_fact(row: dict[str, Any], *, pivot: HelixFact, as_of: date,
         "eligible_by_current_snapshot_as_of": applicable,
         "historical_status_proven": False,
         "period_valid": period_valid,
+        "temporal_assessment": temporal,
+        "relationship_periods": periods if periods is not None else [],
+        "period_provenance": "LOSSLESS_INDEX" if periods is not None else "LEGACY_FLATTENED_INDEX",
     }
     return HelixFact(
         fact_type=EDGE_FACT_TYPE,
@@ -100,6 +106,8 @@ def edge_fact(row: dict[str, Any], *, pivot: HelixFact, as_of: date,
             "discovered_from": pivot.value,
             "review_reason": "ACCOUNTING_RELATIONSHIP_NOT_MA_EVENT",
             "infrastructure_attribution_confidence": "UNKNOWN",
+            "temporal_classification": temporal["classification"],
+            "asm_scope_authorized": False,
         },
     )
 
@@ -169,6 +177,21 @@ class GleifRelationshipEvidenceProvider:
             ).fetchall()
             truncated = len(rows) > self.max_edges
             rows = rows[:self.max_edges]
+            period_map: dict[tuple[str, str, str], list[dict[str, Any]]] = {}
+            has_periods = bool(conn.execute(
+                "SELECT name FROM sqlite_master WHERE type='table' AND name='relationship_periods'"
+            ).fetchone())
+            if has_periods:
+                for row in rows:
+                    key = (row["child_lei"], row["parent_lei"], row["relationship_type"])
+                    found = conn.execute(
+                        """SELECT period_ordinal,period_type,start_date,end_date,
+                                  raw_period_json,source_file
+                           FROM relationship_periods
+                           WHERE child_lei=? AND parent_lei=? AND relationship_type=?
+                           ORDER BY period_ordinal""", key,
+                    ).fetchall()
+                    period_map[key] = [dict(p) for p in found]
             other = {v for r in rows for v in (r["child_lei"], r["parent_lei"])}
             names: dict[str, str | None] = {}
             l1 = Path(self.lei_index).resolve()
@@ -193,6 +216,10 @@ class GleifRelationshipEvidenceProvider:
             "returned_edges": len(rows),
             "max_edges": self.max_edges,
         })
-        return [edge_fact(dict(row), pivot=pivot, as_of=self.as_of, names=names,
-                          anchor_lei=lei)
-                for row in rows]
+        return [edge_fact(
+            dict(row), pivot=pivot, as_of=self.as_of, names=names,
+            anchor_lei=lei,
+            periods=period_map.get((
+                row["child_lei"], row["parent_lei"], row["relationship_type"]
+            )) if has_periods else None,
+        ) for row in rows]
